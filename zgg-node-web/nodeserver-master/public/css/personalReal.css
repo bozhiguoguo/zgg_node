@@ -1,0 +1,513 @@
+.personlReal{
+    height: auto;
+    overflow: hidden;
+    margin-top: 24px;
+    background: #fff;
+}
+
+.pesronalReal_tit{
+    width: auto;
+    height: 54px;
+    background-color: #eff0f4;
+}
+
+.pesronalReal_tit ul li{
+    float: left;
+    padding: 0 52px;
+    /*width: 240px;*/
+    font-size: 16px;
+    /*text-align: center;*/
+    height:54px;
+    line-height: 54px;
+    cursor: pointer;
+}
+
+.pesronalReal_tit ul li.personalReal_li{
+    color: #a34a51;
+    background: #fff;
+}
+
+.personalReal_con{
+    width:182px;
+    margin:69px auto 82px;
+}
+
+.personalReal_con dl dt{
+    width: 92px;
+    height: 92px;
+    margin:0 auto;
+}
+
+.personalReal_con dl dt img{
+    width:92px;
+    height: 92px;
+}
+
+.personalReal_con dl dd h2{
+    font-size: 22px;
+    text-align: center;
+    color: #e9c19e;
+    margin-top:8px;
+}
+
+.personalReal_con dl dd p{
+    font-size: 14px;
+    text-align: center;
+    color: #a5abb0;
+    margin-top:5px;
+}
+
+
+/*ʵ����֤*/
+.realName_wrap{
+    background: #fff;
+    border:1px solid transparent;
+    height: auto;
+    overflow: hidden;
+}
+
+
+.realName_content{
+    width:900px;
+    margin:42px auto 70px;
+}
+
+.realName_type{
+    font-size: 14px;
+    text-align: left;
+    color: #727f8f;
+    margin-bottom: 21px;
+}
+
+.realName_left{
+    width:377px;
+    height: 278px;
+    background: url("../img/oersonal-background.png") no-repeat;
+    margin-bottom: 77px;
+}
+
+.realName_left h3{
+    font-size: 28px;
+    font-weight: 500;
+    text-align: left;
+    color: #ffffff;
+    margin:30px 0 12px 18px;
+}
+
+.realName_left p{
+    width:338px;
+    font-size: 14px;
+    line-height: 1.29;
+    text-align: left;
+    color: #ffffff;
+    margin-left:18px;
+}
+
+.realName_left span{
+    font-size: 14px;
+    line-height:22px;
+    text-align: left;
+    color: #2a2a2a;
+    margin:98px 0 0 18px;
+}
+
+.realName_left button{
+    width: 124.6px;
+    height: 39.1px;
+    border-radius: 3px;
+    background-image: linear-gradient(to right, #ed519b, #f78275);
+    margin:100px 20px 0 0;
+    font-size:14px;
+    color:#fff;
+    cursor: pointer;
+    border: 0;
+}
+
+.realName_right{
+    background: url("../img/enterprise-background.png") no-repeat;
+}
+
+
+/*����ʵ��-�ϴ����֤*/
+.pesronalId_wrap{
+    /*width:1200px;*/
+    background: #fff;
+    margin-top:23px;
+}
+
+/*.pesronalId_wrap>div{*/
+    /*display: none;*/
+/*}*/
+
+.personalId_file{
+    width:425px;
+    /*height: 487px;*/
+    border-right: solid 1px #eff0f4;
+    margin:0 0 27px 25px;
+}
+
+.personalId_file h2{
+    font-size: 20px;
+    text-align: left;
+    color: #2a2a2a;
+    height: 19px;
+    border-left:4px solid #a34a51;
+    line-height: 19px;
+    padding-left: 6px;
+}
+
+.personalId_file dl{
+    margin-top:20px;
+}
+
+.personalId_file dl dt{
+    width:224px;
+    height: 142px;
+    background: url("../img/identity-backgound-positive.png") no-repeat;
+    float: left;
+}
+
+.personalId_file dl dt img{
+    text-align: center;
+    width:224px;
+    height: 142px;
+}
+
+.personalId_file dl dd{
+    float: left;
+    margin:56px 0 0 20px;
+}
+
+.personalId_file dl dd button{
+    width: 84px;
+    height: 31px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: solid 1px #979797;
+    line-height: 31px;
+    text-align: center;
+    font-size: 14px;
+    color: #979797;
+    cursor: pointer;
+}
+
+.personalId_file dl dd p{
+    font-size: 14px;
+    text-align: center;
+    color: #727f8f;
+    margin-top:5px;
+}
+
+.personalId_file dl.file_other dt{
+    width:224px;
+    height: 142px;
+    background: url("../img/identity-backgound-reverse.png") no-repeat;
+    float: left;
+}
+
+.personalId_submit{
+    margin:55px 0 0 130px;
+}
+
+.personalId_submit button{
+    float: left;
+    display: block;
+    width: 80px;
+    height: 33px;
+    border-radius: 3px;
+    background-color: #e9c19e;
+    text-align: center;
+    line-height: 33px;
+    font-size:14px;
+    color:#fff;
+    margin-bottom:50px;
+    border: 0;
+}
+.personalId_submit a{
+    float: left;
+    display: block;
+    width: 80px;
+    height: 33px;
+    border-radius: 3px;
+    background-color: #e9c19e;
+    text-align: center;
+    line-height: 33px;
+    font-size:14px;
+    color:#fff;
+    margin-bottom:50px;
+    border: 0;
+}
+
+.personalId_submit button.personalId_next{
+    background-color: #a34a51;
+    margin-left:31px;
+}
+
+.personal_Example{
+    width: 601px;
+    height: 322px;
+    border-radius: 3px;
+    background-color: #f3f6f8;
+    border: dashed 1px #c9d9e3;
+    margin-top:56px;
+}
+
+.personal_Example p{
+    font-size: 14px;
+    text-align: left;
+    color: #4597d9;
+    margin:12px 0 0 20px;
+}
+
+.personal_Example dl{
+    margin:12px 0 0 20px;
+}
+
+.personal_Example dl dt{
+    float: left;
+}
+
+.personal_Example dl dd{
+    float: left;
+    width:230px;
+    margin-left:16px;
+}
+
+.personal_Example dl dd span:nth-child(1){
+    padding-top:0;
+}
+
+.personal_Example dl dd span{
+    font-size: 12px;
+    padding-top:3px;
+    text-align: left;
+    color: #727f8f;
+    display: block;
+}
+
+
+ /*��ҵ��֤-���������Ϣ*/
+.modify_table1 ol{
+    margin-top:20px;
+}
+
+.modify_table1 p.enterAb_info{
+    font-size: 12px;
+    text-align: left;
+    color: #b9bfc7;
+    width:500px;
+    margin-top:5px;
+}
+
+.modify_table1 ol li input.enterpriseInput{
+    width:147px;
+}
+
+.enterpriseCheck li a.modify_Choice{
+    margin-top:12px;
+}
+
+.enterpriseCheck li span.enterLog{
+    display: block;
+    margin-top:10px;
+}
+
+.enterInfo{
+    margin-top:18px;
+}
+
+.enterInfo span{
+    display: block;
+    font-size: 14px;
+    line-height:22px;
+    text-align: left;
+    color: #bec4cb;
+}
+
+ /*��ҵ��֤-������ҵ��Ϣ*/
+.enterprise_Info{
+    width: 742px;
+    /*height: 99px;*/
+    height: auto;
+    overflow: hidden;
+    border-radius: 3px;
+    background-color: #f3f6f8;
+    border: solid 1px #e3ebf1;
+    margin:24px 0 24px 23px;
+    padding-bottom: 10px;
+}
+
+.enterprise_Info h4{
+    font-size: 16px;
+    text-align: left;
+    color: #569fd3;
+    margin:12px 0 0 15px;
+}
+
+.enterprise_Info p{
+    font-size: 12px;
+    text-align: left;
+    color: #727f8f;
+    margin:10px 0 0 15px;
+}
+
+.modify_table1 ol li input.enterpriseButton{
+    width: 77px;
+    height: 31px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: solid 1px #979797;
+    font-size: 14px;
+    text-align: center;
+    color: #979797;
+    margin-top:29px;
+    line-height: 31px;
+    padding-left: 0;
+}
+
+.modify_table1 ol li.enterpriseInfo_address select{
+    width:138px;
+    float: left;
+    margin-right:9px;
+}
+
+.modify_table1 ol li.enterpriseInfo_tet h5{
+    width: 231px;
+    height: 31px;
+    border-radius: 3px;
+    background-color: #fbe3e3;
+    border: solid 1px #f7cdd0;
+    font-size: 12px;
+    color: #c96d6d;
+    line-height: 31px;
+    padding-left:5px;
+}
+
+.modify_table1 ol li.enterpriseInfo_tet b{
+    display: block;
+    font-size: 12px;
+    text-align: left;
+    color: #b9bfc7;
+    line-height: 20px;
+}
+
+/*��ҵ��֤-ȷ����Ϣ*/
+.enterConfim{
+    margin-top:19px;
+}
+
+.enterConfim dl{
+    float: left;
+}
+
+.enterConfim ul li{
+    float: left;
+}
+
+.enterConfim ul li span{
+    display: block;
+    width: 222px;
+    height: 140px;
+    border-radius: 8px;
+    background-color: #d8d8d8;
+    border: solid 1px #d8d8d8;
+    float: left;
+    margin-right:20px;
+}
+
+.enterConfim ul li span img{
+    width: 222px;
+    height: 140px;
+}
+
+.enterConfim ul li p{
+    font-size: 14px;
+    text-align: center;
+    color: #727f8f;
+    margin-top:10px;
+}
+
+.enterpriseConfim_txt ol{
+    margin-top:18px;
+}
+
+.enterpriseConfim_txt ol li{
+    line-height: 28px;
+    clear: both;
+}
+
+.enterpriseConfim_txt ol li p{
+    float: left;
+    font-size: 14px;
+    text-align: left;
+    color: #727f8f;
+}
+
+.enterpriseConfim_txt ol li span{
+    float: left;
+    font-size: 14px;
+    display: block;
+    color: #2a2a2a;
+}
+
+.enterpriseConfim_txt ol li>div{
+    width: 69px;
+    height: 88px;
+    background-color: #d8d8d8;
+    border: solid 1px #c4c4c4;
+    margin-top:8px;
+}
+
+.enterpriseConfim_txt ol li>div img{
+    width: 69px;
+    height: 88px;
+}
+
+/*��ҵ��֤-�ֻ���֤*/
+.pesronalId_wrap ul.enterprisePhone{
+    margin-top:20px;
+}
+
+.pesronalId_wrap ul.enterprisePhone li{
+    margin-top:5px;
+}
+
+
+.pesronalId_wrap ul.enterprisePhone input{
+    width: 420px;
+    height: 33px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    /*box-shadow: 0 0 10px 0 rgba(87, 163, 219, 0.25);*/
+    border: solid 1px #dadde1;
+    margin-top:5px;
+    padding-left: 10px;
+}
+
+.pesronalId_wrap ul.enterprisePhone li:nth-child(2){
+    position: relative;
+}
+
+.pesronalId_wrap ul.enterprisePhone li:nth-child(2) button{
+    position: absolute;
+    right: 17px;
+    top:31px;
+    background: none;
+    font-size: 12px;
+    color: #4597d9;
+    cursor: pointer;
+    border: 0;
+}
+
+.personalId_submit button.enterpriseReal_next{
+    margin-left:210px;
+}
+
+.personal_Example span.personalReal_phone{
+    width:362px;
+    margin:9px 0 0 20px;
+    display: block;
+    font-size: 14px;
+    text-align: left;
+    color: #727f8f;
+}

@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
+<html xmlns="http://www.w3.org/1999/xhtml"/>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>确定合同</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/Deter_contract.css">
+    <script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/lib/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="/lib/vue/vee-validate/dist/vee-validate.js"></script>
+    <script src="/lib/vue/vee-validate/dist/locale/zh_CN.js"></script>
+    <script type="text/javascript" src="/lib/layui/lay/dest/layui.all.js"></script>
+    <script type="text/javascript" src="/js/tingyun-rum.js"></script>
+</head>
+<body>
+<template id="loading-template">
+    <div class="loadWrap">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce3"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce1"></div>
+        </div>
+    </div>
+</template>
+<div id="help"></div>
+<loading v-show="showLoading"></loading>
+<script>
+    window.console = window.console || (function(){
+                var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function(){};
+                return c;
+            })();
+    var help = new Vue({
+        el: '#help',
+        data: {
+            showLoading: false
+        },
+        components: {
+            'loading': {
+                template: '#loading-template',
+            }
+        }
+    })
+    axios.interceptors.request.use(function (request) {
+        // Do something before request is sent】
+        if(['payCallBackToJson','/cart/pPriceMsg','userOrder/getContracStatus'].indexOf(request.url)==-1){
+            help.showLoading = true;
+        }
+        return request;
+    }, function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+    });
+
+    // Add a response interceptor
+    axios.interceptors.response.use(function (response) {
+        // Do something with response data
+        help.showLoading = false;
+        if (typeof response.data != 'undefined') {
+            if(typeof response.data.success != 'undefined' && !response.data.success){
+                if (response.data.code == 'W_100004') {
+                    user_reg();
+                }else{
+                    layui.use('layer',function () {
+                        layer.msg(response.data.message,{icon:2});
+                    })
+                }
+            }
+        }
+        return response;
+    }, function (error) {
+        // Do something with response error
+        return Promise.reject(error);
+    });
+    Vue.config.delimiters = ['${', '}'];
+    Vue.use(VeeValidate, {
+        errorBagName: 'errors', // change if property conflicts.
+        delay: 0,
+        locale: 'zh_CN',
+        messages: null,
+        strict: true
+    });
+</script>
+<div class="deter_wrap" id="confirmContract">
+    <div class="deter_info">
+        <div class="deter_top"></div>
+        <div class="deter_zgg">
+            <img src="/img/logo-zhiguoguo.png"/>
+            <p>
+                <span><b>地址：</b><b class="deter_b1">北京市海淀区紫雀路33号院3号楼4/5层</b></span>
+                <span><b>合同编号：</b><b class="deter_b1" v-html="contractData.contractcode"></b></span>
+            </p>
+        </div>
+        <div class="c_b"></div>
+        <div class="deter_box">
+            <div class="deter_wang">
+                <p></p>
+                <h2>知果果网知识产权服务代理委托合同</h2>
+                <p></p>
+            </div>
+            <div class="c_b"></div>
+            <div class="deter_edit">
+                <div class="deter_mation">
+                    <form @submit.prevent="validateBeforeSubmit"  v-if="contractData.zgOrderContract && contractData.zgOrderContract.status==2">
+                        <ul>
+                            <li>
+                                <p>甲方(委托方):</p>
+                                <input type="text"   v-model="contractData.cname" data-vv-as="甲方(委托方)" name="cname" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('cname') }"/><p  class="help is-danger" v-show="errors.has('cname')">${ errors.first('cname') }</p>
+                            </li>
+                            <li>
+                                <p>通讯地址：</p>
+                                <input type="text"  v-model="contractData.caddress" data-vv-as="通讯地址" name="caddress" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('caddress') }"/><p  class="help is-danger" v-show="errors.has('caddress')">${ errors.first('caddress') }</p>
+                            </li>
+                            <li>
+                                <p>联系人：</p>
+                                <input type="text"  v-model="contractData.cperson" data-vv-as="联系人" name="cperson" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('cperson') }"/><p  class="help is-danger" v-show="errors.has('cperson')">${ errors.first('cperson') }</p>
+
+                            </li>
+                            <li>
+                                <p>联系邮箱：</p>
+                                <input type="text"  v-model="contractData.cmail" data-vv-as="联系邮箱" name="cmail" v-validate="'required|email'"
+                                       :class="{'input': true, 'is-danger': errors.has('cmail') }"/><p  class="help is-danger" v-show="errors.has('cmail')">${ errors.first('cmail') }</p>
+                            </li>
+                            <li>
+                                <p>联系电话：</p>
+                                <input type="text" value="" v-model="contractData.cphone" data-vv-as="联系电话" name="cphone" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('cphone') }"/><p  class="help is-danger" v-show="errors.has('cphone')">${ errors.first('cphone') }</p>
+                            </li>
+                        </ul>
+                    </form>
+                    <ul v-if="contractData.zgOrderContract && contractData.zgOrderContract.status!=2">
+                        <li>
+                            <p>甲方 (委托方) :</p>
+                            <div v-html="contractData.cname"></div>
+                        </li>
+                        <li>
+                            <p>通讯地址：</p>
+                            <div v-html="contractData.caddress"></div>
+                        </li>
+                        <li>
+                            <p>联系人：</p>
+                            <div v-html="contractData.cperson"></div>
+                        </li>
+                        <li>
+                            <p>联系邮箱：</p>
+                            <div v-html="contractData.cmail"></div>
+                        </li>
+                        <li>
+                            <p>联系电话：</p>
+                            <div v-html="contractData.cphone"></div>
+                        </li>
+                    </ul>
+                    <ul style="float: right">
+                        <li>
+                            <p>乙方 (受托方) :</p>
+                            <input type="text" value="北京知果科技有限公司" disabled="disabled">
+                        </li>
+                        <li>
+                            <p>通讯地址：</p>
+                            <input type="text" value="北京市海淀区紫雀路33号院3号楼4/5层" disabled="disabled">
+                        </li>
+                        <li>
+                            <p>联系人：</p>
+                            <input type="text" :value="contractData.sysUser.nickname" disabled="disabled">
+                        </li>
+                        <li>
+                            <p>联系电话：</p>
+                            <input type="text" :value="contractData.sysUser.tel" disabled="disabled">
+                        </li>
+                    </ul>
+                </div>
+                <div class="c_b"></div>
+                <div class="deter_agree">双方经友好协商，就甲方所委托代理服务的相关事宜，按照《中华人民共和国合同法》及相关法律法规，本着平等互利、诚实信用的原则，达成如下协议，以资共同遵守。
+                </div>
+                <h3>一、双方服务关系</h3>
+                <p>1. 乙方为知果果网(www.zhiguoguo.com)运营商，负责业务承接以及与业务相关的后续法律服务和业务相关咨询。</p>
+                <p>2. 甲方接受乙方提供的服务。乙方独立对甲方负责。</p>
+                <h3>二、服务项目及费用</h3>
+                <table>
+                    <tr class="deter_tabTr">
+                        <th>服务项目</th>
+                        <th>订单号</th>
+                        <th>官方费用</th>
+                        <th>服务费</th>
+                        <th>优惠</th>
+                        <th>保障费</th>
+                        <th>费用合计</th>
+                    </tr>
+
+                    <tr class="deter_tabTr2" v-for="item in contractData.zgOrders">
+                        <td v-html="item.pname"></td>
+                        <td v-html="item.ordercode"></td>
+                        <td v-if="item.cdkmoney==0&&item.inseAmt">¥${(item.money-item.serveexp-item.inseAmt).toFixed(2)}</td>
+                        <td v-if="item.cdkmoney==0&&!item.inseAmt">¥${(item.money-item.serveexp).toFixed(2)}</td>
+                        <td v-if="item.cdkmoney!=0">¥${item.publicexp}</td>
+                        <td>¥ ${item.serveexp}</td>
+                        <td>¥ ${item.cdkmoney}</td>
+                        <td v-if="!item.inseAmt">¥0</td>
+                        <td v-if="item.inseAmt">¥${item.inseAmt}</td>
+                        <td>¥ ${item.money}</td>
+                    </tr>
+                </table>
+                <p>共计：￥${contractData.zgOrderPay.money}元（含税费）</p>
+                <p><img src="/img/1.png"/><b>本合同服务项目具体内容以甲、乙双方最终确认盖章生效的相应法律文本文件为准。</b></p>
+                <div v-if="contractData.hasHt_3">
+                    注：高新培育服务期为1年，自合同生效之日起起算。
+                </div>
+                <div  v-if="contractData.hasHt">
+                    <p>甲方应于本合同签订当日将上述费用支付至乙方如下账户： </p>
+                    <p>乙方账户信息：</p>
+                    <p>开户行：招商银行北京海淀黄庄支行</p>
+                    <p>账户名：北京知果科技有限公司</p>
+                    <p>账号：1109 1590 4910 206</p>
+                </div>
+                <div class="c_b"></div>
+                <h3>三、甲方权利义务</h3>
+                <p>1. 甲方有权要求乙方就本协议约定服务事项提供业务咨询、资料收集整理指导、进度查询服务。</p>
+                <p>2. 甲方有及时提交、补充业务所需信息、材料的义务。同时，甲方也有放弃提供业务所需信息材料的权利。但是，因甲方放弃或怠于提交业务所需信息、材料而导致的一切后果，由甲方自行承担。</p>
+                <div v-if="contractData.hasHt">
+                    <p>3. 甲方有义务配合提供评估所需的基本信息。</p>
+                    <p>4. 配备相应的技术人员和财务人员配合乙方完成咨询工作。</p>
+                    <div  v-if="contractData.hasHt_1 ||  contractData.hasHt_4 || contractData.hasHt_5">
+                        <p>5. 甲方联络当地具有审计资格的审计机构，出具高新技术企业认定所需审计报告，并承担相应费用。</p>
+                        <p>6. 配合乙方，进行材料装订打印，并及时送交当地高新受理机关。</p>
+                        <p>7. 甲方应确保提供高新技术企业认定所需要的信息及资料的真实性、完整性和准确性。</p>
+                        <p>8. 甲方保证本合同载明的联系方式（包括地址、联系人、联系电话、邮箱等）完整、有效，并在联系方式发生变化时，三日内以书面方式通知乙方。</p>
+                        <p v-if="contractData.hasHt_5">9.如果甲方需要乙方提供上门服务，需要对乙方的差旅费用进行实报实销或预支付。</p>
+                    </div>
+                    <div v-if="!contractData.hasHt_1 && !contractData.hasHt_4 && !contractData.hasHt_5">
+                        <p>5. 甲方应确保提供高新技术企业认定所需要的信息及资料的真实性、完整性和准确性。</p>
+                        <p>6. 甲方保证本合同载明的联系方式（包括地址、联系人、联系电话、邮箱等）完整、有效，并在联系方式发生变化时，三日内以书面方式通知乙方。</p>
+                    </div>
+                </div>
+                <h3>四、乙方权利义务</h3>
+                <p>1. 乙方就办理本协议委托服务事项，可通过知果果网（www.zhiguoguo.com）或专属顾问以短信、邮件或电话的方式如实向甲方提供业务咨询、资料收集整理、进度查询服务。</p>
+                <div v-if="contractData.hasHt">
+                    <p>2. 乙方根据甲方填写的基本资料对甲方申请认定高新技术企业的资质进行诊断和评估，并出具评估报告。</p>
+                    <!-- 含高新培育业务请显示 -->
+                    <div v-if="contractData.hasHt_2">
+                        <p>3.乙方有权要求甲方提供完整、有效的联系方式（包括地址、联系人、联系电话、邮箱等）并在联系方式发生变化时，及时以书面方式通知乙方。</p>
+                        <p>4.甲方未按照合同约定支付费用时，乙方有权停止提供任何服务。</p>
+                    </div>
+                    <div v-if="contractData.hasHt_3">
+                        <p>3. 培育期间乙方负责对高新技术企业认定政策进行解读，并结合甲方实际情况出具高新申报准备方案。</p>
+                        <p>4. 乙方在培育期间提供一对一专家指导服务，负责解答甲方在培育期间的疑难问题。</p>
+                        <p>5.乙方有权要求甲方提供完整、有效的联系方式（包括地址、联系人、联系电话、邮箱等）并在联系方式发生变化时，及时以书面方式通知乙方。</p>
+                        <p>6.甲方未按照合同约定支付费用时，乙方有权停止提供任何服务。</p>
+                    </div>
+                    <!-- 含高新申请普通版、高新申请尊享版、高新申请黄金版业务请显示 -->
+                    <div v-if="contractData.hasHt_1">
+                        <p>3.全盘策划甲方的高新技术企业认定工作，并向甲方出具书面的完整详细的高新技术企业认定咨询服务工作方案。</p>
+                        <p>4.在甲方提供高新技术企业认定所需全部基础资料的基础上，帮助甲方编制高新技术企业认定申请资料，并协助完成高新技术企业认定申请。</p>
+                    </div>
+                    <div v-if="contractData.hasHt_4 ||  contractData.hasHt_5">
+                        <p>3.全盘策划甲方的高新技术企业认定工作，并向甲方出具书面的完整详细的高新技术企业认定咨询服务工作方案。</p>
+                        <p>4.在甲方提供高新技术企业认定所需全部基础资料的基础上，帮助甲方编制高新技术企业认定申请资料，并协助完成高新技术企业认定申请。</p>
+                        <p>5.跟踪评审、公示、备案等环节，辅助与省级政府主管部门的沟通联络，协助甲方获得高新技术企业认定成功。</p>
+                        <div v-if="contractData.hasHt_5">
+                            <p>6.乙方提供专家上门服务，指导甲方高新技术企业认定相关材料的收集及材料撰写。</p>
+                            <p>7.乙方有权要求甲方提供完整、有效的联系方式（包括地址、联系人、联系电话、邮箱等）并在联系方式发生变化时，及时以书面方式通知乙方。</p>
+                            <p>8.甲方未按照合同约定支付费用时，乙方有权停止提供任何服务。</p>
+                        </div>
+                        <div v-if="contractData.hasHt_4">
+                            <p>6.乙方有权要求甲方提供完整、有效的联系方式（包括地址、联系人、联系电话、邮箱等）并在联系方式发生变化时，及时以书面方式通知乙方。</p>
+                            <p>7.甲方未按照合同约定支付费用时，乙方有权停止提供任何服务。</p>
+                        </div>
+                    </div>
+               </div>
+                    <h3>五、退款条款</h3>
+                <div class="deter_div">甲方在购买完成后，如出现下列情况，甲方可要求乙方退还所收取费用。</div>
+                <p>1. 甲方购买后3个月内，乙方未提供任何文书服务。</p>
+                <div v-if="contractData.hasHt_4 || contractData.hasHt_5">
+                    <p>2. 因乙方工作失误而造成高新技术企业未被认定的（以申报当期政府公示高新技术企业名单信息为准，当期政府公示名单信息无甲方企业信息，即认为高新技术企业认定不成功），乙方可协助甲方再次进行申报，且不再收取申报服务费。如甲方不同意再次申报的，可要求乙方退还已收取服务费用。</p>
+                    <p>3. 由于甲方操作或理解方面的失误，所购买业务与实际需求有误，且乙方已经提供相应服务时，双方协商进行退款程序或重新购买符合要求的相应服务，但乙方已经进行业务申报的除外。</p>
+                </div>
+                <h3>六、保密条款</h3>
+                <p>1.甲、乙双方均对本协议及相关内容负有保密义务，保密期限不限于本协议履行期限，也不因本协议的解除、终止、无效或被撤销而失效。</p>
+                <p>2.以下信息不属于保密资料：</p>
+                <p>（1）已公开的与本项目有关的信息；</p>
+                <p>（2）并非由乙方披露的信息；</p>
+                <h3>七、违约责任</h3>
+                <p>甲、乙双方应严格遵守有关法律、法规和规章，遵守本协议约定，任何一方违反法规或本协议约定的，由责任方承担相应的法律责任。</p>
+                <h3>八、争议解决方法</h3>
+                <p>甲、乙双方因履行本协议发生争议，应协商解决，协商不成的，任何一方均有权向乙方所在地人民法院提起诉讼。</p>
+                <h3>九、其他</h3>
+                <p>1. 双方在联系人或联系方式发生变化时，及时以书面方式通知对方。若因不及时通知对方而产生的不良后果，由责任方承担。</p>
+                <p>2. 协议中除双方签章外，均为印刷字体，手写部分须双方在手写处签字或盖章确认后才具备法律效力。</p>
+                <p>3. 为保障甲方权益，提高乙方服务质量，乙方为甲方提供专业咨询服务。如需咨询本协议全部相关事宜，请拨打咨询电话400-888-1426。</p>
+                <p>4. 本协议壹式两份，甲、乙双方各执壹份，自双方签字/盖章之日起生效。</p>
+                <p>5. 红色与黑色印章效力相同。</p>
+                <h3>(以下无正文)</h3>
+                <h3>(签章页)</h3>
+                <div class="deter_Sign">
+                    <ul>
+                        <li>甲方 (签字/ 盖章) :</li>
+                        <li>日期:</li>
+                    </ul>
+                    <ul class="deter_zhang" :class="{deter_zhang2:contractData.zgOrders[0].pcode.indexOf('pt')>=0}">
+                        <li>乙方 (签字/ 盖章) :</li>
+                        <li>日期: ${contractData.dateObj}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="c_b"></div>
+        <div class="deter_conter" v-if="!contractData.zgOrderContract || contractData.zgOrderContract.status == 2" @click="validateBeforeSubmit()">确定合同</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/js/getCookies.js"></script>
+</html><script type="text/javascript">
+    var  contractData={{{ contractData }}};
+    //合同验证
+    Contract(contractData)
+    var contractVM = new Vue({
+        el: "#confirmContract",
+        delimiters: ['${', '}'],
+        data:{
+            contractData:contractData,
+        },
+        computed: {
+            discountedPrice:function() {
+                return this.discounted ? this.price - (0.2 * this.price) : this.price;
+            }
+        },
+        methods:{
+            validateBeforeSubmit:function () {
+                this.$validator.validateAll().then(function(){
+                    // eslint-disable-next-line
+                    var postData = {
+                        "contractcode": contractVM.contractData.contractcode,
+                        "cname": contractVM.contractData.cname,
+                        "caddress": contractVM.contractData.caddress,
+                        "cperson": contractVM.contractData.cperson,
+                        "cphone": contractVM.contractData.cphone,
+                        "cmail": contractVM.contractData.cmail
+                    };
+                    axios.post('/userOrder/confirmContract', postData).then(function (res) {
+                        if(res.data.success){
+                            layer.msg('合同确认成功',{icon:1});
+                            window.location.reload();
+                        }
+                    });
+                }).catch(function() {
+                    layer.msg('请输入甲方必填字段');
+                    $(window).scrollTop(0);
+                });
+            }
+        }
+    })
+</script>

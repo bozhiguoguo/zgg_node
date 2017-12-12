@@ -1,0 +1,130 @@
+.register_content{
+    width: 100%;
+    height: auto;
+    min-height: 860px;
+    background:  #f9f8f4;
+    overflow: hidden;
+}
+
+.register_box{
+
+    width: 553px;
+    height: auto;
+    min-height: 513px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(44, 52, 75, 0.12);
+    margin:89px auto 0;
+    padding-bottom: 35px;
+    border:1px solid transparent;
+}
+
+.register_title{
+    height:20px;
+    /*background: #4597d9;*/
+    border-left:3px solid #a34a51;
+    padding-left:10px;
+    line-height: 20px;
+    color:#727f8f;
+    font-size:18px;
+    margin:20px;
+}
+
+.register_form{
+    width:535px;
+    margin:35px auto 0;
+}
+
+.layui-form-label{
+    font-size: 14px;
+    color: #4c4c4c;
+}
+
+.layui-input-inline p{
+    font-size:12px;
+    color: #b9bfc7;
+    letter-spacing: -0.3px;
+    padding-top: 6px;
+}
+.layui-input-inline p.text-danger{
+    color: #f05050;
+    font-size: 13px;
+}
+
+.register_agree{
+    padding: 0;
+    text-align: left;
+    line-height: 0;
+    margin-right: 145px;
+    margin-top: -17px;
+    color: #919191;
+}
+
+.register_agree span{
+    color:#41a1d5;
+    cursor: pointer;
+}
+
+#register{
+    width:408px;
+    height:52px;
+    background: #a34a51;
+    font-size:18px;
+    line-height: 52px;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(79,36,36,0.5);
+}
+
+.register_go{
+    margin:40px auto 0;
+    width:130px;
+}
+
+.register_go a{
+    color:#49a5de;
+    font-size:18px;
+    cursor: pointer;
+    padding-left:5px;
+}
+
+
+
+/*ע����ɵ�������*/
+.reg_success{
+    width: 407px;
+    height: 135px;
+    margin:54px auto;
+}
+.reg_success dl{
+    float: left;
+    width: 85px;
+    margin-right:75px;
+    cursor: pointer;
+}
+
+.reg_success dl dt{
+    width: 85px;
+    height: 85px;
+}
+
+.reg_success dl dt img{
+    width: 85px;
+    height: 85px;
+}
+
+.reg_success dl dd{
+    text-align: center;
+    font-size:16px;
+    color:#2a2a2a;
+    margin-top:23px;
+}
+
+.reg_success dl dd.regSucc_click{
+    color:#4597d9;
+}
+
+.regSuc_pic2,.regSuc_pic4,.regSuc_pic6{
+    /*display: none;*/
+}
+

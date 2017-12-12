@@ -1,0 +1,255 @@
+.subject_info{
+    margin: 20px;
+}
+
+.subject_info h5{
+    font-size:18px;
+    color: #2a2a2a;
+    float: left;
+}
+
+.subject_info button{
+    float: right;
+    width: 110px;
+    height: 33px;
+    background: #a34a51;
+    line-height: 33px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+    border:none;
+}
+
+.subject_con{
+    margin-top:27px;
+}
+
+.subject_type{
+    width: 1010px;
+    height: auto;
+    /*padding:24px 0;*/
+    overflow: hidden;
+    box-shadow: 0 1px 4px 0 rgba(79,79,79,0.35);
+    margin:20px auto 0;
+    position: relative;
+}
+
+.subject_type:hover{
+    background: #fcf3ec;
+}
+
+.subject_type>div{
+    float: left;
+}
+
+.subject_license{
+    padding:10px 15px;
+}
+
+.subject_aut{
+    width:97px;
+    height: 103px;
+}
+
+.subject_aut dl dt{
+    text-align: center;
+}
+
+.subject_aut dl dd{
+    text-align: center;
+    color: #a34a51;
+    font-size: 12px;
+}
+
+.borderColor{
+    border-left:3px solid #b9bfc7;
+}
+
+.subject_infomation{
+    height:auto;
+    /*border-left:4px solid #a34a51;*/
+    padding: 10px 15px;
+    width:500px;
+}
+
+.subject_type:nth-child(even)>div.subject_infomation{
+    border-left:4px solid #ef7971;
+}
+
+.subject_type:nth-child(odd)>div.subject_infomation{
+    border-left:4px solid #5d97d1;
+}
+
+
+.subject_infomation p{
+    font-size:14px;
+    color: #727f8f;
+    clear: both;
+    line-height: 25px;
+}
+
+.subject_infomation p b{
+    display: block;
+    float: left;
+    font-weight: normal;
+}
+
+.subject_infomation p span{
+    display: block;
+    float: left;
+    color:#2a2a2a;
+    width: 350px;
+}
+
+.subject_license>div{
+    width: 69px;
+    height:88px;
+    background: #d8d8d8;
+    margin-top:7px;
+    margin-right:21px;
+    float: left;
+}
+
+.subject_type>div.subject_edit{
+   /* float: right;
+    margin-right:20px;*/
+    position: absolute;
+    right: 15px;
+    bottom:10px;
+    display: none;
+}
+
+.subject_edit p a{
+    display: block;
+    width: 98px;
+    height:26px;
+    line-height: 26px;
+    text-align: center;
+    font-size:14px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.subject_modify{
+    border-color:#dfa546;
+    color:#bc7a0e;
+    background: #fbdcab;
+}
+
+.subject_set{
+    border-color:#f7cdd0;
+    color:#c96d6d;
+    background: #fbe3e3;
+    margin-top:15px;
+}
+
+.subject_set:hover{
+    color:#c96d6d;
+}
+
+.subject_batch:hover{
+    color:#49a5de;
+}
+
+.subject_modify:hover{
+    color:#bc7a0e;
+}
+
+.subject_batch{
+    border-color:#a4d5f4;
+    color:#49a5de;
+    background: #dfeff9;
+    margin-top:15px;
+}
+
+
+.set_sure{
+    width: 289px;
+    margin:35px 0 50px 25px;
+    font-size: 14px;
+    color: #2a2a2a;
+}
+
+.set_sure span{
+    color: #a34a51;
+}
+
+/*
+û��������Ϣ����*/
+.subject_no{
+    min-height: 240px;
+}
+
+.subect_noInfo{
+    width:392px;
+    height:30px;
+    line-height: 30px;
+    border:1px solid #f7cdd0;
+    background: #fbe3e3;
+    color: #c96d6d;
+    margin:30px 0 0 20px;
+    font-size:12px;
+}
+
+.subect_noInfo img{
+    display: inline-block;
+    margin-right:5px;
+}
+
+.layui-tab-title{
+    height: 54px;
+    border-bottom: none;
+}
+
+.layui-tab-title li{
+    min-width: 0;
+    line-height: 0;
+}
+
+.layui-tab-title .layui-this{
+    color: #a34a51;
+    background: #fff;
+}
+
+.layui-tab-title .layui-this:after{
+    border:none;
+    border-bottom-color: none;
+}
+.add_main{
+    position: absolute;
+    right: 20px;
+    top:10px;
+    width: 110px;
+    height: 33px;
+    background: #a34a51;
+    line-height: 33px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+    border: none;
+}
+
+.add_main:hover{
+    color: #fff;
+}
+
+.subject_type.pending{
+    background-image: url("/img/icon_pending.png");
+    background-repeat: no-repeat;
+    background-position:911px 1px;
+    background-size: auto 100px;
+}
+.subject_type.nopending{
+    background-image: url("/img/icon_nopending.png");
+    background-repeat: no-repeat;
+    background-position:911px 1px;
+    background-size: auto 100px;
+}
+.subject_type.through{
+    background-image: url("/img/icon_through.png");
+    background-repeat: no-repeat;
+    background-position: 911px 1px;
+    background-size: auto 100px;
+}

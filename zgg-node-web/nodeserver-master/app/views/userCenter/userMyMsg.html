@@ -1,0 +1,287 @@
+{{> head}}
+<link rel="stylesheet" href="/css/cart.css" >
+<link rel="stylesheet" href="/css/myMessage.css" >
+<style>
+    .layui_this{
+        color: #727f8f;
+        background: #fff;
+    }
+
+</style>
+<!--右侧内容区域-->
+<div class="layui-tab layui-tab-card personCenter_all" id="user_msg">
+    <div class="personCenter_nav">
+        <ul class="layui-tab-title" v-for="kind in kinds">
+            <li :class="{layui_this:kind.id==cssShow}" @click="msgkind=[kind.kindcode];resetNum();msg_list(kind);cssShow = kind.id;" :id="kind.kindcode">${kind.kindname}<span>(${kind.unReadSum})</span></li>
+
+        </ul>
+        <div class="f_r personCenter_search">
+            <button @click="msg_list()"><img src="/img/icon-myorder-search.png" alt=""></button>
+            <input class="" type="text" v-model="key" placeholder="请输入关键字">
+        </div>
+    </div>
+    <div class="c_b"></div>
+    <div class="layui-tab-content">
+        <!--消费提醒-->
+        <div class="personCenter_details tab_pb" style="margin-top:-49px;">
+            <div class="personCenter_checkAll">
+                <span class="center1 m-l-20" id="LAY_demo">
+                    <a :class="{cartCheckTrue:i_show,cartCheck:!i_show}" class="m-t" @click="selectAll();i_show=!i_show;"></a>全选
+                    <button class="layui-btn" @click="setAll_read()">标记为已读</button>
+                </span>
+                <span @click="type=[0];resetNum();page_Num()" id="unread">未读</span>
+                <span @click="type=[1];resetNum();page_Num()" id="read">已读</span>
+                <span class="active" @click="type=['ALL'];resetNum();page_Num()" id="all">所有</span>
+                <!--<img src="/img/icon-notification-nextpage.png" alt="" class="nextbtn m-r-20"/>-->
+                <!--<img src="/img/icon-notification-previouspage.png" alt="" class="prevbtn"/>-->
+            </div>
+            <div class="c_b"></div>
+            <div v-if="list.length!=0" class="mag-Info" v-for="item in list">
+                <ul>
+                    <li class="mag-Info-li">
+                        <a :class="{cartCheckTrue:item.isCheck,cartCheck:!item.isCheck}"  v-if="item.isread==0" class="m-t" @click="select(item)"></a>
+                        <span class="dots" v-if="item.isread==0"></span>
+                        <span class="mag-Info-content" @click="readMsg(item.content,item)">
+                            <!--<span class="mag-Info-title">${item.title}</span>${item.content | capitalize }-->
+                            <span class="mag-Info-title">${item.title}</span>${item.content}
+                        </span>
+                        <span class="mag-Info-time">${item.addtime}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="basicNoinfo" v-if="list.length==0">
+                <dl>
+                    <dt><img src="/img/icon-emptystate.png" /></dt>
+                    <dd>暂无信息！</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div id="userMsg" class="page" style="margin-left: 40px;"></div>
+</div>
+</div>
+
+</div>
+<script type="text/javascript">
+    var msgdata = {{{ msgdata }}};
+    var kinddata = {{{ kinddata }}};
+    var msgVM = new Vue({
+            delimiters: ["${", "}"],
+            el: "#user_msg",
+            data: {
+                items: msgdata.data.list,
+                kinds: kinddata.data,
+                pageNum:msgdata.data,
+                msgList: [],
+                msgkind: ['user_msg_buy'],
+                type:['ALL'],
+                i_show: false,
+                i_true:false,
+                num:1,
+                key:null,
+                cssShow:1,
+                list:[],
+            },
+            filters: {
+                capitalize: function (value) {
+                    if (!value) return ''
+                    value = value.toString()
+                    return value.substring(1, 45) + '...'
+                }
+            },
+        methods: {
+            readMsg:function(content,msg) {
+                layer.open({
+                    type: 1,
+                    title: "查看消息",//false不显示标题栏,
+                    area: '450px;',
+                    shade: 0.6,
+                    id: 'LAY_ReadMsg',//设定一个id，防止重复弹出,
+                    moveType: 1,//拖拽模式，0或者1,
+                    content: '<div class="mag-Info-content" style="padding: 20px 30px 50px;line-height: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;' + content + '</div>',
+                    cancel:function (index, layero,content) {
+                        $.ajax({
+                            url: '/userCenter/setReadMsg',
+                            type: 'post',
+                            data: {idsStr: msg.id},
+                            success: function (_data) {
+                                if(_data.success){
+                                    if(msg.isread==0){
+                                        window.location.reload();
+                                    }
+                                }else{
+                                    alert(_data.message)
+                                }
+                            }
+                        });
+                    },
+                    success: function (layero) {
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.css('text-align', 'center');
+
+                    }
+                });
+            },
+            resetNum:function(){
+                var that = this;
+                this.i_show = false;
+                this.i_true = false;
+                this.items.forEach(function(item) {
+                    that.$set(item, "isCheck", false);
+                });
+            },
+            select:function(item){
+                var that = this,is_allSelect=true;
+                this.$set(item,"isCheck",!item.isCheck);
+                var list=this.msgBodyList;
+                list.map(function(item){
+                    if(item.isCheck == false||item.isCheck == undefined) {
+                        is_allSelect = false;
+                    }
+                });
+                if(is_allSelect==false){
+                    that.i_show = false;
+                }else{
+                    that.i_show = true;
+                }
+            },
+            selectAll:function(){
+                var that = this;
+                var list=this.msgBodyList;
+                list.forEach(function(item){
+                    debugger;
+                    if(item.isread==0){
+                        if(that.i_show == false) {
+                            that.$set(item, "isCheck", true);
+                        }else if(that.i_show == true) {
+                            that.$set(item, "isCheck", false);
+                        }
+                    }
+                });
+            },
+            setAll_read:function () {
+                var id='';
+                this.items.map(function (item) {
+                    if(item.isCheck == true){
+                        id+=item.id+","
+                    }
+                })
+                id=id.substring(0,id.length-1);
+                if (id.length == 0){
+                    layer.msg("请选中要设置的信息！");
+                    return;
+                }else {
+                    $.ajax({
+                        url: '/userCenter/setReadMsg',
+                        type: 'post',
+                        data: {idsStr: id},
+                        success: function (_data) {
+                            if(_data.success){
+                                window.location.reload();
+                            }else{
+                                alert(_data.message)
+                            }
+                        }
+                    });
+                }
+            },
+            msg_list:function (kind) {
+
+                var _data={
+                    msgkind:this.msgkind[0],
+                    key:this.key,
+                    pageParam:{pageNo:this.cont, pageSize:1000000}
+                }
+                axios.post('/userCenter/userMyMsg',_data).then(
+                    function (data) {
+                        if(data.data){
+                            msgVM.items=data.data.msgdata.data.list;
+                            msgVM.kinds=data.data.kinddata.data;
+                            msgVM.page_Num();
+                        }
+                    })
+            },
+            page_Num:function () {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                    laypage({
+                        cont: "userMsg",
+                        curr: msgVM.num,
+                        pages: Math.ceil(parseInt(msgVM.msgBodyList.length)/10),
+                        skip: true,
+                        first: false,
+                        last: false,
+                        groups:5,
+                        jump: function (e) {
+                            num = e.curr;
+                            msgVM.list = [];
+                            for(var i = 0 ; i < msgVM.msgBodyList.length; i++){
+                                if(i >= (num-1)*10 && i < num*10){
+                                    msgVM.list.push(msgVM.msgBodyList[i])
+                                }
+                            }
+                        }
+                    });
+                });
+            }
+        },
+        computed: {
+            msgBodyList: function () {
+                this.msgList = this.items,
+                    msgkind = this.msgkind,
+                    type = this.type;
+//                if (msgkind == "user_msg_buy"){
+//                    $("#user_msg_buy").attr("class","layui-this");
+//                    $("#user_msg_process").attr("class","");
+//                    $("#user_msg_other").attr("class","");
+//                }else if (msgkind == "user_msg_process"){
+//                    $("#user_msg_buy").attr("class","");
+//                    $("#user_msg_process").attr("class","layui-this");
+//                    $("#user_msg_other").attr("class","");
+//                }else{
+//                    $("#user_msg_buy").attr("class","");
+//                    $("#user_msg_process").attr("class","");
+//                    $("#user_msg_other").attr("class","layui-this");
+//                }
+                if (type == "ALL"){
+                    $("#all").attr("class","active");
+                    $("#unread").attr("class","");
+                    $("#read").attr("class","");
+                }else if (type == "0"){
+                    $("#all").attr("class","");
+                    $("#unread").attr("class","active");
+                    $("#read").attr("class","");
+                }else if (type == "1"){
+                    $("#all").attr("class","");
+                    $("#unread").attr("class","");
+                    $("#read").attr("class","active");
+                }
+                return this.msgList.filter(function (item) {
+                    if (msgkind[0] == "user_msg_buy") {
+                        if (type[0] == "ALL"){
+                            return $.inArray(item.msgkind, msgkind) != -1;
+                        }else if(type[0] == item.isread){
+                            return $.inArray(item.msgkind, msgkind) != -1;
+                        }
+                    } else if (msgkind[0] == "user_msg_process") {
+                        if (type[0] == "ALL"){
+                            return $.inArray(item.msgkind, msgkind) != -1;
+                        }else if(type[0] == item.isread){
+                            return $.inArray(item.msgkind, msgkind) != -1;
+                        }
+                    } else if (msgkind[0] == "user_msg_other") {
+                        if (type[0] == "ALL"){
+                            return $.inArray(item.msgkind, msgkind) != -1;
+                        }else if(type[0] == item.isread){
+                            return $.inArray(item.msgkind, msgkind) != -1;
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    msgVM.page_Num();
+
+</script>

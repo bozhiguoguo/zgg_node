@@ -1,0 +1,213 @@
+.openCont{
+    width: 100%;
+    height: auto;
+}
+
+.openTop{
+    width: 100%;
+    height: 837px;
+    background:url("/img/openTop.png") no-repeat ;
+    background-position: 50% 100%;
+    background-size: cover;
+}
+
+.openBox{
+    width: 1200px;
+    margin: 0 auto;
+    border:1px solid transparent;
+}
+
+.openImg{
+    width:960px;
+    height: 119px;
+    margin:84px auto 0;
+}
+
+.openTitle{
+    width:960px;
+    height: 98px;
+    margin:28px auto 0;
+}
+
+.openPic{
+    width:1169px;
+    height: 512px;
+    margin:-60px auto 0;
+    position: relative;
+}
+
+.openPic p{
+    position: absolute;
+    right: 52px;
+    bottom: 46px;
+    color:#624003;
+    font-size:28px;
+}
+
+.openCenter{
+    width: 100%;
+    height: 1600px;
+    background:url("/img/open_bg.png") no-repeat ;
+    background-position: 50% 100%;
+    background-size: cover;
+    margin-top:-60px;
+}
+
+.openContent{
+    width:1003px;
+    height: auto;
+    margin:0 auto 0;
+    border:1px solid transparent;
+}
+
+.openBg{
+    position: relative;
+}
+
+.openH2{
+    width:254px;
+    height: 64px;
+    background: #ff4d62;
+    font-size: 38px;
+    color:#fff;
+    text-align: center;
+    line-height: 64px;
+    margin:130px auto 0;
+    position: absolute;
+    top: -176px;
+    left: 380px;
+}
+
+.openNl{
+    width:1003px;
+    height: 439px;
+    background: url("/img/nl_1.png") no-repeat;
+    margin-top:170px;
+}
+
+.openLeft{
+    width: 417px;
+    height:361px;
+    float: left;
+    margin:49px 0 22px 15px;
+}
+
+.openRight{
+    width:529px;
+    height:361px;
+    background: #e52c44;
+    float: right;
+    margin:54px 27px 22px 15px;
+}
+
+.openRight p{
+    font-size:38px;
+    color:#fff;
+    line-height: 45px;
+    margin:15px 0 0 25px;
+}
+
+.openRight span{
+    display: block;
+    color:#ffdea4;
+    margin-top:15px;
+    font-size:18px;
+    margin-left:25px;
+}
+
+.openLine{
+    float: right;
+    margin-right:25px;
+}
+
+.openFx{
+    width: 1003px;
+    height: 604px;
+    background: url("/img/fx_1.png") no-repeat;
+}
+
+.openLb{
+    background: #ec9011;
+}
+
+.openFx h3{
+    font-size: 38px;
+    color:#fff;
+    margin-left:420px;
+}
+
+.openLb_img{
+    float: left;
+    margin:55px 0 0 25px;
+}
+
+.openLb_gz{
+    float: right;
+    width:633px;
+    height: 196px;
+    background: url("/img/openPic_05.png") no-repeat;
+    margin:55px 25px 0 0;
+}
+
+.openLb_gz dl dt{
+    float: left;
+    margin-top:15px;
+    margin-left:70px;
+}
+
+.openLb_gz dl dd{
+    float: left;
+    margin-left:35px;
+    margin-top:35px;
+}
+
+.openLb_gz dl dd p{
+    font-size:22px;
+    color:#fff;
+    margin-top:10px;
+}
+
+.openLb_yellow{
+    width:412px;
+    height: 234px;
+    background: url("/img/openPic_10.png") no-repeat;
+    float: left;
+    margin: 25px 15px 0 25px;
+}
+
+.openLb_yellow p{
+    font-size:22px;
+    color:#fff;
+    margin-top:15px;
+    margin-left:30px;
+}
+
+.openLb_yellow button{
+    width:165px;
+    height: 53px;
+    background: url("/img/open_radius.png") no-repeat;
+    float: right;
+    margin:35px 25px 25px 0;
+    line-height: 53px;
+    text-align: center;
+    font-size:24px;
+    color:#fff;
+    cursor: pointer;
+}
+
+.openLb_yellow button a{
+    color:#fff;
+}
+
+.openLb_coupon{
+    width:526px;
+    height: 201px;
+    background: url("/img/openPic_12.png") no-repeat;
+    float: left;
+    margin:25px 15px 0 0;
+}
+
+.openLb_img2{
+    width: 609px;
+    margin:0 auto 0;
+}

@@ -1,0 +1,10 @@
+<div class="words_service" v-if="adviser">
+    <dl>
+        <dt><img :src="adviser.headPic?gwPicUrl+adviser.headPic:'/img/adviser_head.png'"/></dt>
+        <dd>
+            <p class="words_p1" v-html="adviser.nickname"><span>专属顾问</span></p>
+            <p v-html="adviser.tel"></p>
+            <a :href="'/webim/webimAdv/'+adviser.imtokenId+'/'+adviser.nickname" target="_blank"><p class="prodCons" >立即咨询</p></a>
+        </dd>
+    </dl>
+</div>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="/css/tradClass.css"/>
+
+</head>
+<body style=" background-color: #f9f8f4;">
+    <div class="tradClass_content" id="tradSearch">
+        <h3>商标分类</h3>
+
+            <div class="addTradSearch_header">
+                <div style="font-size:14px;color:#999;padding-bottom: 10px;">不清楚商标类别和群组</div>
+                <div class="add_Input"><input type="text" placeholder="请输入商品名称/商品编号" maxlength="50" v-model="content" name="content" @keyup.enter="checkedKey(content)"></div>
+                <div class="add_Search"><a target="_blank" @click="checkedKey(content)">查询商品所属类别</a></div>
+            </div>
+
+
+        <div style="clear: both"></div>
+        <div class="tradClass_con">
+            <div class="tradClass_info">
+                <dl>
+                        <dt><img src="/img/icon_01@2.png"/> </dt>
+                        <dd>
+                            <span>第1类</span>
+                            <p>化学原料</p>
+                        </dd>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_02@2.png"/> </dt>
+                        <dd>
+                            <span>第2类</span>
+                            <p>颜料油漆</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                    <dt><img src="/img/icon_03@2.png"/> </dt>
+                    <dd>
+                        <span>第3类</span>
+                        <p>日化用品</p>
+                    </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_04@2.png"/> </dt>
+                        <dd>
+                            <span>第4类</span>
+                            <p>燃料油脂</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl style="margin-right:0;">
+                    <a>
+                        <dt><img src="/img/icon_05@2.png"/> </dt>
+                        <dd>
+                            <span>第5类</span>
+                            <p>医药</p>
+                        </dd>
+                    </a>
+                </dl>
+                <div class="clear"></div>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_06@2.png"/> </dt>
+                        <dd>
+                            <span>第6类</span>
+                            <p>金属材料</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_07@2.png"/> </dt>
+                        <dd>
+                            <span>第7类</span>
+                            <p>机械设备</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_08@2.png"/> </dt>
+                        <dd>
+                            <span>第8类</span>
+                            <p>手工器械</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_09@2.png"/> </dt>
+                        <dd>
+                            <span>第9类</span>
+                            <p>科学仪器</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl style="margin-right:0;">
+                    <a>
+                        <dt><img src="/img/icon_010@2.png"/> </dt>
+                        <dd>
+                            <span>第10类</span>
+                            <p>医疗器械</p>
+                        </dd>
+                    </a>
+                </dl>
+                <div class="clear"></div>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_011@2.png"/> </dt>
+                        <dd>
+                            <span>第11类</span>
+                            <p>灯具空调</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_012@2.png"/> </dt>
+                        <dd>
+                            <span>第12类</span>
+                            <p>运输工具</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_013@2.png"/> </dt>
+                        <dd>
+                            <span>第13类</span>
+                            <p>军火烟火</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_014@2.png"/> </dt>
+                        <dd>
+                            <span>第14类</span>
+                            <p>珠宝钟表</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl style="margin-right:0;">
+                    <a>
+                        <dt><img src="/img/icon_015@2.png"/> </dt>
+                        <dd>
+                            <span>第15类</span>
+                            <p>乐器</p>
+                        </dd>
+                    </a>
+                </dl>
+                <div class="clear"></div>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_016@2.png"/> </dt>
+                        <dd>
+                            <span>第16类</span>
+                            <p>办公用品</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_017@2.png"/> </dt>
+                        <dd>
+                            <span>第17类</span>
+                            <p>橡胶制品</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_018@2.png"/> </dt>
+                        <dd>
+                            <span>第18类</span>
+                            <p>皮革皮具</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_019@2.png"/> </dt>
+                        <dd>
+                            <span>第19类</span>
+                            <p>建筑材料</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl style="margin-right:0;">
+                    <a>
+                        <dt><img src="/img/icon_020@2.png"/> </dt>
+                        <dd>
+                            <span>第20类</span>
+                            <p>家具</p>
+                        </dd>
+                    </a>
+                </dl>
+                <div class="clear"></div>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_021@2.png"/> </dt>
+                        <dd>
+                            <span>第21类</span>
+                            <p>厨房洁具</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_022@2.png"/> </dt>
+                        <dd>
+                            <span>第22类</span>
+                            <p>绳网袋蓬</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_023@2.png"/> </dt>
+                        <dd>
+                            <span>第23类</span>
+                            <p>纱线丝</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_024@2.png"/> </dt>
+                        <dd>
+                            <span>第24类</span>
+                            <p>布料床单</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl style="margin-right:0;">
+                    <a>
+                        <dt><img src="/img/icon_025@2.png"/> </dt>
+                        <dd>
+                            <span>第25类</span>
+                            <p>服装鞋帽</p>
+                        </dd>
+                    </a>
+                </dl>
+                <div class="clear"></div>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_026@2.png"/> </dt>
+                        <dd>
+                            <span>第26类</span>
+                            <p>纽扣拉链</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_027@2.png"/> </dt>
+                        <dd>
+                            <span>第27类</span>
+                            <p>地毯席垫</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_028@2.png"/> </dt>
+                        <dd>
+                            <span>第28类</span>
+                            <p>健身器材</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_029@2.png"/> </dt>
+                        <dd>
+                            <span>第29类</span>
+                            <p>食品</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl style="margin-right:0;">
+                    <a>
+                        <dt><img src="/img/icon_030@2.png"/> </dt>
+                        <dd>
+                            <span>第30类</span>
+                            <p>方便食品</p>
+                        </dd>
+                    </a>
+                </dl>
+                <div class="clear"></div>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_031@2.png"/> </dt>
+                        <dd>
+                            <span>第31类</span>
+                            <p>饲料种籽</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_032@2.png"/> </dt>
+                        <dd>
+                            <span>第32类</span>
+                            <p>啤酒饮料</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_033@2.png"/> </dt>
+                        <dd>
+                            <span>第33类</span>
+                            <p>酒</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_034@2.png"/> </dt>
+                        <dd>
+                            <span>第34类</span>
+                            <p>烟草烟具</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl style="margin-right:0;">
+                    <a>
+                        <dt><img src="/img/icon_035@2.png"/> </dt>
+                        <dd>
+                            <span>第35类</span>
+                            <p>广告销售</p>
+                        </dd>
+                    </a>
+                </dl>
+                <div class="clear"></div>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_036@2.png"/> </dt>
+                        <dd>
+                            <span>第36类</span>
+                            <p>金融物管</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_037@2.png"/> </dt>
+                        <dd>
+                            <span>第37类</span>
+                            <p>建筑修理</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_038@2.png"/> </dt>
+                        <dd>
+                            <span>第38类</span>
+                            <p>通讯服务</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_039@2.png"/> </dt>
+                        <dd>
+                            <span>第39类</span>
+                            <p>运输贮藏</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl style="margin-right:0;">
+                    <a>
+                        <dt><img src="/img/icon_040@2.png"/> </dt>
+                        <dd>
+                            <span>第40类</span>
+                            <p>材料加工</p>
+                        </dd>
+                    </a>
+                </dl>
+                <div class="clear"></div>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_041@2.png"/> </dt>
+                        <dd>
+                            <span>第41类</span>
+                            <p>教育娱乐</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_042@2.png"/> </dt>
+                        <dd>
+                            <span>第42类</span>
+                            <p>网站服务</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_043@2.png"/> </dt>
+                        <dd>
+                            <span>第43类</span>
+                            <p>餐饮住宿</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl>
+                    <a>
+                        <dt><img src="/img/icon_044@2.png"/> </dt>
+                        <dd>
+                            <span>第44类</span>
+                            <p>医疗园艺</p>
+                        </dd>
+                    </a>
+                </dl>
+                <dl style="margin-right:0;">
+                    <a>
+                        <dt><img src="/img/icon_045@2.png"/> </dt>
+                        <dd>
+                            <span>第45类</span>
+                            <p>社会服务</p>
+                        </dd>
+                    </a>
+                </dl>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+    var searchTRVM = new Vue({
+        delimiters: ["${", "}"],
+        el: "#tradSearch",
+        data: {
+            id:'',
+            desc: '',
+            info: '',
+            title: '',
+            content:'',
+        },
+        methods: {
+            openDetail: function (id) {
+                window.location.href = '/tradSearch/search/' + id;
+            },
+            checkedKey:function(content){
+                var partter= /^[A-Za-z0-9\u4e00-\u9fa5]+$/;
+                if(!partter.test(this.content) && this.content.length != 0){
+
+                    layui.use('layer',function() {
+                        layer.msg('只能输入数字、英文、汉字！')
+                    })
+                    return
+                }
+
+                if(this.content.length == 0){
+                    layui.use('layer',function() {
+                        layer.msg('关键字不能为空！')
+                    })
+                    return
+                }
+                localStorage.setItem('contentText',content);
+                //window.open("_self", '/tradSearch/classification/' + content);
+                window.location.href = '/tradSearch/classification/' + content;
+            }
+        },
+
+    })
+
+    $(".tradClass_info dl").click(function(){
+        var index = $(".tradClass_info dl").index(this);
+        searchTRVM.openDetail(index<9?"0"+(index+1):(index+1));
+
+    })
+    /*var searchPage = document.getElementById('tradSearch');
+    searchPage.style.minHeight = (document.documentElement.clientHeight || document.body.clientHeight-55-52-151)+"px";*/
+</script>
+</body>
+</html>

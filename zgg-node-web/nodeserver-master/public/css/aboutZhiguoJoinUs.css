@@ -1,0 +1,34 @@
+.about-join{
+    width: 1200px;
+    background: #ffffff;
+    height: auto;
+    margin:0 auto 60px;
+}
+.about-img{
+    width: 100%;
+    height: 464px;
+    background: url("../img/bgimage-cooperation.jpg") no-repeat;
+}
+.about-content{
+    padding:25px;
+    font-size:14px;
+    color: #727f8f;
+}
+.about-contentInfo{
+    margin-bottom: 60px;
+}
+.about-contentInfo h3{
+    font-size: 18px;
+    color: #a34a51;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.about-contentInfo p{
+    line-height: 22px;
+}
+.about-contentInfo p a{
+    color: #49a5de;
+}
+.about-personal{
+    margin-top:28px;
+}

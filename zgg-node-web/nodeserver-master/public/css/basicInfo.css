@@ -1,0 +1,640 @@
+/*企业信息 没有添加认证信息的样式*/
+#enterprise{
+    min-height: 272px;
+}
+#enterprise p{
+    display: inline-block;
+    margin:70px auto 86px;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    color:#727f8f;
+}
+#enterprise #addInfo{
+    display: block;
+    bottom: 30px;
+    width: 110px;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+    color: #FFFFff;
+    border-radius: 3px;
+    background: #e9c19e;
+    margin-left: 452px;
+}
+/*企业信息  已添加过认证信息的样式*/
+#enterprise #enterpriseInfo .enterpriseInfo-tip{
+    width: 375px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #c96d6d;
+    border-radius: 3px;
+    background: #fbe3e3;
+    border:1px solid #f7cdd0;
+    padding-left: 8px;
+}
+#enterprise #enterpriseInfo .enterpriseInfo-tip img{
+    margin-top:-2px;
+    margin-right: 3px;
+}
+#enterprise #enterpriseInfo .enterpriseInfo-l,
+#enterprise #enterpriseInfo .enterpriseInfo-r{
+    float: left;
+    margin-top:20px;
+}
+#enterprise #enterpriseInfo .enterpriseInfo-l{
+    color: #727f8f;
+    font-size: 14px;
+    /*width: 386px;*/
+    margin-right: 107px;
+}
+#enterprise #enterpriseInfo .enterpriseInfo-l li{
+    line-height: 26px;
+}
+#enterpriseInfo .enterpriseInfo-l li span{
+    color: #2a2a2a;
+}
+#enterpriseInfo .enterpriseInfo-l li .address{
+    position: absolute;
+    display: inline-block;
+    width: 316px;
+}
+#enterpriseInfo .enterpriseInfo-r{
+    height: 128px;
+    color: #727f8f;
+}
+#enterpriseInfo .enterpriseInfo-r span,
+#enterpriseInfo .enterpriseInfo-r .enterpriseInfo-r-img{
+    float: left;
+    margin-right: 10px;
+}
+#enterpriseInfo .enterpriseInfo-r-img {
+    position: relative;
+    width: 124px;
+}
+#enterpriseInfo .enterpriseInfo-r-img img{
+    margin-top:5px;
+    width: 92px;
+    height: 123px;
+    background: #d8d8d8;
+}
+#enterpriseInfo .enterpriseInfo-r-img a{
+    position: absolute;
+    color: #49a5de;
+    font-size: 12px;
+    right: 0;
+    bottom: 0;
+}
+#enterpriseInfo .enterpriseInfo-b{
+    clear: both;
+    padding-top: 47px;
+    text-align: center;
+}
+
+/*个人信息*/
+#personInfo{
+    font-size: 12px;
+    color: #727f8f;
+}
+
+#personInfo #personInfo-content a,
+#personInfo #personInfo-verification a{
+    color: #49a5de;
+    font-size: 12px;
+}
+
+/*手机验证样式*/
+#personInfo-verification{
+    /*display: none;*/
+}
+#personInfo-verification #verification-mode{
+    height: 33px;
+    border-radius: 3px;
+    border:1px solid #dadde1;
+    font-size: 14px;
+    color: #2a2a2a;
+    margin-bottom: 10px;
+    padding: 0 7px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+#personInfo-verification #verification-mode option{
+    color: #727f8f;
+}
+#personInfo-verification .personInfo-verification-b,
+#personInfo-Password .personInfo-Password-b{
+    text-align: center;
+    margin:50px auto 0;
+}
+
+
+/*收件信息*/
+#pickup-Info {
+    font-size: 14px;
+    color: #727f8f;
+}
+#pickup-Info .pickup-table{
+    color: #727f8f;
+    width: 100%;
+    text-align: center;
+}
+#pickup-Info .pickup-table>thead>tr>th{
+    font-weight: normal;
+    height: 40px;
+    line-height: 40px;
+}
+#pickup-Info .pickup-table .w194{
+    width: 204px;
+}
+#pickup-Info .pickup-table>tbody>tr{
+    border:1px solid #fcf3ec;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+}
+#pickup-Info .pickup-table>tbody>tr:hover{
+    background: #fcf3ec;
+}
+#pickup-Info .pickup-table>tbody>tr>td.t-left{
+    text-align: left;
+    position: relative;
+}
+
+#pickup-Info .pickup-table>tbody>tr>td.t-left>span{
+    color: #2384cc;
+}
+#pickup-Info .pickup-table>tbody>tr>td span{
+    color:#727f8f;
+    /*margin-right: 20px;*/
+
+}
+#pickup-Info .pickup-table>tbody>tr>td span.default{
+    color: #a34a51;
+}
+#pickup-Info .pickup-table>tbody>tr>td span.default-address{
+    display: inline-block;
+    width: 67px;
+    height: 26px;
+    border-radius: 3px;
+    background: #fbe3e3;
+    border:1px solid #f7cdd0;
+    color: #c96d6d;
+    text-align: center;
+    line-height: 26px;
+    cursor: pointer;
+    margin-top:5px;
+}
+#pickup-Info button{
+    cursor: pointer;
+    margin-top:25px;
+    float: right;
+    margin-bottom: 27px;
+}
+/*新增收件地址*/
+.add-pickup-address{
+    position: absolute;
+    width: 480px;
+    height: 398px;
+    top:50%;
+    left:50%;
+    margin-left:-240px;
+    margin-top:-199px;
+    background: #FFFFff;
+    display: none;
+    font-size: 12px;
+    color: #727f8f;
+    -webkit-box-shadow:0 0 20px rgba(41, 13, 13, 0.29);
+    -moz-box-shadow:0 0 20px rgba(41, 13, 13, 0.29);
+    box-shadow:0 0 20px rgba(41, 13, 13, 0.29);
+}
+.add-pickup-address .add-title{
+    font-size: 20px;
+    color: #2a2a2a;
+    padding: 25px 0 0 25px;
+}
+.add-pickup-address .add-title span{
+    position: absolute;
+    display: inline-block;
+    height: 19px;
+    width: 4px;
+    background: #a34a51;
+    top:29px;
+}
+.add-pickup-address .add-title-content{
+   padding-left:25px;
+    margin: 40px 0 60px 0;
+}
+.add-pickup-address .add-title-button{
+    width: 480px;
+    height: 33px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+.add-pickup-address .add-title-button button{
+    display: inline-block;
+    height: 33px;
+    color: #FFFFff;
+    padding: 0 26px;
+    border-radius: 3px;
+}
+.add-pickup-address .add-title-button .cancel{
+   background: #e9c19e;
+    margin-right: 30px;
+}
+.add-pickup-address .add-title-button .save{
+    background: #a34a51;
+}
+/*基本信息*/
+.layui-tab-title{
+    height: 54px;
+    border-bottom: none;
+}
+
+.layui-tab-title li{
+    min-width: 0;
+    line-height: 0;
+}
+
+.layui-tab-title .layui-this{
+    color: #a34a51;
+    background: #fff;
+}
+
+.layui-tab-title .layui-this:after{
+    border:none;
+    border-bottom-color: none;
+}
+.layui-tab-content{
+    padding: 15px 20px;
+}
+.inputW{
+    width: 283px;
+    height: 33px;
+    border-radius: 3px;
+    border:1px solid #dadde1;
+    font-size: 14px;
+    color: #2a2a2a;
+    margin-top:5px;
+    padding: 0 7px;
+    margin-right: 10px;
+    float: left;
+}
+
+.inputW[disabled]{
+    background: #f2f3f7;
+    border-color:#dadde1;
+    color:#b9bfc7;
+}
+
+.inputP{
+    height: 40px;
+    font-size: 14px;
+    color: #2a2a2a;
+    margin-bottom: 10px;
+    /*margin-top:10px;*/
+    /*padding: 0 7px;*/
+    margin-right: 10px;
+    line-height: 24px;
+}
+.inputW:active,
+.inputW:focus{
+    box-shadow: 0 0 10px 0 rgba(87, 163, 219, 0.25);
+    border:1px solid #569fd4;
+}
+.not-active{
+    border:1px solid #dadde1 !important;
+    color: #b9bfc7;
+    background: #f2f3f7;
+}
+.butW80{
+    color: #ffffff;
+    width: 80px;
+    height: 33px;
+    border-radius: 3px;
+    background: #a34a51;
+    margin-bottom: 15px;
+    font-size: 14px !important;
+    cursor: pointer;
+    border: 0;
+}
+.verification-email-show,
+.verification-raw-show{
+    display: none;
+}
+.personCenter_wrapp{
+    background: #f9f8f4;
+}
+.add-title-content span{
+    display: block;
+    margin-top:10px;
+    /*padding:10px 0 0 27px;
+    float: left;*/
+}
+
+.dialog_cancel span{
+    float: left;
+}
+
+.add-title-content .form-div{
+    overflow: hidden;
+}
+.add_dis{
+    display: none;
+}
+.add_save{
+    display: none;
+    width: 54px;
+    height: 33px;
+    border-radius: 3px;
+    background-color: #a34a51;
+    font-size: 16px;
+    text-align: center;
+    color: #ffffff;
+    line-height: 30px;
+    margin-top: 10px;
+}
+.pickup-table tr:hover .layui-btn{
+    background-color: #fcf3ec;
+}
+.pickup-table .hide{
+    position: absolute;
+    top:5px;
+    right:0px;
+}
+.address-select{
+    height: 33px;
+    border-radius: 3px;
+    border: 1px solid #dadde1;
+    font-size: 14px;
+    color: #2a2a2a;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 0 7px;
+    margin-right: 10px;
+    float: left;
+    width:120px;
+}
+.clear-both{
+    clear:both;
+    margin-left: 5px;
+    font-size: 12px;
+    margin-top: -10px;
+}
+.com_show{
+    width: 150px;
+    text-align: left;
+    padding: 10px 15px 0;
+    display: block;
+}
+#enterpriseInfo .p_form{
+    margin: 0;
+    text-align: left;
+    font-size: 12px;
+    color: #f00;
+    padding-left: 130px;
+    margin-top: -20px;
+}
+.per_btn{
+    margin-left: 30px;
+    border: 0;
+    background: #fff;
+    color:#a34a51;
+    font-size: 12px;
+}
+.code_btn{
+    border: 0;
+    background: #fff;
+    line-height: 40px;
+    color: #49a5de;
+}
+.code_btn.disabled{
+    color:#848eb3;
+}
+.CompanyPares{
+    float: left;
+    width:136px;
+    height:33px;
+    border:1px solid #dadde1;
+    font-size:14px;
+    color:#2a2a2a;
+    text-align: center;
+    line-height: 33px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 25px;
+}
+.modifyRed{
+    color: #d9344b;
+    border-color: #d9344b;
+}
+.enterpriseInfo-tip{
+    width: 400px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #c96d6d;
+    border-radius: 3px;
+    background: #fbe3e3;
+    border:1px solid #f7cdd0;
+    padding-left: 8px;
+}
+.enterpriseInfo-l{
+    float: left;
+    margin:20px 0 50px;
+}
+.enterpriseInfo-l{
+    color: #727f8f;
+    font-size: 14px;
+    width: 386px;
+    margin:0 107px 250px 0;
+}
+.enterpriseInfo-l li{
+    line-height: 26px;
+}
+.enterpriseInfo-l li span{
+    color: #2a2a2a;
+}
+
+.dialog_cancel span.address_addees{
+    border-radius: 3px;
+    background-color: #e9c19e;
+    font-size: 14px;
+    color: #ffffff;
+    border: 0;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    width:80px;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+    /*padding: 10px !important;*/
+    margin-left: 78px;
+}
+.dialog_cancel span.address_close{
+    border-radius: 3px;
+    background-color: #a34a51;
+    font-size: 14px;
+    color: #ffffff;
+    border: 0;
+    box-sizing: border-box;
+    /*padding: 10px !important;*/
+    margin-left: 10px;
+    width:179px;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+}
+/*
+*发票信息
+*/
+/*收件信息*/
+#invoiceInfo {
+    font-size: 14px;
+    color: #727f8f;
+}
+#invoiceInfo .pickup-table{
+    color: #727f8f;
+    width: 100%;
+    text-align: center;
+}
+#invoiceInfo .pickup-table>thead>tr>th{
+    font-weight: normal;
+    height: 40px;
+    line-height: 40px;
+}
+#invoiceInfo .pickup-table .w194{
+    width: 204px;
+}
+#invoiceInfo .pickup-table>tbody>tr{
+    border:1px solid #fcf3ec;
+    height: 44px;
+    line-height: 44px;
+    cursor: pointer;
+}
+#invoiceInfo .pickup-table>tbody>tr:hover{
+    background: #fcf3ec;
+}
+#invoiceInfo .pickup-table>tbody>tr>td{
+    max-width: 133px;
+    overflow: hidden;
+    text-align: left;
+    padding-left: 8px;
+    padding-right: 8px;
+    position: relative;
+    text-overflow: ellipsis;
+}
+
+/*#invoiceInfo .pickup-table>tbody>tr>td.t-left>span{
+    color: #2384cc;
+}
+#invoiceInfo .pickup-table>tbody>tr>td span{
+    color:#727f8f;
+    !*margin-right: 20px;*!
+
+}
+#invoiceInfo .pickup-table>tbody>tr>td span.default{
+    color: #a34a51;
+}*/
+#invoiceInfo .pickup-table>tbody>tr>td span.default-address{
+    display: inline-block;
+    width: 67px;
+    height: 26px;
+    border-radius: 3px;
+    background: #fbe3e3;
+    border:1px solid #f7cdd0;
+    color: #c96d6d;
+    text-align: center;
+    line-height: 26px;
+    cursor: pointer;
+    margin-top:5px;
+}
+#invoiceInfo button{
+    cursor: pointer;
+    margin-top:25px;
+    float: right;
+    margin-bottom: 27px;
+}
+/*新增收件地址*/
+.add-pickup-address{
+    position: absolute;
+    width: 480px;
+    height: 398px;
+    top:50%;
+    left:50%;
+    margin-left:-240px;
+    margin-top:-199px;
+    background: #FFFFff;
+    display: none;
+    font-size: 12px;
+    color: #727f8f;
+    -webkit-box-shadow:0 0 20px rgba(41, 13, 13, 0.29);
+    -moz-box-shadow:0 0 20px rgba(41, 13, 13, 0.29);
+    box-shadow:0 0 20px rgba(41, 13, 13, 0.29);
+}
+.add-pickup-address .add-title{
+    font-size: 20px;
+    color: #2a2a2a;
+    padding: 25px 0 0 25px;
+}
+.add-pickup-address .add-title span{
+    position: absolute;
+    display: inline-block;
+    height: 19px;
+    width: 4px;
+    background: #a34a51;
+    top:29px;
+}
+.add-pickup-address .add-title-content{
+    padding-left:25px;
+    margin: 40px 0 60px 0;
+}
+.add-pickup-address .add-title-button{
+    width: 480px;
+    height: 33px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+.add-pickup-address .add-title-button button{
+    display: inline-block;
+    height: 33px;
+    color: #FFFFff;
+    padding: 0 26px;
+    border-radius: 3px;
+}
+.add-pickup-address .add-title-button .cancel{
+    background: #e9c19e;
+    margin-right: 30px;
+}
+.add-pickup-address .add-title-button .save{
+    background: #a34a51;
+}
+.invoiceRed{
+    border: 1px solid red;
+    color: red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

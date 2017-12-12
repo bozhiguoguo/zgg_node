@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="/css/paySuccess.css"/>
+<style>
+    .buttonColorec9c19{
+        border: 0;
+    }
+    .waiting{
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+    }
+</style>
+<div class="payBox">
+    <!--支付状态-->
+    <div class="payStatus">
+        <div class="payStatus-center">
+            <div class="payStatus-center-l">
+                <img src="/img/icon-payment-success.png" alt="上传成功图标"/>
+            </div>
+            <div class="payStatus-center-r">
+                <p>充值成功。</p>
+                <p>金额：<span>￥{{ moneyCallBackList.data.money }}</span>
+                    支付方式：
+                    {{#eq moneyCallBackList.data.payType  11}}汇付天下{{/eq}}
+                    {{#eq moneyCallBackList.data.payType  12}} 支付宝{{/eq}}
+                    {{#eq moneyCallBackList.data.payType  33}}微信支付{{/eq}}
+                    {{#eq moneyCallBackList.data.payType  21}}线下汇款{{/eq}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="c_b"></div>
+</div>
+<script type="text/javascript">
+//    var msg = {{{moneyCallBackList}}};
+    new Vue({
+        el: '',
+        delimiters: ['${', '}'],
+    });
+</script>

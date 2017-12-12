@@ -1,0 +1,458 @@
+.fruit_centerCon{
+    width: 1050px;
+    float: right;
+    height: auto;
+    overflow: hidden;
+}
+
+.fruit_centerLeft{
+    width:759px;
+    float: left;
+    height: auto;
+    overflow: hidden;
+}
+
+.fruit_centerTop{
+    height:42px;
+    background: #f3f6f8;
+    line-height: 42px;
+}
+
+.fruit_centerTop h3{
+    float: left;
+    font-size:14px;
+    color: #727f8f;
+    margin-left:13px;
+}
+
+.fruit_centerTop h3 img{
+    width:20px;
+    height: 20px;
+    margin-right:3px;
+}
+
+.fruit_centerTop h3 span{
+    margin-left:15px;
+}
+
+.fruit_centerTop ul{
+    float: right;
+}
+
+.fruit_centerTop ul li{
+    float: left;
+    width: 140px;
+    font-size:14px;
+    color: #727f8f;
+    cursor: pointer;
+}
+
+.fruit_centerTop ul li.fruit_centerMy{
+    background:url("../img/fruit_lj.png") no-repeat left center;
+    background-size: 20px 20px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.fruit_centerTop ul li.fruit_centerMy span{
+    margin-left:10px;
+}
+
+.fruit_centerNav{
+    position: absolute;
+    right: 0;
+    top:47px;
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+
+.fruit_onLine{
+    width: 260px;
+    height: 70px;
+    border-bottom: 1px solid #f2f3f7;
+    margin:22px auto 0;
+}
+
+.fruit_gw{
+    float: left;
+}
+
+.fruit_gw p{
+    line-height: 30px;
+    font-size: 14px;
+    color: #727f8f;
+}
+
+.fruit_gw p span{
+    color: #2a2a2a;
+}
+
+.fruit_zx{
+    float: left;
+    background: url("../img/icon-user-message.png") no-repeat left center;
+    padding-left:24px;
+    margin-top: -8px;
+    margin-left: 10px;
+}
+
+.fruit_centerTab{
+    height: 56px;
+    background: #fff;
+}
+
+.fruit_centerTab ul li{
+    float: left;
+    height: 26px;
+    border-right:1px solid #dadde1;
+    font-size:14px;
+    color:#2a2a2a;
+    width: 187px;
+    text-align: center;
+    margin:15px 0;
+    cursor: pointer;
+}
+
+.fruit_centerTab ul li span{
+    display: inline-block;
+    color:#d9344b;
+    padding-left:5px;
+}
+
+
+.fruit_centerMail{
+    background: #f3f6f8;
+    height: 42px;
+    line-height: 42px;
+    margin-top:30px;
+    padding: 0 15px;
+    font-size:14px;
+    color: #727f8f;
+}
+
+.fruit_centerMail a{
+    color: #727f8f;
+}
+
+.fruit_centerMail img{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    padding-right:7px;
+    margin-top: -5px;
+}
+
+
+.fruit_centerMail span{
+    display: inline-block;
+    float: right;
+    font-size:12px;
+    color: #727f8f;
+    cursor: pointer;
+}
+
+.fruit_centerTable{
+    height: auto;
+    overflow: hidden;
+    background: #fff;
+}
+
+.fruit_centerTable table{
+    width: 728px;
+    margin:20px auto;
+}
+
+.fruit_centerTable table tr th{
+    color:#727f8f;
+    font-size:12px;
+    font-weight:normal;
+    line-height: 24px;
+    /*width:120px;*/
+}
+
+.fruit_centerTable table tr.fruit_centerTr{
+    width: 729px;
+    border:1px solid #f2f3f7;
+    height: auto;
+    min-height: 80px;
+    overflow: hidden;
+}
+
+.fruit_centerTable table tr td{
+    text-align: center;
+    font-size: 12px;
+    color:#2a2a2a;
+}
+
+.fruit_centerTable table tr td img{
+    width:20px;
+    height: 20px;
+    margin-top: -2px;
+}
+
+.fruit_centerTable table tr.fruit_centerTr td span{
+    display: block;
+}
+
+.fruit_centerTable table tr.fruit_centerTr td a{
+    display: block;
+    color:#49a5de;
+    margin:10px 0;
+}
+
+.fruit_centerEx{
+    background: #fff;
+    height: auto;
+    overflow: hidden;
+}
+
+.fruit_centerEx dl{
+    width: 192px;
+    height:228px;
+    float: left;
+    margin: 20px 0px -30px 0px;
+}
+
+.fruit_centerEx dl dt{
+    width: 192px;
+    height: 125px;
+    background: #f3e4d7;
+    border: 1px solid #eaeaea;
+}
+
+.fruit_centerEx dl dt img{
+    width: 190px;
+    height: 123px;
+    text-align: center;
+}
+
+.fruit_centerEx dl dd{
+    height: 53px;
+    background: #fcf3ec;
+    padding-left:15px;
+}
+
+.fruit_centerEx dl dd p{
+    font-size:12px;
+    color:#2a2a2a;
+    padding-top:9px;
+    width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fruit_centerEx dl dd span{
+    display: block;
+    color:#f77979;
+    font-size:14px;
+}
+
+.fruit_centerRight{
+    width: 261px;
+    float: right;
+    height: auto;
+    overflow: hidden;
+}
+
+
+.fruit_centerTit{
+    background: #f3f6f8;
+    height: 42px;
+    line-height: 42px;
+    font-size:14px;
+    color: #727f8f ;
+    padding-left:14px;
+}
+
+.fruit_centerTit img{
+    display: inline-block;
+    padding-right:4px;
+    margin-top:-4px;
+    width:20px;
+    height:20px;
+}
+
+.fruit_centerList{
+    height: auto;
+    overflow: hidden;
+    background: #fff;
+    min-height: 493px;
+}
+
+.fruit_centerList h4{
+    font-size:20px;
+    color:#2a2a2a;
+    border-left:4px solid #a34a51;
+    height: 19px;
+    padding-left:10px;
+    line-height: 19px;
+    margin:25px 20px 25px 25px;
+}
+
+.fruit_centerList h4 span{
+    float: right;
+    display: inline-block;
+    font-size:12px;
+    color: #727f8f;
+    cursor: pointer;
+}
+
+.fruit_centerList dl{
+    min-height: 80px;
+    border-bottom:1px solid #f2f3f7;
+    width: 221px;
+    margin:12px auto 0;
+}
+
+.fruit_centerList dl dt{
+    float: left;
+    width: 63px;
+    min-height: 63px;
+    margin-right:10px;
+}
+
+.fruit_centerList dl dt img{
+    text-align: center;
+    width: 63px;
+    height: 63px;
+    border: 1px solid #eaeaea;
+}
+
+.fruit_centerList dl dd{
+    float: left;
+}
+
+.fruit_centerList dl dd p{
+    font-size:12px;
+    color: #727f8f;
+}
+
+.fruit_centerList dl dd p.fruit_centerInfo{
+    font-size:12px;
+    color:#2a2a2a;
+    /*margin-top:-5px;*/
+    width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fruit_centerList dl dd p.fruit_centerOrder{
+    margin-top:4px;
+}
+
+.fruit_centerList dl dd p.fruit_centerOrder span{
+    padding-left:3px;
+}
+
+.fruit_centerList dl dd button{
+    width:64px;
+    height:20px;
+    background: #e9c19e;
+    line-height: 20px;
+    color:#fff;
+    font-size: 12px;
+    text-align: center;
+    border:none;
+    float: right;
+    margin-top:6px;
+    cursor: pointer;
+}
+
+/*.fruit_centerList dl dd a{
+    width:64px;
+    height:20px;
+    background: #e9c19e;
+    line-height: 20px;
+    color:#fff;
+    font-size: 12px;
+    text-align: center;
+    border:none;
+    float: right;
+    margin-top:6px;
+}*/
+
+.fruit_centerDetail{
+    width: 610px;
+    margin:20px auto;
+}
+
+.fruit_centerTitle{
+    color:#727f8f;
+    font-size: 14px;
+}
+
+.fruit_centerDetail table{
+    width: 610px;
+}
+
+.fruit_centerDetail table tr th{
+    height: 42px;
+    min-width: 64px;
+    background: #f3f6f8;
+    line-height: 42px;
+    color:#2a2a2a;
+    font-size:12px;
+    font-weight: normal;
+}
+
+.fruit_centerDetail table tr.fruit_centerTr{
+    border:1px solid #f2f3f7;
+    height: 50px;
+}
+
+.fruit_centerDetail table tr td{
+    color:#2a2a2a;
+    font-size:12px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width:150px;
+    /*line-height: 50px;*/
+
+}
+
+.fruit_centerDetail ul{
+    margin-top:30px;
+}
+
+.fruit_centerDetail ul li{
+    color:#727f8f;
+    font-size:12px;
+    margin-top:7px;
+}
+
+.fruit_centerDetail ul li span{
+    color:#2a2a2a;
+}
+
+.fruit_centerDetail ul li button{
+    width: 40px;
+    height:21px;
+    background: #e9c19e;
+    color:#fff;
+    margin-left:9px;
+    border:none;
+    cursor: pointer;
+}
+
+.userPage .layui-laypage a, .layui-laypage span{
+    padding: 0 7px;
+}
+
+.order_btn{
+    /*background: #e9c19e;*/
+    color: #727f8f;
+    float: right;
+    padding: 2px 10px;
+    margin-top: 12px;
+    border:1px solid #b9bfc7;
+    font-size:12px;
+    border-radius: 3px;
+}

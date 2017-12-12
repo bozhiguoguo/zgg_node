@@ -1,0 +1,466 @@
+<style>
+    .productClassify{
+        margin-top: 0;
+    }
+    /*.productClassifyBox .productClassify:nth-child(1){
+        left: 60px;
+    }
+    .productClassifyBox .productClassify:nth-child(2){
+        left: 85px;
+    }
+    .productClassifyBox .productClassify:nth-child(3){
+        left: 110px;
+    }*/
+    .busBtn > a{
+        color: #a34a51;
+    }
+    .inventPatentOther{
+        width: 1090px;
+        left: 3px;
+    }
+    .busBtn{
+        margin-top: 20px;
+    }
+    .t-productBox2{
+        height: 520px;
+    }
+</style>
+<div class="ad channelPage">
+    <div class="parent_banner"></div>
+
+    <!-- <div class="ad-b">-->
+    <!---->
+    <!--</div>-->
+</div>
+<div class="trademark-serve-box tradmark-new-box">
+    <div class="trademark-serve">
+        <h3>专利服务指南</h3>
+        <div class="channelLine">
+            <div class="channelImg">
+                <img src="/img/zhuanlifuwu.png"/>
+                <ul>
+                    <li class="channelHover1">
+                        <p>01</p>
+                        <span>专业权威</span>
+                        <span>快速响应</span>
+                    </li>
+                    <li class="channelHover2">
+                        <p>02</p>
+                        <span>专利保险</span>
+                        <span>无条件全退</span>
+                    </li>
+                    <li class="channelHover3">
+                        <p>03</p>
+                        <span>线上处理</span>
+                        <span>快速便捷</span>
+                    </li>
+                    <li class="channelHover4">
+                        <p>04</p>
+                        <span>严格把控</span>
+                        <span>降低风险</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--<div class="patentFingerpost">
+            <div class="peak binaryTree" style="margin-bottom: 23px;">
+                <div class="peckIcon"><img src="../img/icon__channel_lightball.png" class="layer"></div>
+                <p class="smAcrossLine"></p>
+                <h6 class="text-center">服务特点</h6>
+                <p class="verticalLine" style="top:90px;height:23px;"></p>
+            </div>
+            <div class="lgAcrossLine"></div>
+            <div class="downBinaryTree clearfix m-t-20">
+                <div class="binaryTree branch branchFirst">
+                    <p class="verticalLine"></p>
+                    <div class="branchIndex">01</div>
+                    <p class="smAcrossLine"></p>
+                    <h6 class="text-center">专业权威</h6>
+                    <h6 class="text-center">快速响应</h6>
+                </div>
+                <div class="binaryTree branch branchSecond">
+                    <p class="verticalLine"></p>
+                    <div class="branchIndex">02</div>
+                    <p class="smAcrossLine"></p>
+                    <h6 class="text-center">专利保险</h6>
+                    <h6 class="text-center">无条件退款</h6>
+                </div>
+                <div class="binaryTree branch branchThirdly">
+                    <p class="verticalLine"></p>
+                    <div class="branchIndex">03</div>
+                    <p class="smAcrossLine"></p>
+                    <h6 class="text-center">线上处理</h6>
+                    <h6 class="text-center">快速便捷</h6>
+                </div>
+                <div class="binaryTree branch branchLast">
+                    <p class="verticalLine"></p>
+                    <div class="branchIndex">04</div>
+                    <p class="smAcrossLine"></p>
+                    <h6 class="text-center">严格把控</h6>
+                    <h6 class="text-center">降低风险</h6>
+                </div>
+            </div>
+
+        </div>-->
+    </div>
+</div>
+<div class="productBox2 t-productBox2 inventPatent">
+    <div class="productTop trademark-productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader channelHeader tradmerkContent">
+                <h3>发明专利</h3>
+                <p>保护产品创新和方法创新</p>
+            </div>
+            <div class="productClassifyBox">
+                <!--<div class="productClassify productClassify0 t-product2">
+                    <h4>国内加急商标注册<p class="busNum">¥800.00&nbsp;<span>/&nbsp; 件</span></p></h4>
+                    <ul class="busInt">
+                        <li>顾问+律师双重专服务</li>
+                        <li>5年以上律师行业经验</li>
+                    </ul>
+                    <div class="busBtn"><img src="../img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+                {{#each (first oData.HotPtChannelfmzl.data.list 3)}}
+                    <div class="productClassify productClassify{{@index}} t-product2">
+                        <h4 class="color-1" data-color="#2f5398"><p class="_title">{{pname}}</p><p class="busNum">¥{{priceTax}}.00&nbsp;<span>/&nbsp; 件</span></p></p></h4>
+                        <ul class="busInt">
+                            {{#if mouseover}}
+                            {{#JSONparse mouseover}}
+                                {{#each (first text 3)}}
+                                    <li class="li_c">{{this}}</li>
+                                {{/each}}
+                            {{/JSONparse}}
+                            {{/if}}
+                        </ul>
+                        <div class="busBtn"><a href="/product/productDetail/{{id}}"><!--<img src="../img/icon_tmchannel_shaoppingcart.png" alt="">-->查看详情</a></div>
+                    </div>
+                {{/each}}
+                <!--<div class="productClassify productClassify2 t-product1">
+                    <h4>国内加急商标注册<p class="busNum">¥800.00&nbsp;<span>/&nbsp; 件</span></p></p></h4>
+                    <ul class="busInt">
+                        <li>材料齐全 24h提交</li>
+                        <li class="li_c">无需文件回寄</li>
+                        <li class="li_c">优先处理 网上申报</li>
+                        <li class="li_c">售后跟踪</li>
+                        <li class="li_c">不通过全退款</li>
+                    </ul>
+                    <div class="busBtn"><img src="../img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+{{#lt 3 oData.HotPtChannelfmzl.data.list.length}}
+    <div class="other-tradSever inventPatentOther">
+    <div class="channelPat">
+        <h4>其他实用新型专利产品：</h4>
+        <p>
+            {{#each (last oData.HotPtChannelfmzl.data.list oData.HotPtChannelfmzl.data.list.length-3)}}
+
+            <a href="/product/productDetail/{{id}}"> <span>{{pname}}</span> </a>
+            {{/each}}
+        </p>
+    </div>
+    <!-- <div class="other-Sever2">
+         <div class="other-SeverMsg effect2 SeverMsg-top1">
+             <h5>集体商标注册</h5>
+         </div>
+         <div class="other-SeverMsg effect2 SeverMsg-top2">
+             <h5>证明商标注册</h5>
+         </div>
+     </div>
+     <div class="other-Sever2">
+         <div class="other-SeverMsg effect2 SeverMsg-bott1">
+             <h5>补发商标注册证申请</h5>
+         </div>
+         <div class="other-SeverMsg effect2 SeverMsg-bott2">
+             <h5>更正商标申请/ <br>注册事项申请</h5>
+         </div>
+         <div class="other-SeverMsg effect2 SeverMsg-bott3">
+             <h5>出具商标注册证明申请</h5>
+         </div>
+     </div>-->
+</div>
+{{/lt}}
+<div class="productBox2 t-productBox2">
+    <div class="productTop trademark-productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader channelHeader tradmerkContent">
+                <h3>实用新型专利</h3>
+                <p>保护产品结构形状微创新</p>
+            </div>
+            <div class="productClassifyBox">
+                {{#each (first oData.HotPtChannelsyxxzl.data.list 3)}}
+                <div class="productClassify productClassify{{@index}} t-product2">
+                    <h4 class="color-1" data-color="#2f5398"><p class="_title">{{pname}}</p><p class="busNum">¥{{priceTax}}.00&nbsp;<span>/&nbsp; 件</span></p></p></h4>
+                    <ul class="busInt">
+                        {{#if mouseover}}
+                        {{#JSONparse mouseover}}
+                            {{#each (first text 3)}}
+                                <li class="li_c">{{this}}</li>
+                            {{/each}}
+                        {{/JSONparse}}
+                        {{/if}}
+                    </ul>
+                    <div class="busBtn"><a href="/product/productDetail/{{id}}"><!--<img src="../img/icon_tmchannel_shaoppingcart.png" alt="">-->查看详情</a></div>
+                </div>
+                {{/each}}
+                <!--<div class="productClassify productClassify2 t-product1">
+                    <h4>国内加急商标注册<p class="busNum">¥800.00&nbsp;<span>/&nbsp; 件</span></p></p></h4>
+                    <ul class="busInt">
+                        <li>材料齐全 24h提交</li>
+                        <li class="li_c">无需文件回寄</li>
+                        <li class="li_c">优先处理 网上申报</li>
+                        <li class="li_c">售后跟踪</li>
+                        <li class="li_c">不通过全退款</li>
+                    </ul>
+                    <div class="busBtn"><img src="../img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+{{#lt 3 oData.HotPtChannelsyxxzl.data.list.length}}
+<div class="other-tradSever inventPatentOther">
+    <div class="channelPat">
+        <h4>其他实用新型专利产品：</h4>
+        <p>
+            {{#each (last oData.HotPtChannelsyxxzl.data.list oData.HotPtChannelsyxxzl.data.list.length-3)}}
+
+            <a href="/product/productDetail/{{id}}"> <span>{{pname}}</span> </a>
+            {{/each}}
+        </p>
+    </div>
+    <!-- <div class="other-Sever2">
+         <div class="other-SeverMsg effect2 SeverMsg-top1">
+             <h5>集体商标注册</h5>
+         </div>
+         <div class="other-SeverMsg effect2 SeverMsg-top2">
+             <h5>证明商标注册</h5>
+         </div>
+     </div>
+     <div class="other-Sever2">
+         <div class="other-SeverMsg effect2 SeverMsg-bott1">
+             <h5>补发商标注册证申请</h5>
+         </div>
+         <div class="other-SeverMsg effect2 SeverMsg-bott2">
+             <h5>更正商标申请/ <br>注册事项申请</h5>
+         </div>
+         <div class="other-SeverMsg effect2 SeverMsg-bott3">
+             <h5>出具商标注册证明申请</h5>
+         </div>
+     </div>-->
+</div>
+{{/lt}}
+
+<div class="productBox2 t-productBox2 inventPatent">
+    <div class="productTop trademark-productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader channelHeader tradmerkContent">
+                <h3>外观专利</h3>
+                <p>保护产品的外形和包装创新</p>
+            </div>
+            <div class="productClassifyBox">
+                {{#oData.HotPtChannelwgzl.data.list}}
+                <div class="productClassify productClassify{{@index}} t-product2">
+                    <h4 class="color-1" data-color="#2f5398"><p class="_title">{{pname}}</p><p class="busNum">¥{{priceTax}}.00&nbsp;<span>/&nbsp; 件</span></p></p></h4>
+                    <ul class="busInt">
+                        {{#if mouseover}}
+                        {{#JSONparse mouseover}}
+                            {{#each (first text 3)}}
+                                <li class="li_c">{{this}}</li>
+                            {{/each}}
+                        {{/JSONparse}}
+                        {{/if}}
+                    </ul>
+                    <div class="busBtn"><a href="/product/productDetail/{{id}}"><!--<img src="../img/icon_tmchannel_shaoppingcart.png" alt="">-->查看详情</a></div>
+                </div>
+                {{/oData.HotPtChannelwgzl.data.list}}
+                <!--<div class="productClassify productClassify2 t-product1">
+                    <h4>国内加急商标注册<p class="busNum">¥800.00&nbsp;<span>/&nbsp; 件</span></p></p></h4>
+                    <ul class="busInt">
+                        <li>材料齐全 24h提交</li>
+                        <li class="li_c">无需文件回寄</li>
+                        <li class="li_c">优先处理 网上申报</li>
+                        <li class="li_c">售后跟踪</li>
+                        <li class="li_c">不通过全退款</li>
+                    </ul>
+                    <div class="busBtn"><img src="../img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+{{#lt 3 oData.HotPtChannelwgzl.data.list.length}}
+<div class="other-tradSever inventPatentOther">
+    <div class="channelPat">
+        <h4>其他实用新型专利产品：</h4>
+        <p>
+            {{#each (last oData.HotPtChannelwgzl.data.list oData.HotPtChannelwgzl.data.list.length-3)}}
+
+            <a href="/product/productDetail/{{id}}"> <span>{{pname}}</span> </a>
+            {{/each}}
+        </p>
+    </div>
+    <!-- <div class="other-Sever2">
+         <div class="other-SeverMsg effect2 SeverMsg-top1">
+             <h5>集体商标注册</h5>
+         </div>
+         <div class="other-SeverMsg effect2 SeverMsg-top2">
+             <h5>证明商标注册</h5>
+         </div>
+     </div>
+     <div class="other-Sever2">
+         <div class="other-SeverMsg effect2 SeverMsg-bott1">
+             <h5>补发商标注册证申请</h5>
+         </div>
+         <div class="other-SeverMsg effect2 SeverMsg-bott2">
+             <h5>更正商标申请/ <br>注册事项申请</h5>
+         </div>
+         <div class="other-SeverMsg effect2 SeverMsg-bott3">
+             <h5>出具商标注册证明申请</h5>
+         </div>
+     </div>-->
+</div>
+{{/lt}}
+
+<div class="productBox2 t-productBox3">
+    <div class="productTop trademark-productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader channelHeader tradmerkContent">
+                <h3>其他专利服务</h3>
+                <p>搭建无法攻克的堡垒，专利申请只是一块地基</p>
+            </div>
+            <div class="productClassifyBox clearfix paddingl">
+                {{#oData.PtChannelOther.data.list}}
+                <div class="channelBox">
+                    <div class="channelTitle"><a href="/product/productDetail/{{id}}">{{pname}}</a></div>
+                </div>
+                {{/oData.PtChannelOther.data.list}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="trademark-much trademark-ques">
+    <div  class="trademark-much-top">
+        <h3>常见问题</h3>
+    </div>
+    <ul class="quesNav quesPatent">
+        <li class="quesNavShow register" onclick="TabChanges('registerCon','register')">外观设计专利</li>
+        <li class="Objection" onclick="TabChanges('ObjectionCon','Objection')">专利驳回复审</li>
+        <li class="Reject" onclick="TabChanges('RejectCon','Reject')">发明专利</li>
+    </ul>
+    <div class="quesMsgBox channelQuestion">
+        <div class="quesMsg channelIscor">
+            <div class="quesMsges registerCon" style="display: block">
+                <dl>
+                    <dt>什么样的技术方案可以申报发明专利？</dt>
+                    <dd>
+                        <span>1、产品结构：例如电脑的硬件结构都是由哪些器件组成的、生产设备结构都是由哪些部件组成的、生物检测装置结构都是由哪些构件组成的等等；</span>
+                        <span>2、方法类：例如网站、APP、窗口等制作方法；化合物合成方法、检测方法等；细胞培养、扩增等方法；污泥处理、垃圾处理等方法；产品制造、加工方法等等；</span>
+                        <span>3、用途类：例如发现了杀虫剂还具有除草的用途；感冒药还能用于缓解心脏疼痛的用途等。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>什么样的技术方案可以申报实用新型专利？</dt>
+                    <dd>
+                        <span>只有申报发明专利中产品的结构可以申报实用新型专利：例如，电脑的硬件结构都是由哪些器件组成的、生产设备结构都是由哪些部件组成的、生物检测装置结构都是由哪些构件组成的等等。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>什么样的技术方案可以申报外观专利？</dt>
+                    <dd>
+                        <span>产品外观的新设计：例如造型独特、图案原创设计的灯具、餐桌、办公椅、玩具等各类生活用品以及工厂生产机器等等。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>什么是专利费用减缓？</dt>
+                    <dd>
+                        <span>专利费用减缓是指交给官方的官费是可以办理费用减缓的，可以理解为官方给予亏损的公司、低收入的个人费用的折扣优惠，公司申请费用减缓的话，需要当地科委或国家知识产权局开具同意费用减缓的证明。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>专利如何才能授权呢？</dt>
+                    <dd>
+                        <span>申报专利的技术方案和已有的技术方案存在区别点，并且该区别点会带来有益效果才会有可能被授权，已有的技术方案包括已申报的专利、已经公开的文献、视听材料等。发明专利是将已有技术结合起来与申请的技术方案作对比，仍有区别点，且区别点能够带来有益效果，才有可能会被授权，实用新型和外观是一对一的与现有技术做对比，只要有区别点，且区别点会带来有益效果就会被授权，例如现有技术中风扇需要手动才能够实现转动，现在将手动的结构改进成电机带动风扇转动的结构，这样电动的结构与手动的结构存在区别点，并且带来了能够省力的有益效果。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>什么是优先权？</dt>
+                    <dd>
+                        <span>优先权是指，当技术材料不完整时，可以先将这份不完整的技术资料提交的国家知识产权局获得申请日，在12个月内将技术资料补充完整后再提交到国家知识产权局，以此避免申请人将设计思路转化成具体技术方案这段时间内，其它人申请同样或类似的技术方案对申请人会产生不予授权的情况。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>怎样知道有没有其他人申报过与我相同或相似的技术方案呢？</dt>
+                    <dd>
+                        <span>可以在国家知识产权局官网专利检索网页输入关键词进行检索，实用新型和外观专利只有授权才能公开，发明专利在提交之后6-18个月才会公开，因此没有公开的专利文件是检索不到的。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>专利的服务流程是什么样的？</dt>
+                    <dd>
+                        <span>首先，需要申请人提供自己的技术方案，专利工程师做出检索，判断新创性，申请人根据新创性确定是否要申报专利，如果申报的话，提供申请人等信息，服务款项到后，专利工程师开始撰写专利，7-15天会给申请人发专利初稿，申请人与专利工程师对专利稿件达成一致，定稿确认后提交到国家知识产权局，国家知识产权局开始审查工作，审查过程中审查员如认为专利稿件有不能授权的地方，专利工程师会帮助申请人进行答辩，直至审批结果下来</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>专利的作用是什么？</dt>
+                    <dd>
+                        <span>1、保护自己的技术成果不受他人侵犯</span>
+                        <span>2、防止他人滥用专利权恶意、主动造成侵权行为</span>
+                        <span>3、办理高新技术企业、申请政府补贴、资助等必备资料</span>
+                        <span>4、提高企业核心竞争力、保护企业产品市场占有份额</span>
+                        <span>5、形成企业知识产权资产，提升企业注册资本、企业价值 。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>专利如果没有通过怎么办？</dt>
+                    <dd>
+                        <span>国家知识产权局在审查时，会将为什么不通过的理由以书面的形式下发至申请人，申请人如果认为审查员理解的有错误、理由不准确等，可以通过驳回复审的途径使专利再次进行审查。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>怎么知道专利中保护的范围和内容是什么？</dt>
+                    <dd>
+                        <span>专利保护的范围是以专利文件中权利要求书划定的范围为准的，保护的内容也就是权利要求书公开的内容。</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="quesMsges ObjectionCon">
+                <dl>
+                    <dt>什么样的案件可以申请复审？</dt>
+                    <dd>
+                        <span>所有的被驳回的发明、实用新型、外观设计申请在规定期限内均可以申请复审。需要指出的是，专利申请被驳回后仅能选择复审这一种救济措施，不能直接向法院起诉或者请求行政复议。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>关于复审时间</dt>
+                    <dd>
+                        <span>专利申请人对国务院专利行政部门驳回申请的决定不服的，可以自收到驳回决定通知之日起三个月内，向专利复审委员会请求复审。其中因正当理由延误了提起复审的期限（自收到驳回决定之日起3个月内），导致复审请求权丧失的，缴纳复审恢复费后，提复审的期限向后延迟两个月。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>复审流程</dt>
+                    <dd>
+                        <span>复审可以分为前置审查和合议组审理两部分。前置审查是专利复审委员会将经形式审查合格的复审文件转交作出驳回决定的原审查部门进行前置审查。原审查部门应当提出前置审查意见，作出前置审查意见书。前置审查应当在一个月内完成。前置审查坚持驳回决定的，复审委由三名审查员组成合议组进行二次审理，并做出复审决定。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>复审失败如何救济？</dt>
+                    <dd>申请人对复审决定不服的，可以自收到复审决定之日起三个月内向人民法院提起行政诉讼。</dd>
+                </dl>
+            </div>
+            <div class="quesMsges RejectCon">
+                <dl>
+                    <dt>什么样的技术方案可以申报发明专利？</dt>
+                    <dd>
+                        <span>1、产品结构：例如电脑的硬件结构都是由哪些器件组成的、生产设备结构都是由哪些部件组成的、生物检测装置结构都是由哪些构件组成的等等；</span>
+                        <span>2、方法类：例如网站、APP、窗口等制作方法；化合物合成方法、检测方法等；细胞培养、扩增等方法；污泥处理、垃圾处理等方法；产品制造、加工方法等等；</span>
+                        <span>3、用途类：例如发现了杀虫剂还具有除草的用途；感冒药还能用于缓解心脏疼痛的用途等。</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/trademark.js"></script>

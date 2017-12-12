@@ -1,0 +1,162 @@
+<link rel="stylesheet" href="../css/buttonColor.css"/>
+<link rel="stylesheet" href="../css/login.css"/>
+<script type="text/javascript" src="/lib/layui/layui.js"></script>
+<div  class="register_content" id="forgetPwd">
+    <div v-if="findPwd" class="modify-center" >
+        <h6>忘记密码</h6>
+        <div>
+            <p class="font14 m-t56">
+                <span class="m-l centerInfo">手机号码/邮箱</span>
+                <input type="text" class="inputW332" name="passport" data-vv-as="手机号码／邮箱" v-model="forgetParam.passport" v-validate="'required|passport'"/>
+                <p class="errorMsg forgetPwdMsg abs " :class="{'disBlock': errors.has('passport') }" v-if="errors.has('passport')">${ errors.first('passport') }</p>
+            </p>
+        </div>
+        <div>
+            <p class="font14 m-t56">
+                <span class="m-l centerInfo">验证码</span>
+                <input type="text" class="inputW332" name="verCode" v-validate="'required'" data-vv-as="验证码" v-model="forgetParam.verCode"/>
+                <p class="errorMsg forgetPwdMsg abs" :class="{'disBlock': errors.has('verCode') }" v-if="errors.has('verCode')">${ errors.first('verCode') }</p>
+                <button class="layui-form-mid layui-word-aux getCodeBtn sendCode" id="CodeText" v-html="codeHtml"
+                    @click="getCode()" v-bind:disabled="isDis" v-bind:class="{ disabled: isDis }"></button>
+            </p>
+        </div>
+        <div>
+            <p class="font14 m-t56">
+                <span class="m-l centerInfo">新登录密码</span>
+                <input type="password" class="inputW332" name="newPwd" data-vv-as="新密码" v-validate="'required'" v-model="forgetParam.pwd"/>
+                <p class="errorMsg forgetPwdMsg abs" :class="{'disBlock': errors.has('newPwd') }" v-if="errors.has('newPwd')">${ errors.first('newPwd') }</p>
+            </p>
+        </div>
+        <div>
+            <p class="font14 m-t56">
+                <span class="m-l centerInfo">确认新密码</span>
+                <input type="password" class="inputW332" name="reNewPwd" v-model="forgetParam.reNewPwd" v-validate="'required'" data-vv-as="新密码"/>
+                <p class="errorMsg forgetPwdMsg abs" :class="{'disBlock': errors.has('reNewPwd') }" v-if="errors.has('reNewPwd')">${ errors.first('reNewPwd') }</p>
+            </p>
+        </div>
+        <div class="w100"><a class="btnw110 buttonColor4597" id="over" @click="sureOperation()" style="background: #a34a51!important;box-shadow: 0 1px 2px 0 rgba(79,36,36,0.5);">确认修改</a></div>
+    </div>
+
+    <div v-if="successBack" id="success" class="findPwd" >
+        <div class="success-top">
+            <div class="top-box">
+                <img src="../img/icon-login-success.png" alt=""/>
+                <div>新密码设置成功！</div>
+            </div>
+        </div>
+        <div class="success-info">请牢记您新设置的密码。</div>
+        <p style="padding-right: 30px;"><a href="/user/login" class="success-back" style="color:#4990e2">去登录</a></p>
+    </div>
+</div>
+
+<script>
+    layui.use('form', function () {
+        var form = layui.form();
+        form.on('checkbox', function (data) {
+            _regisiter.registerParams.agreement = data.elem.checked;
+            debugger;
+        })
+    });
+    /*var passWordes = {
+        messages: {
+            en: function en(field, args) {
+                return args + '两次输入的密码不一致';
+            }
+        },
+        validate: function validate(value, args) {
+            return value == _forgeter.forgetParam.pwd;
+        }
+    };
+    VeeValidate.Validator.extend('reNewPwd', passWordes);*/
+    var _forgeter = new Vue({
+        delimiters: ['${', '}'],
+        el: '#forgetPwd',
+        data: {
+            forgetParam:{
+                passport: '',
+                picVerCode: '',
+                verCode: '',
+                pwd: '',
+                reNewPwd: ''
+            },
+            findPwd: true,
+            successBack: false,
+            codeHtml: '获取验证码',
+            isDis: false,
+            third:false
+        },
+        methods: {
+            sureOperation:function(){
+                this.$validator.validateAll().then(function(result){
+                    if(result){
+                        if(_forgeter.forgetParam.reNewPwd !== _forgeter.forgetParam.pwd){
+                            return _forgeter.$validator.errorBag.add('reNewPwd', '两次密码不一致，请检查后继续', 'auth')
+                        }else{
+                            _forgeter.resetPwd();
+                        }
+                    }
+                })
+            },
+            getCode:function(){
+                var layer = layui.layer,_url='/user/forgetPwdCode',_data={passport:this.forgetParam.passport};;
+                if ( this.fields.passed('passport') ) {
+                    if(/\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/.test(this.forgetParam.passport)){
+                        _url='/user/forgetEmailPwdCode';
+                        _data={email:this.forgetParam.passport};
+//                        return layer.msg("暂不支持邮箱找回密码，如需需改，请联系顾问！");
+                    }
+                    function countDown(that, num) {
+                        var num = num;
+                        function TimeFn() {
+                            if (num == 0) {
+                                _forgeter.isDis = false;
+                                _forgeter.codeHtml = "获取验证码";
+                                num = 60;
+                                clearInterval(Td);
+                                return;
+                            } else {
+                                num--;
+                                _forgeter.codeHtml = num + 's';
+                                _forgeter.isDis = true;
+                            }
+                        }
+
+                        var Td = setInterval(function () {
+                            TimeFn()
+                        }, 1000)
+                    }
+
+                    axios.post(_url, _data).then(
+                            function (res) {
+                                if (res.data.success) {
+                                    layer.msg('验证码发送成功');
+                                    countDown(this, 60)
+                                } else {
+                                    layui.use('layer', function () {
+                                        layer.msg(res.data.message);
+                                    });
+                                    countDown(_forgeter, 0)
+                                }
+                            }
+                    )
+                } else {
+                    this.$validator.errorBag.add('passport', '请输入手机号之后再获取验证码', 'auth')
+                }
+            },
+            resetPwd:function(){
+                axios.post('/user/forgetPwd', this.forgetParam).then(
+                    function (res) {
+                        if(res.data.success){
+                            _forgeter.findPwd = false;
+                            _forgeter.successBack = true;
+
+                        }
+                    }
+                )
+            }
+        }
+
+    })
+
+
+</script>

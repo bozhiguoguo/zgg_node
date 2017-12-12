@@ -1,0 +1,242 @@
+.deter_wrap{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    background: #f9f8f4;
+}
+
+.deter_info{
+    width:1200px;
+    height: auto;
+    overflow: hidden;
+    background: #fff;
+    margin:0 auto;
+}
+
+.deter_top{
+    height: 15px;
+    background-color: #a34a51;
+}
+
+.deter_zgg{
+    width: 1100px;
+    margin:35px auto;
+}
+
+.deter_zgg img{
+    display: block;
+    float: left;
+}
+
+.deter_zgg p{
+    float: right;
+}
+
+.deter_zgg p span{
+    display: block;
+    width: 265px;
+    color:#2a2a2a;
+    font-size: 14px;
+    clear: both;
+}
+
+.deter_zgg p span b{
+    display:block;
+    float: left;
+    font-weight:normal;
+
+}
+
+.deter_zgg p span b.deter_b1{
+    width:185px;
+}
+
+.deter_box{
+    width: 1100px;
+    margin:50px auto;
+}
+
+.deter_wang p{
+    float: left;
+    width:310px;
+    height:4px;
+    background: #fff;
+    border-top:2px solid #2a2a2a;
+    border-bottom:2px solid #2a2a2a;
+}
+
+.deter_wang h2{
+    float: left;
+    margin:-5px 35px;
+    font-size: 24px;
+    color: #2a2a2a;
+}
+
+.deter_edit{
+    margin-top:63px;
+}
+.deter_Sign ul.deter_zhang{
+    background: url("../img/zhang1.gif")no-repeat 80px;
+    margin-left:470px;
+    width:300px;
+    height:150px;
+}
+.deter_Sign ul.deter_zhang2{
+    background: url("../img/zhang2.gif")no-repeat 80px;
+    background-size:44%;
+}
+.deter_edit p img{
+    display: block;
+    padding-right:3px;
+    float: left;
+    width: 20px;
+    /*margin-top:3px;*/
+}
+
+.deter_edit p b{
+    display: block;
+    float: left;
+}
+
+.deter_mation ul{
+    float: left;
+}
+
+.deter_mation ul li{
+    list-style: none;
+}
+
+.deter_mation ul li input{
+    width: 425px;
+    height: 33px;
+    border: solid 1px #b9bfc7;
+    border-radius: 3px;
+    padding-left:10px;
+    font-size: 14px;
+    color: #2a2a2a;
+}
+
+.deter_mation ul li p{
+    font-size: 14px;
+    color: #2a2a2a;
+}
+
+.deter_agree{
+    width: 1100px;
+    height: 48px;
+    border-radius: 3px;
+    background-color: #fffde4;
+    border: solid 1px #cecba0;
+    margin:34px auto 0;
+    font-size: 14px;
+    color: #8f560a;
+    line-height: 48px;
+    text-align: center;
+}
+
+.deter_edit h3{
+    font-size: 18px;
+    color: #2a2a2a;
+}
+
+.deter_edit p{
+    font-size: 14px;
+    color: #2a2a2a;
+}
+
+.deter_edit table{
+    width: 1100px;
+    margin-top:20px;
+    border: solid 1px #eff0f4;
+    border-collapse:collapse
+}
+
+.deter_edit table tr.deter_tabTr{
+    height: 39px;
+    background-color: #eff0f4;
+}
+
+.deter_edit table tr.deter_tabTr2{
+    width: 1100px;
+    height: 43px;
+    border-top: solid 1px #eff0f4;
+}
+
+.deter_edit table tr td{
+    text-align: center;
+}
+
+.deter_bg{
+    width: 1100px;
+    min-height: 495px;
+    border-radius: 3px;
+    background-color: #fffde4;
+    border: solid 1px #e8e4c4;
+    margin-top:9px;
+}
+
+.deter_bg p{
+    color: #9b6721;
+    margin-left:15px;
+}
+
+.deter_div{
+    width: 1100px;
+    height: 48px;
+    border-radius: 3px;
+    background-color: #fffde4;
+    border: solid 1px #cecba0;
+    margin-top:20px;
+    font-size: 14px;
+    color: #8f560a;
+    padding-left: 15px;
+    line-height: 48px;
+}
+
+.deter_Sign{
+    marign-top:85px;
+}
+
+.deter_Sign ul{
+    float: left;
+    list-style: none;
+}
+
+.deter_Sign ul li{
+    font-size: 18px;
+    color: #2a2a2a;
+    font-weight: 500;
+    line-height:70px;
+}
+
+.deter_conter{
+    width: 111px;
+    height: 45px;
+    border-radius: 3px;
+    background-color: #4597d9;
+    box-shadow: 0 1px 2px 0 rgba(148, 148, 148, 0.18);
+    margin:200px auto 57px;
+    font-size:18px;
+    color:#fff;
+    text-align: center;
+    line-height: 45px;
+    cursor: pointer;
+}
+
+/*法务合同确认页面样式*/
+
+.deter_wang_law h2{
+    float: left;
+    margin: -5px 23px;
+    font-size: 24px;
+    color: #2a2a2a;
+}
+
+.deter_wang_law p{
+    float: left;
+    width:310px;
+    height:4px;
+    background: #fff;
+    border-top:2px solid #2a2a2a;
+    border-bottom:2px solid #2a2a2a;
+}

@@ -1,0 +1,563 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>确定合同</title>
+    <link rel="stylesheet" href="/css/app.css"/>
+    <link rel="stylesheet" href="/css/Deter_contract.css"/>
+    <script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/lib/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="/lib/vue/dist/vue-resource.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="/lib/vue/vee-validate/dist/vee-validate.js"></script>
+    <script src="/lib/vue/vee-validate/dist/locale/zh_CN.js"></script>
+    <script type="text/javascript" src="/lib/layui/lay/dest/layui.all.js"></script>
+    <script type="text/javascript" src="/js/tingyun-rum.js"></script>
+</head>
+<body>
+<template id="loading-template">
+    <div class="loadWrap">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce3"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce1"></div>
+        </div>
+    </div>
+</template>
+<div id="help"></div>
+<loading v-show="showLoading"></loading>
+
+<script>
+    window.console = window.console || (function(){
+            var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function(){};
+            return c;
+        })();
+    var help = new Vue({
+        el: '#help',
+        data: {
+            showLoading: false
+        },
+        components: {
+            'loading': {
+                template: '#loading-template',
+            }
+        }
+    })
+    axios.interceptors.request.use(function (request) {
+        // Do something before request is sent】
+        if(['payCallBackToJson','/cart/pPriceMsg','userOrder/getContracStatus'].indexOf(request.url)==-1){
+            help.showLoading = true;
+        }
+        return request;
+    }, function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+    });
+
+    // Add a response interceptor
+    axios.interceptors.response.use(function (response) {
+        // Do something with response data
+        help.showLoading = false;
+        if (typeof response.data != 'undefined') {
+            if(typeof response.data.success != 'undefined' && !response.data.success){
+                if (response.data.code == 'W_100004') {
+                    layer.msg('用户未登录或登录超时');
+                    setTimeout(function(){window.open('/user/login')},1000)
+                    //user_reg();
+                }else{
+                    layui.use('layer',function () {
+                        layer.msg(response.data.message,{icon:2});
+                    })
+                }
+            }
+        }
+        return response;
+    }, function (error) {
+        // Do something with response error
+        return Promise.reject(error);
+    });
+    Vue.config.delimiters = ['${', '}'];
+    Vue.use(VeeValidate,
+        {
+            errorBagName: 'errors', // change if property conflicts.
+            delay: 0,
+            locale: 'zh_CN',
+            messages: null,
+            strict: true
+        });
+</script>
+<div class="deter_wrap" id="confirmContract">
+    <div class="deter_info">
+        <div class="deter_top"></div>
+        <div class="deter_zgg">
+            <img src="/img/logo-zhiguoguo.png"/>
+            <p>
+                <span><b>地址：</b><b class="deter_b1">北京市海淀区紫雀路33号院3号楼4/5层</b></span>
+                <span><b>合同编号：</b><b class="deter_b1" v-html="contractData.contractcode"></b></span>
+            </p>
+        </div>
+        <div class="c_b"></div>
+        <div class="deter_box">
+            <div class="deter_wang">
+                <p></p>
+                <h2>知果果网知识产权服务代理委托合同</h2>
+                <p></p>
+            </div>
+            <div class="c_b"></div>
+            <div class="deter_edit">
+                <div class="deter_mation">
+                    <form @submit.prevent="validateBeforeSubmit"  v-if="contractData.zgOrderContract && contractData.zgOrderContract.status==2">
+                        <ul>
+                            <li>
+                                <p>甲方(委托方):</p>
+                                <input type="text"   v-model="contractData.cname" data-vv-as="甲方(委托方)" name="cname" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('cname') }"/><p  class="help is-danger" v-show="errors.has('cname')">${ errors.first('cname') }</p>
+                            </li>
+                            <li>
+                                <p>通讯地址：</p>
+                                <input type="text"  v-model="contractData.caddress" data-vv-as="通讯地址" name="caddress" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('caddress') }"/><p  class="help is-danger" v-show="errors.has('caddress')">${ errors.first('caddress') }</p>
+                            </li>
+                            <li>
+                                <p>联系人：</p>
+                                <input type="text"  v-model="contractData.cperson" data-vv-as="联系人" name="cperson" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('cperson') }"/><p  class="help is-danger" v-show="errors.has('cperson')">${ errors.first('cperson') }</p>
+
+                            </li>
+                            <!--<li>-->
+                            <!--<p>联系邮箱：</p>-->
+                            <!--<input type="text"  v-model="contractData.cmail" data-vv-as="联系邮箱" name="cmail" v-validate="'required|email'"-->
+                            <!--:class="{'input': true, 'is-danger': errors.has('cmail') }"/><p  class="help is-danger" v-show="errors.has('cmail')">${ errors.first('cmail') }</p>-->
+                            <!--</li>-->
+                            <li>
+                                <p>联系电话：</p>
+                                <input type="text" value="" v-model="contractData.cphone" data-vv-as="联系电话" name="cphone" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('cphone') }"/><p  class="help is-danger" v-show="errors.has('cphone')">${ errors.first('cphone') }</p>
+                            </li>
+                        </ul>
+                    </form>
+                    <ul v-if="contractData.zgOrderContract && contractData.zgOrderContract.status!=2">
+                        <li>
+                            <p>甲方 (委托方) :</p>
+                            <div v-html="contractData.cname"></div>
+                        </li>
+                        <li>
+                            <p>通讯地址：</p>
+                            <div v-html="contractData.caddress"></div>
+                        </li>
+                        <li>
+                            <p>联系人：</p>
+                            <div v-html="contractData.cperson"></div>
+                        </li>
+                        <!--<li>-->
+                        <!--<p>联系邮箱：</p>-->
+                        <!--<div v-html="contractData.cmail"></div>-->
+                        <!--</li>-->
+                        <li>
+                            <p>联系电话：</p>
+                            <div v-html="contractData.cphone"></div>
+                        </li>
+                    </ul>
+                    <ul style="float: right">
+                        <li>
+                            <p>乙方 (受托方) :</p>
+                            <input type="text" value="北京知果科技有限公司" disabled="disabled">
+                        </li>
+                        <li>
+                            <p>通讯地址：</p>
+                            <input type="text" value="北京市海淀区紫雀路33号院3号楼4/5层" disabled="disabled">
+                        </li>
+                        <li>
+                            <p>联系人：</p>
+                            <input type="text" :value="contractData.sysUser.nickname" disabled="disabled">
+                        </li>
+                        <li>
+                            <p>联系电话：</p>
+                            <input type="text" :value="contractData.sysUser.tel" disabled="disabled">
+                        </li>
+                    </ul>
+                </div>
+                <div class="c_b"></div>
+                <div class="deter_agree">双方经友好协商，就甲方所委托代理服务的相关事宜，按照《中华人民共和国合同法》及相关法律法规，本着平等互利、诚实信用的原则，达成如下协议，以资共同遵守。
+                </div>
+                <h3>一、双方服务关系</h3>
+                <p>1. 乙方为知果果网(www.zhiguoguo.com)运营商，负责业务承接以及与业务相关的后续法律服务和业务相关咨询。其中，专利相关业务由乙方旗下具有专利代理资质的北京卓唐知识产权代理有限公司负责后续法律服务及咨询。</p>
+                <p>2. 甲方接受乙方提供的服务。乙方独立对甲方负责。</p>
+                <h3>二、服务项目及费用</h3>
+                <table>
+                    <tr class="deter_tabTr">
+                        <th>服务项目</th>
+                        <th>订单号</th>
+                        <th>官方费用</th>
+                        <th>服务费</th>
+                        <th>优惠</th>
+                        <th>保障费</th>
+                        <th>费用合计</th>
+                    </tr>
+                    <tr class="deter_tabTr2" v-for="item in contractData.zgOrders">
+                        <td v-html="item.pname"></td>
+                        <td v-html="item.ordercode"></td>
+                        <td v-if="item.cdkmoney==0&&item.inseAmt">¥${(item.money-item.serveexp-item.inseAmt).toFixed(2)}</td>
+                        <td v-if="!item.inseAmt&&item.cdkmoney==0">¥${(item.money-item.serveexp).toFixed(2)}</td>
+                        <td v-if="item.cdkmoney!=0">¥${(item.publicexp).toFixed(2)}</td>
+                        <td>¥ ${item.serveexp}</td>
+                        <td>¥ ${item.cdkmoney}</td>
+                        <td v-if="!item.inseAmt">¥0</td>
+                        <td v-if="item.inseAmt">¥${item.inseAmt}</td>
+                        <td>¥ ${item.money}<span v-if="contractData.hasTrReg11">(含${item.billmoney}元税费)</span></td>
+                    </tr>
+                </table>
+                <p >共计：￥${contractData.zgOrderPay.money}元（含税费）</p>
+                <p><img src="/img/1.png"/><b>本合同服务项目具体内容以甲、乙双方最终确认盖章生效的相应法律文本文件为准。</b></p>
+                <!-- <div class="c_b"></div>
+                 <p><img src="/img/1.png"/><b>国内商标注册服务开具代收官费发票，税费须另行支付。</b></p>-->
+                <div class="c_b"></div>
+                <h3>三、甲方权利义务</h3>
+                <p>1. 甲方有权要求乙方就本协议约定服务事项提供业务咨询、资料收集整理指导、进度查询服务。</p>
+                <p>2. 甲方有及时提交、补充业务所需信息、材料的义务。同时，甲方也有放弃提供业务所需信息材料的权利。但是，因甲方放弃或怠于提交业务所需信息、材料而导致的一切后果，由甲方自行承担。</p>
+                <p>3. 甲方有权要求乙方提供完整、有效的联系方式（包括地址、联系人、联系电话、邮箱等）并在联系方式发生变化时，及时以书面方式通知甲方。</p>
+                <div v-if="contractData.hasInseA || contractData.hasInseB || contractData.hasTrReg8 || contractData.hasBh || contractData.hasGSZX || contractData.hasTRCX || contractData.hasInseA || contractData.hasTRCX  || contractData.hasTRCXDB || contractData.hasTRYY || contractData.hasTRYYDB || contractData.hasTRWX || contractData.hasTRWXDB">
+                    <p>4. 当申请商标满足全部赔付条件时，甲方有权获得相应的赔付。</p>
+                    <div class="deter_bg">
+                        <div v-if="contractData.hasInseA">
+                            <p>当购买国内商标注册盲查期（A保）赔付服务，满足全部赔付条件时，甲方有权获得相应的赔付金额。</p>
+                            <p>赔付条件：</p>
+                            <p>（1）商标注册申请前已支付全额保费；</p>
+                            <p>（2）商标局进行实质审查后下发商标驳回或部分驳回通知书，且未驳回商品或服务项目个数不足注册申请时商品或服务项目总数的一半；</p>
+                            <p>（3）商标驳回或部分驳回通知书中的驳回理由仅为已有相同或相似商标在先申请；</p>
+                            <p>（4）在先申请的相同或相似商标申请日在约定的赔付时间范围内，即甲方商标申请之日前6个月内（6个月商标注册安全赔付）。</p>
+                            <p>赔付金额：赔付600元。</p>
+                            <p>赔付时间：乙方在收到中国商标局下发的商标驳回或部分驳回通知书后的30个工作日内。</p>
+                            <p>以下情形不属于赔付范围：</p>
+                            <p>（1）申请人主动撤回商标注册申请的；</p>
+                            <p>（2）申请人主动删减商品或服务，导致甲方商标指定的商品或服务项目总数减少的；</p>
+                            <p>（3）赔付条件生效时，商标申请人的信息与商标申请时的信息不一致的（如商标申请人在商标申请期间办理了主体名义或地址的变更，则需提交商标变更申请并核准后方可申请赔付）；</p>
+                            <p>（4）因不可抗力导致赔付协议无法履行的。</p>
+                        </div>
+                        <div v-if="contractData.hasInseB">
+                            <p>当购买国内商标注册盲查期（B保）赔付服务，满足全部赔付条件时，甲方有权获得相应的赔付金额。</p>
+                            <p>赔付条件：</p>
+                            <p>（1）商标注册申请前已支付全额保费；</p>
+                            <p>（2）商标局进行实质审查后下发商标驳回或部分驳回通知书，且未驳回商品或服务项目个数不足注册申请时商品或服务项目总数的一半；</p>
+                            <p>（3）商标驳回或部分驳回通知书中的驳回理由仅为已有相同或相似商标在先申请；</p>
+                            <p>（4）在先申请的相同或相似商标申请日在约定的赔付时间范围内，即甲方商标申请之日前3个月内（3个月商标注册安全赔付）。</p>
+                            <p>赔付金额：赔付300元。</p>
+                            <p>赔付时间：乙方在收到中国商标局下发的商标驳回或部分驳回通知书后的30个工作日内。</p>
+                            <p>以下情形不属于赔付范围：</p>
+                            <p>（1）申请人主动撤回商标注册申请的；</p>
+                            <p>（2）申请人主动删减商品或服务，导致甲方商标指定的商品或服务项目总数减少的；</p>
+                            <p>（3）赔付条件生效时，商标申请人的信息与商标申请时的信息不一致的（如商标申请人在商标申请期间办理了主体名义或地址的变更，则需提交商标变更申请并核准后方可申请赔付）；</p>
+                            <p>（4）因不可抗力导致赔付协议无法履行的。</p>
+                        </div>
+                        <div v-if="contractData.hasTRCX">
+                            <p>当购买撤三申请（尊享版）商品，满足全部赔付条件时，甲方有权获得相应的赔付内容。</p>
+                            <p>赔付条件：</p>
+                            <p>（1）已支付相应环节或程序的全额费用；</p>
+                            <p>（2）被申请商标未被裁定撤销原因不在免赔条款范围内；</p>
+                            <p>赔付内容：</p>
+                            <p>商标注册新申请壹件。</p>
+                            <p>将在确认撤销连续三年不使用申请最终结果后，且理赔条件满足，相关材料、信息完整情况下，30个工作日内完成相应理赔。</p>
+                            <p>以下情形不属于赔付范围：</p>
+                            <p>1. 下列原因造成的损失、费用和责任，乙方不负责赔偿：</p>
+                            <p>（1）申请人主动撤回撤销连续三年不使用申请的；</p>
+                            <p>（2）赔付条件生效时，撤销申请人的信息与撤销申请时的信息不一致的（如撤销申请人在撤销申请期间办理了主体名义或地址的变更，则需提交商标变更申请并核准后方可申请赔付）；</p>
+                            <p>（3）商标裁定中为部分撤销的。</p>
+                            <p>（4）因不可抗力导致赔付协议无法履行的。</p>
+                        </div>
+                        <div v-if="contractData.hasTRCXDB">
+                            <p>当购买撤三答辩（尊享版）商品，满足全部赔付条件时，甲方有权获得相应的赔付内容。</p>
+                            <p>赔付条件：</p>
+                            <p>（1）已支付相应环节或程序的全额费用；</p>
+                            <p>（2）撤销连续三年不使用被裁定撤销原因不在免赔条款范围内；</p>
+                            <p>赔付内容：</p>
+                            <p>商标注册新申请壹件。</p>
+                            <p>将在确认撤销连续三年不使用最终结果后，且理赔条件满足，相关材料、信息完整情况下，30个工作日内完成相应理赔。</p>
+                            <p>以下情形不属于赔付范围：</p>
+                            <p>1. 下列原因造成的损失、费用和责任，乙方不负责赔偿：</p>
+                            <p>（1）申请人主动撤回撤销连续三年不使用提供证据申请的；</p>
+                            <p>（2）赔付条件生效时，撤销连续三年不使用提供证据申请人的信息与撤销连续三年不使用提供证据申请时的信息不一致的（如撤销连续三年不使用提供证据申请人在撤销连续三年不使用提供证据申请期间办理了主体名义或地址的变更，则需提交商标变更申请并核准后方可申请赔付）；</p>
+                            <p>（3）商标裁定中为部分撤销的。</p>
+                            <p>（4）因不可抗力导致赔付协议无法履行的。</p>
+                        </div>
+                        <div v-if="contractData.hasTRYY">
+                            <p>当购买商标异议（尊享版）商品，满足全部赔付条件时，甲方有权获得相应的赔付内容。</p>
+                            <p>赔付条件：</p>
+                            <p>（1）已支付相应环节或程序的全额费用；</p>
+                            <p>（2）被异议商标获准注册原因不在免赔条款范围内；</p>
+                            <p>赔付内容：</p>
+                            <p>商标注册新申请壹件。</p>
+                            <p>将在确认商标异议最终结果后，且理赔条件满足，相关材料、信息完整情况下，30个工作日内完成相应理赔。</p>
+                            <p>以下情形不属于赔付范围：</p>
+                            <p>1. 下列原因造成的损失、费用和责任，乙方不负责赔偿：</p>
+                            <p>（1）申请人主动撤回商标异议申请的；</p>
+                            <p>（2）赔付条件生效时，商标异议申请人的信息与商标异议申请时的信息不一致的（如商标异议申请人在商标异议申请期间办理了主体名义或地址的变更，则需提交商标变更申请并核准后方可申请赔付）；</p>
+                            <p>（3）商标裁定中为部分不予注册的。</p>
+                            <p>（4）因不可抗力导致赔付协议无法履行的。</p>
+                        </div>
+                        <div v-if="contractData.hasTRYYDB">
+                            <p>当购买商标异议答辩（尊享版）商品，满足全部赔付条件时，甲方有权获得相应的赔付内容。</p>
+                            <p>赔付条件：</p>
+                            <p>（1）已支付相应环节或程序的全额费用；</p>
+                            <p>（2）商标未获准注册原因不在免赔条款范围内；</p>
+                            <p>赔付内容：</p>
+                            <p>商标注册新申请壹件。</p>
+                            <p>将在确认商标异议最终结果后，且理赔条件满足，相关材料、信息完整情况下，30个工作日内完成相应理赔。</p>
+                            <p>以下情形不属于赔付范围：</p>
+                            <p>1. 下列原因造成的损失、费用和责任，乙方不负责赔偿：</p>
+                            <p>（1）申请人主动撤回商标异议答辩申请的；</p>
+                            <p>（2）赔付条件生效时，商标异议答辩申请人的信息与商标异议答辩申请时的信息不一致的（如商标异议答辩申请人在商标异议答辩申请期间办理了主体名义或地址的变更，则需提交商标变更申请并核准后方可申请赔付）；</p>
+                            <p>（3）商标裁定中为部分不予注册的。</p>
+                            <p>（4）因不可抗力导致赔付协议无法履行的。</p>
+                        </div>
+                        <div v-if="contractData.hasTRWX">
+                            <p>当购买商标无效宣告（尊享版）商品，满足全部赔付条件时，甲方有权获得相应的赔付内容。</p>
+                            <p>赔付条件：</p>
+                            <p>（1）已支付相应环节或程序的全额费用；</p>
+                            <p>（2）商标未被裁定无效原因不在免赔条款范围内；</p>
+                            <p>赔付内容：</p>
+                            <p>商标注册新申请壹件。</p>
+                            <p>将在确认商标无效宣告最终结果后，且理赔条件满足，相关材料、信息完整情况下，30个工作日内完成相应理赔。</p>
+                            <p>以下情形不属于赔付范围：</p>
+                            <p>1. 下列原因造成的损失、费用和责任，乙方不负责赔偿：</p>
+                            <p>（1）申请人主动撤回商标无效宣告申请的；</p>
+                            <p>（2）赔付条件生效时，商标无效宣告申请人的信息与商标无效宣告申请时的信息不一致的（如商标无效宣告申请人在商标无效宣告申请期间办理了主体名义或地址的变更，则需提交商标变更申请并核准后方可申请赔付）；</p>
+                            <p>（3）商标无效宣告决定书中为部分无效的。</p>
+                            <p>（4）因不可抗力导致赔付协议无法履行的。</p>
+                        </div>
+                        <div v-if="contractData.hasTRWXDB">
+                            <p>当购买商标无效宣告答辩（尊享版）商品，满足全部赔付条件时，甲方有权获得相应的赔付内容。</p>
+                            <p>赔付条件：</p>
+                            <p>（1）已支付相应环节或程序的全额费用；</p>
+                            <p>（2）商标被裁定无效原因不在免赔条款范围内；</p>
+                            <p>赔付内容：</p>
+                            <p>商标注册新申请壹件。</p>
+                            <p>将在确认商标无效宣告最终结果后，且理赔条件满足，相关材料、信息完整情况下，30个工作日内完成相应理赔。</p>
+                            <p>以下情形不属于赔付范围：</p>
+                            <p>1. 下列原因造成的损失、费用和责任，乙方不负责赔偿：</p>
+                            <p>（1）申请人主动撤回商标无效宣告答辩申请的；</p>
+                            <p>（2）赔付条件生效时，商标无效宣告答辩申请人的信息与商标无效宣告答辩申请时的信息不一致的（如商标无效宣告答辩申请人在商标无效宣告答辩申请期间办理了主体名义或地址的变更，则需提交商标变更申请并核准后方可申请赔付）；</p>
+                            <p>（3）商标无效宣告决定书中为部分无效的。</p>
+                            <p>（4）因不可抗力导致赔付协议无法履行的。</p>
+                        </div>
+                        <div v-if="contractData.hasGSZX">
+                            <p>当购买国内加急商标注册（果时尊享版）商品，满足全部赔付条件时，甲方有权获得相应的赔付金额。</p>
+                            <p>赔付条件：</p>
+                            <p>（1）商标注册申请前已支付全额保费；</p>
+                            <p>（2）甲方已在乙方平台上传全部确认后的申请文件并在工作日当日13:00之前经乙方工作人员审核通过的，即订单在当日13:00之前进入系统“提交报件”节点，乙方未在当日完成申报，且次日未向甲方提供商标申请号及申请回执文件。</p>
+                            <p>赔付金额：商标注册申请的全部服务费（不含税费）。</p>
+                            <p>赔付时间：乙方在收到商标提交时间延迟赔付申请并核实情况属实后的15个工作日内。</p>
+                            <p>以下情形不属于赔付范围：</p>
+                            <p>（1）申请人主动撤回商标注册申请的；</p>
+                            <p>（2）申请人主动要求删减商品或服务或修改其他商标信息，导致乙方无法在约定时间完成提交的；</p>
+                            <p>（3）赔付条件生效时，商标申请人的信息与商标申请时的信息不一致的（如商标申请人在商标申请期间办理了主体名义或地址的变更，则需提交商标变更申请并核准后方可申请赔付）；</p>
+                            <p>（4）如在网报提交之后发现该申报文件有错误，需要撤回修改重新递交的；</p>
+                            <p>（5）因网报系统故障等不可抗力导致无法及时赔付的，赔付协议无法履行的；</p>
+                            <p>（6）申请人为港澳台及国外企业的。</p>
+                        </div>
+                        <div v-if="contractData.hasTrReg8">
+                            <div v-if="!contractData.hasNewVersion">
+                                <p>当购买果保商标注册产品，满足全部赔付条件时，甲方有权获得相应的赔付金额。</p>
+                                <p>赔付说明：被保障商标如获准注册（包括部分商品或服务获准注册），将会获得人民币10000元的商标被侵权费用补偿金。如商标未获准注册（全部商品或服务均未获准注册），将会获得相应程序的补偿金。未获准注册情况下，各环节补偿金可累计叠加。</p>
+                                <p>赔付条件：</p>
+                                <p>（1）已支付相应环节或程序的全额费用；</p>
+                                <p>（2）商标未获准注册原因不在免赔条款范围内；</p>
+                                <p>（3）商标注册阶段代理服务方为北京知果科技有限公司或其关联公司。任一阶段更换代理公司的，将无法获得其他赔偿。</p>
+                                <p>赔付金额：</p>
+                                <p>（1）代理商标未获得授权补偿：人民币1500元</p>
+                                <p>（2）代理商标异议答辩补偿：人民币3000元</p>
+                                <p>（3）代理商标异议复审补偿：人民币3000元</p>
+                                <p>（4）代理商标驳回复审补偿：人民币3000元</p>
+                                <p>（5）代理商标被侵权法律费用补偿：人民币10000元</p>
+                                <p>（6）代理商标确权阶段行政诉讼费用补偿：人民币10000元</p>
+                                <p>将在确认商标注册最终结果后，且理赔条件满足，相关材料、信息完整情况下，三个月内完成相应理赔。</p>
+                                <p>以下情形不属于赔付范围：</p>
+                                <p>1. 下列原因造成的损失、费用和责任，保险人不负责赔偿：</p>
+                                <p>（1）商标因以下原因被驳回申请的:</p>
+                                <p>a.完全相同中文（商标盲查期因素除外）</p>
+                                <p>b.完全相同英文（商标盲查期因素除外）</p>
+                                <p>c.完全相同图形（商标盲查期因素除外）</p>
+                                <p>d.同中华人民共和国的国家名称、国旗、国徽、军旗、勋章相同或者近似的</p>
+                                <p>e.中央国家机关所在地特定地点的名称或者标志性建筑物的名称、图形相同的</p>
+                                <p>f.同外国的国家名称、国旗、国徽、军旗相同或者近似的</p>
+                                <p>g.国际组织的名称、旗帜、徽记相同或者近似的</p>
+                                <p>h.与表明实施控制、予以保证的官方标志、检验印记相同或者近似的</p>
+                                <p>i.“红十字”、“红新月”的名称、标志相同或者近似的</p>
+                                <p>j.具有政治上不良影响的</p>
+                                <p>k.含有县级以上行政区划地名的</p>
+                                <p>l.含有公众知晓外国地名的</p>
+                                <p>m.过于简单的线条、普通几何图形</p>
+                                <p>n.单一颜色</p>
+                                <p>（2）所申请商标是声音、三维立体、颜色、集体商标、证明商标的，不在赔偿范围内。</p>
+                                <p>（3）商标裁定中为部分驳回的。</p>
+                                <p>（4）在各个理赔阶段中，甲方主动撤回申请的（包括商标注册申请、驳回复审申请、异议申请、异议复审申请、行政诉讼申请）将不能获得相应的赔偿。</p>
+                                <p>（5）因不可抗力导致赔付协议无法履行的。</p>
+                            </div>
+                            <div v-if="contractData.hasNewVersion">
+                                <p>当购买果保商标注册产品，满足全部赔付条件时，甲方有权获得相应的赔付金额。</p>
+                                <p>赔付说明：如商标未获准注册（全部商品或服务均未获准注册），将会获得相应程序的补偿金。未获准注册情况下，各环节补偿金可累计叠加。如已获准注册的，在获准注册之日起一年内，对所注册商标不满意或其他原因的，可将该商标转让给知果果代为处理，知果果将给予其商标注册补偿金3000元整。</p>
+                                <p>赔付条件：</p>
+                                <p>（1）已支付相应环节或程序的全额费用；</p>
+                                <p>（2）商标未获准注册原因不在免赔条款范围内；</p>
+                                <p>（3）商标注册阶段代理服务方为北京知果科技有限公司或其关联公司。任一阶段更换代理公司的，将无法获得其他赔偿。</p>
+                                <p>赔付金额：</p>
+                                <p>（1）代理商标未获得授权补偿：人民币2000元</p>
+                                <p>（2）代理商标异议答辩补偿：按知果果网实际业务金额，最高不超过3000元</p>
+                                <p>（3）代理商标异议复审补偿：按知果果网实际业务金额，最高不超过3000元</p>
+                                <p>（4）代理商标驳回复审补偿：按知果果网实际业务金额，最高不超过3000元</p>
+                                <p>（5）代理商标确权阶段行政诉讼费用补偿：按照实际发生金额，最高不超过10000元</p>
+                                <p>（6）商标注册成功后，放弃注册商标补偿金额3000元／件。</p>
+                                <p>将在确认商标注册最终结果后，且理赔条件满足，相关材料、信息完整情况下，三个月内完成相应理赔。</p>
+                                <p>注册不成功要求赔付的，以下情形不属于赔付范围：</p>
+                                <p>1. 下列原因造成的损失、费用和责任，保险人不负责赔偿：</p>
+                                <p>（1）商标因以下原因被驳回申请的:</p>
+                                <p>a.完全相同中文</p>
+                                <p>b.完全相同英文</p>
+                                <p>c.完全相同图形</p>
+                                <p>d.组合商标申请的，其中任一部分组成要素与他人在先商标相同，均视为完全相同。</p>
+                                <p>e.违反《中华人民共和国商标法》第十条的。</p>
+                                <p>f.仅有本商品的通用名称、图形、数字、字母或上述要素的组合</p>
+                                <p>g. 仅直接表示商品质量、主要原料、功能、用途、重量、数量及其他特点的</p>
+                                <p>h.立体商标</p>
+                                <p>i.声音商标</p>
+                                <p>j.集体商标</p>
+                                <p>k.证明商标</p>
+                                <p>l.特殊标准</p>
+                                <p>m.过于简单的线条、普通几何图形</p>
+                                <p>n.单一颜色</p>
+                                <p>（2）商标裁定中为部分驳回的。</p>
+                                <p>（3）在各个理赔阶段中，甲方主动撤回申请的（包括商标注册申请、驳回复审申请、异议申请、异议复审申请、行政诉讼申请）将不能获得相应的赔偿。</p>
+                                <p>（4）因不可抗力导致赔付协议无法履行的。</p>
+                                <p>注册成功后，要求商标补偿金的，需满足如下条件：</p>
+                                <p>（1）注册成功后要求申请补偿金的，其商标权利持有人应将该商标转让至指定受让方。商标局办理商标转让的费用，应由商标转让人支付。</p>
+                                <p>（2）该商标转让手续需在知果果及其关联公司进行办理，并签订商标转让协议。商标转让价格按照知果果网实时价格。</p>
+                                <p>（3）如有需一并转让商标、或商标需进行变更的，商标持有人应按照商标法要求进行商标一并转让或变更行为。需一并转让商标，知果果将以2000元／件的价格予以补偿。不需一并转让的，知果果将不予以补偿。</p>
+                                <p>（4）注册成功后申请补偿金，商标权归属不稳定的将不与支付补偿金。（不稳定因素包括但不限于，该商标正处于被争议、被撤销、被诉讼、被冻结状态等）</p>
+                                <p>（5）注册成功后申请补偿金的，其获权商标的商品服务项目少于5个的。</p>
+                                <p>（6）因不可抗力导致赔付协议无法履行的。</p>
+                            </div>
+                        </div>
+                        <div v-if="contractData.hasBh">
+                            <p>当购买商标驳回复审（尊享版）商品，满足全部赔付条件时，甲方有权获得相应的赔付内容。</p>
+                            <p>赔付条件：</p>
+                            <p>（1）已支付相应环节或程序的全额费用；</p>
+                            <p>（2）商标未获准注册原因不在免赔条款范围内；</p>
+                            <p>（3）商标评审委员会经审查后下发复审决定书，且未驳回商品或服务项目个数不足注册申请时商品或服务项目总数的一半；</p>
+                            <p>赔付内容：</p>
+                            <p>商标注册新申请壹件。</p>
+                            <p>将在确认驳回复审最终结果后，且理赔条件满足，相关材料、信息完整情况下，30个工作日内完成相应理赔。</p>
+                            <p>以下情形不属于赔付范围：</p>
+                            <p>1. 下列原因造成的损失、费用和责任，乙方不负责赔偿：</p>
+                            <p>（1）申请人主动撤回驳回复审申请的；</p>
+                            <p>（2）申请人主动删减商品或服务，导致甲方商标指定的商品或服务项目总数减少的；</p>
+                            <p>（3）赔付条件生效时，商标申请人的信息与商标申请时的信息不一致的（如商标申请人在商标申请期间办理了主体名义或地址的变更，则需提交商标变更申请并核准后方可申请赔付）；</p>
+                            <p>（4）商标因以下原因被驳回申请的:</p>
+                            <p>a.完全相同中文（商标盲查期因素除外）</p>
+                            <p>b.完全相同英文（商标盲查期因素除外）</p>
+                            <p>c.完全相同图形（商标盲查期因素除外）</p>
+                            <p>d.同中华人民共和国的国家名称、国旗、国徽、军旗、勋章相同或者近似的</p>
+                            <p>e.中央国家机关所在地特定地点的名称或者标志性建筑物的名称、图形相同的</p>
+                            <p>f.同外国的国家名称、国旗、国徽、军旗相同或者近似的</p>
+                            <p>g.国际组织的名称、旗帜、徽记相同或者近似的</p>
+                            <p>h.与表明实施控制、予以保证的官方标志、检验印记相同或者近似的</p>
+                            <p>i.“红十字”、“红新月”的名称、标志相同或者近似的</p>
+                            <p>j.具有政治上不良影响的</p>
+                            <p>k.含有县级以上行政区划地名的</p>
+                            <p>l.含有公众知晓外国地名的</p>
+                            <p>m.过于简单的线条、普通几何图形</p>
+                            <p>n.单一颜色</p>
+                            <p>（5）所申请商标是声音、三维立体、颜色、集体商标、证明商标的，不在赔偿范围内。</p>
+                            <p>（6）商标裁定中为部分驳回的。</p>
+                            <p>（7）在各个理赔阶段中，甲方主动撤回申请的（包括商标注册申请、驳回复审申请、异议申请、异议复审申请、行政诉讼申请）将不能获得相应的赔偿。</p>
+                            <p>（8）因不可抗力导致赔付协议无法履行的。</p>
+                        </div>
+                    </div>
+                </div>
+                <h3>四、乙方权利义务</h3>
+                <p>1. 乙方就办理本协议委托的相应服务事项，可通过知果果网（www.zhiguoguo.com）或专属顾问以短信、邮件或电话的方式如实向甲方提供业务咨询、资料收集整理、进度查询服务。</p>
+                <p>2. 乙方在甲方完成资料填写后，应及时联系甲方，并在收到甲方所提供的准确、完整资料后，通过具有申报资质的关联公司（专利案件将通过乙方旗下具有专利代理资质的北京卓唐知识产权代理有限公司），及时向主管部门递交申报文件，完成申报工作。</p>
+                <p v-if="contractData.hasGSKJ || contractData.hasTrReg7 || contractData.hasTrReg8">加急商标注册业务应于收到甲方所提供的准确、完整扫描文件后，在三个工作日内通过具有申报资质的关联公司，向主管部门递交申报文件，并将商标申请回执及商标申请号上传至知果果网（www.zhiguoguo.com）。</p>
+                <p v-if="contractData.hasGSZX">尊享商标注册业务应于收到甲方所提供的准确、完整扫描文件后，在一个工作日内通过具有申报资质的关联公司，向主管部门递交申报文件，并将商标申请回执及商标申请号上传至知果果网（www.zhiguoguo.com）。</p>
+                <!--<p v-if="contractData.hasTrReg7 || contractData.hasTrReg8">加急商标注册业务应于收到甲方所提供的准确、完整扫描文件后，在三个工作日内通过具有申报资质的关联公司，向主管部门递交申报文件，并将商标申请回执及商标申请号上传至知果果网（www.zhiguoguo.com）。</p>-->
+                <p>3. 乙方有权要求甲方提供完整、有效的联系方式（包括地址、联系人、联系电话、邮箱等）并在联系方式发生变化时，及时以书面方式通知乙方。</p>
+                <h3>五、退款条款</h3>
+                <div class="deter_div">甲方在购买完成后，如出现下列情况，甲方可要求乙方退还所收取费用。</div>
+                <p>1. 甲方购买后3个月内，乙方未提供任何文书服务。</p>
+                <p>2. 甲方完成支付后超过3个月，但因乙方工作失误而造成业务不能申报的。</p>
+                <p>3. 由于甲方操作或理解方面的失误，所购买业务与实际需求有误，且乙方已经提供相应服务时，双方协商进行退款程序或重新购买符合要求的相应服务，但乙方已经进行业务申报的除外。</p>
+                <h3>六、保密条款</h3>
+                <p>1.甲、乙双方均对本协议及相关内容负有保密义务，保密期限不限于本协议履行期限，也不因本协议的解除、终止、无效或被撤销而失效。</p>
+                <p>2.以下信息不属于保密资料：</p>
+                <p>（1）已公开的与本项目有关的信息；</p>
+                <p>（2）并非由乙方披露的信息；</p>
+                <h3>七、违约责任</h3>
+                <p>甲、乙双方应严格遵守有关法律、法规和规章，遵守本协议约定，任何一方违反法规或本协议约定的，由责任方承担相应的法律责任。</p>
+                <h3>八、争议解决方法</h3>
+                <p>甲、乙双方因履行本协议发生争议，应协商解决，协商不成的，任何一方均有权向乙方所在地人民法院提起诉讼。</p>
+                <h3>九、其他</h3>
+                <p>1. 双方在联系人或联系方式发生变化时，及时以书面方式通知对方。若因不及时通知对方而产生的不良后果，由责任方承担。</p>
+                <p>2. 协议中除双方签章外，均为印刷字体，手写部分须双方在手写处签字或盖章确认后才具备法律效力。</p>
+                <p>3. 为保障甲方权益，提高乙方服务质量，乙方为甲方提供专业咨询服务。如需咨询本协议全部相关事宜，请拨打咨询电话400-888-1426。</p>
+                <p>4. 本协议壹式两份，甲、乙双方各执壹份，自双方签字/盖章之日起生效。</p>
+                <p>5. 红色与黑色印章效力相同。</p>
+                <h3>(以下无正文)</h3>
+                <h3>(签章页)</h3>
+                <div class="deter_Sign">
+                    <ul>
+                        <li>甲方 (签字/ 盖章) :</li>
+                        <li>日期:</li>
+                    </ul>
+                    <ul class="deter_zhang" :class="{deter_zhang2:contractData.zgOrders[0].pcode.indexOf('pt')>=0}">
+                        <li>乙方 (签字/ 盖章) :</li>
+                        <li>日期: ${contractData.dateObj}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="c_b"></div>
+        <div class="deter_conter" v-if="!contractData.zgOrderContract || contractData.zgOrderContract.status == 2" @click="validateBeforeSubmit()">确定合同</div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/js/getCookies.js"></script>
+<script type="text/javascript">
+    var  contractData = {{{ contractData }}};
+    //合同验证
+    Contract(contractData)
+    var contractVM = new Vue({
+        el: "#confirmContract",
+        delimiters: ['${', '}'],
+        data:{
+            contractData:contractData,
+        },
+        computed: {
+            discountedPrice:function() {
+                return this.discounted ? this.price - (0.2 * this.price) : this.price;
+            }
+        },
+        methods:{
+            validateBeforeSubmit:function () {
+                this.$validator.validateAll().then(function(){
+                    // eslint-disable-next-line
+                    var postData = {
+                        "contractcode": contractVM.contractData.contractcode,
+                        "cname": contractVM.contractData.cname,
+                        "caddress": contractVM.contractData.caddress,
+                        "cperson": contractVM.contractData.cperson,
+                        "cphone": contractVM.contractData.cphone,
+                        "cmail": contractVM.contractData.cmail
+                    };
+                    axios.post('/userOrder/confirmContract', postData).then(function (res) {
+                        if(res.data.success){
+                            layer.msg('合同确认成功',{icon:1});
+                            window.location.reload();
+                        }
+                    });
+                }).catch(function() {
+                    layer.msg('请输入甲方必填字段');
+                    $(window).scrollTop(0);
+                });
+            }
+        }
+    })
+</script>

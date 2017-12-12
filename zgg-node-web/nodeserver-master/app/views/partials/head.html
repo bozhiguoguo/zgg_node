@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="/css/personal_center.css" >
+<div class="personCenter_wrapp" id="heardMV">
+        <div class="personCenter_tab">
+            <ul>
+                <li>果蜜中心<span>></span></li>
+                <li><span id="tabOne">果蜜首页</span><span>></span></li>
+                <li id="tabTwo">用户中心</li>
+            </ul>
+        </div>
+        <div class="c_b"></div>
+        <div class="personCenter_content">
+            <div class="personCenter_aside">
+                <h2>果蜜首页</h2>
+                <ul>
+                    <li><a class="userAside" href="/userCenter/home">用户中心</a></li>
+                </ul>
+                <h2 class="personCenter_set">订单中心</h2>
+                <ul>
+                    <li><a class="userAside" href="/userOrder">我的订单</a></li>
+                    <li><a class="userAside" href="/comfirmedOrder">待确认订单</a></li>
+                    <li><a class="userAside" href="/userCenter/userCoupon">我的优惠券</a></li>
+                    <li><a class="userAside" href="/userCenter/userGuanwen">官文管理</a></li>
+                </ul>
+                {{#session}}
+                {{#JSONparse user}}
+                {{#unless payType}}
+                <h2 class="personCenter_set">个人设置</h2>
+                <ul>
+                    <li><a class="userAside" href="/userCenter/userBasicMsg">基本信息</a></li>
+                    <li><a class="userAside" href="/userCenter/userMainMsg">主体信息</a></li>
+                    <li><a class="userAside" href="/userCenter/userMyMsg">我的消息</a></li>
+                    <li><a class="userAside" href="/userCenter/userCounselor">专属顾问</a></li>
+                    <li><a class="userAside" href="/userCenter/userWallet">我的钱包</a></li>
+                    <li><a class="userAside" href="/userCenter/userApprove">实名认证</a></li>
+                </ul>
+                {{/unless}}
+                {{/JSONparse}}
+                {{/session}}
+            </div>
+<script type="text/javascript" src="/js/personal_center.js"></script>
+
+
+

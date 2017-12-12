@@ -1,0 +1,1561 @@
+{{> head}}
+<link rel="stylesheet" href="/css/fruit_center.css" >
+<link rel="stylesheet" href="/css/fruitCenter_index.css" >
+<style>
+    .fruit_centerTop{
+        height:138px;
+    }
+
+    .fruit_centerTop h3{
+        color: #2a2a2a;
+        float: none;
+        margin-top:10px;
+    }
+
+    .fruit_centerTop h3 b{
+        display: block;
+        font-size: 16px;
+        margin-left:45px;
+        margin-top:-10px;
+    }
+
+    .fruit_centerTop h3 span{
+        font-size: 22px;
+        text-align: left;
+    }
+
+    .fruit_centerTop h3 img{
+        width:30px;
+        height: 30px;
+    }
+
+    .about_click{
+        color:#a34a51!important;
+        background: #FFF;
+    }
+
+    .personCenter_all{
+      background: none;
+    }
+
+    .layui-tab-card{
+      border:none;
+    }
+
+
+    .layui-tab-title .layui-this{
+      color:#a34a51;
+    }
+
+    .fruitCenter_change ul.layui-tab-title li.layui-this{
+      position: relative;
+    }
+
+   .fruitCenter_change ul.layui-tab-title li.layui-this:after{
+          content: "";
+          position: absolute;
+          bottom: 5px;
+          left:0;
+          border-bottom: 2px solid  #d9344b;
+          width: 150px;
+    } 
+
+    .layui-tab-title li{
+        padding: 0;
+    }
+
+    .layui-tab{
+        margin: 0;
+    }
+</style>
+<div class="fruit_centerCon" id="user_main"  v-cloak>
+
+    <!--<div class="fruit_centerLeft">
+        <div class="fruit_centerTop">
+            <h3><img src="/img/icon_user_mailing.png"/>${udata.name}<span>${udata.tel}</span></h3>
+            <ul>
+                <li><a href="/userCenter/userBasicMsg">我的收件地址</a></li>
+                <li><a href="/userCenter/userBasicMsg">我的个人信息</a></li>
+                <li class="fruit_centerMy">
+                    我的顾问信息<span><img src="/img/confimMore.png"></span>
+                    <div class="fruit_centerNav">
+                        <div class="fruit_onLine" v-for="gwItem in gdata">
+                            <div class="fruit_gw">
+                                <p>顾问：<span>${gwItem.nickname}</span></p>
+                                <p>手机号：<span>${gwItem.tel}</span></p>
+                            </div>
+                            <div class="fruit_zx"><a :href="'/webim/webimAdv/'+gwItem.imtokenId+'/'+gwItem.nickname">在线咨询</a></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="fruit_centerTab">
+            <ul>
+                <li>待付款<span>${udata.unPay}</span></li>
+                <li>待办理<span>${udata.unApply}</span></li>
+                <li>已完成<span>${udata.finish}</span></li>
+                <li style="border-right:none;">已退款<span>${udata.refund}</span></li>
+            </ul>
+        </div>
+
+        <div class="fruit_centerMail">
+            <a href="/userCenter/userGuanwen"><span>查看全部</span><img src="/img/icon-user-mailing.png"/>我的官文邮寄</a>
+        </div>
+        <div class="fruit_centerTable" style="max-height: 515px;overflow: hidden">
+            <table>
+                <tr>
+                    <th>申请日期</th>
+                    <th>邮寄日期</th>
+                    <th>邮寄内容</th>
+                    <th>快递单号</th>
+                    <th>快递公司</th>
+                    <th>邮寄状态</th>
+                    <th>操作</th>
+                </tr>
+                <tr class="fruit_centerTr" v-for="item in mdataList" style="height: 90px;">
+                    <td style="width:100px;">${item.appTime}</td>
+                    <td style="width:100px;"><span v-if="item.expresscode">${item.appTime}</span></td>
+                    <td>商标官文</td>
+                    <td>${item.expresscode}</td>
+                    <td>${item.expressName}</td>
+                    <td>
+                        <span v-if="item.expressStatus==0"><img src="/img/icon_user_waiting.png">已申请</span>
+                        <span v-if="item.expressStatus==1"><img src="/img/icon_user_waiting.png">支付成功</span>
+                        <span v-if="item.expressStatus==2"><img src="/img/icon_user_waiting.png">待邮寄</span>
+                        <span v-if="item.expressStatus==4"><img src="/img/icon_user_waiting.png">处理中</span>
+                        <span v-if="item.expressStatus==3"><img src="/img/icon_user_mailed.png">已邮寄</span>
+                    </td>
+                    <td>
+                        <a v-if="item.expressStatus==0" @click="cancelMail(item.id)">取消邮寄</a>
+                        <a @click="seeMailMsg($event,item.id)" data-method="notice">查看详情</a>
+                        <a @click="downloadMail(item.id)">下载</a>
+                    </td>
+                </tr>
+            </table>
+            <div class="basicNoinfo" v-if="mdataList.length==0">
+                <dl>
+                    <dt><img src="/img/icon-emptystate.png" /></dt>
+                    <dd>暂无邮寄信息</dd>
+                </dl>
+            </div>
+            <div id="edit_dialog" class="hide">
+                <div class="fruit_centerDetail">
+                    <div class="fruit_centerTitle">商标局已下发的官方文书，本次邮件的快递内容如下</div>
+                    <div style="max-height: 400px;overflow-y: auto;width:621px;">
+                        <table>
+                            <tr >
+                                <th>订单号</th><th>申请号</th><th>商标名称</th><th>商标类别</th><th>文档类型</th><th>业务类型</th><th>公司名称</th>
+                            <tr class="fruit_centerTr" v-for="item in seeMainMsg.zgExpressMailOrderList">
+                                <td>${item.ordercode}</td>
+                                <td>${item.appcode}</td>
+                                <td>${item.tmName}</td>
+                                <td>${item.tmType}</td>
+                                <td>商标官文</td>
+                                <td>${item.expressType}</td>
+                                <td :title="item.bodyName">${item.bodyName}</td>
+                            </tr>
+                            </tr>
+                        </table>
+                    </div>
+                    <ul>
+                        &lt;!&ndash;<li>快递单号：<span id="mail_cope">${seeMainMsg.zgExpressMail.expresscode}</span><button @click="cope()">复制</button></li>&ndash;&gt;
+                        <li>快递单号：<span id="mail_cope">${seeMainMsg.zgExpressMail.expresscode}</span></li>
+                        <li>快递公司：<span>${seeMainMsg.zgExpressList.expressName} / 客服：${seeMainMsg.zgExpressList.expressPhone} / 官网：</span>
+                            <a :href="seeMainMsg.zgExpressList.expressUrl" target="_blank" style="color:#49a5de">${seeMainMsg.zgExpressList.expressUrl}</a>
+                        </li>
+                        <li>收件人姓名：<span>${seeMainMsg.zgExpressMail.recipientName}</span></li>
+                        <li>收件人电话：<span>${seeMainMsg.zgExpressMail.recipientPhone}</span></li>
+                        <li>收件人地址：<span>${seeMainMsg.zgExpressMail.recipientAddress}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="fruit_centerMail">
+            <img src="/img/icon_user_like.png"/>猜您喜欢的
+        </div>
+        <div class="fruit_centerEx">
+            {{#personalLikeLists }}
+            <dl style="margin-left:48px;"  title="{{pname}}">
+                <dt><a href="/product/productDetail/{{id}}" target="_blank"><img class="p-adside-img" src="{{../config.ImgUrl}}{{pics}}" width="226"></a></dt>
+                <dd>
+                    <p>{{pname}}</p>
+                    <span>¥{{priceTax}}/件</span>
+                </dd>
+            </dl>
+            {{/personalLikeLists}}
+        </div>
+    </div>-->
+    <div class="fruit_centerLeft" style="width:1050px;">
+        <div class="fruit_centerTop">
+            <h3><img src="/img/controller-payment-icon-6@2x.png"/><span v-html="udata.name ? udata.name:'果蜜'"></span>
+                <a href="/userCenter/userApprove"><b v-html="udata.companyname ? udata.companyname : '实名认证待完善' "></b></a>
+            </h3>
+            <ol class="fruitCenter_money">
+                <li>
+                    <img src="/img/controller-payment-icon-1@2x.png"/>
+                    余额：${udata.money}
+                </li>
+                <li style="margin-left:60px;">
+                    <img src="/img/controller-payment-icon-2@2x.png"/>
+                    优惠券：${udata.tCount}
+                </li>
+            </ol>
+        </div>
+        <div class="layui-tab layui-tab-card personCenter_all" lay-filter="demo" lay-allowclose="true">
+            <div class="fruitCenter_change">
+                <ul class="layui-tab-title">
+                    <li v-bind:class="{'layui-this':showType=='1'}" @click="showType=1;currentPage=1;getPagesData()">
+                        <img src="/img/controller-payment-icon-3@2x.png"/>
+                        <span>待付款</span>
+                        <span style="color:#d9344b;width:50px;">${udata.unPay}</span>
+                    </li>
+                    <li v-bind:class="{'layui-this':showType=='2'}" @click="showType=2;currentPage2=1;orderComfied()">
+                        <img src="/img/controller-payment-icon-4@2x.png"/>
+                        <span>待处理</span>
+                        <span style="color:#d9344b;width:50px;">${udata.unApply}</span>
+                    </li>
+                    <li v-bind:class="{'layui-this':showType=='3'}" @click="showType=3;currentPage6=1;InvoiceDoc()">
+                        <img src="/img/controller-payment-icon-5@2x.png"/>
+                        <span>待收件</span>
+                        <span style="color:#d9344b;width:50px;">${udata.expressCount}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="fruitCenter_order layui-tab-content" style="padding:0;">
+
+                <!-- 代付款 -->
+                <div class="Nopay ComCon layui-tab-item layui-show" v-show="showType==1">
+                   <div class="layui-tab layui-tab-card personCenter_all" lay-filter="demo" lay-allowclose="true" style="border:none;box-shadow:none;margin-left:0;">
+                       <div class="fruitCenter_nopay">
+                           <ol class="layui-tab-title">
+                               <li class="CompanyPar3" v-bind:class="{'layui-this':fkType=='fk1'}" @click="getPagesData()">待支付订单</li>
+                               <li class="CompanyPar4" v-bind:class="{'layui-this':fkType=='fk2'}" @click="getOrderAppend()">订单补款</li>
+                           </ol>
+                       </div>
+                       <div class="fruitCenter_payment layui-tab-content" style="padding:0;">
+                           <div class="fruitCenter_Pending nopay1 layui-tab-item layui-show" v-show="fkType=='fk1'">
+                               <div class="fruitCenter_p">
+                                   <p class="fruitCenter_p1">商品信息</p>
+                                   <p class="fruitCenter_p2">用户名</p>
+                                   <p class="fruitCenter_p2">金额</p>
+                                   <p class="fruitCenter_p3">操作</p>
+                               </div>
+                               <div class="fruitCenter_Contract" v-if="pType!=-1" v-for="item in convertUserOrderList">
+                                   <div class="fruitCenter_gopay">
+                                       <p>合同号：<span v-html="item.contractCode"></span>
+                                           &nbsp;&nbsp;&nbsp;<span v-html="item.zgOrderMainDetailList[0].createTime"></span></p>
+                                       <div v-if="item.zgOrderMainDetailList[0].payStatus==0">
+                                           <div class="Delcontract" id="LAY_delete"><a class="delete" @click="deleteContract(item)">删除合同</a></div>
+                                           <div class="Gopay">
+                                               <a style=" background: #a34a51;" @click="Gopay(item.contractCode,item.zgOrderMainDetailList[0].orderId)">去支付</a>
+                                               <!--<a :href="'/order/repayment/'+item.contractCode+'/'+item.zgOrderMainDetailList[0].orderId" style=" background: #a34a51;">去支付
+                                               </a>-->
+                                           </div>
+                                       </div>
+                                        <div v-if="item.zgOrderMainDetailList[0].payStatus==2">
+                                            <div style="color:red;float: right;width: 140px;line-height: 45px;">受理中</div>
+                                        </div>
+                                   </div>
+                                   <div class="fruitCenter_orderlist" v-for="childer in item.zgOrderMainDetailList">
+                                       <div class="fruitCenter_p1 border fruitCenter_ordernum">
+                                           <p>订单号：<span v-html="childer.orderCode"></span></p>
+                                           <dl>
+                                               <dt><img :src="!!childer.picsSmall?ImgUrl+childer.picsSmall:'/img/empty-no-image.png'" width="63" height="63"/></dt>
+                                               <dd>
+                                                   <h2 v-html="childer.pname"></h2>
+                                                   <span v-html="childer.pdetail||'暂未填写业务名称'"></span>
+                                                   <!-- <span>赔付服务：6个月保险</span> -->
+                                               </dd>
+                                           </dl>
+                                       </div>
+                                       <div class="fruitCenter_p2 border fruitCenter_name">
+                                           <p style=" margin-top:52px;"  v-html="childer.personName"></p>
+                                           <p v-html="childer.personTel"></p>
+                                       </div>
+                                       <div class="fruitCenter_p2 border fruitCenter_Money" v-html="'￥'+childer.money"></div>
+                                       <div class="fruitCenter_p3 border fruitCenter_bill" v-if="childer.billStatus==1">未开票</div>
+                                       <div class="fruitCenter_p3 border fruitCenter_bill" v-if="childer.billStatus==2">已开票</div>
+                                       <div class="fruitCenter_p3 border fruitCenter_bill" v-if="childer.billStatus==3">已邮寄</div>
+                                       <div class="fruitCenter_p3 border fruitCenter_bill" v-if="childer.billStatus==4">已退回</div>
+                                   </div>
+                               </div>
+                               <div id="demo4" class="page userPage" v-show='pType!=-1' v-show="convertUserOrderList.length!=0"></div>
+                               <!--暂无收件信息-->
+                               <div class="basicNoinfo" v-if="convertUserOrderList.length==0 && pType!=-1">
+                                   <dl>
+                                       <dt><img src="/img/icon-emptystate.png" /></dt>
+                                       <dd>暂无此状态订单<!--<a href="javaScript:;" @click="pType='';getPagesData()"><span>查看全部状态</span></a>--></dd>
+                                   </dl>
+                               </div>
+                           </div>
+                           <div class="fruitCenter_Pending nopay2 layui-tab-item" v-show="fkType=='fk2'">
+                               <div class="fruitCenter_p">
+                                   <p class="fruitCenter_p1">商品信息</p>
+                                   <p class="fruitCenter_p2">原订单金额</p>
+                                   <p class="fruitCenter_p2">补款金额</p>
+                                   <p class="fruitCenter_p3">创建时间</p>
+                               </div>
+                               <div class="fruitCenter_Contract" v-for="item in addUserCenterList">
+                                   <div class="fruitCenter_gopay">
+                                       <p>合同号：<span v-html="item.contractcode"></span>&nbsp;&nbsp;&nbsp;
+                                           <!--<span v-html="item.createTime"></span>-->
+                                       </p>
+                                       <div class="Delcontract"><a class="delete" v-on:click="del(item.bid,item.orderid)">删除</a></div>
+                                       <div class="Gopay"><a style=" background: #a34a51;"v-on:click="payDifference(item,item.orderid)">去支付</a></div>
+                                   </div>
+                                   <div class="fruitCenter_orderlist">
+                                       <div class="fruitCenter_p1 border fruitCenter_ordernum">
+                                           <p style="line-height: 122px;margin:0 0 0 15px;">订单号：<span v-html="item.ordercode"></span></p>
+                                           <!--<dl>
+                                               <dd>
+                                                   <h2>普通商标注册（果益普通版）</h2>
+                                               </dd>
+                                           </dl>-->
+                                       </div>
+                                       <div class="fruitCenter_p2 border fruitCenter_Money" v-html="'￥'+item.oldMoney"></div>
+                                       <div class="fruitCenter_p2 border fruitCenter_Money" v-html="'￥'+item.money"></div>
+                                       <div class="fruitCenter_p3 border fruitCenter_bill" v-html="item.createTime"></div>
+                                   </div>
+                               </div>
+                               <div class="modifyTip hide" id="modifyTip">
+                                   <span>您的余额为：${userBalance.money}，此次支付金额：${OrderMoneyInfo}，扣除后余额为：${Math.round((userBalance.money-OrderMoneyInfo)*100)/100},是否继续？</span>
+                               </div>
+                               <!--暂无收件信息-->
+                               <div class="basicNoinfo" v-if="addUserCenterList.length==0">
+                                   <dl>
+                                       <dt><img src="/img/icon-emptystate.png" /></dt>
+                                       <dd>暂无此状态订单<!--<a href="javaScript:;" @click="pType='';getPagesData()"><span>查看全部状态</span></a>--></dd>
+                                   </dl>
+                               </div>
+                               <div id="demo3" class="page userPage" v-show="addUserCenterList.length!=0"></div>
+                           </div>
+                       </div>
+                   </div>
+                </div> 
+                <!-- 待处理 -->
+                <div class="Nopay ComCon1 layui-tab-item" v-show="showType==2">
+                    <div class="layui-tab layui-tab-card personCenter_all" lay-filter="demo" lay-allowclose="true" style="border:none;box-shadow:none;margin-left:0;">
+                        <div class="fruitCenter_nopay">
+                            <ol class="layui-tab-title">
+                                <li class="ComOrder1" v-bind:class="{'layui-this':clType=='cl1'}" @click="orderComfied()">待确认订单</li>
+                                <li class="ComOrder2" v-bind:class="{'layui-this':clType=='cl2'}" @click="orderBusiness()">业务填写</li>
+                                <li class="ComOrder3" v-bind:class="{'layui-this':clType=='cl3'}" @click="UnPassListData()">审核未通过</li>
+                            </ol>
+                        </div>
+                        <div class="fruitCenter_payment layui-tab-content" style="padding:0;">
+                            <div class="fruitCenter_Pending Order1 layui-tab-item layui-show" v-show="clType=='cl1'">
+                                <div class="fruitCenter_p">
+                                    <p class="fruitCenter_p1 comfiedOrder1">商品信息</p>
+                                    <p class="fruitCenter_p2 comfiedOrder2">用户名</p>
+                                    <p class="fruitCenter_p2 comfiedOrder2">金额</p>
+                                    <p class="fruitCenter_p3 comfiedOrder2">开发票</p>
+                                    <p class="fruitCenter_p3 comfiedOrder2">操作</p>
+                                </div>
+                                <div class="fruitCenter_Contract" v-for="item in cdataList">
+                                    <div class="fruitCenter_gopay">
+                                        <p>合同号：<span v-html="item.contractCode"></span>&nbsp;&nbsp;&nbsp;
+                                            <span v-html="item.createTime"></span>
+                                        </p>
+                                    </div>
+                                    <div class="fruitCenter_orderlist">
+                                        <div class="fruitCenter_p1 comfiedOrder1 border fruitCenter_ordernum">
+                                            <p>订单号：<span v-html="item.orderCode"></span></p>
+                                            <dl>
+                                                <dt><img :src="!!item.picsSmall?ImgUrl+item.picsSmall:'/img/empty-no-image.png'" width="63" height="63"/></dt>
+                                                <dd>
+                                                    <h2 v-html="item.pname"></h2>
+                                                    <!--<span>小项数量：10</span>-->
+                                                    <!--<span v-html="item.pdetail||'暂未填写业务名称'">赔付服务：6个月保险</span>-->
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                        <div class="fruitCenter_p2 comfiedOrder2 border fruitCenter_name">
+                                            <p style=" margin-top:52px;" v-html="item.personName"></p>
+                                            <p v-html="item.personTel"></p>
+                                        </div>
+                                        <div class="fruitCenter_p2 comfiedOrder2 border fruitCenter_Money" v-html="'￥'+item.money"></div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==1">未开票</div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==2">已开票</div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==3">已邮寄</div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==4">已退回</div>
+                                        <div class="comfiedOrder2 orderCon"><a v-bind:href="'/business/'+item.ptype+'/'+item.orderId+'/'+item.flowType">确认订单</a></div>
+                                    </div>
+                                </div>
+                                <div id="demo5" class="page userPage" v-show="cdataList.lengt!=0"></div>
+                                <!--暂无收件信息-->
+                                <div class="basicNoinfo" v-if="cdataList.length==0">
+                                    <dl>
+                                        <dt><img src="/img/icon-emptystate.png" /></dt>
+                                        <dd>暂无此状态订单</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="fruitCenter_Pending Order2 layui-tab-item" v-show="clType=='cl2'">
+                                <div class="fruitCenter_p">
+                                    <p class="fruitCenter_p1 comfiedOrder1">商品信息</p>
+                                    <p class="fruitCenter_p2 comfiedOrder2">用户名</p>
+                                    <p class="fruitCenter_p2 comfiedOrder2">金额</p>
+                                    <p class="fruitCenter_p3 comfiedOrder2">开发票</p>
+                                    <p class="fruitCenter_p3 comfiedOrder2">操作</p>
+                                </div>
+                                <div class="fruitCenter_Contract" v-for="item in bussinessList">
+                                    <div class="fruitCenter_gopay">
+                                        <p>合同号：<span v-html="item.contractCode"></span>&nbsp;&nbsp;&nbsp;
+                                            <span v-html="item.createTime"></span>
+                                        </p>
+                                    </div>
+                                    <div class="fruitCenter_orderlist">
+                                        <div class="fruitCenter_p1 comfiedOrder1 border fruitCenter_ordernum">
+                                            <p>订单号：<span v-html="item.orderCode"></span></p>
+                                            <dl>
+                                                <dt><img :src="!!item.picsSmall?ImgUrl+item.picsSmall:'/img/empty-no-image.png'" width="63" height="63"/></dt>
+                                                <dd>
+                                                    <h2 v-html="item.pname"></h2>
+                                                    <!--<span>小项数量：10</span>-->
+                                                    <!--<span v-html="item.pdetail||'暂未填写业务名称'">赔付服务：6个月保险</span>-->
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                        <div class="fruitCenter_p2 comfiedOrder2 border fruitCenter_name">
+                                            <p style=" margin-top:52px;" v-html="item.personName"></p>
+                                            <p v-html="item.personTel"></p>
+                                        </div>
+                                        <div class="fruitCenter_p2 comfiedOrder2 border fruitCenter_Money" v-html="'￥'+item.money"></div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==1">未开票</div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==2">已开票</div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==3">已邮寄</div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==4">已退回</div>
+                                        <div class="comfiedOrder2 Gopay orderCon">
+                                            <a v-bind:href="'/business/'+item.ptype+'/'+item.orderId+'/'+item.flowType">去填写</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--暂无收件信息-->
+                                <div class="basicNoinfo" v-if="bussinessList.length==0">
+                                    <dl>
+                                        <dt><img src="/img/icon-emptystate.png" /></dt>
+                                        <dd>暂无此状态订单</dd>
+                                    </dl>
+                                </div>
+                                <div id="demo6" class="page userPage" v-show="bussinessList.length!=0"></div>
+                            </div>
+                            <div class="fruitCenter_Pending Order3 layui-tab-item" v-show="clType=='cl3'">
+                                <div class="fruitCenter_p">
+                                    <p class="fruitCenter_p1 comfiedOrder1">商品信息</p>
+                                    <p class="fruitCenter_p2 comfiedOrder2">用户名</p>
+                                    <p class="fruitCenter_p2 comfiedOrder2">金额</p>
+                                    <p class="fruitCenter_p3 comfiedOrder2">开发票</p>
+                                    <p class="fruitCenter_p3 comfiedOrder2">操作</p>
+                                </div>
+                                <div class="fruitCenter_Contract" v-for="item in UnPassList">
+                                    <div class="fruitCenter_gopay">
+                                        <p>合同号：<span v-html="item.contractCode"></span>&nbsp;&nbsp;&nbsp;
+                                            <span v-html="item.createTime"></span>
+                                        </p>
+                                    </div>
+                                    <div class="fruitCenter_orderlist">
+                                        <div class="fruitCenter_p1 comfiedOrder1 border fruitCenter_ordernum">
+                                            <p>订单号：<span v-html="item.orderCode"></span></p>
+                                            <dl>
+                                                <dt><img :src="!!item.picsSmall?ImgUrl+item.picsSmall:'/img/empty-no-image.png'" width="63" height="63"/></dt>
+                                                <dd>
+                                                    <h2 v-html="item.pname"></h2>
+                                                    <!--<span>小项数量：10</span>-->
+                                                    <!--<span v-html="item.pdetail||'暂未填写业务名称'">赔付服务：6个月保险</span>-->
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                        <div class="fruitCenter_p2 comfiedOrder2 border fruitCenter_name">
+                                            <p style=" margin-top:52px;" v-html="item.personName"></p>
+                                            <p v-html="item.personTel"></p>
+                                        </div>
+                                        <div class="fruitCenter_p2 comfiedOrder2 border fruitCenter_Money" v-html="'￥'+item.money"></div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==1">未开票</div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==2">已开票</div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==3">已邮寄</div>
+                                        <div class="fruitCenter_p3 comfiedOrder2 border fruitCenter_bill" v-if="item.billStatus==4">已退回</div>
+                                        <div class="comfiedOrder2 Gopay orderCon"><a v-bind:href="'/business/'+item.ptype+'/'+item.orderId+'/'+item.flowType">去填写</a></div>
+                                    </div>
+                                </div>
+                                <div id="demo7" class="page userPage"  v-show="UnPassList.length!=0"></div>
+                                <!--暂无收件信息-->
+                                <div class="basicNoinfo" v-if="UnPassList.length==0">
+                                    <dl>
+                                        <dt><img src="/img/icon-emptystate.png" /></dt>
+                                        <dd>暂无此状态订单</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <!-- 待收件 -->
+                <div class="Nopay ComCon2 layui-tab-item" v-show="showType==3">
+                    <div class="layui-tab layui-tab-card personCenter_all" lay-filter="demo" lay-allowclose="true" style="border:none;box-shadow:none;margin-left:0;">
+                        <div class="fruitCenter_nopay">
+                            <ol class="layui-tab-title">
+                                <!--<li class="recipientOrder1" v-bind:class="{'layui-this':sjType=='sj1'}" @click="OfficialDoc()">官文收件</li>-->
+                                <li class="recipientOrder2" v-bind:class="{'layui-this':sjType=='sj1'}" @click="InvoiceDoc()">发票收件</li>
+                            </ol>
+                        </div>
+                        <div class="fruitCenter_payment layui-tab-content" style="padding:0;">
+                            <!--<div class="fruitCenter_Pending recipient1 layui-tab-item layui-show" v-show="sjType=='sj1'">
+                                <div class="fruitCenter_p">
+                                    <p class="fruitCenter_p1 recipientOrder1">申请日期</p>
+                                    <p class="fruitCenter_p2 recipientOrder2">邮寄日期</p>
+                                    <p class="fruitCenter_p2 recipientOrder3">邮寄内容</p>
+                                    <p class="fruitCenter_p3 recipientOrder4">快递单号</p>
+                                    <p class="fruitCenter_p3 recipientOrder2">快递公司</p>
+                                    <p class="fruitCenter_p3 recipientOrder5">邮寄状态</p>
+                                    <p class="fruitCenter_p3 recipientOrder6">操作</p>
+                                </div>
+                                <div class="fruitCenter_Contract" v-for="item in fdataList">
+                                    &lt;!&ndash;<div class="fruitCenter_gopay">
+                                        <p>订单号：${item.appTime}</p>
+                                        &lt;!&ndash;<div class="Gopay">已收件</div>&ndash;&gt;
+                                    </div>&ndash;&gt;
+                                    <div class="fruitCenter_orderlist">
+                                        <div class="fruitCenter_p1 recipientOrder1 border fruitCenter_name">
+                                            <p style=" margin-top:52px;">${item.addTime}</p>
+                                        </div>
+                                        <div class="fruitCenter_p2 recipientOrder2 border fruitCenter_name">
+                                            <p style=" margin-top:52px;">${item.appTime}</p>
+                                        </div>
+                                        <div class="fruitCenter_p2 recipientOrder3 border fruitCenter_Money">顺丰快递</div>
+                                        <div class="fruitCenter_p3 recipientOrder4 border fruitCenter_bill">${item.expresscode}</div>
+                                        <div class="fruitCenter_p3 recipientOrder2 border fruitCenter_bill" style=" color: #000000;">${item.expressName}</div>
+                                        <div class="fruitCenter_p3 recipientOrder5 border fruitCenter_bill" v-if="item.expressStatus==0">已申请</div>
+                                        <div class="fruitCenter_p3 recipientOrder5 border fruitCenter_bill" v-if="item.expressStatus==1">支付成功</div>
+                                        <div class="fruitCenter_p3 recipientOrder5 border fruitCenter_bill" v-if="item.expressStatus==2">待邮寄</div>
+                                        <div class="fruitCenter_p3 recipientOrder5 border fruitCenter_bill" v-if="item.expressStatus==3">已邮寄</div>
+                                        <div class="fruitCenter_p3 recipientOrder5 border fruitCenter_bill" v-if="item.expressStatus==4">处理中</div>
+                                        <div class="recipientOrder6 Gopay Yirecipient"  id="LAY_unlock"><a @click="Official(item)">已收件</a></div>
+                                    </div>
+                                </div>
+                                &lt;!&ndash;暂无收件信息&ndash;&gt;
+                                <div class="basicNoinfo" v-if="fdataList.length==0">
+                                    <dl>
+                                        <dt><img src="/img/icon-emptystate.png" /></dt>
+                                        <dd>暂无此状态订单</dd>
+                                    </dl>
+                                </div>
+                                <div id="demo9" class="page userPage" v-show="fdataList.length!=0"></div>
+                            </div>-->
+                            <div class="fruitCenter_Pending recipient2" v-show="sjType=='sj1'">
+                                <div class="fruitCenter_p">
+                                    <p class="fruitCenter_p1 recipientOrder1">申请日期</p>
+                                    <p class="fruitCenter_p2 recipientOrder2">邮寄日期</p>
+                                    <p class="fruitCenter_p2 recipientOrder3">合同号</p>
+                                    <p class="fruitCenter_p3 recipientOrder4">快递单号</p>
+                                    <p class="fruitCenter_p3 recipientOrder2">快递公司</p>
+                                    <p class="fruitCenter_p3 recipientOrder5">邮寄状态</p>
+                                    <p class="fruitCenter_p3 recipientOrder6">操作</p>
+                                </div>
+                                <div class="fruitCenter_Contract" v-for="item in edataList">
+                                    <!--<div class="fruitCenter_gopay">
+                                        <p>合同号：<span v-html="item.contractCode"></span></p>
+                                    </div>-->
+                                    <div class="fruitCenter_orderlist">
+                                        <div class="fruitCenter_p1 recipientOrder1 border fruitCenter_name">
+                                            <p style=" margin-top:52px;" v-html="item.sqtime"></p>
+                                        </div>
+                                        <div class="fruitCenter_p2 recipientOrder2 border fruitCenter_name">
+                                            <p style=" margin-top:52px;" v-html="item.yjtime"></p>
+                                        </div>
+                                        <div class="fruitCenter_p2 recipientOrder3 border fruitCenter_Money" v-html="item.contractCode"></div>
+                                        <div class="fruitCenter_p3 recipientOrder4 border fruitCenter_bill fruit_express" v-html="item.expresscode"></div>
+                                        <div class="fruitCenter_p3 recipientOrder2 border fruitCenter_bill" style=" color: #000000;"  v-if="item.yjtype==0">邮政小包</div>
+                                        <div class="fruitCenter_p3 recipientOrder2 border fruitCenter_bill" style=" color: #000000;"  v-if="item.yjtype==1">顺丰快递</div>
+                                        <div class="fruitCenter_p3 recipientOrder2 border fruitCenter_bill" style=" color: #000000;"  v-if="item.yjtype==2">申通快递</div>
+                                        <div class="fruitCenter_p3 recipientOrder2 border fruitCenter_bill" style=" color: #000000;"  v-if="item.yjtype==3">邮政EMS</div>
+                                        <div class="fruitCenter_p3 recipientOrder2 border fruitCenter_bill" style=" color: #000000;"  v-if="item.yjtype==4">圆通快递</div>
+                                        <div class="fruitCenter_p3 recipientOrder2 border fruitCenter_bill" style=" color: #000000;"  v-if="item.yjtype==5">其他快递</div>
+                                         <div class="fruitCenter_p3 recipientOrder5 border fruitCenter_bill" v-if="item.billStatus==1">未开票</div>
+                                        <div class="fruitCenter_p3 recipientOrder5 border fruitCenter_bill" v-if="item.billStatus==2">已开票</div>
+                                        <div class="fruitCenter_p3 recipientOrder5 border fruitCenter_bill" v-if="item.billStatus==3">已邮寄</div>
+                                        <div class="fruitCenter_p3 recipientOrder5 border fruitCenter_bill" v-if="item.billStatus==4">已退回</div>
+                                        <div class="recipientOrder6 Gopay Yirecipient " id="LAY_recipient"><a class="recipient" @click="recipient(item)">已收件</a></div>
+                                    </div>
+                                </div>
+                                <!--暂无收件信息-->
+                                <div class="basicNoinfo" v-if="edataList.length==0">
+                                    <dl>
+                                        <dt><img src="/img/icon-emptystate.png" /></dt>
+                                        <dd>暂无此状态订单</dd>
+                                    </dl>
+                                </div>
+                                <div id="demo8" class="page userPage" v-show="edataList.length!=0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+</div>
+<script type="text/javascript" src="/js/getCookies.js"></script>
+<script type="text/javascript">
+    {{#session}}
+    {{#JSONparse user}}
+    {{#if payType}}
+    localStorage.isLogin = 'true'
+    {{/if}}
+    {{/JSONparse}}
+    {{/session}}
+    //var udata = {{{ uData }}};
+    var pdata = {{{ pData }}};
+
+    //var tdata = {{{ tData }}};
+    //console.log(tdata.data.list);
+    //var cdata = {{{ cData }}};
+    //var bdata = {{{ bData }}};
+   /// var ndata = {{{ nData }}};
+   // var edata = {{{ eData }}};
+    //var fdata = {{{ fData }}};
+    /*var mdata = {{{ mData }}};
+     var odata = {{{ oData }}};
+    var gdata = {{{ gData }}};*/
+    var user_homeVM = new Vue({
+        el:'#user_main',
+        delimiters:["${", "}"],
+        data:{
+            showType:'1',
+            fkType:'fk1',
+            clType:'cl1',
+            sjType:'sj1',
+            //udata:udata.data,
+            udata:'',
+            addUserCenterList:[],
+            bussinessList:[],
+            fdataList:[],
+            edataList:[],
+           // addUserCenterList:tdata.data.list,
+            //totalPage4:tdata.data.totalPage,
+           // totalCount4:tdata.data.totalCount,
+            totalPage1:'',
+            totalCount1:'',
+            totalPage3:'',
+            totalCount3:'',
+            totalCount5:'',
+            totalPage5:"",
+            totalCount6:'',
+            totalPage6:"",
+            totalCount7:'',
+            totalPage7:"",
+            totalCount8:'',
+            totalPage8:"",
+            totalPage9:"",
+            totalCount9:"",
+            totalPage:pdata.data.totalPage,
+            totalCount:pdata.data.totalCount,
+            isloading:false,
+            currentPage:1,
+            currentPage1:1,
+            currentPage2:1,
+            currentPage3:1,
+            currentPage4:1,
+            currentPage5:1,
+            currentPage6:1,
+            isClickLastPage:false,
+            convertUserOrderList:pdata.data.list,
+            pType:0,
+            pStatus:"3",
+            ImgUrl:zgg.Vconfig.ImgUrl,
+            cdataList:[],
+            UnPassList:'',
+            userBalance:'',
+            OrderMoneyInfo:'',
+            //totalCount1:cdata.data.totalCount,
+            // totalPage1:10,
+              //totalCount2:bdata.data.totalCount,
+             // totalPage2:10,
+              // totalCount3:bdata.data.totalCount,
+             //  totalPage3:10,
+          //totalCount1:cdata.data.totalCount,
+          //totalPage1:cdata.data.totalPage,
+          //  bussinessList:bdata.data.list,
+          //  totalCount2:bdata.data.totalCount,
+          //  totalPage2:bdata.data.totalPage,
+         //   UnPassList:ndata.data.list,
+         //   totalCount3:bdata.data.totalCount,
+         //   totalPage3:bdata.data.totalPage,
+         //   edataList:edata.data.list,
+         //   fdataList:fdata.data.list,
+            /*mdataList:mdata.data.list,
+            odataList:[],
+            gdata:gdata.data,
+            addressList:[],
+            seeMainMsg:{
+                zgExpressMail:{},
+                zgExpressList:{},
+                zgExpressMailOrderList:{},
+            },
+            ImgUrl:zgg.Vconfig.ImgUrl,
+            gwDownloadFielUrl:zgg.Vconfig.gwDownloadFielUrl,
+            currentPage:1*/
+        },
+        created(){
+          console.log(this);
+          this.getPersonMainInfo();
+        },
+        methods:{
+
+            //去支付判断合同是否删除
+            Gopay:function(contract,orderId){
+                var user = JSON.parse(getCookie('_zg_user'));
+                var uid = parseInt(user.id)
+                axios.post('/userCenter/validateOrderIfSameUserByOrderId/',{"id":orderId, "uid": uid}).then(function(res){
+                    if(!res.data.success){
+                        layui.use('layer',function(){
+                            layer.open({
+                                title: '提示',
+                                content: "<div>"+ res.data.message +"</div>"
+                            })
+                        })
+                    }else{
+                        axios.post('/order/getPayInfoByContractCode/',{contractCode:contract}).then(function (res) {
+                            if(res.data.success) {
+                                window.open('/order/repayment/'+contract+'/'+orderId);
+                            }
+                        })
+                    }
+                })
+
+            },
+
+            /*个人信息展示*/
+            getPersonMainInfo:function(){
+                axios.post('/userCenter/personMainInfo').then(function (res) {
+                    if(res.data.success && res.data.data){
+                        user_homeVM.udata = res.data.data;
+                    }
+                },function (err) {
+                    layer.msg(err, {
+                        icon: 5
+                        ,time: 3*1000 //3s后自动消失
+                    })
+                }
+            )},
+
+            //代付款订单列表
+            getPagesData:function( ){
+                //{payStatus:this.pType,pageNo:_self.currentPage,pageSize:10};
+                var _params = {
+                                "pageParam":{
+                                  "pageNo":user_homeVM.currentPage,
+                                  "pageSize":"10"
+                                },
+                                "payStatus":user_homeVM.pType}
+                axios.post('/userCenter/getZgOrderNnpaid',_params).then(
+                    function (res) {
+                        if(res.data.success && res.data.data){
+                            user_homeVM.convertUserOrderList = res.data.data.list;
+                            if(user_homeVM.currentPage == 1 || user_homeVM.isClickLastPage){
+                                user_homeVM.totalPage =res.data.data.totalPage;
+                                user_homeVM.totalCount = res.data.data.totalCount;
+                                user_homeVM.pages();
+                            }
+                        }
+                    },
+                    function (err) {
+                        layer.msg(err, {
+                            icon: 5
+                            ,time: 3*1000 //3s后自动消失
+                        })
+                    }
+                )
+            },
+
+            //订单补款
+            getOrderAppend:function( ){
+                //{payStatus:this.pType,pageNo:_self.currentPage,pageSize:10};
+                var _params = {
+                    "pageParam":{
+                        "pageNo":user_homeVM.currentPage1,
+                        "pageSize":"10"
+                    },
+                    }
+                axios.post('/userCenter/getZgOrderAppend',_params).then(
+                        function (res) {
+                            if(res.data.success && res.data.data){
+                                user_homeVM.addUserCenterList = res.data.data.list;
+                                /*user_homeVM.totalPage3 = res.data.data.totalPage;
+                                console.log(res.data.data.totalCount);
+                                user_homeVM.totalCount3 = res.data.data.totalCount;*/
+                                if(user_homeVM.currentPage1 == 1 || user_homeVM.isClickLastPage){
+                                    user_homeVM.totalPage3 = res.data.data.totalPage;
+                                    user_homeVM.totalCount3 = res.data.data.totalCount;
+                                    user_homeVM.pages4();
+                                }
+                            }
+                        },
+                        function (err) {
+                            layer.msg(err, {
+                                icon: 5
+                                ,time: 3*1000 //3s后自动消失
+                            })
+                        }
+                )
+            },
+
+            //待确认订单
+            orderComfied:function(){
+                var _params = {
+                    "pageParam":{
+                        "pageNo":user_homeVM.currentPage2,
+                        "pageSize":"10"
+                    },
+                }
+                //console.log(user_homeVM.totalCount1)
+                axios.post('/userCenter/getZgOrderBeConfirmList',_params).then(
+                        function (res) {
+                            if(res.data.success && res.data.data){
+                                user_homeVM.cdataList = res.data.data.list;
+                                /*user_homeVM.totalPage1 = res.data.data.totalPage;
+                                user_homeVM.totalCount1 = res.data.data.totalCount;*/
+                                if(user_homeVM.currentPage2 == 1 || user_homeVM.isClickLastPage){
+                                    user_homeVM.totalPage1 = res.data.data.totalPage;
+                                    user_homeVM.totalCount1 = res.data.data.totalCount;
+                                    user_homeVM.pages1();
+                                }
+                            }
+                        },
+                        function (err) {
+                            layer.msg(err, {
+                                icon: 5
+                                ,time: 3*1000 //3s后自动消失
+                            })
+                        }
+                )
+            },
+
+            //业务填写
+            orderBusiness:function(){
+                var _params = {
+                    "pageParam":{
+                        "pageNo":user_homeVM.currentPage3,
+                        "pageSize":"10"
+                    },
+                }
+                //console.log(user_homeVM.totalCount1)
+                axios.post('/userCenter/getZgOrderBusinessList',_params).then(
+                        function (res) {
+                            if(res.data.success && res.data.data){
+                                user_homeVM.bussinessList = res.data.data.list;
+                                /*user_homeVM.totalPage6 = res.data.data.totalPage;
+                                user_homeVM.totalCount6 = res.data.data.totalCount;*/
+                                if(user_homeVM.currentPage3 == 1 || user_homeVM.isClickLastPage){
+                                    user_homeVM.totalPage6 = res.data.data.totalPage;
+                                    user_homeVM.totalCount6 = res.data.data.totalCount;
+                                    user_homeVM.pages2();
+                                }
+                            }
+                        },
+                        function (err) {
+                            layer.msg(err, {
+                                icon: 5
+                                ,time: 3*1000 //3s后自动消失
+                            })
+                        }
+                )
+            },
+
+            //审核未通过列表
+            UnPassListData:function(){
+                var _params = {
+                    "pageParam":{
+                        "pageNo":user_homeVM.currentPage4,
+                        "pageSize":"10"
+                    },
+                }
+                //console.log(user_homeVM.totalCount1)
+                axios.post('/userCenter/getZgOrderUnPassList',_params).then(
+                        function (res) {
+                            if(res.data.success && res.data.data){
+                                user_homeVM.UnPassList = res.data.data.list;
+                                /*user_homeVM.totalPage7 = res.data.data.totalPage;
+                                user_homeVM.totalCount7 = res.data.data.totalCount;*/
+                                if(user_homeVM.currentPage4 == 1 || user_homeVM.isClickLastPage){
+                                    user_homeVM.totalPage7 = res.data.data.totalPage;
+                                    user_homeVM.totalCount7 = res.data.data.totalCount;
+                                    user_homeVM.pages3();
+                                }
+                            }
+                        },
+                        function (err) {
+                            layer.msg(err, {
+                                icon: 5
+                                ,time: 3*1000 //3s后自动消失
+                            })
+                        }
+                )
+            },
+
+            //官文收件
+            /*OfficialDoc:function(){
+                var _params = {
+                    "pageParam":{
+                        "pageNo":user_homeVM.currentPage5,
+                        "pageSize":"10"
+                    },
+                }
+                axios.post('/userCenter/OfficialDoc',_params).then(
+                        function (res) {
+                            if(res.data.success && res.data.data){
+                                user_homeVM.fdataList = res.data.data.list;
+                                /!*user_homeVM.totalPage8 = res.data.data.totalPage;
+                                user_homeVM.totalCount8 = res.data.data.totalCount;*!/
+                                if(user_homeVM.currentPage5 == 1 || user_homeVM.isClickLastPage){
+                                    user_homeVM.totalPage8 = res.data.data.totalPage;
+                                    user_homeVM.totalCount8 = res.data.data.totalCount;
+                                    user_homeVM.pages6();
+                                }
+                            }
+                        },
+                        function (err) {
+                            layer.msg(err, {
+                                icon: 5
+                                ,time: 3*1000 //3s后自动消失
+                            })
+                        }
+                )
+            },*/
+
+            //发票收件
+            InvoiceDoc:function(){
+              var _params = {
+                    "pageParam":{
+                        "pageNo":user_homeVM.currentPage6,
+                        "pageSize":"10"
+                    },
+                }
+                axios.post('/userCenter/getZgExpressMailList',_params).then(
+                        function (res) {
+                            if(res.data.success && res.data.data){
+                                user_homeVM.edataList = res.data.data.list;
+                               /* user_homeVM.totalPage9 = res.data.data.totalPage;
+                                user_homeVM.totalCount9 = res.data.data.totalCount;*/
+                                if(user_homeVM.currentPage6 == 1 || user_homeVM.isClickLastPage){
+                                    user_homeVM.totalPage9 = res.data.data.totalPage;
+                                    user_homeVM.totalCount9 = res.data.data.totalCount;
+                                    user_homeVM.pages5();
+                                }
+                            }
+                        },
+                        function (err) {
+                            layer.msg(err, {
+                                icon: 5
+                                ,time: 3*1000 //3s后自动消失
+                            })
+                        }
+                )
+            },
+
+            //发票收件确认收件
+            recipient:function(item){
+              layer.open({
+                    type: 1,
+                    title: "确认收件",//false不显示标题栏,
+                    area: '480px;',
+                    shade: 0.6,
+                    id: 'LAY_layuipro' ,//设定一个id，防止重复弹出,
+                    btn: ['取消', '确定'],
+                    moveType: 1 ,//拖拽模式，0或者1,
+                    content: '<div style="padding:30px 25px;font-size: 16px;color: #2a2a2a;">请确认收件</div>',
+                    success: function (layero) {
+                    },
+                    btn1:function(layero){
+                        layer.closeAll();
+                    },
+                    btn2:function(layero){
+                        axios.post('/userCenter/recipient/',{fId:item.fId}).then(
+                                function(res){
+                                    if(res.data.code ==0 ){
+                                        layer.msg("确认收件成功", {
+                                            icon: 1
+                                            ,time: 3*1000 //3s后自动消失
+                                        })
+                                        //item.expressStatus = 5;
+                                        user_homeVM.edataList.splice(user_homeVM.edataList.indexOf(item), 1);
+                                        if (user_homeVM.edataList.length != 0 && user_homeVM.currentPage6 != 1) {
+                                            user_homeVM.InvoiceDoc();
+                                            user_homeVM.getPersonMainInfo();
+                                        }
+                                        if (user_homeVM.edataList.length == 0 && user_homeVM.currentPage6 != 1) {
+                                            user_homeVM.currentPage6 = user_homeVM.currentPage6 - 1;
+                                            user_homeVM.InvoiceDoc();
+                                            user_homeVM.getPersonMainInfo();
+                                        }
+                                        if (user_homeVM.currentPage6 == 1) {
+                                            user_homeVM.InvoiceDoc();
+                                            user_homeVM.getPersonMainInfo();
+                                        }
+                                    }
+                                },
+                                function(err){
+                                }
+                        )
+                    }
+                })
+            },
+
+            //删除合同
+            deleteContract:function (item) {
+                var _self = this;
+                layer.open({
+                    type: 1,
+                    title: "删除合同",//false不显示标题栏,
+                    area: '480px;',
+                    shade: 0.6,
+                    id: 'LAY_layuipro_delete' ,//设定一个id，防止重复弹出,
+                    btn: ['取消', '确定'],
+                    moveType: 1 ,//拖拽模式，0或者1,
+                    content: '<div style="padding:30px 25px;font-size: 16px;color: #2a2a2a;">尊敬的用户：该合同下的所有订单将被删除，是否继续？</div>',
+                    success: function (layero) {
+                    },
+                    btn1:function(layero){
+                        layer.closeAll();
+                    },
+                    btn2:function(layero){
+                        axios.post('/userCenter/deleteContract',{contractCode:item.contractCode}).then(
+                                function (res) {
+                                    if (res.data.code == 0) {
+                                        layer.msg("合同" + item.contractCode + "删除成功", {
+                                            icon: 1
+                                            , time: 3 * 1000 //3s后自动消失
+                                        })
+                                        user_homeVM.convertUserOrderList.splice(user_homeVM.convertUserOrderList.indexOf(item), 1);
+                                        //user_homeVM.getPersonMainInfo();
+                                        //如果删除合同是最后一条重新获取数据
+                                        if (user_homeVM.convertUserOrderList.length != 0 && user_homeVM.currentPage != 1) {
+                                            user_homeVM.getPagesData();
+                                            user_homeVM.udata.unPay = user_homeVM.udata.unPay - 1;
+                                            //user_homeVM.getPersonMainInfo();
+                                            /*axios.post('/userCenter/getZgOrderNnpaid', {
+                                                //keyWord: this.keywords,
+                                                payStatus: user_homeVM.pType,
+                                                pageNo: user_homeVM.currentPage,
+                                                pageSize: 10
+                                            }).then(
+                                                    function (res) {
+                                                        if (res.data.success && res.data.data) {
+                                                            _self.convertUserOrderList = res.data.data.list;
+                                                            user_homeVM.totalPage = user_homeVM.currentPage;
+                                                            user_homeVM.totalCount = res.data.data.totalCount;
+                                                            _self.pages();
+                                                        }
+                                                    },
+                                                    function (err) {
+                                                        layer.msg(err, {
+                                                            icon: 5
+                                                            , time: 3 * 1000 //3s后自动消失
+                                                        })
+                                                    }
+                                            )*/
+                                        }
+                                        if (user_homeVM.convertUserOrderList.length == 0 && user_homeVM.currentPage != 1) {
+                                            user_homeVM.currentPage = user_homeVM.currentPage - 1;
+                                            user_homeVM.isClickLastPage = true;
+                                            user_homeVM.getPagesData();
+                                            //user_homeVM.getPersonMainInfo();
+                                            user_homeVM.udata.unPay = user_homeVM.udata.unPay - 1;
+                                            /*axios.post('/userCenter/getZgOrderNnpaid', {
+                                                //keyWord: this.keywords,
+                                                payStatus: user_homeVM.pType,
+                                                pageNo: user_homeVM.currentPage,
+                                                pageSize: 10
+                                            }).then(
+                                                    function (res) {
+                                                        if (res.data.success && res.data.data) {
+                                                            _self.convertUserOrderList = res.data.data.list;
+                                                            user_homeVM.totalPage = user_homeVM.currentPage;
+                                                            user_homeVM.totalCount = res.data.data.totalCount;
+                                                            _self.pages();
+                                                            if (user_homeVM.currentPage == 1) {
+                                                                $(".layui-this").click();
+                                                            }
+                                                        }
+                                                    },
+                                                    function (err) {
+                                                        layer.msg(err, {
+                                                            icon: 5
+                                                            , time: 3 * 1000 //3s后自动消失
+                                                        })
+                                                    }
+                                            )*/
+                                        }
+                                        if (user_homeVM.currentPage == 1) {
+                                            user_homeVM.getPagesData();
+                                            //user_homeVM.getPersonMainInfo();
+                                            user_homeVM.udata.unPay = user_homeVM.udata.unPay - 1;
+                                            /*axios.post('/userCenter/getZgOrderNnpaid', {
+                                               // keyWord: this.keywords,
+                                                payStatus: user_homeVM.pType,
+                                                pageNo: user_homeVM.currentPage,
+                                                pageSize: 10
+                                            }).then(
+                                                    function (res) {
+                                                        if (res.data.success && res.data.data) {
+                                                            _self.convertUserOrderList = res.data.data.list;
+                                                            user_homeVM.totalPage = user_homeVM.currentPage;
+                                                            user_homeVM.totalCount = res.data.data.totalCount;
+                                                            $(".layui-this").click();
+                                                        }
+                                                    },
+                                                    function (err) {
+                                                        layer.msg(err, {
+                                                            icon: 5
+                                                            , time: 3 * 1000 //3s后自动消失
+                                                        })
+                                                    }
+                                            )*/
+                                        }
+                                    }
+                                },
+                                function (err) {
+                                }
+                        )
+                    }
+                })
+            },
+
+            //官文收件确认收件
+            /*Official:function (item) {
+                console.log(item);
+                layer.open({
+                    type: 1,
+                    title: "确认收件",//false不显示标题栏,
+                    area: '480px;',
+                    shade: 0.6,
+                    id: 'LAY_layuipro' ,//设定一个id，防止重复弹出,
+                    btn: ['取消', '确定'],
+                    moveType: 1 ,//拖拽模式，0或者1,
+                    content: '<div style="padding:30px 25px;font-size: 16px;color: #2a2a2a;">请确认收件</div>',
+                    success: function (layero) {
+                    },
+                    btn1:function(layero){
+                        layer.closeAll();
+                    },
+                    btn2:function(layero){
+                        axios.post('/userCenter/Official/',{id:item.id}).then(
+                                function(res){
+                                    if(res.data.code ==0 ){
+                                        layer.msg("确认收件成功", {
+                                            icon: 1
+                                            ,time: 3*1000 //3s后自动消失
+                                        })
+                                        //item.expressStatus = 5;
+                                        user_homeVM.OfficialDoc();
+                                        user_homeVM.getPersonMainInfo();
+                                    }
+                                },
+                                function(err){
+                                }
+                        )
+                    }
+                })
+            },*/
+
+
+            //订单补款删除
+            del:function (id,oid) {
+                var user = JSON.parse(getCookie('_zg_user'));
+                var uid = parseInt(user.id)
+                axios.post('/userCenter/validateOrderIfSameUserByOrderId/',{"id":oid, "uid": uid}).then(function(res){
+                    if(!res.data.success){
+                        layui.use('layer',function(){
+                            layer.open({
+                                title: '提示',
+                                content: "<div>"+ res.data.message +"</div>"
+                            })
+                        })
+                    }else{
+                        layui.use('layer',function() {
+                            layer.confirm('你确定删除此条订单吗？', {
+                                btn: ['取消','确定'] //按钮
+                            }, function(){
+                                layer.closeAll();
+                            }, function(){
+                                axios.get('/userCenter/delComfirmedOrder/'+id).then(
+                                    function (res) {
+                                        if( res.data && res.data.success ){
+                                            layer.msg('删除成功',{icon:1});
+                                            //window.location.href='/userCenter/home';
+                                            user_homeVM.getOrderAppend();
+                                            user_homeVM.getPersonMainInfo();
+                                        }
+                                    }
+                                )
+                            });
+                        })
+                    }
+                })
+              /*layui.use('layer',function() {
+                layer.confirm('你确定删除此条订单吗？', {
+                  btn: ['取消','确定'] //按钮
+                }, function(){
+                  layer.closeAll();
+                }, function(){
+                  axios.get('/userCenter/delComfirmedOrder/'+id).then(
+                    function (res) {
+                      if( res.data && res.data.success ){
+                        layer.msg('删除成功',{icon:1});
+                        //window.location.href='/userCenter/home';
+                        user_homeVM.getOrderAppend();
+                        user_homeVM.getPersonMainInfo();
+                      }
+                    }
+                  )
+                });
+              })*/
+              
+            },
+
+            //订单补款去支付
+            payDifference:function (item,orderId) {
+                var user = JSON.parse(getCookie('_zg_user'));
+                var uid = parseInt(user.id)
+                axios.post('/userCenter/validateOrderIfSameUserByOrderId/',{"id":orderId, "uid": uid}).then(function(res){
+                    if(!res.data.success){
+                        layui.use('layer',function(){
+                            layer.open({
+                                title: '提示',
+                                content: "<div>"+ res.data.message +"</div>"
+                            })
+                        })
+                    }else{
+                        axios.get('/userCenter/getBalance').then(
+                                function (res) {
+                                    if( res.data && res.data.success ){
+                                        debugger;
+                                        user_homeVM.userBalance = res.data.data
+                                        user_homeVM.getComfirmedOrderDetail(item)
+                                    }
+                                }
+                        )
+                    }
+                })
+
+          
+            },
+
+            //获取待确认订单信息
+
+            getComfirmedOrderDetail:function (item) {
+                user_homeVM.OrderMoneyInfo = item.money
+                layer.open({
+                    type: 1,
+                    title: "<span class='titleFlag'></span>支付信息",//false不显示标题栏,
+                    area: '646px;',
+                    shade: 0.6,
+                    id: 'modifyOrder' ,//设定一个id，防止重复弹出,
+                    btn: ['取消', '确定'],
+                    moveType: 1 ,//拖拽模式，0或者1,
+                    content: $("#modifyTip"),
+                    success: function (layero) {
+                    },
+                    btn1:function(layero){
+                        layer.closeAll();
+                    },
+                    btn2:function(layero){
+                        axios.post('/userCenter/payDifference',{comcode:item.contractcode,orderid:item.orderid,bid:item.bid}).then(
+                                function (res) {
+                                    if(res.data && res.data.success){
+                                        layer.msg('支付成功',{icon:1});
+                                        //window.location.href='/userCenter/home';
+                                        user_homeVM.getOrderAppend();
+                                        user_homeVM.getPersonMainInfo();
+                                    }
+                                }
+                        )
+                    }
+                })
+
+            },
+          //全部订单分页
+          //待付款
+          pages:function () {
+            layui.use(['laypage', 'layer'], function(){
+                var laypage = layui.laypage,
+                        layer = layui.layer;
+                laypage({
+                    cont: 'demo4',
+                    curr: user_homeVM.currentPage,
+                    pages: Math.ceil(parseInt(user_homeVM.totalCount)/10),
+                    skip: true,
+                    first: false,
+                    last: false,
+                    groups:5,
+                    jump: function (e) {
+                        if(e.curr !=1 || user_homeVM.currentPage>1){
+                            user_homeVM.currentPage = e.curr;
+                            user_homeVM.getPagesData();
+                        }
+                    }
+                });
+            })
+          },
+          //待确认订单
+          pages1:function () {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                    laypage({
+                        cont: 'demo5',
+                        curr: user_homeVM.currentPage2,
+                        pages: Math.ceil(parseInt(user_homeVM.totalCount1)/10),
+                        skip: true,
+                        first: false,
+                        last: false,
+                        groups:5,
+                        jump: function (e) {
+                            if(e.curr !=1 || user_homeVM.currentPage2>1){
+                                user_homeVM.currentPage2 = e.curr;
+                                user_homeVM.orderComfied();
+                            }
+                        }
+                    });
+                })
+            },
+          //业务填写
+          pages2:function () {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                    laypage({
+                        cont: 'demo6',
+                        curr: user_homeVM.currentPage3,
+                        pages: Math.ceil(parseInt(user_homeVM.totalCount6)/10),
+                        skip: true,
+                        first: false,
+                        last: false,
+                        groups:5,
+                        jump: function (e) {
+                            if(e.curr !=1 || user_homeVM.currentPage3>1){
+                                user_homeVM.currentPage3 = e.curr;
+                                user_homeVM.orderBusiness();
+                            }
+                        }
+                    });
+                })
+            },
+          //审核未通过
+          pages3:function () {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                    laypage({
+                        cont: 'demo7',
+                        curr: user_homeVM.currentPage4,
+                        pages: Math.ceil(parseInt(user_homeVM.totalCount7)/10),
+                        skip: true,
+                        first: false,
+                        last: false,
+                        groups:5,
+                        jump: function (e) {
+                            if(e.curr !=1 || user_homeVM.currentPage4>1){
+                                user_homeVM.currentPage4 = e.curr;
+                                user_homeVM.UnPassListData();
+                            }
+                        }
+                    });
+                })
+            },
+          //订单补款
+          pages4:function () {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                    laypage({
+                        cont: 'demo3',
+                        curr: user_homeVM.currentPage1,
+                        pages: Math.ceil(parseInt(user_homeVM.totalCount3)/10),
+                        skip: true,
+                        first: false,
+                        last: false,
+                        groups:5,
+                        jump: function (e) {
+                            if(e.curr !=1 || user_homeVM.currentPage1>1){
+                                user_homeVM.currentPage1 = e.curr;
+                                user_homeVM.getOrderAppend();
+                            }
+                        }
+                    });
+                })
+            },
+          //发票收件
+          pages5:function () {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                    laypage({
+                        cont: 'demo8',
+                        curr: user_homeVM.currentPage6,
+                        pages: Math.ceil(parseInt(user_homeVM.totalCount9)/10),
+                        skip: true,
+                        first: false,
+                        last: false,
+                        groups:5,
+                        jump: function (e) {
+                            if(e.curr !=1 || user_homeVM.currentPage6>1){
+                                user_homeVM.currentPage6 = e.curr;
+                                user_homeVM.InvoiceDoc();
+                            }
+                        }
+                    });
+                })
+            },
+          //官文收件
+         /* pages6:function () {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                    laypage({
+                        cont: 'demo9',
+                        curr: user_homeVM.currentPage5,
+                        pages: Math.ceil(parseInt(user_homeVM.totalCount8)/10),
+                        skip: true,
+                        first: false,
+                        last: false,
+                        groups:5,
+                        jump: function (e) {
+                            if(e.curr !=1 || user_homeVM.currentPage5>1){
+                                user_homeVM.currentPage5 = e.curr;
+                                user_homeVM.OfficialDoc();
+                            }
+                        }
+                    });
+                })
+            },   */
+        },
+    });
+
+
+    /*layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+                ,layer = layui.layer;
+        laypage({
+            cont: 'demo4',
+            curr: odata.totalPage,
+            pages: Math.ceil(parseInt(odata.data.totalCount)/5),
+            skip: false,
+            first: 1,
+            last: Math.ceil(parseInt(odata.data.totalCount)/5),
+            groups:3,
+            prev:false,
+            next:false,
+            jump: function (e) {
+                user_homeVM.currentPage = e.curr;
+                user_homeVM.page();
+            }
+        });
+    });*/
+    $(function(){
+
+         function TabChanges(ChangesEle,elseEle){
+        $('.'+elseEle).addClass('fruitCenter_click').siblings().removeClass('fruitCenter_click');
+        $('.'+ChangesEle).show().siblings().hide();
+
+    }
+/*
+        function fruit_centerMy() {
+            $('.fruit_centerMy').on('mouseenter',function(){
+                $(this).find('img').attr('src','../img/confimMore_up.png');
+                $('.fruit_centerNav').stop().slideDown();
+            });
+            $('.fruit_centerMy').on('mouseleave',function(){
+                $(this).find('img').attr('src','../img/confimMore.png');
+                $('.fruit_centerNav').stop().slideUp();
+            });
+        }*/
+
+       /* fruit_centerMy();
+
+        function fruit_cancel() {
+            var class_name = '#layui-cancel .layui-cancel';
+            var layer_type = {
+                type: 1,
+                title: "取消邮寄",//false不显示标题栏,
+                // closeBtn: false,是否显示头部删除按钮
+                area: '480px;',
+                shade: 0.6,
+                id: 'LAY_layuipro' ,//设定一个id，防止重复弹出,
+                btn: ['取消', '确定'],
+                moveType: 1 ,//拖拽模式，0或者1,
+                content: '<div style="padding:30px 25px;font-size: 16px;color: #2a2a2a;">您确定取消邮寄吗？</div>   ',
+                success: function (layero) {
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.css('text-align', 'center');
+                    btn.find('.layui-layer-btn0').attr({
+                        href: '#',
+                        target: ''
+                    });
+                }
+            }
+            layuiopen(class_name,layer_type);
+        }
+
+        fruit_cancel();
+
+
+        function fruit_details() {
+            var class_name = '#layui-details .layui-details';
+            var layer_type = {
+                type: 1,
+                title: "邮寄详情",//false不显示标题栏,
+                // closeBtn: false,是否显示头部删除按钮
+                area: '650px;',
+                shade: 0.6,
+                id: 'LAY_layuipro' ,//设定一个id，防止重复弹出,
+                moveType: 1 ,//拖拽模式，0或者1,
+                content: '<div class="fruit_centerDetail">' +
+                '<div class="fruit_centerTitle">商标局已下发的官方文书，本次邮件的快递内容如下</div>' +
+                '<table>' +
+                '<tr>' +
+                '<th>订单号</th><th>申请号</th><th>商标名称</th><th>商标类别</th><th>公司名称</th>' +
+                '<tr class="fruit_centerTr">' +
+                '<td>tr14387265938753</td><td>123456</td><td>拍脑壳</td><td>10</td><td>知果果科技有限公司</td>' +
+                '</tr>' +
+                '</tr>' +
+                '</table>'+
+                '<ul>' +
+                '<li>快递单号：<span>1234667899</span><button>复制</button></li>' +
+                '<li>快递公司：<span>EMS / 客服：111999 / 官网：</span><span style="color:#49a5de">WWW.SHUNFENG.COM</span></li>' +
+                '<li>收件人姓名：<span>知果果</span></li>' +
+                '<li>收件人电话：<span>182 0000 0000</span></li>' +
+                '<li>收件人地址：<span>北京市海淀区苏州街知识产权大厦A座6层608</span></li>' +
+                '</ul>' +
+                '</div>',
+                success: function (layero) {
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.css('text-align', 'center');
+                    btn.find('.layui-layer-btn0').attr({
+                        href: '#',
+                        target: ''
+                    });
+                }
+            }
+            layuiopen(class_name,layer_type);
+        }
+
+        fruit_details();
+*/
+
+
+    })
+user_homeVM.pages();
+user_homeVM.pages1();
+user_homeVM.pages2();
+user_homeVM.pages3();
+user_homeVM.pages4();
+user_homeVM.pages5();
+/*user_homeVM.pages6();*/
+/*user_homeVM.OfficialDocument();*/
+</script>

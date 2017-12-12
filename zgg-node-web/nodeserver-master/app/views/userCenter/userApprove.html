@@ -1,0 +1,99 @@
+{{> head}}
+<link rel="stylesheet" href="../css/words_Copyright.css"/>
+<link rel="stylesheet" href="../css/personalReal.css"/>
+<style>
+    .img_bg1{
+        background: url(/img/icon_through.png)no-repeat right;
+        padding-top: 40px;
+    }
+    .img_bg2{
+        background:url(/img/icon_nopending.png) no-repeat right;
+        padding-top: 40px;
+    }
+    .img_bg3{
+        background:url(/img/icon_pending.png) no-repeat right;
+        padding-top: 40px;
+    }
+    .h2_title{
+        font-size: 20px;
+        color: #2a2a2a;
+        border-left: 4px solid #a34a51;
+        height: 19px;
+        line-height: 19px;
+        padding-left: 5px;
+    }
+</style>
+
+<div v-cloak id="userMsg" class="personCenter_all layui-tab-card" style="padding: 20px;box-sizing: border-box;background: #fff;">
+    <div style="position: relative" v-if="userData.checkStatus==0" class="words_tit"><img src="../img/icon-unauthorized@2x.png" width="30" height="24">未认证
+        <!--<li v-if="btnShow" style="position: absolute;top: -50px;right: 15px;" class="personalId_submit" @click="userData.checkStatus=numData;"><a>返回</a></li>-->
+    </div>
+    <div v-if="userData.checkStatus==0" class="realName_wrap">
+        <div class="realName_content">
+            <div class="realName_type">请选择您需要的实名类型：</div>
+            <div class="f_l realName_left">
+                <h3>个人实名</h3>
+                <p>每张身份证仅可支持5个账户使用，且认证通过后信息不能修改。</p>
+                <span class="f_l">
+                支持大陆个人实名<br/>
+                支持港澳台个人实名
+            </span>
+                <a class="_mian_btn2" style="background: url(../img/cer-botton@2x.png) no-repeat center;" href="/userCenter/personApprove">立即申请</a>
+            </div>
+            <div class="f_r realName_left realName_right">
+                <h3>企业实名</h3>
+                <p>每份证件仅可支持5个账户使用，认证通过后营业执照<br/>
+                    将在店铺中进行展示且认证通过后信息不能修改。 </p>
+                <span class="f_l">
+                支持大陆企业实名<br/>
+                <!--支持境外企业实名-->
+            </span>
+                <a class="_mian_btn2" style="background: url(../img/cer-botton-1@2x.png) no-repeat center;" href="/userCenter/companyApprove">立即申请</a>
+            </div>
+        </div>
+    </div>
+    <div v-if="userData.checkStatus!=0" name="a" class="layui-tab-item layui-show">
+        <h2 class="h2_title">实名认证信息</h2>
+        <div style="padding: 20px 0 0 50px;" id="enterpriseInfo">
+            <div v-if="userData.checkStatus==1" class="enterpriseInfo-tip"><img style="width:16px;height:16px;margin:-3px 2px 0 0;" src="../img/1.png" alt="">您目前无法修改已认证的主体信息，如需修改请联系您的专属顾问！</div>
+            <div class="enterpriseInfo-l">
+               <ul :class="{img_bg1:userData.checkStatus==1,img_bg2:userData.checkStatus==2,img_bg3:userData.checkStatus==3}">
+                    <li v-if="userData.type==2">企业名称：<span>${userData.companyname}</span></li>
+                    <li v-if="userData.type==2">营业执照：<span class="address">
+                        <img style="height: 142px;width: 224px;margin: 10px;" :src="ImgIp+userData.blicensePic" alt="">
+                        </span></li>
+                    <li v-if="userData.type==1">真实姓名：<span>${userData.contactName}</span></li>
+                    <li v-if="userData.type==1">身份证照：<span class="address">
+                        <img style="height: 142px;width: 224px;margin: 10px;" :src="ImgIp+userData.idcardBackend" alt="">
+                        <img style="height: 142px;width: 224px;margin: 10px;" :src="ImgIp+userData.idcardFrontend" alt="">
+                    </span>
+                    </li>
+                    <!--重新认证可以选择个人或公司<li v-if="userData.checkStatus!=1" class="personalId_submit" @click="userData.checkStatus=0;btnShow=true;"><a style="background: #a34a51;">重新认证</a></li>-->
+                   <!--重新认证，不能选择个人或公司,默认为之前选择的认证主体-->
+                    <li v-if="userData.checkStatus!=1" class="personalId_submit">
+                        <a v-if="userData.type==1" href="/userCenter/personApprove" style="background: #a34a51;">重新认证</a>
+                        <a v-if="userData.type==2" href="/userCenter/companyApprove" style="background: #a34a51;">重新认证</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    var userData ={{{userData}}};
+    var userVM = new Vue({
+        el: "#userMsg",
+        delimiters: ['${', '}'],
+        data:{
+            userData:userData.data,
+            numData:userData.data.checkStatus,
+            ImgIp: zgg.Vconfig.contractUrl,
+            btnShow:false,
+        },
+    });
+</script>

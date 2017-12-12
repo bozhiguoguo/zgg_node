@@ -1,0 +1,1670 @@
+<link rel="stylesheet" href="/css/modify_subjectInfo.css" >
+<link rel="stylesheet" href="/css/personal_center.css" >
+<link rel="stylesheet" href="/css/fruit_center.css" >
+<link rel="stylesheet" href="/css/words_Copyright.css" >
+<style>
+    .uploadifive-button{
+        border:1px solid #2f3342;
+        border-radius: 5px;
+       margin-top: 30px;
+        width: 75px !important;
+    }
+    .mainStatusT {
+        color: #3c9214;
+        background-color: #dff2cf;
+    }
+    .mainStatus {
+        padding: 2px 8px;
+        margin-left: 5px;
+        height: 20px;
+        font-size: 12px;
+        font-style: normal;
+        border-radius: 15px;
+        line-height: 20px;
+    }
+    .mainStatusD {
+        color: #c56e00;
+        background: #fce4bd;
+    }
+    .mainStatusF{
+        color: #bd3a4b;
+        background-color: #ffe2e2;
+    }
+</style>
+<div id="header_t"></div>
+<div id="cr_form" v-cloak>
+    <!--<div v-if="entrust" class="tradReg_Prompt">-->
+        <!--<div class="tradReg_dear">-->
+            <!--<p>温馨提示</p>-->
+            <!--<h3>亲爱的果蜜：请填写以下内容，如有不明之处，可委托您的顾问处理。</h3>-->
+            <!--<button v-if="isEntrust==0" type="button" @click="entrust()">委托处理</button>-->
+            <!--<button v-if="isEntrust==1" type="button" @click="cencelEntrust()">取消委托</button>-->
+            <!--<span @click="entrust=false"><img src="/img/icon-shoppingcart-close.png"/></span>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="personCenter_wrapp">
+
+    <div class="personCenter_tab">
+        <ul>
+            <li><a href="/userCenter/home">果蜜中心</a><span>></span></li>
+            <li><a href="/userOrder">订单中心</a><span>></span></li>
+            <li>业务办理</li>
+        </ul>
+    </div>
+    <div class="c_b"></div>
+    <div class="words_Con">
+        <div class="words_top">订单状态</div>
+        <div class="words_bar">
+            <b>订单号：${crData.orderCode}</b>
+            <div class="order-fig">
+                <div class="words_step" style="padding-top: 30px;">
+                    <ul style="margin-left: -50px;">
+                        <li style="margin-right: 0;" class="words_fk" v-for="allNodesList in allNodes" :class="{flowNode_did:nowNodes.stepnum>=allNodesList.stepnum,flowNode_w:nowNodes.stepnum<allNodesList.stepnum}">
+                            <p>${allNodesList.titlename}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="words_top words_write">填写资料</div>
+<!----------------------------------------------------------------文字著作权-->
+        <form v-if="crData.pcode=='cr_pro_2'||crData.pcode.indexOf('cr_wz')>=0" data-vv-scope="form-cr-wz">
+            <div class="words_left">
+                <div class="words_tit">订单编号：</div>
+                <h3 class="words_h3">请选择您的主体</h3>
+                <div class="words_body">
+                    <div class="layui-form">
+                        <div class="layui-form-item words_form">
+                            <div class="layui-input-block" v-for="bodyList in orderCompany">
+                                <div class="layui-unselect layui-form-radio" @click="bodyChoess(wzbqWorkinfo,bodyList.id,0)" :class="{layui_form_radioed:wzbqWorkinfo.bodyId==bodyList.id}">
+                                    <i v-if="wzbqWorkinfo.bodyId==bodyList.id" class="layui-anim layui-icon"></i>
+                                    <i v-else class="layui-anim layui-icon"></i>
+                                    <span>${bodyList.companyname}</span>
+                                    <span class="mainStatusD mainStatus" v-if="bodyList.status==0">待审核</span>
+                                    <span class="mainStatusT mainStatus" v-if="bodyList.status==1">审核通过</span>
+                                    <span class="mainStatusF mainStatus" v-if="bodyList.status==-2">审核未通过</span>
+                                </div>
+                                <div class="layui-word-aux">${bodyList.address}</div>
+                            </div>
+                            <div class="layui-input-block" v-for="bodyList in orderBody">
+                                <div class="layui-unselect layui-form-radio" @click="bodyChoess(wzbqWorkinfo,bodyList.id,1)" :class="{layui_form_radioed:wzbqWorkinfo.bodyId==bodyList.id}">
+                                    <i v-if="wzbqWorkinfo.bodyId==bodyList.id" class="layui-anim layui-icon"></i>
+                                    <i v-else class="layui-anim layui-icon"></i>
+                                    <span>${bodyList.realname}</span>
+                                    <span class="mainStatusD mainStatus" v-if="bodyList.status==0">待审核</span>
+                                    <span class="mainStatusT mainStatus" v-if="bodyList.status==1">审核通过</span>
+                                    <span class="mainStatusF mainStatus" v-if="bodyList.status==-2">审核未通过</span>
+                                </div>
+                                <div class="layui-word-aux">${bodyList.sfzaddress}</div>
+                            </div>
+                            <div class="layui-input-block">
+                                <div class="layui-unselect layui-form-radio" @click="bodyChoess(wzbqWorkinfo,-10,-1)" :class="{layui_form_radioed:wzbqWorkinfo.bodyId==-10}">
+                                    <i v-if="wzbqWorkinfo.bodyId==-10" class="layui-anim layui-icon"></i>
+                                    <i v-else class="layui-anim layui-icon"></i>
+                                    <span>自然人</span>
+                                </div>
+                            </div>
+                            <div style="margin: 0 150px" v-if="orderCompany.length==0&&orderBody.length==0">
+                                <dl>
+                                    <dt><img src="/img/icon-emptystate.png" />
+                                        <a style="padding-left: 20px;color: red;font-size: 16px;" href="/userCenter/userMainAdd">请添加主体</a>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <h3 class="words_h3 words_work">作品基本信息</h3>
+                        <div class="modify_radio">
+                            <p style="font-size:12px;color:#727f8f;"><span>*</span>著作权人属性：</p>
+                            <ul class="words_radio">
+                                <li class="PerO" @click="perseon('form-cr-wz',wzbqWorkinfo);"><a :class="{modify_Choice:true,modify_Choice1:wzbqWorkinfo.idType==1}"></a>个人</li>
+                                <li class="PerT" @click="company('form-cr-wz',wzbqWorkinfo);"><a :class="{modify_Choice:true,modify_Choice1:wzbqWorkinfo.idType==2}"></a>公司</li>
+                            </ul>
+                        </div>
+                        <div class="c_b"></div>
+                        <div class="modify_conInfo">
+                            <div class="modify_table1">
+                                <div class="Comcn">
+                                    <ol>
+                                        <li><p><span>*</span>作品名称：</p>
+                                            <input type="text" v-model="wzbqWorkinfo.worksName" name="worksName" class="inputW" v-validate="'required'" data-vv-as="作品名称"
+                                                   :class="{'input': true, 'is-danger': errors.has('form-cr-wz.worksName') }" placeholder="请输入作品名称"/>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-wz.worksName')">${errors.first('form-cr-wz.worksName')}</p>
+                                        </li>
+                                        <li v-if="wzbqWorkinfo.idType==1"> <p><span>*</span>身份证号：</p>
+                                            <input type="text" v-model="wzbqWorkinfo.licenseNum" name="licenseNum" class="inputW licenseNum"  v-validate="'required|sfzcode'" data-vv-as="身份证号"
+                                                   :class="{'input': true, 'is-danger': errors.has('form-cr-wz.licenseNum') }"  placeholder="请输入身份证号"/>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-wz.licenseNum')">${errors.first('form-cr-wz.licenseNum')}</p>
+                                        </li>
+                                        <li v-if="wzbqWorkinfo.idType==2"><p><span>*</span>公司成立时间：</p>
+                                            <input class="layui-input" id="timeData1" v-model="wzbqWorkinfo.companyCreatetime" name="companyCreatetime"  placeholder="请输入公司成立时间" readonly="readonly"
+                                                   v-validate="'required'" data-vv-as="公司成立时间" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.companyCreatetime') }"
+                                                   onclick="layui.laydate({elem: this, istime: false, isclear: false, format: 'YYYY-MM-DD',choose:function(datas) {
+                                                       if(datas){
+                                                           crMsgVM.wzbqWorkinfo.companyCreatetime = datas;
+                                                       }else{
+                                                           crMsgVM.wzbqWorkinfo.companyCreatetime = '';
+                                                       }
+                                                   }})">
+                                            <p class="red clear-both" v-show="errors.has('form-cr-wz.companyCreatetime')">${errors.first('form-cr-wz.companyCreatetime')}</p>
+                                        </li>
+                                        <li v-show="wzbqWorkinfo.idType==2">
+                                            <p><span>*</span>执照注册号：</p>
+                                            <input v-model="wzbqWorkinfo.licenseNum" class="license_Num" name="license_Num"  placeholder="请输入执照注册号"
+                                                   v-validate="'required'" data-vv-as="执照注册号" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.license_Num') }">
+                                            <p class="red clear-both" v-show="errors.has('form-cr-wz.license_Num')">${errors.first('form-cr-wz.license_Num')}</p>
+                                        </li>
+                                    </ol>
+                                </div>
+
+                                <ol>
+                                    <li><p><span>*</span>创作完成时间：</p>
+                                        <input class="layui-input" v-model="wzbqWorkinfo.ctime" name="ctime"  placeholder="请输入创作完成时间" readonly="readonly"
+                                               v-validate="'required'" data-vv-as="创作完成时间" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.ctime') }"
+                                               onclick="layui.laydate({elem: this, istime: false, isclear: false, format: 'YYYY-MM-DD',choose:function(datas) {crMsgVM.wzbqWorkinfo.ctime = datas;}})">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.ctime')">${errors.first('form-cr-wz.ctime')}</p>
+                                    </li>
+                                    <li><p><span>*</span>创作完成城市：</p>
+                                        <input v-model="wzbqWorkinfo.city" name="city"  placeholder="请输入创作完成城市"
+                                               v-validate="'required'" data-vv-as="创作完成城市" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.city') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.city')">${errors.first('form-cr-wz.city')}</p>
+                                    </li>
+                                    <li><p><span>*</span>申请人姓名或名称：</p>
+                                        <div v-for="(list,index) in ownerNum">
+                                            <div v-if="list.isShow==true">
+                                                <input v-model="list.ownerName" :name="'ownerName'+index"  :id="'ownerName'+index" placeholder="请输入申请人姓名或名称"
+                                                       v-validate="'required'" data-vv-as="申请人姓名或名称" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.ownerName'+index) }">
+                                                <span class="modify_obtain" @click="ownerNumAdd('add',index,'form-cr-wz')">添加申请人</span>
+                                                <span v-if="index!==0" class="modify_obtain" @click="ownerNumAdd('subtract',index,'form-cr-wz')">删除申请人</span>
+                                                <p class="red clear-both" v-show="errors.has('form-cr-wz.ownerName'+index)">${errors.first('form-cr-wz.ownerName'+index)}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li><p><span>*</span>作者姓名或名称：</p>
+                                        <div v-for="(list,index) in authorNum">
+                                            <div v-if="list.isShow==true">
+                                                <input v-model="list.authorName" :name="'authorName'+index"  :id="'authorName'+index" placeholder="请输入作者姓名或名称"
+                                                       v-validate="'required'" data-vv-as="作者姓名或名称" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.authorName'+index) }">
+                                                <span class="modify_obtain" @click="authorNumAdd('add',index,'form-cr-wz')">添加作者</span>
+                                                <span v-if="index!==0" class="modify_obtain" @click="authorNumAdd('subtract',index,'form-cr-wz')">删除作者</span>
+                                                <p class="red clear-both" v-show="errors.has('form-cr-wz.authorName'+index)">${errors.first('form-cr-wz.authorName'+index)}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li><p><span>*</span>作品署名：</p>
+                                        <input v-model="signature" name="signature"  placeholder="请输入作品署名"
+                                               v-validate="'required'" data-vv-as="作品署名" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.signature') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.signature')">${errors.first('form-cr-wz.signature')}</p>
+                                    </li>
+                                </ol>
+                                <div class="modify_radio">
+                                    <p style="font-size:12px;color:#727f8f;"><span>*</span>发表状态：</p>
+                                    <ul class="words_radio">
+                                        <li class="PerO1" @click="publish('form-cr-wz',wzbqWorkinfo);"><a :class="{modify_Choice:true,modify_Choice1:wzbqWorkinfo.status==1}"></a>已发表</li>
+                                        <li class="PerT1" @click="dispublish('form-cr-wz',wzbqWorkinfo);wzbqWorkinfo.status=0;errors.clear('form-cr-wz');"><a :class="{modify_Choice:true,modify_Choice1:wzbqWorkinfo.status==0}"></a>未发表</li>
+                                    </ul>
+                                </div>
+                                <div style="clear: both"></div>
+                                <ol>
+                                    <li v-if="wzbqWorkinfo.status==1"><p><span>*</span>首次发表时间：</p>
+                                        <input class="layui-input" v-model="wzbqWorkinfo.fstPubDate" name="fstPubDate"  placeholder="请输入首次发表时间" readonly="readonly"
+                                               v-validate="'required'" data-vv-as="首次发表时间" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.fstPubDate'), fstPubDate:true}"
+                                               onclick="layui.laydate({elem: this, istime: false, isclear: false, format: 'YYYY-MM-DD',choose:function(datas) {crMsgVM.wzbqWorkinfo.fstPubDate = datas;}})">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.fstPubDate')">${errors.first('form-cr-wz.fstPubDate')}</p>
+                                    </li>
+                                    <li v-if="wzbqWorkinfo.status==1"><p><span>*</span>首次发表城市：</p>
+                                        <input v-model="wzbqWorkinfo.fstPubCity" name="fstPubCity"  placeholder="请输入首次发表城市"
+                                               v-validate="'required'" data-vv-as="首次发表城市" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.fstPubCity'),fstPubCity:true }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.fstPubCity')">${errors.first('form-cr-wz.fstPubCity')}</p>
+                                    </li>
+                                    <li><p><span>*</span>联系人姓名：</p>
+                                        <input v-model="wzbqWorkinfo.contact" name="contact"  placeholder="请输入联系人姓名"
+                                               v-validate="'required'" data-vv-as="联系人姓名" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.contact') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.contact')">${errors.first('form-cr-wz.contact')}</p>
+                                    </li>
+                                    <li>
+                                        <p><span>*</span>联系人详细地址：</p>
+                                        <div>
+                                            <input v-model="wzbqWorkinfo.contactAddress" name="contactAddress"  placeholder="请输入详细地址"
+                                                   v-validate="'required'" data-vv-as="详细地址" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.contactAddress') }">
+                                            <p class="red clear-both" v-show="errors.has('form-cr-wz.contactAddress')">${errors.first('form-cr-wz.contactAddress')}</p>
+                                        </div>
+                                    </li>
+                                    <li style="clear: both"></li>
+                                    <li><p><span>*</span>邮编：</p>
+                                        <input v-model="wzbqWorkinfo.zipCode" name="zipCode"  placeholder="请输入邮编"
+                                               v-validate="'required|postcode'" data-vv-as="邮编" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.zipCode') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.zipCode')">${errors.first('form-cr-wz.zipCode')}</p>
+                                    </li>
+                                    <li><p><span>*</span>联系人手机：</p>
+                                        <input v-model="wzbqWorkinfo.contactTel" name="contactTel"  placeholder="请输入联系人手机"
+                                               v-validate="'required|phone'" data-vv-as="联系人手机" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.contactTel') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.contactTel')">${errors.first('form-cr-wz.contactTel')}</p>
+                                    </li>
+                                    <li><p><span>&nbsp;</span>联系人座机：</p>
+                                        <input v-model="wzbqWorkinfo.contactPhone" name="contactPhone"  placeholder="请输入联系人座机"
+                                               v-validate="'telCode'" data-vv-as="联系人座机" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.contactPhone') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.contactPhone')">${errors.first('form-cr-wz.contactPhone')}</p>
+                                    </li>
+                                    <li><p><span>*</span>Email：</p>
+                                        <input v-model="wzbqWorkinfo.contactEmail" name="contactEmail"  placeholder="请输入Email"
+                                               v-validate="'required|emailNum'" data-vv-as="Email" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.contactEmail') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.contactEmail')">${errors.first('form-cr-wz.contactEmail')}</p>
+                                    </li>
+                                    <li><p v-if="wzbqWorkinfo.idType==1"><span>*</span>上传身份证：</p><p v-if="wzbqWorkinfo.idType==2"><span>*</span>营业执照：</p>
+                                        <div class="clear">
+                                            <div class="modify_hover" style="display: block">
+                                                <input type="text" v-model="ImgUrl_sfz1"  name="ImgUrl_sfz1" style="display: none;"
+                                                       v-validate="'required'" data-vv-as="请上传证件" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.ImgUrl_sfz1') }">
+                                                <a data-method="notice"><div><img v-bind:src="ImgUrl_sfz1" style="width: 70px;height: 88px;"/> </div></a>
+                                            </div>
+                                            <div id="sfzCode_queueId1" class="f_l" style="margin-right: 30px;">
+                                                <a data-method="notice"  id="sfzCode1"></a>
+                                                <span v-if="wzbqWorkinfo.idType==1">(身份证正面)</span>
+                                                <span v-if="wzbqWorkinfo.idType==2">(营业执照)</span>
+                                            </div>
+                                            <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-wz.ImgUrl_sfz1')">${errors.first('form-cr-wz.ImgUrl_sfz1')}</p>
+                                        </div>
+                                        <div v-show="wzbqWorkinfo.idType==1" class="clear">
+                                            <input type="text" v-model="ImgUrl_sfz2" id="ImgUrl_sfz2" name="ImgUrl_sfz2" style="display: none;"
+                                                   v-validate="'required'" data-vv-as="请上传证件" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.ImgUrl_sfz2') }">
+                                            <div class="modify_hover" style="display: block">
+                                                <a class="layui-liner" data-method="notice"><div><img v-bind:src="ImgUrl_sfz2" style="width: 70px;height: 88px;"/> </div></a>
+                                            </div>
+                                            <div id="sfzCode_queueId2" class="f_l" style="margin-right: 30px;">
+                                                <a data-method="notice"  id="sfzCode2"></a>(身份证反面)
+                                            </div>
+                                            <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-wz.ImgUrl_sfz2')">${errors.first('form-cr-wz.ImgUrl_sfz2')}</p>
+                                        </div>
+                                    </li>
+                                    <li><p ><span>*</span>作品样本：</p>
+                                        <div class="clear">
+                                            <div class="modify_hover" style="display: block">
+                                                <input type="text" v-model="workSample"  name="workSample" style="display: none;"
+                                                       v-validate="'required'" data-vv-as="请上传证件" :class="{'input': true, 'is-danger': errors.has('form-cr-wz.workSample') }">
+                                                <!--<a data-method="notice"><div><img v-bind:src="workSample" style="width: 70px;height: 88px;"/> </div></a>-->
+                                                <a :href="workSample" target="_blank" data-method="notice"><span v-if="workSample"style="line-height: 80px; padding-left: 5px;">点击预览</span>
+                                                    <!--<img v-bind:src="workSample" style="width: 70px;height: 88px;"/>--></a>
+                                            </div>
+                                            <div id="sfzCode_queueId4" class="f_l" style="margin-right: 30px;">
+                                                <a data-method="notice"  id="sfzCode4"></a>(作品样本)
+                                            </div>
+                                            <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp,doc,docx,xls,xlsx,ppt,pptx,pdf,txt,rar,zip)</b>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-wz.workSample')">${errors.first('form-cr-wz.workSample')}</p>
+                                        </div>
+                                    </li>
+                                </ol>
+                                <div style="clear: both"></div>
+                                <ol>
+                                    <li><p><span>*</span>创作意图：</p>
+                                        <textarea v-model="wzbqWorkinfo.crtIntention" name="crtIntention" v-validate="'required'" data-vv-as="创作意图"
+                                                  :class="{'input': true, 'is-danger': errors.has('form-cr-wz.crtIntention') }" placeholder="创作意图填写">
+                                        </textarea>
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.crtIntention')">${errors.first('form-cr-wz.crtIntention')}</p>
+                                        <p class="marg5">（提示：描述作品的创作起因或者用途）</p>
+                                        <p class="marg5">例：为了更有效地宣传推广以及销售公司产品，现设计此作品用于产品的外包装和印刷在公司名片和宣传资料等上面，作为该产品独特的产品标识使用，以方便消费者在购买使用该产品时能够更准确的将其区别于其他同类或近似的产品。</p>
+                                    </li>
+                                    <li><p><span>*</span>创作过程：</p>
+                                        <textarea v-model="wzbqWorkinfo.crtProcess" name="crtProcess" v-validate="'required'" data-vv-as="创作过程"
+                                                  :class="{'input': true, 'is-danger': errors.has('form-cr-wz.crtProcess') }" placeholder="创作过程填写">
+                                        </textarea>
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.crtProcess')">${errors.first('form-cr-wz.crtProcess')}</p>
+                                        <p class="marg5">（提示：①描述整个作品的结构、组成部分以及色彩等②描述作品创作过程中的变化、想法）</p>
+                                        <p class="marg5">例—本作品于 年 月 号开始构思，着手创作。运用电脑绘图软件绘制出来，由英文“CAN”、橙色底色和粗下划线构成，主要采用橙色、白色和蓝色。最初，本作品考虑由简单的艺术字形成，为了使作品更为突出，加上了橙色的底色，标识下方使用蓝色的粗下划线，最终通过绘图工具绘制而成。本作品历经3次修改，于 年 月 日在上海市创作完成。</p>
+                                    </li>
+                                    <li><p><span>*</span>作品独创性：</p>
+                                        <textarea v-model="wzbqWorkinfo.workDcx" name="workDcx" v-validate="'required'" data-vv-as="作品独创性"
+                                                  :class="{'input': true, 'is-danger': errors.has('form-cr-wz.workDcx') }" placeholder="作品独创性填写">
+                                        </textarea>
+                                        <p class="red clear-both" v-show="errors.has('form-cr-wz.workDcx')">${errors.first('form-cr-wz.workDcx')}</p>
+                                        <p class="marg5">（提示：描述作品创作的特殊意义或者独特之处，例如颜色是否有指定的含义）</p>
+                                        <p class="marg5">例—本作品经过独特构思，充分运用美工设计，将英文字母配上特有的颜色做背景，主要采用白色、橙色、蓝色三种颜色设计出来。本作品拥有独特的含义，鼓励一些拥有梦想的人们，只要付出努力，就一定能够成功。底色主要以橙色为主，营造了一种放松，温暖人心的感觉。蓝色是高科技的象征，寓意企业的高端化发展。整幅图生动形象地体现了公司的独特寓意，具有独创性。</p>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{> adviser}}
+                <div class="c_b"></div>
+                <div class="words_button">
+                    <!--<span class="buton" @click="validateForm('form-cr-wz',false)">暂存</span>-->
+                    <span v-if="!loadingIs && crData.status===1" @click="validateForm('form-cr-wz',true);" class="words_sub buton">确认提交</span>
+                    <span v-if="loadingIs" class="words_sub buton">确认提交</span>
+                    <!--<span v-if="!btn_show" class="words_sub buton">确认提交</span>-->
+                </div>
+            </div>
+        </form>
+<!----------------------------------------------------------------美术作权-->
+        <form v-if="crData.pcode=='cr_pro_1'||crData.pcode.indexOf('cr_ms')>=0" data-vv-scope="form-cr-ms">
+            <div class="words_left">
+                <div class="words_tit">订单编号：${crData.contractcode}</div>
+                <h3 class="words_h3">请选择您的主体</h3>
+                <div class="words_body">
+                    <div class="layui-form">
+                        <div class="layui-form-item words_form">
+                            <div class="layui-input-block" v-for="bodyList in orderCompany">
+                                <div class="layui-unselect layui-form-radio" @click="bodyChoess(msbqWorkinfo,bodyList.id,0)" :class="{layui_form_radioed:msbqWorkinfo.bodyId==bodyList.id}">
+                                    <i v-if="msbqWorkinfo.bodyId==bodyList.id" class="layui-anim layui-icon"></i>
+                                    <i v-else class="layui-anim layui-icon"></i>
+                                    <span>${bodyList.companyname}</span>
+                                    <span class="mainStatusD mainStatus" v-if="bodyList.status==0">待审核</span>
+                                    <span class="mainStatusT mainStatus" v-if="bodyList.status==1">审核通过</span>
+                                    <span class="mainStatusF mainStatus" v-if="bodyList.status==-2">审核未通过</span>
+                                </div>
+                                <div class="layui-word-aux">${bodyList.address}</div>
+                            </div>
+                            <div class="layui-input-block" v-for="bodyList in orderBody">
+                                <div class="layui-unselect layui-form-radio" @click="bodyChoess(msbqWorkinfo,bodyList.id,1)" :class="{layui_form_radioed:msbqWorkinfo.bodyId==bodyList.id}">
+                                    <i v-if="msbqWorkinfo.bodyId==bodyList.id" class="layui-anim layui-icon"></i>
+                                    <i v-else class="layui-anim layui-icon"></i>
+                                    <span>${bodyList.realname}</span>
+                                    <span class="mainStatusD mainStatus" v-if="bodyList.status==0">待审核</span>
+                                    <span class="mainStatusT mainStatus" v-if="bodyList.status==1">审核通过</span>
+                                    <span class="mainStatusF mainStatus" v-if="bodyList.status==-2">审核未通过</span>
+                                </div>
+                                <div class="layui-word-aux">${bodyList.sfzaddress}</div>
+                            </div>
+                            <div class="layui-input-block">
+                                <div class="layui-unselect layui-form-radio" @click="bodyChoess(msbqWorkinfo,-10,-1)" :class="{layui_form_radioed:msbqWorkinfo.bodyId==-10}">
+                                    <i v-if="msbqWorkinfo.bodyId==-10" class="layui-anim layui-icon"></i>
+                                    <i v-else class="layui-anim layui-icon"></i>
+                                    <span>自然人</span>
+                                </div>
+                            </div>
+                            <div style="margin: 0 150px" v-if="orderCompany.length==0&&orderBody.length==0">
+                                <dl>
+                                    <dt><img src="/img/icon-emptystate.png" />
+                                        <a style="padding-left: 20px;color: red;font-size: 16px;" href="/userCenter/userMainAdd">请添加主体</a>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                        <h3 class="words_h3 words_work">作品基本信息</h3>
+                        <div class="modify_radio">
+                            <p style="font-size:12px;color:#727f8f;"><span>*</span>著作权人属性：</p>
+                            <ul class="words_radio">
+                                <li class="PerO" @click="perseon('form-cr-ms',msbqWorkinfo);"><a :class="{modify_Choice:true,modify_Choice1:msbqWorkinfo.idType==1}"></a>个人</li>
+                                <li class="PerT" @click="company('form-cr-ms',msbqWorkinfo);"><a :class="{modify_Choice:true,modify_Choice1:msbqWorkinfo.idType==2}"></a>公司</li>
+                            </ul>
+                        </div>
+                        <div class="c_b"></div>
+                        <div class="modify_conInfo">
+                            <div class="modify_table1">
+                                <div class="Comcn">
+                                    <ol>
+                                        <li><p><span>*</span>作品名称：</p>
+                                            <input type="text" v-model="msbqWorkinfo.worksName" name="worksName" class="inputW" v-validate="'required'" data-vv-as="作品名称"
+                                                   :class="{'input': true, 'is-danger': errors.has('form-cr-ms.worksName') }" placeholder="请输入作品名称"/>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-ms.worksName')">${errors.first('form-cr-ms.worksName')}</p>
+                                        </li>
+                                        <li v-if="msbqWorkinfo.idType==1"> <p><span>*</span>身份证号：</p>
+                                            <input type="text" v-model="msbqWorkinfo.licenseNum" name="licenseNum" class="inputW licenseNum"  v-validate="'required|sfzcode'" data-vv-as="身份证号"
+                                                :class="{'input': true, 'is-danger': errors.has('form-cr-ms.licenseNum') }"  placeholder="请输入身份证号"/>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-ms.licenseNum')">${errors.first('form-cr-ms.licenseNum')}</p>
+                                        </li>
+                                        <li v-if="msbqWorkinfo.idType==2"><p><span>*</span>公司成立时间：</p>
+                                            <input class="layui-input" id="timeData1" v-model="msbqWorkinfo.companyCreatetime"  readonly="readonly" name="companyCreatetime"  placeholder="请输入公司成立时间"
+                                                   v-validate="'required'" data-vv-as="公司成立时间" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.companyCreatetime') }"
+                                                   onclick="layui.laydate({elem: this, istime: false, isclear: false, format: 'YYYY-MM-DD',choose:function(datas) {crMsgVM.msbqWorkinfo.companyCreatetime = datas;}})">
+                                            <p class="red clear-both" v-show="errors.has('form-cr-ms.companyCreatetime')">${errors.first('form-cr-ms.companyCreatetime')}</p>
+                                        </li>
+                                        <li v-show="msbqWorkinfo.idType==2">
+                                            <p><span>*</span>执照注册号：</p>
+                                            <input v-model="msbqWorkinfo.licenseNum" class="license_Num" name="license_Num"  placeholder="请输入执照注册号"
+                                                   v-validate="'required'" data-vv-as="执照注册号" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.license_Num') }">
+                                            <p class="red clear-both" v-show="errors.has('form-cr-ms.license_Num')">${errors.first('form-cr-ms.license_Num')}</p>
+                                        </li>
+                                    </ol>
+
+                            </div>
+                                <ol>
+                                    <li><p><span>*</span>创作完成时间：</p>
+                                        <input class="layui-input" v-model="msbqWorkinfo.ctime" readonly="readonly" name="ctime"  placeholder="请输入创作完成时间" readonly="readonly"
+                                               v-validate="'required'" data-vv-as="创作完成时间" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.ctime') }"
+                                               onclick="layui.laydate({elem: this,istime: false, isclear: false, format: 'YYYY-MM-DD',choose:function(datas) {crMsgVM.msbqWorkinfo.ctime = datas;}})">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.ctime')">${errors.first('form-cr-ms.ctime')}</p>
+                                    </li>
+                                    <li><p><span>*</span>创作完成城市：</p>
+                                        <input v-model="msbqWorkinfo.city" name="city"  placeholder="请输入创作完成城市"
+                                               v-validate="'required'" data-vv-as="创作完成城市" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.city') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.city')">${errors.first('form-cr-ms.city')}</p>
+                                    </li>
+                                    <li><p><span>*</span>申请人姓名或名称：</p>
+                                        <div v-for="(list,index) in ownerNum">
+                                            <div v-if="list.isShow==true">
+                                                <input v-model="list.ownerName" :name="'ownerName'+index"  :id="'ownerName'+index" placeholder="请输入申请人姓名或名称"
+                                                       v-validate="'required'" data-vv-as="申请人姓名或名称" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.ownerName'+index) }">
+                                                <span class="modify_obtain" @click="ownerNumAdd('add',index,'form-cr-ms')">添加申请人</span>
+                                                <span v-if="index!==0" class="modify_obtain" @click="ownerNumAdd('subtract',index,'form-cr-ms')">删除申请人</span>
+                                                <p class="red clear-both" v-show="errors.has('form-cr-ms.ownerName'+index)">${errors.first('form-cr-ms.ownerName'+index)}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!--<li><p><span>*</span>作者姓名或名称：</p>-->
+                                        <!--<div v-for="(list,index) in authorNum">-->
+                                            <!--<div v-if="list.isShow==true">-->
+                                                <!--<input v-model="list.authorName" name="authorName"  placeholder="请输入作者姓名或名称"-->
+                                                       <!--v-validate="'required'" data-vv-as="作者姓名或名称" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.authorName') }">-->
+                                                <!--<span class="modify_obtain" @click="authorNumAdd('add')">添加作者</span>-->
+                                                <!--<span v-if="index!==0" class="modify_obtain" @click="authorNumAdd('subtract',index)">删除作者</span>-->
+                                                <!--<p v-if="index==0" class="red clear-both" v-show="errors.has('form-cr-ms.authorName')">${errors.first('form&#45;&#45;ms.authorName')}</p>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                </ol>
+                                <div class="modify_radio">
+                                    <p style="font-size:12px;color:#727f8f;"><span>*</span>发表状态：</p>
+                                    <ul class="words_radio">
+                                        <li class="PerO1" @click="publish('form-cr-ms',msbqWorkinfo);"><a :class="{modify_Choice:true,modify_Choice1:msbqWorkinfo.status==1}"></a>已发表</li>
+                                        <li class="PerT1" @click="dispublish('form-cr-ms',msbqWorkinfo);msbqWorkinfo.status=0;errors.clear('form-cr-ms');"><a :class="{modify_Choice:true,modify_Choice1:msbqWorkinfo.status==0}"></a>未发表</li>
+                                    </ul>
+                                </div>
+                                <div style="clear: both"></div>
+                                <ol>
+                                    <li v-if="msbqWorkinfo.status==1"><p><span>*</span>首次发表时间：</p>
+                                        <input class="layui-input" v-model="msbqWorkinfo.fstPubDate" name="fstPubDate"  placeholder="请输入首次发表时间" readonly="readonly"
+                                               v-validate="'required'" data-vv-as="首次发表时间" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.fstPubDate'), fstPubDate:true}"
+                                               onclick="layui.laydate({elem: this, istime: false, isclear: false, format: 'YYYY-MM-DD',choose:function(datas) {crMsgVM.msbqWorkinfo.fstPubDate = datas;}})">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.fstPubDate')">${errors.first('form-cr-ms.fstPubDate')}</p>
+                                    </li>
+                                    <li v-if="msbqWorkinfo.status==1"><p><span>*</span>首次发表城市：</p>
+                                        <input v-model="msbqWorkinfo.fstPubCity" name="fstPubCity"  placeholder="请输入首次发表城市"
+                                               v-validate="'required'" data-vv-as="首次发表城市" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.fstPubCity'),fstPubCity:true }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.fstPubCity')">${errors.first('form-cr-ms.fstPubCity')}</p>
+                                    </li>
+                                    <li><p><span>*</span>联系人姓名：</p>
+                                        <input v-model="msbqWorkinfo.contact" name="contact"  placeholder="请输入联系人姓名"
+                                               v-validate="'required'" data-vv-as="联系人姓名" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.contact') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.contact')">${errors.first('form-cr-ms.contact')}</p>
+                                    </li>
+                                    <li>
+                                        <p><span>*</span>联系人详细地址：</p>
+                                        <div>
+                                            <input v-model="msbqWorkinfo.contactAddress" name="contactAddress"  placeholder="请输入详细地址"
+                                                   v-validate="'required'" data-vv-as="详细地址" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.contactAddress') }">
+                                            <p class="red clear-both" v-show="errors.has('form-cr-ms.contactAddress')">${errors.first('form-cr-ms.contactAddress')}</p>
+                                        </div>
+                                    </li>
+                                    <li style="clear: both"></li>
+                                    <li><p><span>*</span>邮编：</p>
+                                        <input v-model="msbqWorkinfo.zipCode" name="zipCode"  placeholder="请输入邮编"
+                                            v-validate="'required|postcode'" data-vv-as="邮编" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.zipCode') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.zipCode')">${errors.first('form-cr-ms.zipCode')}</p>
+                                    </li>
+                                    <li><p><span>*</span>联系人手机：</p>
+                                        <input v-model="msbqWorkinfo.contactTel" name="contactTel"  placeholder="请输入联系人手机"
+                                            v-validate="'required|phone'" data-vv-as="联系人手机" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.contactTel') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.contactTel')">${errors.first('form-cr-ms.contactTel')}</p>
+                                    </li>
+                                    <li><p><span>&nbsp;</span>联系人座机：</p>
+                                        <input v-model="msbqWorkinfo.contactPhone" name="contactPhone"  placeholder="请输入联系人座机"
+                                            v-validate="'telCode'" data-vv-as="联系人座机" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.contactPhone') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.contactPhone')">${errors.first('form-cr-ms.contactPhone')}</p>
+                                    </li>
+                                    <li><p><span>*</span>Email：</p>
+                                        <input v-model="msbqWorkinfo.contactEmail" name="contactEmail"  placeholder="请输入Email"
+                                            v-validate="'required|emailNum'" data-vv-as="Email" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.contactEmail') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.contactEmail')">${errors.first('form-cr-ms.contactEmail')}</p>
+                                    </li>
+                                    <li><p v-if="msbqWorkinfo.idType==1"><span>*</span>上传身份证：</p><p v-if="msbqWorkinfo.idType==2"><span>*</span>营业执照：</p>
+                                        <div class="clear">
+                                            <div class="modify_hover" style="display: block">
+                                                <input type="text" v-model="ImgUrl_sfz1"  name="ImgUrl_sfz1" style="display: none;"
+                                                       v-validate="'required'" data-vv-as="请上传证件" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.ImgUrl_sfz1') }">
+                                                <a data-method="notice"><img v-bind:src="ImgUrl_sfz1" style="width: 70px;height: 88px;"/></a>
+                                            </div>
+                                            <div id="sfzCode_queueId1" class="f_l" style="margin-right: 30px;">
+                                                <a id="sfzCode1"></a>
+                                                <span v-if="msbqWorkinfo.idType==1">(身份证正面)</span>
+                                                <span v-if="msbqWorkinfo.idType==2">(营业执照)</span>
+                                            </div>
+                                            <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-ms.ImgUrl_sfz1')">${errors.first('form-cr-ms.ImgUrl_sfz1')}</p>
+                                        </div>
+                                        <div v-show="msbqWorkinfo.idType==1" class="clear">
+                                            <input type="text" v-model="ImgUrl_sfz2" id="ImgUrl_sfz2" name="ImgUrl_sfz2" style="display: none;"
+                                                   v-validate="'required'" data-vv-as="请上传证件" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.ImgUrl_sfz2') }">
+                                            <div class="modify_hover" style="display: block">
+                                                <a class="layui-liner" data-method="notice"><img v-bind:src="ImgUrl_sfz2" style="width: 70px;height: 88px;"/></a>
+                                            </div>
+                                            <div id="sfzCode_queueId2" class="f_l" style="margin-right: 30px;">
+                                                <a data-method="notice"  id="sfzCode2"></a>(身份证反面)
+                                            </div>
+                                            <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-ms.ImgUrl_sfz2')">${errors.first('form-cr-ms.ImgUrl_sfz2')}</p>
+                                        </div>
+                                    </li>
+                                    <li><p ><span>*</span>作品样本：</p>
+                                        <div class="clear">
+                                            <div class="modify_hover" style="display: block">
+                                                <input type="text" v-model="workSample"  name="workSample" style="display: none;"
+                                                       v-validate="'required'" data-vv-as="请上传证件" :class="{'input': true, 'is-danger': errors.has('form-cr-ms.workSample') }">
+                                                <a :href="workSample" target="_blank" data-method="notice">
+                                                    <span v-if="workSample"style="line-height: 80px; padding-left: 5px;">点击预览</span>
+                                                    <!--<img v-bind:src="workSample" style="width: 70px;height: 88px;"/> -->
+                                                </a>
+                                            </div>
+                                            <div id="sfzCode_queueId4" class="f_l" style="margin-right: 30px;">
+                                                <a data-method="notice"  id="sfzCode4"></a>(作品样本)
+                                            </div>
+                                            <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp,doc,docx,xls,xlsx,ppt,pptx,pdf,txt,rar,zip)</b>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-ms.workSample')">${errors.first('form-cr-ms.workSample')}</p>
+                                        </div>
+                                    </li>
+                                </ol>
+                                <div style="clear: both"></div>
+                                <ol>
+                                    <li><p><span>*</span>创作意图：</p>
+                                        <textarea v-model="msbqWorkinfo.crtIntention" name="crtIntention" v-validate="'required'" data-vv-as="创作意图"
+                                                  :class="{'input': true, 'is-danger': errors.has('form-cr-ms.crtIntention') }" placeholder="创作意图填写">
+                                        </textarea>
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.crtIntention')">${errors.first('form-cr-ms.crtIntention')}</p>
+                                        <p class="marg5">（提示：描述作品的创作起因或者用途）</p>
+                                        <p class="marg5">例：为了更有效地宣传推广以及销售公司产品，现设计此作品用于产品的外包装和印刷在公司名片和宣传资料等上面，作为该产品独特的产品标识使用，以方便消费者在购买使用该产品时能够更准确的将其区别于其他同类或近似的产品。</p>
+                                    </li>
+                                    <li><p><span>*</span>创作过程：</p>
+                                        <textarea v-model="msbqWorkinfo.crtProcess" name="crtProcess" v-validate="'required'" data-vv-as="创作过程"
+                                                  :class="{'input': true, 'is-danger': errors.has('form-cr-ms.crtProcess') }" placeholder="创作过程填写">
+                                        </textarea>
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.crtProcess')">${errors.first('form-cr-ms.crtProcess')}</p>
+                                        <p class="marg5">（提示：①描述整个作品的结构、组成部分以及色彩等②描述作品创作过程中的变化、想法）</p>
+                                        <p class="marg5">例—本作品于 年 月 号开始构思，着手创作。运用电脑绘图软件绘制出来，由英文“CAN”、橙色底色和粗下划线构成，主要采用橙色、白色和蓝色。最初，本作品考虑由简单的艺术字形成，为了使作品更为突出，加上了橙色的底色，标识下方使用蓝色的粗下划线，最终通过绘图工具绘制而成。本作品历经3次修改，于 年 月 日在上海市创作完成。</p>
+                                    </li>
+                                    <li><p><span>*</span>作品独创性：</p>
+                                        <textarea v-model="msbqWorkinfo.workDcx" name="workDcx" v-validate="'required'" data-vv-as="作品独创性"
+                                                  :class="{'input': true, 'is-danger': errors.has('form-cr-ms.workDcx') }" placeholder="作品独创性填写">
+                                        </textarea>
+                                        <p class="red clear-both" v-show="errors.has('form-cr-ms.workDcx')">${errors.first('form-cr-ms.workDcx')}</p>
+                                        <p class="marg5">（提示：描述作品创作的特殊意义或者独特之处，例如颜色是否有指定的含义）</p>
+                                        <p class="marg5">例—本作品经过独特构思，充分运用美工设计，将英文字母配上特有的颜色做背景，主要采用白色、橙色、蓝色三种颜色设计出来。本作品拥有独特的含义，鼓励一些拥有梦想的人们，只要付出努力，就一定能够成功。底色主要以橙色为主，营造了一种放松，温暖人心的感觉。蓝色是高科技的象征，寓意企业的高端化发展。整幅图生动形象地体现了公司的独特寓意，具有独创性。</p>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+
+                </div>
+
+                <div class="c_b"></div>
+                <div class="words_button">
+                    <!--<span class="buton" @click="validateForm('form-cr-ms',false)">暂存</span>-->
+                    <span v-if="!loadingIs && crData.status===1" @click="validateForm('form-cr-ms',true)" class="words_sub buton">确认提交</span>
+                    <span v-if="loadingIs" class="words_sub buton">确认提交</span>
+                </div>
+            </div>
+        </form>
+<!----------------------------------------------------------------软著作权-->
+        <form v-if="(crData.pcode=='cr_soft_1'||crData.pcode=='cr_soft_2'||crData.pcode.indexOf('cr_soft')>=0)" data-vv-scope="form-cr-rz">
+            <div class="words_left">
+                <div class="words_tit">订单编号：${crData.contractcode}</div>
+                <h3 class="words_h3">请选择您的主体</h3>
+                <div class="words_body">
+                    <div class="layui-form">
+                        <div class="layui-form-item words_form">
+                            <div class="layui-input-block" v-for="bodyList in orderCompany">
+                                <div class="layui-unselect layui-form-radio" @click="bodyChoess(rzWorkinfo,bodyList.id,0)" :class="{layui_form_radioed:rzWorkinfo.bodyId==bodyList.id}">
+                                    <i v-if="rzWorkinfo.bodyId==bodyList.id" class="layui-anim layui-icon"></i>
+                                    <i v-else class="layui-anim layui-icon"></i>
+                                    <span>${bodyList.companyname}</span>
+                                    <span class="mainStatusD mainStatus" v-if="bodyList.status==0">待审核</span>
+                                    <span class="mainStatusT mainStatus" v-if="bodyList.status==1">审核通过</span>
+                                    <span class="mainStatusF mainStatus" v-if="bodyList.status==-2">审核未通过</span>
+                                </div>
+                                <div class="layui-word-aux">${bodyList.address}</div>
+                            </div>
+                            <div class="layui-input-block" v-for="bodyList in orderBody">
+                                <div class="layui-unselect layui-form-radio" @click="bodyChoess(rzWorkinfo,bodyList.id,1)" :class="{layui_form_radioed:rzWorkinfo.bodyId==bodyList.id}">
+                                    <i v-if="rzWorkinfo.bodyId==bodyList.id" class="layui-anim layui-icon"></i>
+                                    <i v-else class="layui-anim layui-icon"></i>
+                                    <span>${bodyList.realname}</span>
+                                    <span class="mainStatusD mainStatus" v-if="bodyList.status==0">待审核</span>
+                                    <span class="mainStatusT mainStatus" v-if="bodyList.status==1">审核通过</span>
+                                    <span class="mainStatusF mainStatus" v-if="bodyList.status==-2">审核未通过</span>
+                                </div>
+                                <div class="layui-word-aux">${bodyList.sfzaddress}</div>
+                            </div>
+                            <div class="layui-input-block">
+                                <div class="layui-unselect layui-form-radio" @click="bodyChoess(rzWorkinfo,-10,-1)" :class="{layui_form_radioed:rzWorkinfo.bodyId==-10}">
+                                    <i v-if="rzWorkinfo.bodyId==-10" class="layui-anim layui-icon"></i>
+                                    <i v-else class="layui-anim layui-icon"></i>
+                                    <span>自然人</span>
+                                </div>
+                            </div>
+                            <div style="margin: 0 150px" v-if="orderCompany.length==0&&orderBody.length==0">
+                                <dl>
+                                    <dt><img src="/img/icon-emptystate.png" />
+                                        <a style="padding-left: 20px;color: red;font-size: 16px;" href="/userCenter/userMainAdd">请添加主体</a>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <h3 class="words_h3 words_work">作品基本信息</h3>
+                        <div class="modify_radio">
+                            <p style="font-size:12px;color:#727f8f;"><span style="display: inline-block;color: #d9344b;margin-right: 3px;">*</span>著作权人属性：</p>
+                            <ul class="words_radio">
+                                <li class="PerO" @click="perseon('form-cr-rz',rzWorkinfo);"><a :class="{modify_Choice:true,modify_Choice1:rzWorkinfo.idType==1}"></a>个人</li>
+                                <li class="PerT" @click="company('form-cr-rz',rzWorkinfo);"><a :class="{modify_Choice:true,modify_Choice1:rzWorkinfo.idType==2}"></a>公司</li>
+                            </ul>
+                        </div>
+                        <div class="c_b"></div>
+                        <div class="modify_conInfo">
+                            <div class="modify_table1">
+                                <div class="Comcn">
+                                    <ol>
+                                        <li><p><span>*</span>软件全称：</p>
+                                            <input type="text" v-model="rzWorkinfo.softFullName" name="softFullName" class="inputW" v-validate="'required'" data-vv-as="软件全称"
+                                                   :class="{'input': true, 'is-danger': errors.has('form-cr-rz.softFullName') }" placeholder="请输入软件全称"/>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.softFullName')">${errors.first('form-cr-rz.softFullName')}</p>
+                                        </li>
+                                        <li><p><span>&nbsp;</span>软件简称：</p>
+                                            <input type="text" v-model="rzWorkinfo.softSimpleName" name="softSimpleName" class="inputW" data-vv-as="软件简称"
+                                                   :class="{'input': true, 'is-danger': errors.has('form-cr-rz.softSimpleName') }" placeholder="请输入软件简称"/>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.softSimpleName')">${errors.first('form-cr-rz.softSimpleName')}</p>
+                                        </li>
+                                        <li><p><span>*</span>版本号：</p>
+                                            <input type="text" v-model="rzWorkinfo.versionsNbr" name="versionsNbr" class="inputW" v-validate="'required'" data-vv-as="版本号"
+                                                   :class="{'input': true, 'is-danger': errors.has('form-cr-rz.versionsNbr') }" placeholder="请输入版本号"/>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.versionsNbr')">${errors.first('form-cr-rz.versionsNbr')}</p>
+                                        </li>
+                                        <li v-if="rzWorkinfo.idType==1"> <p><span>*</span>身份证号：</p>
+                                            <input type="text" v-model="rzWorkinfo.licenseNum" name="licenseNum" class="inputW licenseNum"  v-validate="'required|sfzcode'" data-vv-as="身份证号"
+                                                :class="{'input': true, 'is-danger': errors.has('form-cr-rz.licenseNum') }"  placeholder="请输入身份证号"/>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.licenseNum')">${errors.first('form-cr-rz.licenseNum')}</p>
+                                        </li>
+                                        <li v-if="rzWorkinfo.idType==2"><p><span>*</span>公司成立时间：</p>
+                                            <input class="layui-input" id="timeData1" v-model="rzWorkinfo.companyCreatetime" name="companyCreatetime"  placeholder="请输入公司成立时间" readonly="readonly"
+                                                   v-validate="'required'" data-vv-as="公司成立时间" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.companyCreatetime') }"
+                                                   onclick="layui.laydate({elem: this, istime: false, isclear: false, format: 'YYYY-MM-DD',choose:function(datas) {crMsgVM.rzWorkinfo.companyCreatetime = datas;}})">
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.companyCreatetime')">${errors.first('form-cr-rz.companyCreatetime')}</p>
+                                        </li>
+                                        <li v-show="rzWorkinfo.idType==2">
+                                            <p><span>*</span>执照注册号：</p>
+                                            <input v-model="rzWorkinfo.licenseNum" name="license_Num" class="license_Num" placeholder="请输入执照注册号"
+                                                   v-validate="'required'" data-vv-as="执照注册号" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.license_Num') }">
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.license_Num')">${errors.first('form-cr-rz.license_Num')}</p>
+                                        </li>
+                                    </ol>
+                                </div>
+
+                                <ol>
+                                    <li><p><span>*</span>创作完成时间：</p>
+                                        <input class="layui-input" v-model="rzWorkinfo.finishTime" name="ctime"  placeholder="请输入创作完成时间" readonly="readonly"
+                                               v-validate="'required'" data-vv-as="创作完成时间" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.ctime') }"
+                                               onclick="layui.laydate({elem: this, istime: false, isclear: false, format: 'YYYY-MM-DD',choose:function(datas) {crMsgVM.rzWorkinfo.finishTime = datas;}})">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.ctime')">${errors.first('form-cr-rz.ctime')}</p>
+                                    </li>
+                                    <!--<li><p><span>*</span>申请人姓名或名称：</p>-->
+                                        <!--<input v-model="ownerName" name="ownerName"  placeholder="请输入申请人姓名或名称"-->
+                                               <!--v-validate="'required'" data-vv-as="申请人姓名或名称" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.ownerName') }">-->
+                                        <!--<span class="modify_obtain">添加申请人</span>-->
+                                        <!--<p class="red clear-both" v-show="errors.has('form-cr-rz.ownerName')">${errors.first('form-cr-rz.ownerName')}</p>-->
+                                    <!--</li>-->
+                                    <li><p><span>*</span>申请人姓名或名称：</p>
+                                        <div v-for="(list,index) in ownerNum">
+                                            <div v-if="list.isShow==true">
+                                                <input v-model="list.ownerName" :name="'ownerName' + index" :id="'ownerName'+index" placeholder="请输入申请人姓名或名称"
+                                                       v-validate="'required'" data-vv-as="申请人姓名或名称" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.ownerName'+index) }">
+                                                <span class="modify_obtain" @click="ownerNumAdd('add',index,'form-cr-rz')">添加申请人</span>
+                                                <span v-if="index!==0" class="modify_obtain" @click="ownerNumAdd('subtract',index,'form-cr-rz')">删除申请人</span>
+                                                <p class="red clear-both" v-show="errors.has('form-cr-rz.ownerName'+index)">${errors.first('form-cr-rz.ownerName'+index)}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+                                <div class="modify_radio">
+                                    <p style="font-size:12px;color:#727f8f;"><span>*</span>发表状态：</p>
+                                    <ul class="words_radio">
+                                        <li class="PerO1" @click="publish('form-cr-rz',rzWorkinfo);"><a :class="{modify_Choice:true,modify_Choice1:rzWorkinfo.status==1}"></a>已发表</li>
+                                        <li class="PerT1" @click="dispublish('form-cr-rz',rzWorkinfo);rzWorkinfo.status=0;errors.clear('form-cr-rz');"><a :class="{modify_Choice:true,modify_Choice1:rzWorkinfo.status==0}"></a>未发表</li>
+                                    </ul>
+                                </div>
+                                <div style="clear: both"></div>
+                                <ol>
+                                    <li v-if="rzWorkinfo.status==1"><p><span>*</span>首次发表时间：</p>
+                                        <input class="layui-input" v-model="rzWorkinfo.fstPubDate" name="fstPubDate"  placeholder="请输入首次发表时间" readonly="readonly"
+                                               v-validate="'required'" data-vv-as="首次发表时间" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.fstPubDate'), fstPubDate:true}"
+                                               onclick="layui.laydate({elem: this,istime: false, isclear: false, format: 'YYYY-MM-DD',choose:function(datas) {crMsgVM.rzWorkinfo.fstPubDate = datas;}})">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.fstPubDate')">${errors.first('form-cr-rz.fstPubDate')}</p>
+                                    </li>
+                                    <li v-if="rzWorkinfo.status==1"><p><span>*</span>首次发表城市：</p>
+                                        <input v-model="rzWorkinfo.fstPubCity" name="fstPubCity"  placeholder="请输入首次发表城市"
+                                               v-validate="'required'" data-vv-as="首次发表城市" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.fstPubCity'),fstPubCity:true }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.fstPubCity')">${errors.first('form-cr-rz.fstPubCity')}</p>
+                                    </li>
+                                    <li><p><span>*</span>硬件环境：</p>
+                                        <textarea v-model="rzWorkinfo.hardwareEnv" name="hardwareEnv" v-validate="'required'" data-vv-as="硬件环境"
+                                            :class="{'input': true, 'is-danger': errors.has('form-cr-rz.hardwareEnv') }" placeholder="请填写硬件环境">
+                                        </textarea>
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.hardwareEnv')">${errors.first('form-cr-rz.hardwareEnv')}</p>
+                                    </li>
+                                    <li><p><span>*</span>软件环境：</p>
+                                        <textarea v-model="rzWorkinfo.softEnv" name="softEnv" v-validate="'required'" data-vv-as="软件环境"
+                                            :class="{'input': true, 'is-danger': errors.has('form-cr-rz.softEnv') }" placeholder="请填写软件环境">
+                                        </textarea>
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.softEnv')">${errors.first('form-cr-rz.softEnv')}</p>
+                                    </li>
+                                    <li><p><span>*</span>编程语言：</p>
+                                        <input v-model="rzWorkinfo.programYuyan" name="programYuyan"  placeholder="请输入编程语言"
+                                               v-validate="'required'" data-vv-as="编程语言" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.programYuyan') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.programYuyan')">${errors.first('form-cr-rz.programYuyan')}</p>
+                                    </li>
+                                    <li><p><span>*</span>源程序量：</p>
+                                        <input v-model="rzWorkinfo.sourceAmount" name="sourceAmount"  placeholder="请输入源程序量"
+                                               v-validate="'required'" data-vv-as="源程序量" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.sourceAmount') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.sourceAmount')">${errors.first('form-cr-rz.sourceAmount')}</p>
+                                    </li>
+                                    <li><p><span>*</span>主要功能和技术特点：</p>
+                                        <textarea v-model="rzWorkinfo.instruction" name="instruction" v-validate="'required'" data-vv-as="主要功能和技术特点"
+                                                  :class="{'input': true, 'is-danger': errors.has('form-cr-rz.instruction') }" placeholder="请填写主要功能和技术特点">
+                                        </textarea>
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.instruction')">${errors.first('form-cr-rz.instruction')}</p>
+                                    </li>
+                                    <li><p><span>*</span>联系人姓名：</p>
+                                        <input v-model="rzWorkinfo.contact" name="contact"  placeholder="请输入联系人姓名"
+                                               v-validate="'required'" data-vv-as="联系人姓名" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.contact') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.contact')">${errors.first('form-cr-rz.contact')}</p>
+                                    </li>
+                                    <li>
+                                        <p><span>*</span>联系人详细地址：</p>
+                                        <div>
+                                            <input v-model="rzWorkinfo.contactAddress" name="contactAddress"  placeholder="请输入详细地址"
+                                                   v-validate="'required'" data-vv-as="详细地址" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.contactAddress') }">
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.contactAddress')">${errors.first('form-cr-rz.contactAddress')}</p>
+                                        </div>
+                                    </li>
+                                    <li style="clear: both"></li>
+                                    <li><p><span>*</span>邮编：</p>
+                                        <input v-model="rzWorkinfo.zipCode" name="zipCode"  placeholder="请输入邮编"
+                                            v-validate="'required|postcode'" data-vv-as="邮编" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.zipCode') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.zipCode')">${errors.first('form-cr-rz.zipCode')}</p>
+                                    </li>
+                                    <li><p><span>*</span>联系人手机：</p>
+                                        <input v-model="rzWorkinfo.contactTel" name="contactTel"  placeholder="请输入联系人手机"
+                                            v-validate="'required|phone'" data-vv-as="联系人手机" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.contactTel') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.contactTel')">${errors.first('form-cr-rz.contactTel')}</p>
+                                    </li>
+                                    <li><p><span>&nbsp;</span>联系人座机：</p>
+                                        <input v-model="rzWorkinfo.contactPhone" name="contactPhone"  placeholder="请输入联系人座机"
+                                            v-validate="'telCode'" data-vv-as="联系人座机" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.contactPhone') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.contactPhone')">${errors.first('form-cr-rz.contactPhone')}</p>
+                                    </li>
+                                    <li><p><span>*</span>Email：</p>
+                                        <input v-model="rzWorkinfo.contactEmail" name="contactEmail"  placeholder="请输入Email"
+                                            v-validate="'required|emailNum'" data-vv-as="Email" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.contactEmail') }">
+                                        <p class="red clear-both" v-show="errors.has('form-cr-rz.contactEmail')">${errors.first('form-cr-rz.contactEmail')}</p>
+                                    </li>
+                                    <li><p v-if="rzWorkinfo.idType==1"><span>*</span>上传身份证：</p><p v-if="rzWorkinfo.idType==2"><span>*</span>营业执照：</p>
+                                        <div class="clear">
+                                            <div class="modify_hover" style="display: block">
+                                                <input type="text" v-model="ImgUrl_sfz1"  name="ImgUrl_sfz1" style="display: none;"
+                                                       v-validate="'required'" data-vv-as="证件" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.ImgUrl_sfz1') }">
+                                                <a data-method="notice"><div><img v-bind:src="ImgUrl_sfz1" style="width: 70px;height: 88px;"/> </div></a>
+                                            </div>
+                                            <div id="sfzCode_queueId1" class="f_l" style="margin-right: 30px;">
+                                                <a data-method="notice"  id="sfzCode1"></a>
+                                                <span v-if="rzWorkinfo.idType==1">(身份证正面)</span>
+                                                <span v-if="rzWorkinfo.idType==2">(营业执照)</span>
+                                            </div>
+                                            <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.ImgUrl_sfz1')">${errors.first('form-cr-rz.ImgUrl_sfz1')}</p>
+                                        </div>
+                                        <div v-show="rzWorkinfo.idType==1" class="clear">
+                                            <input type="text" v-model="ImgUrl_sfz2" id="ImgUrl_sfz2" name="ImgUrl_sfz2" style="display: none;"
+                                                   v-validate="'required'" data-vv-as="证件" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.ImgUrl_sfz2') }">
+                                            <div class="modify_hover" style="display: block">
+                                                <a class="layui-liner" data-method="notice"><div><img v-bind:src="ImgUrl_sfz2" style="width: 70px;height: 88px;"/> </div></a>
+                                            </div>
+                                            <div id="sfzCode_queueId2" class="f_l" style="margin-right: 30px;">
+                                                <a data-method="notice"  id="sfzCode2"></a>(身份证反面)
+                                            </div>
+                                            <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.ImgUrl_sfz2')">${errors.first('form-cr-rz.ImgUrl_sfz2')}</p>
+                                        </div>
+                                    </li>
+                                    <li><p ><span>*</span>软件源代码：</p>
+                                        <div class="clear">
+                                            <div class="modify_hover" style="display: block">
+                                                <input type="text" v-model="sourceCode"  name="sourceCode" style="display: none;"
+                                                       v-validate="'required'" data-vv-as="文件" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.sourceCode') }">
+                                                <a :href="sourceCode" target="_blank" data-method="notice"><span v-if="sourceCode"style="line-height: 80px;padding-left: 5px;">点击预览</span></a>
+                                            </div>
+                                            <div id="sfzCode_queueId5" class="f_l" style="margin-right: 30px;">
+                                                <a data-method="notice"  id="sfzCode5"></a>(作品样本)
+                                            </div>
+                                            <b class="modify_b">附件小于100M，允许类型(doc,docx,xls,xlsx,ppt,pptx,pdf,txt,rar,zip)</b>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.sourceCode')">${errors.first('form-cr-rz.sourceCode')}</p>
+                                        </div>
+                                    </li>
+                                    <li><p ><span>*</span>软件说明书：</p>
+                                        <div class="clear">
+                                            <div class="modify_hover" style="display: block">
+                                                <input type="text" v-model="softwareSpe"  name="softwareSpe" style="display: none;"
+                                                       v-validate="'required'" data-vv-as="文件" :class="{'input': true, 'is-danger': errors.has('form-cr-rz.softwareSpe') }">
+                                                <a :href="softwareSpe" target="_blank" data-method="notice"><span v-if="softwareSpe"style="line-height: 80px;padding-left: 5px;">点击预览</span></a>
+                                            </div>
+                                            <div id="sfzCode_queueId6" class="f_l" style="margin-right: 30px;">
+                                                <a data-method="notice"  id="sfzCode6"></a>(作品样本)
+                                            </div>
+                                            <b class="modify_b">附件小于100M，允许类型(doc,docx,xls,xlsx,ppt,pptx,pdf,txt,rar,zip)</b>
+                                            <p class="red clear-both" v-show="errors.has('form-cr-rz.softwareSpe')">${errors.first('form-cr-rz.softwareSpe')}</p>
+                                        </div>
+                                    </li>
+                                </ol>
+                                <div style="clear: both"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{> adviser}}
+                <div class="c_b"></div>
+                <div class="words_button">
+                    <!--<span class="buton" @click="validateForm('form-cr-rz',false)">暂存</span>-->
+                    <span v-if="!loadingIs && crData.status===1" @click="validateForm('form-cr-rz',true)" class="words_sub buton">确认提交</span>
+                    <span v-if="loadingIs" class="words_sub buton">确认提交</span>
+                </div>
+            </div>
+        </form>
+
+
+        {{> orderList}}
+
+</div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+    var crData = {{{ crData }}};
+//    var crDataes = {{{ crDataes }}};
+    var orderBody = {{{ orderBody }}};
+    var allNodes = {{{ allNodes }}};
+    var nowNodes = {{{ nowNodes }}};
+    var user = {{{ user }}};
+    var odata = {{{ oData }}};
+    var body_id = "",body_type="";
+    if(orderBody.data.userCompanyList.length>0||orderBody.data.userBodyList>0){
+       body_id = orderBody.data.userCompanyList[0].id||orderBody.data.userBodyList[0].id;
+    }
+    body_type=orderBody.data.userCompanyList.length>0?0:1;
+
+    if(crData.data.orderDetail.status === -1 || crData.data.orderDetail.status === 0){
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.alert('该订单未支付或已退款!',{
+                icon: 5,
+                closeBtn: 0,
+                btn:['返回订单列表'],
+                yes:function (index) {
+                    layer.close(index);
+                    window.location.href='/userOrder';
+                }
+            });
+        });
+    }
+
+    var telCode = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的座机';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^((\d{3,4}\-)|)\d{7,8}(|([-\u8f6c]{1}\d{1,5}))$/.test(value));
+        }
+    };
+    VeeValidate.Validator.extend('telCode', telCode);
+    var phone = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的手机号码';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^(1[3-9][0-9]{9})$/.test(value));
+        }
+    };
+    VeeValidate.Validator.extend('phone', phone);
+    var emailNum = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的邮箱号';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/.test(value));
+        }
+    };
+    VeeValidate.Validator.extend('emailNum', emailNum);
+    var postcode = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的邮编';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^[0-9][0-9]{5}$/.test(value));
+        }
+    };
+    VeeValidate.Validator.extend('postcode', postcode);
+    var sfzcode = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的身份证号';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|[X|x])$/.test(value));
+        }
+    };
+    VeeValidate.Validator.extend('sfzcode', sfzcode);
+    layui.use('laydate', function() {
+        var laydate = layui.laydate,$ = layui.jquery, layer = layui.layer;
+    });
+    var crMsgVM = new Vue({
+        el: '#cr_form',
+        delimiters: ["${", "}"],
+        data: {
+            orderBody:orderBody.data.userBodyList,
+            orderCompany:orderBody.data.userCompanyList,
+            crData:crData.data.orderDetail,
+            allNodes:allNodes.data,
+            nowNodes:nowNodes.data,
+            user:JSON.parse(user),
+            wzbqWorkinfo:{
+                status:1,
+                idType:1,
+                bodyId:body_id,
+                bodyType:body_type,
+            },
+            msbqWorkinfo:{
+                status:1,
+                idType:1,
+                bodyId:body_id,
+                bodyType:body_type,
+            },
+            rzWorkinfo:{
+                status:1,
+                idType:1,
+                bodyId:body_id,
+                bodyType:body_type,
+            },
+            ownerName:"",
+            copyrightOwners:"",  //数据回显时，判断申请人长度
+            authorName:"",
+            copyrightAuthors:"",  //数据回显时，判断作者长度
+            signature:"",
+            copyrightOwners:[{}],
+            copyrightAuthors:[{}],
+            cr_data:{
+                copyrightOwners:[],
+                copyrightAuthors:[],
+            },
+            authorNum:[{isShow:true},{isShow:false},{isShow:false},{isShow:false},{isShow:false}],
+            ownerNum:[{isShow:true},{isShow:false},{isShow:false},{isShow:false},{isShow:false}],
+            owner_num :1,
+            author_num :1,
+            ImgIp : zgg.Vconfig.contractUrl,
+            ImgUrl_sfz1:"",
+            ImgUrl_sfz2:"",
+            workSample:"",
+            sourceCode:"",
+            softwareSpe:"",
+            img_updata_url:{},
+            btn_show:true,
+            odataList:[],
+            ImgUrl:zgg.Vconfig.ImgUrl,
+            adviser:"",
+            gwPicUrl:zgg.Vconfig.gwPicUrl,
+            btnDis:true,
+            loadingIs:false
+//            isEntrust:crDataes.data.isentrust,
+        },
+        methods: {
+            getGwInfo:function () {
+                axios.get('/userCenter/userCounselorByPcode/'+crData.data.orderDetail.pcode).then(
+                        function (res) {
+                            if(res){
+                                crMsgVM.adviser = res.data;
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                )},
+            bodyChoess:function (obj,id,num) {
+                this.$set(obj,"bodyId",id);
+                obj.bodyType = num;
+            },
+            ownerNumAdd:function (str,whoNum,form) {
+                if(str == "add"){
+                    //whoNum++;
+                    //this.$validator.attach('ownerName'+whoNum, 'required', {scope:form,prettyName:"申请人姓名或名称",getter:function () {return $("#ownerName"+whoNum).val();},context:function(){return $("#ownerName"+whoNum).context}});
+                    if(!!crData.data.copyrightOwners && crData.data.hasOwnProperty('copyrightOwners')){
+                        this.owner_num = this.copyrightOwners
+                    }
+                    if(this.owner_num>4){return}
+                    this.owner_num++;
+                    this.copyrightOwners++;
+                   for(var i = 1 ;i<this.ownerNum.length;i++){
+                       if(i<this.owner_num){
+                           this.ownerNum[i].isShow=true;
+                       }
+                   }
+                }else if(str == "subtract"){
+                   // this.$validator.detach('ownerName'+whoNum,form);
+                    if(!!crData.data.copyrightOwners && crData.data.hasOwnProperty('copyrightOwners')){
+                        this.owner_num = this.copyrightOwners - 1;
+                    }
+                    if(this.owner_num<=0){return}
+                    this.owner_num--;
+                    this.copyrightOwners--;
+                    for(var i = 1 ;i<this.ownerNum.length;i++){
+                        if(i==whoNum){
+                            this.ownerNum[i].isShow=false;
+                            this.ownerNum[i].ownerName="";
+                        }
+                    }
+                }
+            },
+            authorNumAdd:function (str,whoNum,form) {
+                if(str == "add"){
+                    //whoNum++;
+                    //this.$validator.attach('authorName'+whoNum, 'required', {scope:form,prettyName:"作者姓名或名称",getter:function () {return $("#authorName"+whoNum).val();},context:function(){return $("#authorName"+whoNum).context}});
+                    if(!!crData.data.copyrightAuthors && crData.data.hasOwnProperty('copyrightAuthors')){
+                        this.author_num = this.copyrightAuthors
+                    }
+                    if(this.author_num>4){return}
+                    this.author_num++;
+                    this.copyrightAuthors++;
+                   for(var i = 1 ;i<this.authorNum.length;i++){
+                       if(i<this.author_num){
+                           this.authorNum[i].isShow=true;
+                       }
+                   }
+                }else if(str == "subtract"){
+                    //this.$validator.detach('authorName'+whoNum,form);
+                    if(!!crData.data.copyrightAuthors && crData.data.hasOwnProperty('copyrightAuthors')){
+                        this.author_num = this.copyrightAuthors - 1;
+                    }
+                    if(this.author_num<=0){return}
+                    this.author_num--;
+                    this.copyrightAuthors--;
+                    for(var i = 1 ;i<this.authorNum.length;i++){
+                        if(i==whoNum){
+                            this.authorNum[i].isShow=false;
+                            //this.authorNum[i].authorNum="";
+                            this.authorNum[i].authorName="";
+                        }
+                    }
+                }
+            },
+            perseon:function (form,obj) {
+                obj.idType=1;
+                this.$validator.attach('ImgUrl_sfz2', 'required', {scope:form,prettyName:"证件照片",getter:function () {return $("#ImgUrl_sfz2").val();},context:function(){return $("#ImgUrl_sfz2").context}});
+                this.$validator.attach('licenseNum', 'required|sfzcode', {scope:form,prettyName:"身份证",getter:function () {return $(".licenseNum").val();},context:function(){return $(".licenseNum").context}});
+                this.$validator.detach("companyCreatetime",form);
+                this.$validator.detach("license_Num",form);
+                this.errors.clear(form);
+            },
+            company:function (form,obj) {
+                obj.idType=2;
+                this.$validator.attach('companyCreatetime', 'required', {scope:form,prettyName:"公司成立时间",getter:function () {return $("#timeData1").val();},context:function(){return $("#timeData1").context}});
+                this.$validator.attach('license_Num', 'required', {scope:form,prettyName:"执照号",getter:function () {return $(".license_Num").val();},context:function(){return $(".license_Num").context}});
+                this.$validator.detach("ImgUrl_sfz2",form);
+                this.$validator.detach("licenseNum",form);
+                this.errors.clear(form);
+            },
+            publish:function (form,obj) {
+                obj.status=1;
+                this.errors.clear(form);
+                this.$validator.attach('fstPubDate', 'required', {scope:form,prettyName:"首次发表时间",getter:function () {return $(".fstPubDate").val();},context:function(){return $(".fstPubDate").context}});
+                this.$validator.attach('fstPubCity', 'required', {scope:form,prettyName:"首次发表城市",getter:function () {return $(".fstPubCity").val();},context:function(){return $(".fstPubCity").context}});
+            },
+            dispublish:function (form,obj) {
+                obj.status=1;
+                this.errors.clear(form);
+                this.$validator.detach("fstPubDate",form);
+                this.$validator.detach("fstPubCity",form);
+            },
+            wzForm:function (nextStep) {
+                crMsgVM.cr_data.copyrightAuthors=[];
+                crMsgVM.cr_data.copyrightOwners=[];
+                this.wzbqWorkinfo.orderid = crMsgVM.crData.orderId;
+                this.cr_data.wzbqWorkinfo = this.wzbqWorkinfo;
+                if(crData.data.hasOwnProperty('wzbqWorkinfo')){
+                    this.cr_data.wzbqWorkinfo.id = crData.data.wzbqWorkinfo.id;
+                }
+                this.cr_data.wzbqWorkinfo.workSample = this.img_updata_url.workSample;
+                this.ownerNum.map(function (item) {
+                   if(item.isShow == true){
+                       if(item.ownerName != undefined && item.ownerName != ''){
+                           crMsgVM.cr_data.copyrightOwners.push({
+                               isShow:true,
+                               ownerName:item.ownerName,
+                               signature:crMsgVM.signature,
+                               orderid:crMsgVM.crData.orderId
+                           })
+                       }
+                   }
+                });
+                this.authorNum.map(function (item) {
+                    if (item.isShow == true) {
+                        if(item.authorName != undefined && item.authorName != '') {
+                            crMsgVM.cr_data.copyrightAuthors.push({
+                                isShow: true,
+                                authorName: item.authorName,
+                                signature: crMsgVM.signature,
+                                orderid: crMsgVM.crData.orderId
+                            });
+                        }
+                    }
+                });
+                if( this.wzbqWorkinfo.idType==1){
+                    this.wzbqWorkinfo.idUrl1=this.img_updata_url.ImgUrl_sfz1;
+                    this.wzbqWorkinfo.idUrl2=this.img_updata_url.ImgUrl_sfz2;
+                }else if(this.wzbqWorkinfo.idType==2){
+                    this.wzbqWorkinfo.idUrl1=this.img_updata_url.ImgUrl_sfz1;
+                }
+                if(this.wzbqWorkinfo.bodyId == -10){
+                    this.wzbqWorkinfo.bodyId = "";
+                    this.wzbqWorkinfo.bodyType = "";
+                }
+                console.log(this.cr_data);
+                axios.post("/copyright/copyrightMsg",this.cr_data).then(function (data) {
+                    if(data.data.success){
+                        if(nextStep==true){
+                            crMsgVM.btn_show = true;
+                            window.location.reload();
+                        }else if(nextStep==false){
+//                            layer.msg("暂存成功！",{icon:1});
+                            window.location.reload();
+                        }
+                    }else{
+                        crMsgVM.loadingIs = false;
+                    }
+                });
+            },
+            msForm:function (nextStep) {
+                crMsgVM.cr_data.copyrightAuthors=[];
+                crMsgVM.cr_data.copyrightOwners=[];
+                this.msbqWorkinfo.orderid = crMsgVM.crData.orderId;
+                this.cr_data.msbqWorkinfo = this.msbqWorkinfo;
+                if(crData.data.hasOwnProperty('msbqWorkinfo')){
+                    this.cr_data.msbqWorkinfo.id = crData.data.msbqWorkinfo.id;
+                }
+                this.cr_data.msbqWorkinfo.workSample = this.img_updata_url.workSample;
+                this.ownerNum.map(function (item) {
+                    if(item.isShow == true){
+                        if(item.ownerName != undefined && item.ownerName != '') {
+                            crMsgVM.cr_data.copyrightOwners.push({
+                                ownerName: item.ownerName,
+                                orderid: crMsgVM.crData.orderId
+                            });
+                        }
+                    }
+                });
+//                this.authorNum.map(function (item) {
+//                    if (item.isShow == true) {
+//                        crMsgVM.cr_data.copyrightAuthors.push( {
+//                            authorName: item.authorName,
+//                            orderid: crMsgVM.crData.orderId
+//                        })
+//                    }
+//                });
+                if( this.msbqWorkinfo.idType==1){
+                    this.msbqWorkinfo.idUrl1=this.img_updata_url.ImgUrl_sfz1;
+                    this.msbqWorkinfo.idUrl2=this.img_updata_url.ImgUrl_sfz2;
+                }else if(this.msbqWorkinfo.idType==2){
+                    this.msbqWorkinfo.idUrl1=this.img_updata_url.ImgUrl_sfz1;
+                }
+                if(this.msbqWorkinfo.bodyId == -10){
+                    this.msbqWorkinfo.bodyId = "";
+                    this.msbqWorkinfo.bodyType = "";
+                }
+                axios.post("/copyright/copyrightMsg",this.cr_data).then(function (data) {
+                    if(data.data.success){
+                        if(nextStep==true){
+                            window.location.reload();
+                        }else if(nextStep==false){
+//                            layer.msg("暂存成功！",{icon:1});
+                        }
+                    }else{
+                        crMsgVM.loadingIs = false;
+                    }
+                });
+            },
+            rzForm:function (nextStep) {
+                crMsgVM.cr_data.copyrightOwners=[];
+                this.rzWorkinfo.orderid = crMsgVM.crData.orderId;
+                this.cr_data.rzWorkinfo = this.rzWorkinfo;
+                if(crData.data.hasOwnProperty('rzWorkinfo')){
+                    this.cr_data.rzWorkinfo.id = crData.data.rzWorkinfo.id;
+                }
+                this.cr_data.rzWorkinfo.sourceCode = this.img_updata_url.sourceCode;
+                this.cr_data.rzWorkinfo.softwareSpe = this.img_updata_url.softwareSpe;
+                this.ownerNum.map(function (item) {
+                    if(item.isShow == true){
+                        if(item.ownerName != undefined && item.ownerName != '') {
+                            crMsgVM.cr_data.copyrightOwners.push({
+                                ownerName: item.ownerName,
+                                orderid: crMsgVM.crData.orderId
+                            });
+                        }
+                    }
+                });
+                if( this.rzWorkinfo.idType==1){
+                    this.rzWorkinfo.idUrl1=this.img_updata_url.ImgUrl_sfz1;
+                    this.rzWorkinfo.idUrl2=this.img_updata_url.ImgUrl_sfz2;
+                }else if(this.rzWorkinfo.idType==2){
+                    this.rzWorkinfo.idUrl1=this.img_updata_url.ImgUrl_sfz1;
+                }
+                if(this.rzWorkinfo.bodyId == -10){
+                    this.rzWorkinfo.bodyId = "";
+                    this.rzWorkinfo.bodyType = "";
+                }
+                axios.post("/copyright/copyrightMsg",this.cr_data).then(function (data) {
+                    if(data.data.success){
+                        if(nextStep==true){
+                            window.location.reload();
+                        }else if(nextStep==false){
+//                            layer.msg("暂存成功！",{icon:1});
+                        }
+                    }else{
+                        crMsgVM.loadingIs = false;
+                    }
+                });
+            },
+            validateForm:function (scope,nextStep) {
+                this.$validator.validateAll(scope).then(function (result) {
+                    if(result){
+                        crMsgVM.loadingIs = true;
+                        crMsgVM.cr_data.nextStep = nextStep;
+                        crMsgVM.cr_data.pcode = crMsgVM.crData.pcode;
+                        crMsgVM.cr_data.orderId = crMsgVM.crData.orderId;
+                       if(scope == "form-cr-wz"){
+                           crMsgVM.wzForm(nextStep);
+                       }else if(scope == "form-cr-ms"){
+                           crMsgVM.msForm(nextStep);
+                       }else if(scope == "form-cr-rz"){
+                           crMsgVM.rzForm(nextStep);
+                       }
+                   }
+                });
+            },
+            updataFile:function (_str,queueId,ImgUrl,_oth) {
+                if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0") {
+                    var _fileSizeLimit =  '2MB', _fileTypeExts = '*.jpg;*.bmp;*.jpeg;*.png;*.gif;';
+                    if(_oth === 'other' ){
+                        _fileSizeLimit =  '100MB';
+                        _fileTypeExts = '*.jpg;*.gif;*.png;*.bmp;*.doc;*.docx;*.xls;*.xlsx;*.ppt;*.pptx;*.pdf;*.txt;*.rar;*.zip';
+                    }
+                    $(_str).uploadify({
+                        'auto' : true,
+                        'queueID' :queueId,
+                        'swf'      : '/lib/uploadify.swf',
+                        'uploader' : '/upload/profile',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传文件',
+                        'fileSizeLimit ': _fileSizeLimit,
+                        'fileTypeExts': _fileTypeExts,
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'removeCompleted':false,
+                        'token':JSON.parse(user).token,
+                        'formData':{
+                            'orderId':crData.data.orderDetail.orderId,
+                            'stepType':nowNodes.data.stepnum,
+                            'stepId':nowNodes.data.id,
+                            'fType':'ft_6',
+                        },
+                        'onDrop'       : function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onFallback':function () {
+                            alert('请安装或升级更高版本的Flash插件');
+                        },
+                        'onUploadSuccess' : function(file, data, response) {
+//                            $(_str).uploadify('clearQueue');
+                            var data = JSON.parse(data);
+                            if( data && data.success ){
+                                if(ImgUrl=="ImgUrl_sfz1"){
+                                    crMsgVM.ImgUrl_sfz1 = crMsgVM.ImgIp +  data.data.filePath;
+                                    crMsgVM.img_updata_url.ImgUrl_sfz1 = data.data.filePath;
+                                }else if(ImgUrl=="ImgUrl_sfz2"){
+                                    crMsgVM.ImgUrl_sfz2 = crMsgVM.ImgIp +  data.data.filePath;
+                                    crMsgVM.img_updata_url.ImgUrl_sfz2 = data.data.filePath;
+                                }else if(ImgUrl=="workSample"){
+                                    crMsgVM.workSample = crMsgVM.ImgIp +  data.data.filePath;
+                                    crMsgVM.img_updata_url.workSample = data.data.filePath;
+                                }else if(ImgUrl=="sourceCode"){
+                                    crMsgVM.sourceCode = crMsgVM.ImgIp +  data.data.filePath;
+                                    crMsgVM.img_updata_url.sourceCode = data.data.filePath;
+                                }else if(ImgUrl=="softwareSpe"){
+                                    crMsgVM.softwareSpe = crMsgVM.ImgIp +  data.data.filePath;
+                                    crMsgVM.img_updata_url.softwareSpe = data.data.filePath;
+                                }
+                                layer.msg('上传成功',{icon:1});
+                            }
+                        },
+                        'onClearQueue' : function(queueItemCount) {
+                            debugger;
+                        },
+                        'onSelectError'  : function(file, errorCode, errorMsg) {
+                            var msgText = "上传失败，";
+                            switch (errorCode) {
+                                case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+                                    msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+                                    break;
+                                case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+                                    msgText += "文件大小为0";
+                                    break;
+                                case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+                                    msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+                                    break;
+                                default:
+                                    msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+                            }
+                            layer.msg(msgText,{icon:2});
+                        },
+                        'onUploadError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                }else{
+                    $(_str).uploadifive({
+                        'auto' : true,
+                        'queueID' :queueId,
+                        'uploadScript' : '/upload/profile',
+                        'checkScript':'/upload/check',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传文件',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': 'image/*',
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'removeCompleted':false,
+                        'token':JSON.parse(user).token,
+                        'formData':{
+                            'orderId':crData.data.orderDetail.orderId,
+                            'stepType':nowNodes.data.stepnum,
+                            'stepId':nowNodes.data.id,
+                            'fType':'ft_6',
+                        },
+                        'onDrop'       : function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onUploadComplete' : function(file, data, response) {
+                            $(_str).uploadifive('clearQueue');
+                            var data = JSON.parse(data);
+                            if( data && data.success ){
+                                if(ImgUrl=="ImgUrl_sfz1"){
+                                    crMsgVM.ImgUrl_sfz1 = crMsgVM.ImgIp +  data.data.filePath;
+                                    crMsgVM.img_updata_url.ImgUrl_sfz1 = data.data.filePath;
+                                }else if(ImgUrl=="ImgUrl_sfz2"){
+                                    crMsgVM.ImgUrl_sfz2 = crMsgVM.ImgIp +  data.data.filePath;
+                                    crMsgVM.img_updata_url.ImgUrl_sfz2 = data.data.filePath;
+                                }else if(ImgUrl=="workSample"){
+                                    crMsgVM.workSample = crMsgVM.ImgIp +  data.data.filePath;
+                                    crMsgVM.img_updata_url.workSample = data.data.filePath;
+                                }else if(ImgUrl=="sourceCode"){
+                                    crMsgVM.sourceCode = crMsgVM.ImgIp +  data.data.filePath;
+                                    crMsgVM.img_updata_url.sourceCode = data.data.filePath;
+                                }else if(ImgUrl=="softwareSpe"){
+                                    crMsgVM.softwareSpe = crMsgVM.ImgIp +  data.data.filePath;
+                                    crMsgVM.img_updata_url.softwareSpe = data.data.filePath;
+                                }
+                                layer.msg('上传成功',{icon:1});
+                            }
+                        },
+                        'onClearQueue' : function(queueItemCount) {
+                            debugger;
+                        },
+                        'onCheck'  : function(file, exists) {
+                            if (exists) {
+                                layer.msg("您上传的文件格式或大小有误");
+                                $(_str).uploadifive('cancel', file)
+                            }
+                        },
+                        'onUploadError' : function (file, data, response) {
+                            debugger;
+                            $(_str).uploadifive('clearQueue');
+                        }
+                    })
+                }
+            },
+            page:function () {
+                $.post('/userCenter/homeOrderPage',{pageNo:crMsgVM.currentPage,pageSize:5},function (res) {
+                    if(res.data && res.success){
+//                        user_homeVM.$set(user_homeVM,'odataList',res.data.list);
+                        console.log(crMsgVM.odataList)
+                        crMsgVM.odataList = res.data.list;
+                    }
+                })
+            },
+        },
+
+        mounted:function () {
+//            crMsgVM.updata();
+            //软件著作权
+            if(!!crData.data.rzWorkinfo && crData.data.hasOwnProperty('rzWorkinfo')){
+                //softwareSpe  软件说明书
+                //sourceCode  软件源代码
+                //身份证正面  营业执照  ImgUrl_sfz1
+                //身份证反面  ImgUrl_sfz2
+                //工作样本    workSample
+                this.rzWorkinfo = crData.data.rzWorkinfo;   //软著
+                this.copyrightOwners = crData.data.copyrightOwners.length;
+                //如果当前选中的是公司  先调用公司 取消个人验证
+                if(crData.data.rzWorkinfo.idType == 2){
+                    this.company('form-cr-rz',crData.data.rzWorkinfo)
+                }
+                //身份证正面  营业执照 页面显示
+                if(!!crData.data.rzWorkinfo.idUrl1 && crData.data.rzWorkinfo.hasOwnProperty('idUrl1')){
+                    //this.rzWorkinfo.idUrl1 = '/base'+ crData.data.rzWorkinfo.idUrl1.split("/base")[1];
+                    this.img_updata_url.ImgUrl_sfz1 = '/base'+ crData.data.rzWorkinfo.idUrl1.split("/base")[1];
+                    this.ImgUrl_sfz1 = crData.data.rzWorkinfo.idUrl1;
+                }
+                //身份证反面 页面显示 及参数
+                if(!!crData.data.rzWorkinfo.idUrl2 && crData.data.rzWorkinfo.hasOwnProperty('idUrl2')){
+                    //this.rzWorkinfo.idUrl2 = '/base'+ crData.data.rzWorkinfo.idUrl2.split('/base')[1];
+                    this.img_updata_url.ImgUrl_sfz2 = '/base'+ crData.data.rzWorkinfo.idUrl2.split('/base')[1];
+                    this.ImgUrl_sfz2 = crData.data.rzWorkinfo.idUrl2;
+                }
+                //sourceCode  软件源代码 页面显示
+                if(!!crData.data.rzWorkinfo.sourceCode && crData.data.rzWorkinfo.hasOwnProperty('sourceCode')){
+                    this.sourceCode = crData.data.rzWorkinfo.sourceCode;
+                    //this.cr_data.rzWorkinfo.sourceCode = '/base'+ crData.data.rzWorkinfo.sourceCode.split('/base')[1];
+                    this.img_updata_url.sourceCode = '/base'+ crData.data.rzWorkinfo.sourceCode.split('/base')[1];
+                }
+                //softwareSpe  软件说明书 页面显示
+                if(!!crData.data.rzWorkinfo.softwareSpe && crData.data.rzWorkinfo.hasOwnProperty('softwareSpe')){
+                    this.softwareSpe = crData.data.rzWorkinfo.softwareSpe;
+                    //this.cr_data.rzWorkinfo.softwareSpe = '/base'+ crData.data.rzWorkinfo.softwareSpe.split('/base')[1];
+                    this.img_updata_url.softwareSpe = '/base'+ crData.data.rzWorkinfo.softwareSpe.split('/base')[1];
+                }
+                //申请人循环  添加isShow 属性为true
+                crData.data.copyrightOwners.map(function (item,index) {
+                    item.isShow = true;
+                    this.owner_num = crData.data.copyrightOwners.length;
+                    if(this.owner_num>4){return}
+                    this.owner_num++;
+                    for(var i = crData.data.copyrightOwners.length ;i<this.owner_num;i++){
+                        if(i<this.owner_num){
+                            //crData.data.copyrightOwners[i].isShow=false;
+                            crData.data.copyrightOwners.push({isShow:false});
+                            if(this.owner_num < 5){
+                                this.owner_num++;
+                            }
+                        }
+                    }
+                });
+                this.ownerNum = crData.data.copyrightOwners;
+            }
+            //美术著作权
+            if(!!crData.data.msbqWorkinfo && crData.data.hasOwnProperty('msbqWorkinfo')){
+                //softwareSpe  软件说明书
+                //sourceCode  软件源代码
+                //身份证正面  营业执照  ImgUrl_sfz1
+                //身份证反面  ImgUrl_sfz2
+                //工作样本    workSample
+                this.msbqWorkinfo = crData.data.msbqWorkinfo;   //美术
+                this.copyrightOwners = crData.data.copyrightOwners.length;
+                //如果当前选中的是公司  先调用公司 取消个人验证
+                if(crData.data.msbqWorkinfo.idType == 2){
+                    this.company('form-cr-ms',crData.data.msbqWorkinfo)
+                }
+                //身份证正面  营业执照 页面显示
+                if(!!crData.data.msbqWorkinfo.idUrl1 && crData.data.msbqWorkinfo.hasOwnProperty('idUrl1')){
+                    //this.msbqWorkinfo.idUrl1 = '/base'+ crData.data.msbqWorkinfo.idUrl1.split("/base")[1];
+                    this.img_updata_url.ImgUrl_sfz1 = '/base'+ crData.data.msbqWorkinfo.idUrl1.split("/base")[1];
+                    this.ImgUrl_sfz1 = crData.data.msbqWorkinfo.idUrl1;
+                }
+                //身份证反面 页面显示 及参数
+                if(!!crData.data.msbqWorkinfo.idUrl2 && crData.data.msbqWorkinfo.hasOwnProperty('idUrl2')){
+                    //this.msbqWorkinfo.idUrl2 = '/base'+ crData.data.msbqWorkinfo.idUrl2.split('/base')[1];
+                    this.img_updata_url.ImgUrl_sfz2 = '/base'+ crData.data.msbqWorkinfo.idUrl2.split('/base')[1];
+                    this.ImgUrl_sfz2 = crData.data.msbqWorkinfo.idUrl2;
+                }
+               //workSample  作品样本
+                if(!!crData.data.msbqWorkinfo.workSample && crData.data.msbqWorkinfo.hasOwnProperty('workSample')){
+                    this.workSample = crData.data.msbqWorkinfo.workSample;
+                    //this.cr_data.msbqWorkinfo.softwareSpe = '/base'+ crData.data.msbqWorkinfo.softwareSpe.split('/base')[1];
+                    this.img_updata_url.workSample = '/base'+ crData.data.msbqWorkinfo.workSample.split('/base')[1];
+                }
+
+                //申请人循环  添加isShow 属性为true
+                crData.data.copyrightOwners.map(function (item,index) {
+                    item.isShow = true;
+                    this.owner_num = crData.data.copyrightOwners.length;
+                    if(this.owner_num>4){return}
+                    this.owner_num++;
+                    for(var i = crData.data.copyrightOwners.length ;i<this.owner_num;i++){
+                        if(i<this.owner_num){
+                            //crData.data.copyrightOwners[i].isShow=false;
+                            crData.data.copyrightOwners.push({isShow:false});
+                            if(this.owner_num < 5){
+                                this.owner_num++;
+                            }
+                        }
+                    }
+                });
+                this.ownerNum = crData.data.copyrightOwners;
+            }
+            //文字著作权
+            if(!!crData.data.wzbqWorkinfo && crData.data.hasOwnProperty('wzbqWorkinfo')){
+                //softwareSpe  软件说明书
+                //sourceCode  软件源代码
+                //身份证正面  营业执照  ImgUrl_sfz1
+                //身份证反面  ImgUrl_sfz2
+                //工作样本    workSample
+                this.wzbqWorkinfo = crData.data.wzbqWorkinfo;   //美术
+                this.copyrightAuthors = crData.data.copyrightAuthors.length;
+                this.copyrightOwners = crData.data.copyrightOwners.length;
+                //如果当前选中的是公司  先调用公司 取消个人验证
+                if(crData.data.wzbqWorkinfo.idType == 2){
+                    this.company('form-cr-wz',crData.data.wzbqWorkinfo)
+                }
+                //身份证正面  营业执照 页面显示
+                if(!!crData.data.wzbqWorkinfo.idUrl1 && crData.data.wzbqWorkinfo.hasOwnProperty('idUrl1')){
+                    //this.wzbqWorkinfo.idUrl1 = '/base'+ crData.data.wzbqWorkinfo.idUrl1.split("/base")[1];
+                    this.img_updata_url.ImgUrl_sfz1 = '/base'+ crData.data.wzbqWorkinfo.idUrl1.split("/base")[1];
+                    this.ImgUrl_sfz1 = crData.data.wzbqWorkinfo.idUrl1;
+                }
+                //身份证反面 页面显示 及参数
+                if(!!crData.data.wzbqWorkinfo.idUrl2 && crData.data.wzbqWorkinfo.hasOwnProperty('idUrl2')){
+                    //this.wzbqWorkinfo.idUrl2 = '/base'+ crData.data.wzbqWorkinfo.idUrl2.split('/base')[1];
+                    this.img_updata_url.ImgUrl_sfz2 = '/base'+ crData.data.wzbqWorkinfo.idUrl2.split('/base')[1];
+                    this.ImgUrl_sfz2 = crData.data.wzbqWorkinfo.idUrl2;
+                }
+                //workSample  作品样本
+                if(!!crData.data.wzbqWorkinfo.workSample && crData.data.wzbqWorkinfo.hasOwnProperty('workSample')){
+                    this.workSample = crData.data.wzbqWorkinfo.workSample;
+                    //this.cr_data.wzbqWorkinfo.softwareSpe = '/base'+ crData.data.wzbqWorkinfo.softwareSpe.split('/base')[1];
+                    this.img_updata_url.workSample = '/base'+ crData.data.wzbqWorkinfo.workSample.split('/base')[1];
+                }
+
+                //申请人循环  添加isShow 属性为true
+                crData.data.copyrightOwners.map(function (item,index) {
+                    item.isShow = true;
+                    this.owner_num = crData.data.copyrightOwners.length;
+                    if(this.owner_num>4){return}
+                    this.owner_num++;
+                    for(var i = crData.data.copyrightOwners.length ;i<this.owner_num;i++){
+                        if(i<this.owner_num){
+                            //crData.data.copyrightOwners[i].isShow=false;
+                            crData.data.copyrightOwners.push({isShow:false});
+                            if(this.owner_num < 5){
+                                this.owner_num++;
+                            }
+                        }
+                    }
+                });
+                this.ownerNum = crData.data.copyrightOwners;
+                //  添加作者
+                crData.data.copyrightAuthors.map(function(item,index){
+                    item.isShow = true;
+                    this.author_num = crData.data.copyrightAuthors.length;
+                    if(this.author_num>4){return}
+                    this.author_num++;
+                    for(var i = crData.data.copyrightAuthors.length ;i<this.author_num;i++){
+                        if(i<this.author_num){
+                            //crData.data.copyrightAuthors[i].isShow=false;
+                            crData.data.copyrightAuthors.push({isShow:false});
+                            if(this.author_num < 5){
+                                this.author_num++;
+                            }
+                        }
+                    }
+                });
+                this.authorNum = crData.data.copyrightAuthors;
+                this.signature = crData.data.copyrightAuthors[0].signature;
+            }
+            this.getGwInfo();
+            //判断产品类型 执行附件初始化
+            if(this.crData.pcode=='cr_soft_1'|| this.crData.pcode=='cr_soft_2'||this.crData.pcode.indexOf('cr_soft')>=0){
+                this.updataFile('#sfzCode1','sfzCode_queueId1','ImgUrl_sfz1');
+                this.updataFile('#sfzCode2','sfzCode_queueId2','ImgUrl_sfz2');
+                this.updataFile('#sfzCode5','sfzCode_queueId5','sourceCode','other');
+                this.updataFile('#sfzCode6','sfzCode_queueId6','softwareSpe','other');
+            }else if(this.crData.pcode=='cr_pro_1'||this.crData.pcode.indexOf('cr_ms')>=0){
+                this.updataFile('#sfzCode4','sfzCode_queueId4','workSample','other');
+                this.updataFile('#sfzCode2','sfzCode_queueId2','ImgUrl_sfz2');
+                this.updataFile('#sfzCode1','sfzCode_queueId1','ImgUrl_sfz1');
+            }else if(this.crData.pcode=='cr_pro_2'||this.crData.pcode.indexOf('cr_wz')>=0){
+                this.updataFile('#sfzCode4','sfzCode_queueId4','workSample','other');
+                this.updataFile('#sfzCode2','sfzCode_queueId2','ImgUrl_sfz2');
+                this.updataFile('#sfzCode1','sfzCode_queueId1','ImgUrl_sfz1');
+            }
+        }
+    });
+
+    layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+                ,layer = layui.layer;
+        laypage({
+            cont: 'demo4',
+            curr: odata.totalPage,
+            pages: Math.ceil(parseInt(odata.data.totalCount)/5),
+            skip: false,
+            first: 1,
+            last: Math.ceil(parseInt(odata.data.totalCount)/5),
+            groups:3,
+            prev:false,
+            next:false,
+            jump: function (e) {
+                crMsgVM.currentPage = e.curr;
+                crMsgVM.page();
+            }
+        });
+    });
+
+</script>

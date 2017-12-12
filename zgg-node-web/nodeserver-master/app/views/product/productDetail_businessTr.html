@@ -1,0 +1,142 @@
+<link rel="stylesheet" type="text/css" href="/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/css/productDetail.css">
+<link rel="stylesheet" href="/css/confimProduct.css">
+<style>
+    .layui-form-select dl dd{
+        color:#333;
+        font-size:12px;
+    }
+
+    .layui-form-select .layui-input{
+        font-size:12px;
+    }
+</style>
+<script type="text/javascript">
+    var pData = {{{ pData}}},
+        adviser = {{{ adviser }}};
+</script>
+<div class="prodCon" id="product">
+    <div class="prodNav">
+        <ul>
+            <li><a href="/">首页</a><span>></span></li>
+            <li v-if="product.pcode.indexOf('ht')==-1">
+                <a v-if="product.pcode.indexOf('tr_')!=-1" href="/category/trademark" target="_blank">商标服务</a>
+                <a v-if="product.pcode.indexOf('cr_')!=-1" href="/category/copyright" target="_blank">版权服务</a>
+                <a v-if="product.pcode.indexOf('pt_')!=-1" href="/category/patent" target="_blank">专利服务</a>
+            <!--    <a v-if="product.pcode.indexOf('ht')!=-1" href="/category/trademark" target="_blank">高新服务</a>-->
+                <span> ></span>
+            </li>
+            <li v-html="product.pname"></li>
+        </ul>
+    </div>
+    <div class="prodInfo">
+        <form class="layui-form">
+            <div class="prodInfo_fl">
+                <div class="prodTit">
+                    <h1 v-html="product.pname"></h1>
+                    <span v-if="product.updownState==1" style="background: #a7a5a5;">商品已下架</span>
+                    <!--<span>网上申报</span>
+                    <span>全流程保障</span>-->
+                </div>
+                <div class="clear"></div>
+                <h3 v-html="product.info"></h3>
+                <div class="clear"></div>
+                <div class="prodPayment">
+                    <ul>
+                        <li v-if="product.updownState==2" @click="showBusnessDialog()"  class="btnCart">立即咨询顾问</li>
+                       <!-- <li v-if="product.updownState==1"  class="btnCart_miss">加入购物车</li>-->
+                    </ul>
+                </div>
+                <div id="flyItem" class="fly_item" style="visibility:hidden">
+                    <img v-bind:src="ImgUrl+product.picsSmall" width="50" height="50"/>
+                </div>
+            </div>
+        </form>
+        <div class="prodInfo_ce">
+            <div class="prodPic"><img v-bind:src="ImgUrl+product.pics" width="357" height="243"/></div>
+            {{#session}}
+            {{#if user}}
+            <div class="prodCustomer" v-if="adviser">
+                <div class="prodImg"><img :src="adviser.headPic?gwPicUrl+adviser.headPic:'/img/adviser_head.png'"/></div>
+                <div class="prodCus">
+                    <p><span class="prodNam" v-html="adviser.nickname"></span><span></span></p>
+                    <div class="clear"></div>
+                    <p v-html="adviser.tel"></p>
+                    <a :href="'/webim/webimAdv/'+adviser.imtokenId+'/'+adviser.nickname" target="_blank"><p class="prodCons" >立即咨询</p></a>
+                </div>
+            </div>
+            {{/if}}
+            {{/session}}
+            <div class="c_b"></div>
+        </div>
+        <!--<div class="prodInfo_fr">
+            {{#pRecommend}}
+            <dl>
+                <dt><a href="/product/productDetail/{{id}}" target="_blank"><img class="p-adside-img" src="{{../config.ImgUrl}}{{picsSmall}}" width="226"></a></dt>
+                <dd class="text-center-xs">
+                    <h4>{{pname}}</h4>
+                    <p>¥{{priceTax}}/件</p>
+                </dd>
+            </dl>
+            {{/pRecommend}}
+        </div>-->
+    </div>
+    <div class="prodDetails">
+        <div class="prodDetails_con">
+            <div class="prodDetails_left">
+                <div class="prodDetails_nav">
+                    <ul>
+                        {{#pDesc}}
+                        <li class="active_{{@index}}">{{name}}</li>
+                        {{/pDesc}}
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="prodDetails_Content">
+                    <div class="prodDetails_Div">
+                        <div class="prodDetails_Int">
+                            <div class="prodDetails_Explain">
+                                {{#pDesc}}
+                                <div class="active_{{@index}}">
+                                    {{{descPc}}}
+                                </div>
+                                {{/pDesc}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="prodDetails_right">
+                <h3>热门服务</h3>
+                {{#pHotRecommend}}
+                <dl>
+                    <dt><a href="/product/productDetail/{{id}}" target="_blank"><img class="p-adside-img" src="{{../config.ImgUrl}}{{pics}}" width="226"></a></dt>
+                    <dd class="text-center-xs">
+                        <h4>{{pname}}</h4>
+                        <p>¥{{priceTax}}/件</p>
+                    </dd>
+                </dl>
+                {{/pHotRecommend}}
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="hide" id="businessBox">
+        <div class="confim_invoceInfo" >
+            <ul style="margin-top:8px;">
+                <li class="confim_chenckRed" style="width: 380px; font-size: 12px;">为了更方便的提供给您商标交易服务，请留下您的本人联系方式！</li>
+            </ul>
+            <div class="clear"></div>
+            <div class="confim_divCon">
+                <form @submit.prevent="validateForm('form-2')" data-vv-scope="form-2">
+                    <table class="confim_box"><tr><td class="confim_boxNum"><span>*</span>姓名：</td></tr>
+                        <tr><td><input type="text" v-model="businessVo.name" v-validate="'required'" data-vv-as="姓名" name="name" :class="{'input': true, 'is-danger': errors.has('form-2.name') }" /><p class="help is-danger" v-show="errors.has('form-2.name')">${ errors.first('form-2.name') }</p></td></tr>
+                        <tr><td class="confim_boxNum"><span>*</span>手机号码：</td></tr>
+                        <tr><td><input type="text" v-model="businessVo.tel" v-validate="'required|phone'" data-vv-as="手机号码" name="tel" :class="{'input': true, 'is-danger': errors.has('form-2.tel') }"/><p class="help is-danger" v-show="errors.has('form-2.tel')">${ errors.first('form-2.tel') }</p></td></tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/productToBusiessTr.js"></script>

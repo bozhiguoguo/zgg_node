@@ -1,0 +1,416 @@
+<link rel="stylesheet" href="/css/personal_center.css" >
+<link rel="stylesheet" href="/css/about_us.css" >
+<link rel="stylesheet" href="/css/help_center.css" >
+<div class="personCenter_wrapp">
+    <div class="personCenter_tab">
+        <ul>
+            <li>帮助中心</li>
+            <!--<li>帮助中心<span>></span></li>
+            <li>开通账户</li>-->
+        </ul>
+    </div>
+    <div class="c_b"></div>
+
+    <div class="personCenter_content">
+        <div class="personCenter_aside">
+            <ul class="about_tab">
+                <li class="about_click kt" onclick="TabChanges('ktCon','kt')">开通账户</li>
+             <!--   <li class="kh" onclick="TabChanges('khCon','kh')">客户主体</li>-->
+                <li class="ht" onclick="TabChanges('htCon','ht')">合同支付</li>
+                <li class="sb" onclick="TabChanges('sbCon','sb')">商标问题</li>
+                <li class="pq" onclick="TabChanges('pqCon','pq')">版权问题</li>
+                <li class="zl" onclick="TabChanges('zlCon','zl')">专利问题</li>
+            </ul>
+        </div>
+        <div class="personCenter_all">
+            <!--开通账户-->
+            <div class="about_course ktCon" style="display: block">
+                <div class="help_account"><img src="/img/icon_account.png"/>开通账户</div>
+                <div class="help_question">
+                    <div class="question_lt">
+                        <ul class="question_ul">
+                            <li class="question_click wf"  onclick="TabChanges('wfCon','wf')">1. 无法收到手机验证码怎么办？</li>
+                            <li class="mm" onclick="TabChanges('mmCon','mm')">2. 如何找回密码？</li>
+                            <li class="zc" onclick="TabChanges('zcCon','zc')">3. 如何注册知果果网账户?</li>
+                        </ul>
+                       <!-- <div class="question_bot">
+                            <p>如未解决还可通过以下方式反馈：</p>
+                            <dl style="margin-right:28px;" class="help_dl1">
+                                <dt><img src="/img/icon_contact_QQ_nor.png"/> </dt>
+                                <dd>QQ反馈</dd>
+                            </dl>
+                            <dl class="help_dl2">
+                                <dt><img src="/img/icon_contact_email_nor.png"/> </dt>
+                                <dd>邮箱反馈</dd>
+                            </dl>
+                        </div>-->
+                    </div>
+                    <div class="question_rt">
+                        <div class="question_con wfCon" style="display: block">
+                            <p>1. 请确认您是否开通了相应的短信通知功能；</p>
+                            <p>2. 短信收发过程中会存在延迟，收到的短信在10分钟内均有效，请耐心等待； </p>
+                            <p>3. 请确认手机是否安装短信拦截或过滤软件； </p>
+                            <p>4. 请确认手机是否能够正常接收短信（未处于停机或欠费状态）； </p>
+                            <p>5. 您还可以联系客服，寻求帮助（400-888-1426）。 </p>
+                        </div>
+                        <div class="question_con mmCon">
+                            <p>1. 在登录界面中点击【忘记密码】；</p>
+                            <p>2. 请输入您在知果果网的注册手机号，输入验证码点击【提交】</p>
+                            <p>3. 点击【免费获取验证码】后输入收到的验证码，点击【下一步】您可进入到该账户的密码重置页进行重置；</p>
+                            <p>4. 如果您一直未收到验证短信，您可以联系客服人员（客服电话：400-888-1426）；</p>
+                            <p>5. 设置新密码，密码应为6-20位之间。</p>
+                        </div>
+                        <div class="question_con zcCon">
+                            <p>1、登录知果果网，点击注册。</p>
+                            <p>2、请输入您的手机号码作为您知果果账户登录名 </p>
+                            <p>3、点击【获取验证码】，并在手机收到验证码后输入验证码 </p>
+                            <p>4、设置密码，并重复输入</p>
+                            <p>5、创建知果果账户成功</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--客户主体-->
+            <!--<div class="about_course khCon">
+                <div class="help_account"><img src="../img/icon-account.png"/>客户主体</div>
+                <div class="help_question">
+                    <div class="question_lt">
+                        <ul class="question_ul">
+                            <li></li>
+                            <li></li>
+                        </ul>
+                        <div class="question_bot">
+                            <p>如未解决还可通过以下方式反馈：</p>
+                            <dl style="margin-right:28px;" class="help_dl1">
+                                <dt><img src="/img/icon_contact_QQ_nor.png"/> </dt>
+                                <dd>QQ反馈</dd>
+                            </dl>
+                            <dl class="help_dl2">
+                                <dt><img src="/img/icon_contact_email_nor.png"/> </dt>
+                                <dd>邮箱反馈</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="question_rt">
+                        <div class="question_con" style="display: block">
+
+                        </div>
+                        <div class="question_con">
+
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+            <!--合同支付-->
+            <div class="about_course htCon">
+                <div class="help_account"><img src="../img/icon-account.png"/>合同支付</div>
+                <div class="help_question">
+                    <div class="question_lt">
+                        <ul class="question_ul">
+                            <li class="question_click xx" onclick="TabChanges('xxCon','xx')">1.如何进行线下支付</li>
+                            <li class="gm" onclick="TabChanges('gmCon','gm')">2. 如何进行购买？</li>
+                        </ul>
+                        <!--<div class="question_bot">
+                            <p>如未解决还可通过以下方式反馈：</p>
+                            <dl style="margin-right:28px;" class="help_dl1">
+                                <dt><img src="/img/icon_contact_QQ_nor.png"/> </dt>
+                                <dd>QQ反馈</dd>
+                            </dl>
+                            <dl class="help_dl2">
+                                <dt><img src="/img/icon_contact_email_nor.png"/> </dt>
+                                <dd>邮箱反馈</dd>
+                            </dl>
+                        </div>-->
+                    </div>
+                    <div class="question_rt">
+                        <div class="question_con xxCon" style="display: block">
+                            <p>1、选择所要购买的产品，并点击进入【订单支付】页面</p>
+                            <p>2、支付方式选择【转账汇款】。</p>
+                            <p>3、请您再仔细确认知果果银行账户后，进行转账支付。</p>
+                            <p>4、支付完毕后，在【银行流水号】一栏中，填入本次转账付款的银行流水号，并将流水号告知您的专属顾问。</p>
+                            <p>5、知果果财务人员会进行财务核实后，确认收到款项，支付完毕。</p>
+                        </div>
+                        <div class="question_con gmCon">
+                            <p>1、登录知果果网账户后，进入服务产品页面，并点击选择需要购买的服务产品</p>
+                            <p>2、可选择【立即购买】，并直接进入【订单支付】页面进行下一步支付。如购买多项产品服务，可点击【加入购物清单】，并在屏幕右侧【我的清单】中，点击【确认订单】后，再点击【确认进入支付】，进入支付页面。</p>
+                            <p>3、再次确认购买信息，选择是否开具发票。</p>
+                            <p>4、选择支付方式，并进行支付。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--商标问题-->
+            <div class="about_course sbCon">
+                <div class="help_account"><img src="../img/icon-account.png"/>商标问题</div>
+                <div class="help_question">
+                    <div class="question_lt">
+                        <ul class="question_ul">
+                            <li class="question_click fs"  onclick="TabChanges('fsCon','fs')">1. 为什么要进行商标驳回复审？</li>
+                            <li class="zr" onclick="TabChanges('zrCon','zr')">2. 为什么要进行商标转让？</li>
+                            <li class="why" onclick="TabChanges('whyCon','why')">3. 为什么注册商标？</li>
+                            <li class="yb" onclick="TabChanges('ybCon','yb')">4. 什么是一并变更？</li>
+                            <li class="add" onclick="TabChanges('addCon','add')">5. 如果我公司名字和地址都变了，怎么做商标变更？</li>
+                            <li class="what" onclick="TabChanges('whatCon','what')">6. 商标变更是什么？</li>
+                            <li class="xz" onclick="TabChanges('xzCon','xz')">7. 为什么要进行商标续展？</li>
+                            <li class="ba" onclick="TabChanges('baCon','ba')">8. 什么是商标许可备案登记？</li>
+                            <li class="dy" onclick="TabChanges('dyCon','dy')">9. 商标许可备案定义？</li>
+                            <li class="sq" onclick="TabChanges('sqCon','sq')">10. 如果我是以个人名义申请，现在能不能变更为公司呢？</li>
+                            <li class="cl" onclick="TabChanges('clCon','cl')">11. 商标变更需要什么材料？</li>
+                            <li class="time" onclick="TabChanges('timeCon','time')">12. 商标变更需要多长时间？</li>
+                        </ul>
+                        <!--<div class="question_bot">
+                            <p>如未解决还可通过以下方式反馈：</p>
+                            <dl style="margin-right:28px;" class="help_dl1">
+                                <dt><img src="/img/icon_contact_QQ_nor.png"/> </dt>
+                                <dd>QQ反馈</dd>
+                            </dl>
+                            <dl class="help_dl2">
+                                <dt><img src="/img/icon_contact_email_nor.png"/> </dt>
+                                <dd>邮箱反馈</dd>
+                            </dl>
+                        </div>-->
+                    </div>
+                    <div class="question_rt">
+                        <div class="question_con fsCon" style="display: block">
+                            <p>1、商标驳回复审是商标注册被驳回后，商标申请人唯一救济途径。</p>
+                            <p>2、商标局在审查商标时，仅从商标层面进行分析判断。而商标驳回复审时，不仅考虑商标本身，还会根据驳回复审理由书及相关证据材料进行评判，综合考虑商标申请人的影响力、品牌影响力，商标设计理念、商标含义等综合因素进行评审，这会大大提高商标的成功率。</p>
+                            <p>3、商标局审查工作是审查员依据《商标法》、《商标审查标准》而做出主观判断为唯一的审查方式，受商标审查人员综合素质影响较大。而商标驳回复审时商标评审委员以3人以上小组平定制进行审核，因此受到个人主观判断因素影响相对较小。</p>
+                        </div>
+                        <div class="question_con zrCon">
+                            <p>1、商标法规定当商标权变化时必经法律程序，否则商标将被撤销。</p>
+                            <p>2、不经商标局备案而产生的的私下商标交易，商标权利出现真空，容易导致商标权无效</p>
+                            <p>3、如发生权利转移却没有进行转让程序，商标无法进行无形资产的评估及转化</p>
+                            <p>4、如发生权利转移却没有进行转让程序，商标不能续展，也无法获得品牌荣誉（如著名、驰名商标）</p>
+                        </div>
+                        <div class="question_con whyCon">
+                            <p>1、您可以让您的品牌受到大陆法律保护</p>
+                            <p>2、您可以让您的品牌产品入驻超市、天猫、京东等电商平台</p>
+                            <p>3、您所拥有的重要无形资产 </p>
+                            <p>4、您进行企业宣传的旗帜</p>
+                        </div>
+                        <div class="question_con ybCon">
+                            <p>根据《商标法》的规定，商标进行名义或地址变更时，必须一并变更。也就是说，哪怕申请人名下有一百件商标，要变更就必须一起变，如果只变九十九件商标，商标局也会要求将所有商标一并变更，否则商标局拒不接受变更申请。</p>
+                        </div>
+                        <div class="question_con addCon">
+                            <p>商标变更中，如果申请人名义与地址都进行变更，可一并提交。但是费用需要以两件商标变更计费。</p>
+                        </div>
+                        <div class="question_con whatCon">
+                            <p>商标根据所变更的内容不同分为以下几种</p>
+                            <p>1、  名义变更：商标申请人主体没变，只是申请人主体的名称变了。</p>
+                            <p>2、  地址变更：申请商标时的地址与现在的营业执照（个人是身份证地址或个体工商户地址）地址不一致。</p>
+                            <p>3、  删/减商品服务项目：商标中部分商品服务项目不再需要了而产生的变更。</p>
+                            <p>4、  商标代理人/文件接收人变更：更换商标代理组织。</p>
+                        </div>
+                        <div class="question_con xzCon">
+                            <p>1、延续商标权，持续获得法律保护</p>
+                            <p>2、延续不断的积累商标的无形资产价值，获得更高的评估价值、</p>
+                            <p>3、只有不中断持续使用、知名度高的注册商标才有资格认定著名商标和驰名商标。</p>
+                            <p>4、由于《商标法》的不断变化，部分商标依照新《商标法》已无法注册成功，只能通过续展来延续商标权利。例如中华、长城、北京、两面针等品牌皆属于此。</p>
+                        </div>
+                        <div class="question_con baCon">
+                            <p>商标使用许可是指商标注册人通过商标局备案的法定程序允许他人使用其注册商标的行为。通俗解释为将商标“借”给他人使用，而进行许可备案商标许可包括普通许可、排他许可、独占许可。</p>
+                        </div>
+                        <div class="question_con dyCon">
+                            <p>商标使用许可是指商标注册人通过商标局备案的法定程序允许他人使用其注册商标的行为。通俗解释为将商标“借”给他人使用，而进行许可备案商标许可包括普通许可、排他许可、独占许可。</p>
+                        </div>
+                        <div class="question_con sqCon">
+                            <p>个人名义申请商标，转为公司名下，并不是商标变更手续，而是商标转让手续</p>
+                            <p>商标变更指的是申请人的主体本身没有改变，只是名字变了（例如：北京知果科技有限公司变为北京知果果技术有限公司）。而个人名下商标变为公司名下，哪怕原商标申请人是企业法人代表，在法律意义上也属于不同的法律主体，因此只能进行商标转让。（或者商标许可备案）</p>
+                        </div>
+                        <div class="question_con clCon">
+                            <p>1、商标变更申请人签字或盖章的商标代理委托书</p>
+                            <p>2、商标变更申请人签字或盖章的商标变更申请书</p>
+                            <p>3、工商部门出具的变更证明原件或盖鲜章的复印件（变更注册人名义）、营业执照复印件（变更地址）；</p>
+                            <p>4、商标注册证书复印件或受理通知书复印件</p>
+                        </div>
+                        <div class="question_con timeCon">
+                            <p>商标变更通常来说需要6-8个月就会由商标局下发商标变更证明。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--版权问题-->
+            <div class="about_course pqCon">
+                <div class="help_account"><img src="../img/icon-account.png"/>版权问题</div>
+                <div class="help_question">
+                    <div class="question_lt">
+                        <ul class="question_ul">
+                            <li class="question_click bqdj" onclick="TabChanges('bqdjCon','bqdj')">1. 版权变更登记需提交什么资料？</li>
+                            <li class="mszp" onclick="TabChanges('mszpCon','mszp')">2. 美术作品著作权登记需要文件？</li>
+                            <li class="bqzr" onclick="TabChanges('bqzrCon','bqzr')">3. 版权转让手续如何办理？</li>
+                            <li class="blxy" onclick="TabChanges('blxyCon','blxy')">4. 版权办理需要准备什么资料文件？</li>
+                            <li class="wzzp" onclick="TabChanges('wzzpCon','wzzp')">5. 文字作品版权登记所需的材料？</li>
+                            <li class="fdq" onclick="TabChanges('fdqCon','fdq')">6. 版权办理分地区吗？</li>
+                            <li class="djxy" onclick="TabChanges('djxyCon','djxy')">7. 软件著作权登记需要哪些材料？</li>
+                            <li class="djbq" onclick="TabChanges('djbqCon','djbq')">8. 为什么要登记版权？</li>
+                        </ul>
+                        <!--<div class="question_bot">
+                            <p>如未解决还可通过以下方式反馈：</p>
+                            <dl style="margin-right:28px;" class="help_dl1">
+                                <dt><img src="/img/icon_contact_QQ_nor.png"/> </dt>
+                                <dd>QQ反馈</dd>
+                            </dl>
+                            <dl class="help_dl2">
+                                <dt><img src="/img/icon_contact_email_nor.png"/> </dt>
+                                <dd>邮箱反馈</dd>
+                            </dl>
+                        </div>-->
+                    </div>
+                    <div class="question_rt">
+                        <div class="question_con bqdjCon" style="display: block">
+                            <p>版权登记人可以对已经登记的软件、作品版权变更登记，变更登记需提交以下文件：</p>
+                            <p>1、填写版权变更申请表。</p>
+                            <p>2、已登记的版权证书复印件。</p>
+                            <p>3、变更登记相关的其它材料。</p>
+                        </div>
+                        <div class="question_con mszpCon">
+                            <p>1、填写作品登记申请书、作品登记表、权利保证书各一份，提交作品原件及复印件、作品说明书（说明创作构思、作品主要特点及内容等）各一份；</p>
+                            <p>2、申请人身份证明；</p>
+                            <p>3、合作作品申请登记的，还应提交合作作者的身份证复印件（合作作者是单位的，应提交营业执照或法人代码证的复印件、法人代表的身份证复印件）、合作创作合同或协议的原件及复印件各一份；</p>
+                            <p>4、委托创作作品申请登记的，著作权人还应提交著作权人及创作者的身份证复印件（著作权人或创作者是单位的，应提交营业执照或法人代码证的复印件、法人代表的身份证复印件）、委托创作合同或协议的原件及复印件各一份；</p>
+                            <p>5、职务作品申请登记的，应提交作者的身份证复印件、著作权人或专有使用权人的营业执照或法人代码证的复印件、法人代表身份证复印件、聘用合同及著作权归属证明原件及复印件；</p>
+                            <p>6、美术作品或摄影作品申请登记的，申请人除按上述情况提交有关材料外，还需提交作品照片两张（不大于3r，可电脑打印），一张贴在“作品登记申请书”左下方空白处，并在上面盖骑缝章，另一张随材料提交。</p>
+                        </div>
+                        <div class="question_con bqzrCon">
+                            <p>版权转让分为软件著作权和作品著作权：</p>
+                            <p>软件著作权转让：</p>
+                            <p>如果已登记的软件著作权，需查询该著作权权利许可使用等情况，如果没有则可提交转让申请；没有登记的软件著作权，可直接以受让人的名议进行软件著作权登记。</p>
+                            <p>作品著作权转让：</p>
+                            <p>已登记的作品著作权，可以受让人名义进行转让合同备案；没有登记的作品著作权，可直接以受让人名义进行转让合同备案。</p>
+                        </div>
+                        <div class="question_con blxyCon">
+                            <p>1） 作者和著作权人主体资格证明；</p>
+                            <p>2） 作品登记表；</p>
+                            <p>3） 清晰的作品二份，作者签字；</p>
+                            <p>4） 作品登记申请书；</p>
+                            <p>5） 权利保证书；</p>
+                            <p>6） 作品创作说明书；</p>
+                            <p>7） 委托书；</p>
+                            <p>8） 著作权归属证明。委托创作作品需要提供委托创作协议，职务创作作品需要提供著作权归属协议。</p>
+                        </div>
+                        <div class="question_con wzzpCon">
+                            <p>1、《作品自愿登记个人申请书》</p>
+                            <p>2、《权利保证书》</p>
+                            <p>3、作品说明书</p>
+                            <p>4、作品登记表（一式两份）</p>
+                            <p>5、作品权利归属的证明原件与复印件（包括委托创作协议、合作创作协议等）</p>
+                            <p>6、身份证、工作证原件与复印件（新版身份证须两面复印）</p>
+                            <p>7、作品原件与复印件</p>
+                            <p>8、合作委托书</p>
+                            <p>9、著作权专有许可使用合同原件与复印件</p>
+                            <p>以上各项均须签字，第1-7项必须准备材料，其他视情况提交，提交的材料是外文时须附全文中文翻译件</p>
+                        </div>
+                        <div class="question_con fdqCon">
+                            <p>无论是在地方版权保护中心，还是国家版权保护中心进行登记，都受到著作权法的相应保护。并且，凡是在中国大陆登记的版权，都受伯尔尼公约缔约国的相同保护，目前该公约已有167个缔约国，我国是1992年10月15日成为该公约成员国的。全球目前有224个国家和地区，即我们国家登记的版权，受全球大部分国家的保护。</p>
+                        </div>
+                        <div class="question_con djxyCon">
+                            <p>1、计算机软件登记申请表；</p>
+                            <p>2、计算机源程序；</p>
+                            <p>3、软件说明书；</p>
+                            <p>4、著作权归属协议；</p>
+                            <p>5、委托书。</p>
+                        </div>
+                        <div class="question_con djbqCon">
+                            <p>1、固定享有著作权的权利证据，减少著作权维权过程中的举证负担；</p>
+                            <p>2、能够使著作权人的权利在最短时间内得到法律保护；</p>
+                            <p>3、禁止他人在不相同、不类似商品服务上使用相同作品；</p>
+                            <p>4、有利于高新技术企业认定、企业无形资产评估与获得政府奖励；</p>
+                            <p>5、节约费用。不用续展，不用缴纳年费。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--专利问题-->
+            <div class="about_course zlCon">
+                <div class="help_account"><img src="../img/icon-account.png"/>专利问题</div>
+                <div class="help_question">
+                    <div class="question_lt">
+                        <ul class="question_ul">
+                            <li class="question_click fwnr" onclick="TabChanges('fwnrCon','fwnr')">1. 怎么知道专利中保护的范围和内容是什么？</li>
+                            <li class="zlzy" onclick="TabChanges('zlzyCon','zlzy')">2. 专利的作用是什么？</li>
+                            <li class="jsfa" onclick="TabChanges('jsfaCon','jsfa')">3. 怎样知道有没有其他人申报过与我相同或相似的技术方案呢？</li>
+                            <li class="cnsq" onclick="TabChanges('cnsqCon','cnsq')">4. 专利如何才能授权呢？</li>
+                            <li class="sbzl" onclick="TabChanges('sbzlCon','sbzl')">5. 什么样的技术方案可以申报外观专利？</li>
+                            <li class="sbfm" onclick="TabChanges('sbfmCon','sbfm')">6. 什么样的技术方案可以申报发明专利？</li>
+                            <li class="mytg" onclick="TabChanges('mytgCon','mytg')">7. 专利如果没有通过怎么办？</li>
+                            <li class="fwlc" onclick="TabChanges('fwlcCon','fwlc')">8. 专利的服务流程是什么样的？</li>
+                            <li class="yxq" onclick="TabChanges('yxqCon','yxq')">9. 什么是优先权？</li>
+                            <li class="fyjh" onclick="TabChanges('fyjhCon','fyjh')">10. 什么是专利费用减缓？</li>
+                            <li class="xxzl" onclick="TabChanges('xxzlCon','xxzl')">11. 什么样的技术方案可以申报实用新型专利？</li>
+                        </ul>
+                        <!--<div class="question_bot">
+                            <p>如未解决还可通过以下方式反馈：</p>
+                            <dl style="margin-right:28px;" class="help_dl1">
+                                <dt><img src="/img/icon_contact_QQ_nor.png"/> </dt>
+                                <dd>QQ反馈</dd>
+                            </dl>
+                            <dl class="help_dl2">
+                                <dt><img src="/img/icon_contact_email_nor.png"/> </dt>
+                                <dd>邮箱反馈</dd>
+                            </dl>
+                        </div>-->
+                    </div>
+                    <div class="question_rt">
+                        <div class="question_con fwnrCon" style="display: block">
+                            <p>专利保护的范围是以专利文件中权利要求书划定的范围为准的，保护的内容也就是权利要求书公开的内容。</p>
+                        </div>
+                        <div class="question_con zlzyCon">
+                            <p>1、保护自己的技术成果不受他人侵犯</p>
+                            <p>2、防止他人滥用专利权恶意、主动造成侵权行为</p>
+                            <p>3、办理高新技术企业、申请政府补贴、资助等必备资料</p>
+                            <p>4、提高企业核心竞争力、保护企业产品市场占有份额</p>
+                            <p>5、形成企业知识产权资产，提升企业注册资本、企业价值 。</p>
+                        </div>
+                        <div class="question_con jsfaCon">
+                            <p>可以在国家知识产权局官网专利检索网页输入关键词进行检索，实用新型和外观专利只有授权才能公开，发明专利在提交之后6-18个月才会公开，因此没有公开的专利文件是检索不到的。</p>
+
+                        </div>
+                        <div class="question_con cnsqCon">
+                            <p>申报专利的技术方案和已有的技术方案存在区别点，并且该区别点会带来有益效果才会有可能被授权，已有的技术方案包括已申报的专利、已经公开的文献、视听材料等。发明专利是将已有技术结合起来与申请的技术方案作对比，仍有区别点，且区别点能够带来有益效果，才有可能会被授权，实用新型和外观是一对一的与现有技术做对比，只要有区别点，且区别点会带来有益效果就会被授权，例如现有技术中风扇需要手动才能够实现转动，现在将手动的结构改进成电机带动风扇转动的结构，这样电动的结构与手动的结构存在区别点，并且带来了能够省力的有益效果。</p>
+                        </div>
+                        <div class="question_con sbzlCon">
+                            <p>产品外观的新设计：例如造型独特、图案原创设计的灯具、餐桌、办公椅、玩具等各类生活用品以及工厂生产机器等等。</p>
+                        </div>
+                        <div class="question_con sbfmCon">
+                            <p>1、产品结构：例如电脑的硬件结构都是由哪些器件组成的、生产设备结构都是由哪些部件组成的、生物检测装置结构都是由哪些构件组成的等等；</p>
+                            <p>2、方法类：例如网站、APP、窗口等制作方法；化合物合成方法、检测方法等；细胞培养、扩增等方法；污泥处理、垃圾处理等方法；产品制造、加工方法等等；</p>
+                            <p>3、用途类：例如发现了杀虫剂还具有除草的用途；感冒药还能用于缓解心脏疼痛的用途等。</p>
+                        </div>
+                        <div class="question_con mytgCon">
+                            <p>国家知识产权局在审查时，会将为什么不通过的理由以书面的形式下发至申请人，申请人如果认为审查员理解的有错误、理由不准确等，可以通过驳回复审的途径使专利再次进行审查。</p>
+                        </div>
+                        <div class="question_con fwlcCon">
+                            <p>首先，需要申请人提供自己的技术方案，专利工程师做出检索，判断新创性，申请人根据新创性确定是否要申报专利，如果申报的话，提供申请人等信息，服务款项到后，专利工程师开始撰写专利，7-15天会给申请人发专利初稿，申请人与专利工程师对专利稿件达成一致，定稿确认后提交到国家知识产权局，国家知识产权局开始审查工作，审查过程中审查员如认为专利稿件有不能授权的地方，专利工程师会帮助申请人进行答辩，直至审批结果下来
+                            </p>
+                        </div>
+                        <div class="question_con yxqCon">
+                            <p>优先权是指，当技术材料不完整时，可以先将这份不完整的技术资料提交的国家知识产权局获得申请日，在12个月内将技术资料补充完整后再提交到国家知识产权局，以此避免申请人将设计思路转化成具体技术方案这段时间内，其它人申请同样或类似的技术方案对申请人会产生不予授权的情况。
+                            </p>
+                        </div>
+                        <div class="question_con fyjhCon">
+                            <p>专利费用减缓是指交给官方的官费是可以办理费用减缓的，可以理解为官方给予亏损的公司、低收入的个人费用的折扣优惠，公司申请费用减缓的话，需要当地科委或国家知识产权局开具同意费用减缓的证明。
+                            </p>
+                        </div>
+                        <div class="question_con xxzlCon">
+                            <p>只有申报发明专利中产品的结构可以申报实用新型专利：例如，电脑的硬件结构都是由哪些器件组成的、生产设备结构都是由哪些部件组成的、生物检测装置结构都是由哪些构件组成的等等。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function TabChanges(ChangesEle,elseEle){
+        $('.'+elseEle).addClass('about_click').siblings().removeClass('about_click');
+        $('.'+ChangesEle).show().siblings().hide();
+
+    }
+</script>
+<script type="text/javascript" src="/js/help_center.js"></script>

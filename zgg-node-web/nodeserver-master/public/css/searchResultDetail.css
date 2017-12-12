@@ -1,0 +1,207 @@
+/*默认padding20*/
+.pad20{
+   /* padding-top:20px;
+    padding-left: 20px;*/
+    padding: 20px;
+}
+.title{
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+i{
+    font-style: normal;
+}
+.mr5{
+    margin-right: 5px;
+}
+.title-span:before{
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 19px;
+    background: #a34a51;
+    margin-right: 5px;
+    position: relative;
+    top:3px;
+}
+.seachDetail{
+    width: 1200px;
+    margin:50px auto 0;
+    font-size: 14px;
+    color: #2a2a2a;
+}
+/*基本信息*/
+.seachDetail-information{
+    width: 100%;
+    height: 290px;
+}
+.information-left{
+    box-sizing: border-box;
+    float: left;
+    width: 855px;
+    height: 290px;
+    background: #ffffff;
+}
+
+.information-content-left{
+    float: left;
+    width: 563px;
+    height: 164px;
+}
+.color72{
+    color: #727f8f;
+}
+.information-content-left li span{
+    color: #727f8f;
+}
+.information-content-right{
+    float: left;
+    width: 232px;
+    height: 164px;
+}
+.information-right{
+    position: relative;
+    box-sizing: border-box;
+    float: right;
+    width: 315px;
+    height: 290px;
+    background: #ffffff;
+}
+.information-right  span{
+    color: #727f8f;
+}
+.information-right-b{
+    position: absolute;
+    bottom: 40px;
+}
+.information-right i{
+    display: inline-block;
+    width: 193px;
+    height: auto;
+    margin-top:-2px;
+}
+.information-right span{
+    vertical-align: top;
+}
+
+/*注册信息*/
+.m-top40{
+    margin-top:40px;
+ }
+.m-b10{
+    margin-bottom: 10px;
+}
+.registerInfo{
+    width: 100%;
+    height: 204px;
+}
+.registerInfo-left{
+    box-sizing: border-box;
+    float: left;
+    width: 855px;
+    height: 204px;
+    background: #ffffff;
+}
+.registerInfo-left-info{
+    overflow: hidden;
+}
+.line-h28{
+    line-height: 28px;
+}
+.registerInfo-left-info ul{
+    float: left;
+}
+.registerInfo-left-info ul:nth-child(1){
+    width: 37%;
+}
+.registerInfo-left-info ul:nth-child(2){
+    width: 37%;
+}
+.registerInfo-right{
+    box-sizing: border-box;
+    float: right;
+    width: 315px;
+    height: 204px;
+    background: #ffffff;
+}
+.registerInfo-right i{
+    display: inline-block;
+    width: 190px;
+    height: auto;
+    margin-top:-2px;
+}
+.registerInfo-right span{
+    vertical-align: top;
+}
+/*使用项目信息*/
+.projectInfo{
+    box-sizing: border-box;
+   /* height: 340px;*/
+    background: #ffffff;
+}
+.projectInfo-table{
+    width: 100%;
+    height: 214px;
+    border:1px solid #dadde1;
+}
+.projectInfo-table tr th,
+.projectStates-table tr th{
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    font-weight: normal;
+    background: #eff0f4;
+}
+.projectInfo-table tr td{
+    height: 34px;
+    line-height: 24px;
+    /*text-align: center;*/
+}
+.projectInfo-table tr td:nth-child(1){
+    text-align: left;
+    padding-left: 15px;
+}
+/*使用项目状态*/
+.projectStates{
+    box-sizing: border-box;
+    width:560px;
+    /*height: 333px;*/
+    background: #ffffff;
+    margin-bottom: 100px;
+}
+.projectStates-table{
+    width: 100%;
+    border:1px solid #dadde1;
+}
+.projectStates-table tr td{
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+}
+.projectStates-table tbody tr td{
+    border-bottom: 1px solid #dadde1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

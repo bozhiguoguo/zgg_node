@@ -1,0 +1,25 @@
+{
+  "apps": [
+    {
+      "name": "nodeserver-master",
+      "script": "./bin/www",
+      "max_memory_restart": "4096M",
+      "node-args": "--max-old-space-size=4096 --max-new-space-size=20480",
+      "watch": false,
+      "instances": 1,
+      "exec_mode": "fork",
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "env_develop": {
+        "NODE_ENV": "develop"
+      },
+      "env_staging": {
+        "NODE_ENV": "staging"
+      },
+      "error_file": "./logs/app-err.log",
+      "out_file": "./logs/app-out.log",
+      "log_date_format": "YYYY-MM-DD HH:mm Z"
+    }
+  ]
+}

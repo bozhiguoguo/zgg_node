@@ -1,0 +1,247 @@
+.personCenter_nav ul li{
+    padding: 0 55px;
+    font-size: 16px;
+    color: #727f8f;
+}
+
+.personCenter_nav ul li span{
+    display: inline-block;
+    color: #a34a51;
+}
+
+.personCenter_search a{
+    display: block;
+    width: 94px;
+    height: 33px;
+    line-height: 33px;
+    background: #a34a51;
+    border-radius: 3px;
+    margin:10px 10px 10px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.coupon_type{
+    margin:20px 0 0 20px;
+    width: 200px;
+    height: 28px;
+    border:1px solid #a34a51;
+    line-height: 28px;
+    position: relative;
+}
+
+.coupon_type p{
+    font-size: 14px;
+    color: #2a2a2a;
+    padding-left: 9px;
+}
+
+.coupon_type p img{
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: -3px;
+}
+
+.coupon_product{
+    position: absolute;
+    /*background: url(../img/bg-coupon-dropdownbg.png) no-repeat;*/
+    background: #fff;
+    width: 200px;
+    height: 155px;
+    top:29px;
+    right: -2px;
+    display: none;
+    border: 1px solid #f1f1f1;
+    border-radius: 3px;
+    box-shadow: 0 10px 20px 0 rgba(41, 13, 13, 0.29);
+}
+
+.coupon_product dl{
+    clear: both;
+    margin:8px 16px;
+    cursor: pointer;
+}
+
+.coupon_product dl dt{
+    float: left;
+    margin-right:5px;
+}
+
+.coupon_product dl dt img{
+    width:17px;
+    height: 17px;
+}
+
+.coupon_product dl dd{
+    float: left;
+    font-size: 14px;
+    color: #727f8f;
+}
+
+.coupon_use{
+    color: #2190d5;
+    font-size: 14px;
+    margin-top:25px;
+    margin-right:15px;
+}
+
+
+.my_coupon{
+    width: 1010px;
+    height: 145px;
+    border-bottom: 1px dashed #979797;
+    margin:14px auto 0;
+}
+
+.my_coupon dl{
+    float: left;
+}
+
+.my_coupon dl dt{
+    float: left;
+    margin-right:35px;
+}
+
+.my_coupon dl dd{
+    float: left;
+}
+
+.my_coupon dl dd p{
+    font-size: 14px;
+    color: #2a2a2a;
+    font-weight: bold;
+}
+
+.my_coupon dl dd span{
+    display: block;
+    font-size: 12px;
+    color: #727f8f;
+    padding-top:10px;
+}
+
+.my_coupon dl dd b{
+    display: block;
+    font-size: 12px;
+    color: #727f8f;
+    padding-top:30px;
+    font-weight: normal;
+}
+
+.coupon_more{
+    float: right;
+    margin-top:16px;
+    position: relative;
+}
+
+.coupon_more img{
+    margin-right: 25px;
+    width:18px;
+    height:18px;
+}
+
+.coupon_delete{
+    width: 124px;
+    height: 57px;
+    background: url("../img/bg-coupon-dropdownbg-more.png") no-repeat;
+    position: absolute;
+    top:13px;
+    right: 0;
+    padding:14px 0 0 11px;
+    box-sizing: border-box;
+    display: none;
+    padding:21px 0 0 15px;
+}
+
+.coupon_delete img{
+    display: inline-block;
+    margin-right: 5px;
+    margin-top:-3px;
+    width:17px;
+    height:17px;
+}
+
+
+.coupon_plese{
+    margin:10px 0 0 25px;
+    font-size: 16px;
+    color: #2a2a2a;
+}
+
+.coupon_plese input{
+    width: 281px;
+    height: 35px;
+}
+
+.my_overdue{
+    border-bottom:none;
+}
+
+
+.coupon_info{
+    width: 244px;
+    height: 121px;
+    background: url("../img/pic-payment-coupon1.png") no-repeat;
+    background-size: 244px 121px;
+    padding: 19px 0 0 35px;
+}
+
+.coupon_gq{
+    background: url("../img/pic-payment-coupon1-invalid.png") no-repeat;
+    background-size: 244px 121px;
+}
+
+.coupon_info p{
+    font-size: 12px;
+}
+
+.coupon_info p.coupon_date{
+    color:#fff;
+    margin:0 0 16px 5px;
+}
+
+.marg10{
+    margin-left:10px;
+}
+
+.coupon_info p span{
+    display: inline-block;
+    font-size: 12px;
+    color: #f1b3c8;
+}
+
+.coupon_gq p span{
+    color: #d4d7da;
+}
+
+.coupon_info p span.coupon_money{
+    font-size: 28px;
+    color:#fff;
+    margin-right:11px;
+}
+
+/*
+*确认发票信息
+*
+*/
+.invoice_hide{
+    display: none;
+}
+
+
+.layui-layer-title:before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 15px;
+    width: 4px;
+    height: 19px;
+    background: #a34a51;
+}
+.edit_change li{
+    max-width: 557px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

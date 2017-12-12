@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>确定合同</title>
+    <link rel="stylesheet" href="/css/app.css"/>
+    <link rel="stylesheet" href="/css/Deter_contract.css"/>
+    <script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/lib/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="/lib/vue/dist/vue-resource.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="/lib/vue/vee-validate/dist/vee-validate.js"></script>
+    <script src="/lib/vue/vee-validate/dist/locale/zh_CN.js"></script>
+    <script type="text/javascript" src="/lib/layui/lay/dest/layui.all.js"></script>
+    <script type="text/javascript" src="/js/tingyun-rum.js"></script>
+</head>
+<body>
+<template id="loading-template">
+    <div class="loadWrap">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce3"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce1"></div>
+        </div>
+    </div>
+</template>
+<div id="help"></div>
+<loading v-show="showLoading"></loading>
+
+<script>
+    window.console = window.console || (function(){
+            var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function(){};
+            return c;
+        })();
+    var help = new Vue({
+        el: '#help',
+        data: {
+            showLoading: false
+        },
+        components: {
+            'loading': {
+                template: '#loading-template',
+            }
+        }
+    })
+    axios.interceptors.request.use(function (request) {
+        // Do something before request is sent】
+        if(['payCallBackToJson','/cart/pPriceMsg','userOrder/getContracStatus'].indexOf(request.url)==-1){
+            help.showLoading = true;
+        }
+        return request;
+    }, function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+    });
+
+    // Add a response interceptor
+    axios.interceptors.response.use(function (response) {
+        // Do something with response data
+        help.showLoading = false;
+        if (typeof response.data != 'undefined') {
+            if(typeof response.data.success != 'undefined' && !response.data.success){
+                if (response.data.code == 'W_100004') {
+                    layer.msg('用户未登录或登录超时');
+                    setTimeout(function(){window.open('/user/login')},1000)
+                    //user_reg();
+                }else{
+                    layui.use('layer',function () {
+                        layer.msg(response.data.message,{icon:2});
+                    })
+                }
+            }
+        }
+        return response;
+    }, function (error) {
+        // Do something with response error
+        return Promise.reject(error);
+    });
+    Vue.config.delimiters = ['${', '}'];
+    Vue.use(VeeValidate,
+        {
+            errorBagName: 'errors', // change if property conflicts.
+            delay: 0,
+            locale: 'zh_CN',
+            messages: null,
+            strict: true
+        });
+</script>
+<div class="deter_wrap" id="confirmContract">
+    <div class="deter_info">
+        <div class="deter_top"></div>
+        <div class="deter_zgg">
+            <img src="/img/logo-zhiguoguo.png"/>
+            <p>
+                <span><b>地址：</b><b class="deter_b1">北京市海淀区紫雀路33号院3号楼4/5层</b></span>
+                <span><b>合同编号：</b><b class="deter_b1" v-html="contractData.contractcode"></b></span>
+            </p>
+        </div>
+        <div class="c_b"></div>
+        <div class="deter_box">
+            <div class="deter_wang_law">
+                <p></p>
+                <h2>知果果网知识产权企业法务服务产品协议</h2>
+                <p></p>
+            </div>
+            <div class="c_b"></div>
+            <div class="deter_edit">
+                <div class="deter_mation">
+                    <form @submit.prevent="validateBeforeSubmit"  v-if="contractData.zgOrderContract && contractData.zgOrderContract.status==2">
+                        <ul>
+                            <li>
+                                <p>甲方(委托方):</p>
+                                <input type="text"   v-model="contractData.cname" data-vv-as="甲方(委托方)" name="cname" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('cname') }"/><p  class="help is-danger" v-show="errors.has('cname')">${ errors.first('cname') }</p>
+                            </li>
+                            <li>
+                                <p>通讯地址：</p>
+                                <input type="text"  v-model="contractData.caddress" data-vv-as="通讯地址" name="caddress" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('caddress') }"/><p  class="help is-danger" v-show="errors.has('caddress')">${ errors.first('caddress') }</p>
+                            </li>
+                            <li>
+                                <p>联系人：</p>
+                                <input type="text"  v-model="contractData.cperson" data-vv-as="联系人" name="cperson" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('cperson') }"/><p  class="help is-danger" v-show="errors.has('cperson')">${ errors.first('cperson') }</p>
+
+                            </li>
+                            <!--<li>-->
+                            <!--<p>联系邮箱：</p>-->
+                            <!--<input type="text"  v-model="contractData.cmail" data-vv-as="联系邮箱" name="cmail" v-validate="'required|email'"-->
+                            <!--:class="{'input': true, 'is-danger': errors.has('cmail') }"/><p  class="help is-danger" v-show="errors.has('cmail')">${ errors.first('cmail') }</p>-->
+                            <!--</li>-->
+                            <li>
+                                <p>联系电话：</p>
+                                <input type="text" value="" v-model="contractData.cphone" data-vv-as="联系电话" name="cphone" v-validate="'required'"
+                                       :class="{'input': true, 'is-danger': errors.has('cphone') }"/><p  class="help is-danger" v-show="errors.has('cphone')">${ errors.first('cphone') }</p>
+                            </li>
+                        </ul>
+                    </form>
+                    <ul v-if="contractData.zgOrderContract && contractData.zgOrderContract.status!=2">
+                        <li>
+                            <p>甲方 (委托方) :</p>
+                            <div v-html="contractData.cname"></div>
+                        </li>
+                        <li>
+                            <p>通讯地址：</p>
+                            <div v-html="contractData.caddress"></div>
+                        </li>
+                        <li>
+                            <p>联系人：</p>
+                            <div v-html="contractData.cperson"></div>
+                        </li>
+                        <!--<li>-->
+                        <!--<p>联系邮箱：</p>-->
+                        <!--<div v-html="contractData.cmail"></div>-->
+                        <!--</li>-->
+                        <li>
+                            <p>联系电话：</p>
+                            <div v-html="contractData.cphone"></div>
+                        </li>
+                    </ul>
+                    <ul style="float: right">
+                        <li>
+                            <p>乙方 (受托方) :</p>
+                            <input type="text" value="北京知果科技有限公司" disabled="disabled">
+                        </li>
+                        <li>
+                            <p>通讯地址：</p>
+                            <input type="text" value="北京市海淀区紫雀路33号院3号楼4/5层" disabled="disabled">
+                        </li>
+                        <li>
+                            <p>联系人：</p>
+                            <input type="text" :value="contractData.sysUser.nickname" disabled="disabled">
+                        </li>
+                        <li>
+                            <p>联系电话：</p>
+                            <input type="text" :value="contractData.sysUser.tel" disabled="disabled">
+                        </li>
+                    </ul>
+                </div>
+                <div class="c_b"></div>
+                <div class="deter_agree">根据中华人民共和国相关法律法规，甲乙双方经过友好协商，依照公平、平等、互利、共赢等原则，就双方建立法律顾问业务合作关系等事宜达成以下条款，由双方共同遵守：
+                </div>
+                <h3>一、合作内容</h3>
+                <p>1、 甲乙双方建立业务合作关系，由乙方（包括乙方关联机构和派出机构，下同），为甲方法律和相关业务的全面支持；</p>
+                <p>2、乙方根据合作关系和服务内容，指派相关具有合法资质的从业人员，作为法律顾问身份为甲方提供法务业务服务；</p>
+                <h3>二、服务内容</h3>
+                <p>甲乙双方同意，在合作期间内，乙方为甲方提供以下法律专业服务，包括：</p>
+                <p>1) 提供日常法律咨询、法律文书服务服务，包括但不限于：草拟、修改、审查甲方在生产、经营、管理以及对外联系活动中的合同、协议，以及其他相关法律事务文书和规章制度；审查或准备经济项目谈判中所需的各类法律文书；提供与甲方经营活动有关的法律信息；解答甲方经营、管理以及对外联系活动中的有关法律问题，提出法律咨询意见；根据甲方业务需要，发送律师函、催告函等。</p>
+                <p>2) 乙方服务方式包括：书面咨询、电话咨询、现场咨询等；</p>
+                <p>3) 甲方选择的服务包为： </p>
+                <table>
+                    <tr class="deter_tabTr">
+                        <th>服务方式</th>
+                        <th>价格（元）</th>
+                        <th>服务内容</th>
+                        <th>有效期</th>
+                    </tr>
+                    <tr class="deter_tabTr2" v-for="item in contractData.zgOrders">
+                        <td v-html="item.pname"></td>
+                        <td v-html="item.money"></td>
+
+                        <td v-html="item.lawProContent"></td>
+                        <td v-html="item.lawProValidity"></td>
+                    </tr>
+                </table>
+                <p >总计：￥${contractData.zgOrderPay.money}元（含税费）</p>
+                <p>4）服务说明</p>
+                <p>（1）、合同审核。对于甲方自行撰写或者业务对方提供的合同，由律师（或法律顾问，下同）从合法与合规方面进行审查和修改，以规范客户的合同行为、保障客户合法权益。</p>
+                <p>（2）、合同起草。根据甲方实际业务需求情况，由律师协助客户撰写相关协议，供客户使用。</p>
+                <p>（3）、合同法律咨询。客户可以就合同法相关的政策法律疑惑、客户具体合同实务所涉及的实际问题，或者就合同履行中产生的各类纠纷，由律师提供解答、协助客户分析相关问题的风险以及可能的后果，从而帮助客户进行风险评估。</p>
+                <p>（4）、律师函。律师函是律师接受客户的委托就有关事实或法律问题进行披露、评价，进而对于告知对象提出要求以达到一定效果而制作、发送的专业法律文书。</p>
+                <p>（5）、以上服务范围为企业用户日常合同，不含诉讼、仲裁等司法文书，不含投资、融资、并购、收购、清算、股权、涉外等重大业务及外文合同。</p>
+                <!-- <div class="c_b"></div>
+                 <p><img src="/img/1.png"/><b>国内商标注册服务开具代收官费发票，税费须另行支付。</b></p>-->
+                <div class="c_b"></div>
+                <h3>三、双方权利和义务</h3>
+                <p>1、甲方权利和义务</p>
+                <p>1)	甲方同意为乙方进行法律服务提供必要条件，包括但不限于：及时和真实地向乙方提供相关的证据、资料、信息，并且提供必要的人员的协作和配合；</p>
+                <p>2)	甲方承诺不得强迫乙方提供非法的服务和意见，并不得以乙方拒绝提供此类服务为理由终止双方的协议；</p>
+                <p>3)	经乙方许可，甲方在对外宣传和推广业务中，甲方合理使用乙方的企业名称、商标和网站相关内容等权利；</p>
+                <p>4)	及时查收和了解乙方对于服务产品、服务内容以及服务方式等进行的调整，并遵照执行；</p>
+                <p>2、乙方权利和义务</p>
+                <p>1)	乙方在办理甲方委托业务过程中，有权查阅与承办与法律事务有关的甲方内部文件和资料；</p>
+                <p>2)	乙方有权了解甲方在生产、经营、管理和对外联系活动中与委托事务相关情况；</p>
+                <p>3)	在对外宣传和推广业务中，乙方合理使用甲方的企业名称、商标和网站相关内容等权利；</p>
+                <p>4)	根据业务发展情况和客户需求的变化，对于服务产品、服务内容以及服务方式等进行调整；</p>
+                <p>5)	乙方应当及时承办甲方委托办理的有关法律事务，认真履行职责；</p>
+                <p>6)	应当坚持以事实为依据，以法律为准绳的原则，依法顾问；</p>
+                <p>7)	应根据本合同规定和甲方委托授权的范围进行工作，不得超越委托代理权限；</p>
+                <p>8)	对接触、了解到的有关甲方生产、经营、管理和对外联系活动中的业务秘密，负有保守秘密的责任。</p>
+                <h3>四、服务费用</h3>
+                <p>1、	甲方完成线上订单购买，并通过线上或线下方式向乙方支付全额服务费用后，合同即生效；</p>
+                <p>2、	乙方账户信息为：</p>
+                <div class="deter_mation" style="height:130px;margin-left:30px;" v-if="contractData.haLawProduct">
+                    <p>户名：北京知果科技有限公司</p>
+                    <p>开户行：招商银行北京分行海淀黄庄支行</p>
+                    <p>账户：1109 1590 4910 206</p>
+                </div>
+                <h3>五、协议期限与变更 </h3>
+                <p>1、 协议期限：参见产品说明。</p>
+                <p>2、 任何一方出现如下情形，另一方享有通知解除的权利：</p>
+                <p>1)	发生重大违约行为，且在接到书面通知后30日内未采取措施消除的；</p>
+                <p>2)	主动申请破产，或已进入破产程序、破产资产管理、清算程序的；</p>
+                <p>3)	被债权人申请破产，或被代管、清算，且该种申请或程序在立案后60日内未被撤销的；</p>
+                <p>4)	在本协议中存在重大错误表述的。</p>
+                <h3>六、保密条款</h3>
+                <p style="line-height:28px;">协议期间，双方都可能获知另一方的商业信息、客户方资料、技术、产品和其它作为该方商业秘密的秘密信息（以下简称“秘密信息”）。秘密信息包括所有有形的或无形的、标明为秘密的信息以及虽未标明为秘密信息但按照披露时的情况推定为秘密的信息。秘密信息包括但不限于本协议所涉及的业务和本协议的条件和条款。秘密信息为信息披露方所有，除非经披露方声明许可或为实现本协议目的（因法律规定或为咨询律师、会计师和其它专家所需除外）不得向第三方披露或使用。获得信息方应当采取不低于对己方所有的商业秘密的保密措施。</p>
+                <h3>七、违约</h3>
+                <p>1、 任何一方违反其于本协议项下的陈述、承诺、保证或义务，而使另一方遭受任何诉讼、纠纷、索赔、处罚等的，违约方应负责解决；使另一方发生任何费用、额外责任或遭受直接经济损失的，违约方应当负责赔偿；</p>
+                <p>2、 如果本协议任何一方违约，违约方应对守约方由此产生的经济损失承担赔偿责任，赔偿范围包括但不限于：守约方为履行本协议支出的一切合理的费用，及守约方根据本款为实现自己的请求而发生的诉讼费、律师费、差旅费等一切合理费用；</p>
+                <p>3、当一方（违约方）实质性违反其在本协议项下的义务，并且经非违约方请求后仍不履行或者不适当履行，非违约方可以要求解除本协议并有权要求违约方赔偿因此产生的损失。</p>
+                <h3>八、免责条款与不可抗力</h3>
+                <p>当发生以下情况时，本协议效力可提前解除，各方均不承担责任：</p>
+                <p>1、 根据法律、法规、规章、行政命令的规定或实施使本文件无法继续履行的；</p>
+                <p>2、 由于订立本协议时所处外部客观情况发生重大变化使文件无法继续履行的；</p>
+                <p>3、 由于战争、自然灾害和其它不可抗力而使文件无法继续履行的；</p>
+                <p>在本协议履行中，一旦本协议一方确认发生不可抗力，则任何一方都须在尽可能短的时间内通知对方。如果不可抗力的发生，不能造成不可抗力发生方对本协议的根本违约，则另一方应该在履约时间上给与对方适当的宽限。如果不可抗力的发生，造成了不可抗力发生方无法履行本合同，则本协议终止履行。</p>
+                <h3>九、法律适用和争议解决</h3>
+                <p>1、 本协议的订立、效力、解释、履行、修改、终止以及争议的解决均适用中华人民共和国的法律和法规。</p>
+                <p>2、凡因履行本协议所发生的争议，甲、乙双方应友好协商解决，协商不能解决的，均应提交北京仲裁委员会，按照申请仲裁时该会现行有效的仲裁规则进行仲裁。仲裁裁决是终局的，对双方均有约束力。</p>
+                <h3>十、其他</h3>
+                <p>1、 本协议规定了并构成双方就本协议规定事项的完整一致意见，应取代双方之间以前的任何和全部口头和书面的建议、协商、陈述、承诺、书面签署文件，非经双方协商一致并签署书面协议，本协议不应以任何方式解除、废止、补充、解释、修改或变更。</p>
+                <p>2、 本协议未尽事宜，可由双方另行协商，或者依据相关法律法规执行。如果甲乙双方同意修改本协议的任何条款，双方必须就修改的条款达成书面协议并由双方加盖印章，否则本协议的任何修改对甲乙双方均不具有任何约束力。</p>
+                <p>3、 如果本协议的任何部分或任何内容对任何一方的适用经判定是无效的，将不会影响本协议的其他内容，其他内容仍具有完全的法律效力，该判定亦不会影响本协议其他内容对另一方的适用。</p>
+                <p>4、 本协议一式二份，甲、乙双方各持一份，自双方签字盖章起生效，具有同等法律效力。</p>
+                <h3>（以下为签字部分，无正文）</h3>
+                <!--<h3>(签章页)</h3>-->
+                <div class="deter_Sign">
+                    <ul>
+                        <li>甲方  :</li><!--(签字/ 盖章)-->
+                        <li>日期:</li>
+                    </ul>
+                    <ul class="deter_zhang" :class="{deter_zhang2:contractData.zgOrders[0].pcode.indexOf('pt')>=0}">
+                        <li>乙方 :</li><!-- (签字/ 盖章)-->
+                        <li>日期: ${contractData.dateObj}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="c_b"></div>
+        <div class="deter_conter" v-if="!contractData.zgOrderContract || contractData.zgOrderContract.status == 2" @click="validateBeforeSubmit()">确定合同</div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/js/getCookies.js"></script>
+<script type="text/javascript">
+    var  contractData = {{{ contractData }}};
+    //合同验证
+    Contract(contractData)
+    var contractVM = new Vue({
+        el: "#confirmContract",
+        delimiters: ['${', '}'],
+        data:{
+            contractData:contractData,
+        },
+        computed: {
+            discountedPrice:function() {
+                return this.discounted ? this.price - (0.2 * this.price) : this.price;
+            }
+        },
+        methods:{
+            validateBeforeSubmit:function () {
+                this.$validator.validateAll().then(function(){
+                    // eslint-disable-next-line
+                    var postData = {
+                        "contractcode": contractVM.contractData.contractcode,
+                        "cname": contractVM.contractData.cname,
+                        "caddress": contractVM.contractData.caddress,
+                        "cperson": contractVM.contractData.cperson,
+                        "cphone": contractVM.contractData.cphone,
+                        "cmail": contractVM.contractData.cmail
+                    };
+                    axios.post('/userOrder/confirmContract', postData).then(function (res) {
+                        if(res.data.success){
+                            layer.msg('合同确认成功',{icon:1});
+                            window.location.reload();
+                        }
+                    });
+                }).catch(function() {
+                    layer.msg('请输入甲方必填字段');
+                    $(window).scrollTop(0);
+                });
+            }
+        }
+    })
+</script>

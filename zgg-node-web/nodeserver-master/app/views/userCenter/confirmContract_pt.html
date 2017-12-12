@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
+<html xmlns="http://www.w3.org/1999/xhtml"/>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>确定合同</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/Deter_contract.css">
+    <script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/lib/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="/lib/vue/dist/vue-resource.js"></script>
+    <script type="text/javascript" src="/lib/vue/vee-validate/dist/vee-validate.js"></script>
+    <script src="/lib/vue/vee-validate/dist/locale/zh_CN.js"></script>
+    <script type="text/javascript" src="/lib/layui/lay/dest/layui.all.js"></script>
+    <script type="text/javascript" src="/js/tingyun-rum.js"></script>
+</head>
+<body>
+<template id="loading-template">
+    <div class="loadWrap">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce3"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce1"></div>
+        </div>
+    </div>
+</template>
+<div id="help"></div>
+<loading v-show="showLoading"></loading>
+<script>
+    var help = new Vue({
+        el: '#help',
+        data: {
+            showLoading: false
+        },
+        components: {
+            'loading': {
+                template: '#loading-template',
+            }
+        }
+    })
+   /* axios.interceptors.request.use(function (request) {
+        // Do something before request is sent】
+        help.showLoading = true;
+        return request;
+    }, function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+    });
+
+    // Add a response interceptor
+    axios.interceptors.response.use(function (response) {
+        // Do something with response data
+        help.showLoading = false;
+        if (typeof response.data != 'undefined') {
+            if(typeof response.data.success != 'undefined' && !response.data.success){
+                if (response.data.code == 'W_100004') {
+                    user_reg();
+                }else{
+                    layui.use('layer',function () {
+                        layer.msg(response.data.message,{icon:2});
+                    })
+                }
+            }
+        }
+        return response;
+    }, function (error) {
+        // Do something with response error
+        return Promise.reject(error);
+    });*/
+    Vue.config.delimiters = ['${', '}'];
+    Vue.use(VeeValidate, {
+        errorBagName: 'errors', // change if property conflicts.
+        delay: 0,
+        locale: 'zh_CN',
+        messages: null,
+        strict: true
+    });
+</script>
+<div class="deter_wrap" id="confirmContract">
+    <div class="deter_info">
+        <div class="deter_top"></div>
+        <div class="deter_zgg">
+            <img src="/img/logo-zhiguoguo.png"/>
+            <p>
+                <span><b>地址：</b><b class="deter_b1">北京市海淀区紫雀路33号院3号楼4/5层</b></span>
+                <span><b>合同编号：</b><b class="deter_b1" v-html="contractData.contractcode"></b></span>
+            </p>
+        </div>
+        <div class="c_b"></div>
+        <div class="deter_box">
+            <div class="deter_wang">
+                <p></p>
+                <h2>知果果网知识产权服务代理委托合同</h2>
+                <p></p>
+            </div>
+            <div class="c_b"></div>
+            <div class="deter_edit">
+                    <div class="deter_mation">
+                        <form @submit.prevent="validateBeforeSubmit"  v-if="contractData.zgOrderContract && contractData.zgOrderContract.status==2">
+                            <ul>
+                                <li>
+                                    <p>甲方(委托方):</p>
+                                    <input type="text"   v-model="contractData.cname" data-vv-as="甲方(委托方)" name="cname" v-validate="'required'"
+                                           :class="{'input': true, 'is-danger': errors.has('cname') }"/><p  class="help is-danger" v-show="errors.has('cname')">${ errors.first('cname') }</p>
+                                </li>
+                                <li>
+                                    <p>通讯地址：</p>
+                                    <input type="text"  v-model="contractData.caddress" data-vv-as="通讯地址" name="caddress" v-validate="'required'"
+                                           :class="{'input': true, 'is-danger': errors.has('caddress') }"/><p  class="help is-danger" v-show="errors.has('caddress')">${ errors.first('caddress') }</p>
+                                </li>
+                                <li>
+                                    <p>联系人：</p>
+                                    <input type="text"  v-model="contractData.cperson" data-vv-as="联系人" name="cperson" v-validate="'required'"
+                                           :class="{'input': true, 'is-danger': errors.has('cperson') }"/><p  class="help is-danger" v-show="errors.has('cperson')">${ errors.first('cperson') }</p>
+
+                                </li>
+                                <!--<li>
+                                    <p>联系邮箱：</p>
+                                    <input type="text"  v-model="contractData.cmail" data-vv-as="联系邮箱" name="cmail" v-validate="'required|email'"
+                                           :class="{'input': true, 'is-danger': errors.has('cmail') }"/><p  class="help is-danger" v-show="errors.has('cmail')">${ errors.first('cmail') }</p>
+                                </li>-->
+                                <li>
+                                    <p>联系电话：</p>
+                                    <input type="text" value="" v-model="contractData.cphone" data-vv-as="联系电话" name="cphone" v-validate="'required'"
+                                           :class="{'input': true, 'is-danger': errors.has('cphone') }"/><p  class="help is-danger" v-show="errors.has('cphone')">${ errors.first('cphone') }</p>
+                                </li>
+                            </ul>
+                        </form>
+                        <ul v-if="contractData.zgOrderContract && contractData.zgOrderContract.status!=2">
+                            <li>
+                                <p>甲方 (委托方) :</p>
+                                <div v-html="contractData.cname"></div>
+                            </li>
+                            <li>
+                                <p>通讯地址：</p>
+                                <div v-html="contractData.caddress"></div>
+                            </li>
+                            <li>
+                                <p>联系人：</p>
+                                <div v-html="contractData.cperson"></div>
+                            </li>
+                            <!--<li>
+                                <p>联系邮箱：</p>
+                                <div v-html="contractData.cmail"></div>
+                            </li>-->
+                            <li>
+                                <p>联系电话：</p>
+                                <div v-html="contractData.cphone"></div>
+                            </li>
+                        </ul>
+                        <ul style="float: right">
+                            <li>
+                                <p>乙方 (受托方) :</p>
+                                <input type="text" value="北京卓唐知识产权代理有限公司" disabled="disabled">
+                            </li>
+                            <li>
+                                <p>通讯地址：</p>
+                                <input type="text" value="北京市海淀区紫雀路33号院3号楼4/5层" disabled="disabled">
+                            </li>
+                            <li>
+                                <p>联系人：</p>
+                                <input type="text" :value="contractData.sysUser.nickname" disabled="disabled">
+                            </li>
+                            <li>
+                                <p>联系电话：</p>
+                                <input type="text" :value="contractData.sysUser.tel" disabled="disabled">
+                            </li>
+                        </ul>
+                    </div>
+                <div class="c_b"></div>
+                <div class="deter_agree">双方经友好协商，就甲方所委托代理服务的相关事宜，按照《中华人民共和国合同法》及相关法律法规，本着平等互利、诚实信用的原则，达成如下协议，以资共同遵守。</div>
+                <h3>一、双方服务关系</h3>
+                <p>1. 乙方为北京知果科技有限公司（知果果网运营商）的从属公司，负责业务承接以及与业务相关的后续法律服务和业务相关咨询。</p>
+                <p>2. 甲方接受乙方提供的服务。乙方独立对甲方负责。</p>
+                <h3>二、服务项目及费用</h3>
+                <p>1.服务项目及费用 </p>
+                <table>
+                    <tr class="deter_tabTr">
+                        <th>服务项目</th>
+                        <th>订单号</th>
+                        <th>官方费用</th>
+                        <th>服务费</th>
+                        <th>优惠</th>
+                        <!--<th>保障费</th>-->
+                        <th>费用合计</th>
+                    </tr>
+                    <tr class="deter_tabTr2" v-for="item in contractData.zgOrders">
+                        <td v-html="item.pname"></td>
+                        <td v-html="item.ordercode"></td>
+                        <td v-if="item.cdkmoney==0&&item.inseAmt">¥${(item.money-item.serveexp-item.inseAmt).toFixed(2)}</td>
+                        <td v-if="item.cdkmoney==0&&!item.inseAmt">¥${(item.money-item.serveexp).toFixed(2)}</td>
+                        <td v-if="item.cdkmoney!=0">¥${item.publicexp}</td>
+                        <td>¥ ${item.serveexp}</td>
+                        <td>¥ ${item.cdkmoney}</td>
+                        <!--<td v-if="!item.inseAmt">¥0</td>
+                        <td v-if="item.inseAmt">¥${item.inseAmt}</td>-->
+                        <td>¥ ${item.money}</td>
+                    </tr>
+                </table>
+                <p>总计：￥${contractData.zgOrderPay.money}元</p>
+                <p><img src="/img/1.png"/><b>注：本合同服务项目具体内容以甲、乙双方最终确认盖章生效的相应法律文本文件为准。</b></p>
+                <div class="c_b"></div>
+                <!-- <p><img src="../img/1.png"/><b>国内商标注册服务开具代收官费发票，税费须另行支付。</b></p>
+                 <div class="c_b"></div>-->
+                <p>户名：北京卓唐知识产权代理有限公司</p>
+                <p>支付宝：zhuotang@zhiguoguo.com</p>
+                <p>开户行：招商银行股份有限公司北京海淀黄庄支行</p>
+                <p>账户：1109 2162 6410 506</p>
+                <p>2. 费用支付：</p>
+                <p>（1）甲方应于合同签订后的5个工作日内将合同总金额一次性汇至乙方账户；</p>
+                <p>（2）乙方应于全部案件提交后开具等额、合法的增值税发票（官方费用开具增值税普通发票，其余费用开具增值税专用发票），并邮寄给甲方，邮寄费用由乙方承担。</p>
+                <h3>三、甲方权利义务</h3>
+                <p>1. 甲方有权要求乙方就本协议约定服务事项提供业务咨询、资料收集整理指导、进度查询服务。</p>
+                <p>2. 甲方有及时提交、补充业务所需信息、材料的义务。同时，甲方也有放弃提供业务所需信息材料的权利。但是，因甲方放弃或怠于提交业务所需信息、材料而导致的一切后果，由甲方自行承担。</p>
+                <p>3. 甲方有权要求乙方提供完整、有效的联系方式（包括地址、联系人、联系电话、邮箱等）并在联系方式发生变化时，及时以书面方式通知甲方。</p>
+                <div v-if="contractData.hasGb">
+                    <p>4. 甲方购买的服务项目为果保发明申请、果保实用新型申请或果保外观设计申请时，当申请专利满足全部赔付条件时，甲方有权获得相应的赔付金额。</p>
+                    <div class="deter_bg">
+                    <p>赔付条件：</p>
+                    <p>（1）专利申请前已支付全额服务费；</p>
+                    <p>（2）专利申请人收到中国国家知识产权局下发的驳回决定；</p>
+                    <p>赔付金额：专利申请的全部费用。</p>
+                    <p>赔付时间：乙方在收到中国国家知识产权局下发的驳回决定后3个月内。</p>
+                    <p>以下情形不属于赔付范围：</p>
+                    <p>（1）专利申请人主动撤回专利申请的；</p>
+                    <p>（2）专利申请人因未向国家知识产权局缴纳相关费用或未及时缴纳相关费用，未对补正通知书进行答复或未及时答复，未对审查意见通知书进行答复或未及时答复，从而导致专利申请被视为撤回的；</p>
+                    <p>（3）因不可抗力导致赔付协议无法履行的。</p>
+                </div>
+                </div>
+                <div v-if="contractData.hasGWFMSQ">
+                    <p>4.甲方购买的服务项目为果卫发明授权分析(普通版)或果卫发明授权分析(尊享版)时：</p>
+                    <div class="deter_bg">
+                    <p>（1）对于甲方向乙方购买的服务项目，其所涉及的发明申请的申请号为：_________________________________  </p>
+                    <p> 乙方针对上述发明申请，出具可授权性分析报告。</p>
+                    <p>（2）出现如下任意一种情况时，乙方有权不接受甲方的购买：</p>
+                    <p>（a）发明申请递交时所委托的专利代理机构不满足乙方对于专利代理机构的预设条件；</p>
+                    <p>（b）购买日期的次日，自专利申请日起超过6个月；其中，购买日期以乙方收到甲方支付的服务费日期为准；</p>
+                    <p>（c）甲方不是发明申请递交时的专利申请人。</p>
+                    <p>（3）发明申请被驳回并且甲方提出赔付请求的，对甲方进行的赔付需满足如下条件：</p>
+                    <p>（a）赔付范围包括发明申请所产生的官费和代理费，赔付金额以实际发生费用为准，且不超过保额上限；其中，果卫发明授权分析(普通版)的保额上限为6000元/件，果卫发明授权分析(尊享版)的保额上限为13450元/件。</p>
+                    <p>（b）根据国家专利局下发的驳回决定，由于违反专利法一条或多条下列条款导致发明申请被驳回的，对甲方进行赔付：</p>
+                    <p>专利法第二十二条第二款：新颖性，是指该发明或者实用新型不属于现有技术；也没有任何单位或者个人就同样的发明或者实用新型在申请日以前向国务院专利行政部门提出过申请，并记载在申请日以后公布的专利申请文件或者公告的专利文件中。</p>
+                    <p>专利法第二十二条第三款：创造性，是指与现有技术相比，该发明具有突出的实质性特点和显著的进步，该实用新型具有实质性特点和进步。</p>
+                    <p>专利法第二十六条第三款：说明书应当对发明或者实用新型作出清楚、完整的说明，以所属技术领域的技术人员能够实现为准；必要的时候，应当有附图。摘要应当简要说明发明或者实用新型的技术要点。</p>
+                    <p>专利法第二十六条第四款：权利要求书应当以说明书为依据，清楚、简要地限定要求专利保护的范围。</p>
+                    <p>专利法实施细则第二十条第二款：独立权利要求应当从整体上反映发明或者实用新型的技术方案，记载解决技术问题的必要技术特征。</p>
+                    <p>根据国家专利局下发的驳回决定，驳回理由不属于上述条款的，不对甲方进行赔付。</p>
+                    <p>（c）发明申请被驳回的原因不属于除外责任；也即，如下原因造成的损失、费用和责任，不对甲方进行赔付：</p>
+                    <p>甲方或其代表的犯罪行为或者故意使专利申请被驳回并请求理赔的行为；</p>
+                    <p>甲方所委托的专利代理机构被撤销或吊销专利代理机构注册证的，或营业范围包括专利代理业务的律师事务所被撤销或吊销专利代理机构注册证的；</p>
+                    <p>甲方未与专利代理机构订立书面委托合同的，或甲方未与营业范围包括专利代理业务的律师事务所订立书面委托合同的；</p>
+                    <p>违反《中华人民共和国专利法》以外的其他法律法规规定的；</p>
+                    <p>甲方主动放弃申请或授权的；</p>
+                    <p>甲方所委托的专利代理机构不具有专业代理资格的，或营业范围包括专利代理业务的律师事务所不具有专业代理资格的。</p>
+                    <p>（d）甲方提出赔付请求的时间自发明申请的驳回决定发文日起不超过3个月。</p>
+                    <p>（4）甲方提出赔付请求时，应当提供如下理赔材料：</p>
+                    <p>（a）甲方与所委托的专利代理机构之间签订的专利代理委托合同，或甲方所委托的专利代理机构收取专利代理费的相关票据证明；</p>
+                    <p>（b）发明申请的官费缴费证明；</p>
+                    <p>（c）国家专利主管部门出具的专利申请的驳回决定证明。</p>
+                    <p>（5）如果甲方购买时发明申请尚未公开，则乙方将在发明申请公开后再出具可授权性分析报告。</p>
+                    </div>
+                </div>
+                <div v-if="contractData.hasGWFMQQ">
+                    <p>4. 甲方购买的服务项目为果卫发明侵权分析时：</p>
+                    <div class="deter_bg">
+                    <p>（1）对于甲方向乙方购买的服务项目，其所涉及的发明申请的申请号为：____________________________, 乙方针对上述发明申请，出具侵权检索分析报告。  </p>
+                    <p>（2）出现如下任意一种情况时，乙方有权不接受甲方的购买：</p>
+                    <p>（a）购买日期的次日，自专利申请日起超过6个月；其中，购买日期以乙方收到甲方支付的服务费日期为准；</p>
+                    <p> （b）甲方不是发明申请递交时的专利申请人。</p>
+                    <p>（3）甲方发起专利侵权诉讼并且提出赔付请求的，对甲方进行的赔付需满足如下条件：</p>
+                    <p>（a）涉嫌侵犯甲方发明专利权的行为起始于发明授权后第一年内，且甲方提出赔付请求的时间处于发明授权后第一年或发现期内；发现期是指自发明授权后第一年的结束日向后约定的时间期间，本合同约定上述发现期为一年。</p>
+                    <p>发明的授权时间以授权公告日为准。</p>
+                    <p>（b）赔付范围包括：</p>
+                    <p>甲方为获取证据在中华人民共和国境内（不包括港澳台地区）进行调查，就其受到侵犯的专利权向法院提起诉讼请求，该请求被立案的，对于甲方的前述请求在立案前发生的必要的、合理的调查费、公证费、交通费、住宿费、伙食补助费（以下简称调查费用）。</p>
+                    <p>甲方向法院提起诉讼的，对应由甲方支付的律师费、诉讼费（以下简称“法律费用”）。</p>
+                    <p>法院依法判决应由侵权人承担的赔偿数额（以下简称“直接损失”）。</p>
+                    <p>赔付金额以实际发生费用为准，且不超过保额上限；果卫发明侵权分析的保额上限为10万元/件。</p>
+                    <p>（c）甲方提起专利侵权诉讼被法院立案的，甲方提出赔付请求并提交理赔材料后，可就调查费用和律师费进行赔付，但对该两项费用的赔付额不超过保额上限的20%。在法院作出判决并且甲方胜诉的，甲方提出赔付请求并提交理赔材料后，依据判决书中的内容对甲方的诉讼费和直接损失进行赔付；并且，如果立案阶段对调查费用和律师费的赔偿额低于该两项费用之和的，继续对差额部分进行赔偿。</p>
+                    <p>（d）甲方需在提起诉讼请求时及时通知乙方，乙方或其代表有权了解或参与案件诉讼任何环节。甲方没有及时通知乙方的或不配合乙方的，乙方或其代表对诉讼结果不承担赔偿责任。</p>
+                    <p>（e）乙方或其代表向甲方进行赔偿后，取得相应的代位求偿权。</p>
+                    <p>（4）赔付情形不属于除外责任；也即，如下原因造成的损失、费用和责任，不对甲方进行赔付：</p>
+                    <p>（a）甲方及其代表的犯罪行为、重大过失行为或故意使专利被侵权并请求理赔的行为；</p>
+                    <p>（b）经甲方及其代表许可或者授权实施的行为；</p>
+                    <p>（c）战争、敌对行动、军事行为、武装冲突、罢工、骚乱、暴动、恐怖活动；</p>
+                    <p>（d）符合《中华人民共和国专利法》规定的强制许可的实施行为或其他行政行为、司法行为</p>
+                    <p>（e）《中华人民共和国专利法》及中华人民共和国其他法律法规规定的不视为侵权行为的情形。</p>
+                    <p>（5）下列损失、费用和责任，不对甲方进行赔付：</p>
+                    <p>（a）罚款、罚金或其他惩罚性赔偿；</p>
+                    <p>（b）甲方提起的诉讼请求被立案后发生的调查费用；</p>
+                    <p>（c）购买涉嫌侵权产品的费用；</p>
+                    <p>（d）购买日期前，甲方已经知道或应该知道专利权受到他人侵犯的，或甲方已经向实施侵权行为人提起调解、仲裁或诉讼请求的，与之相关的损失、费用或责任；</p>
+                    <p>（6）甲方提出赔付请求时，应当提供如下理赔材料：</p>
+                    <p>（a）法院立案的书面证明材料；</p>
+                    <p>（b）与赔付调查费用、法律费用和直接损失相关的各种票据、发票及证明材料；</p>
+                    <p>（c）法院作出的判决书。</p>
+                    <p>（7）如果甲方购买时发明申请尚未公开，则乙方将在发明申请公开后再出具侵权检索分析报告。</p>
+                </div>
+                </div>
+                <div v-if="contractData.hasGWWGSJ">
+                    <p>4. 甲方购买的服务项目为果卫外观设计替代性分析时：</p>
+                    <div class="deter_bg">
+                    <p>（1）对于甲方向乙方购买的服务项目，其所涉及的外观设计专利权的申请号为：_____________________ ，乙方针对上述外观设计专利，出具专利可替代性分析报告。</p>
+                    <p>（2）出现如下任意一种情况时，乙方有权不接受甲方的购买：</p>
+                    <p>（a）甲方购买时，外观设计专利不处于授权状态；</p>
+                    <p>（b）外观设计专利曾被提出过无效宣告请求的；</p>
+                    <p>（c）甲方不是外观设计专利的专利权人。</p>
+                    <p>（3）外观设计专利被宣告全部无效，甲方提出赔付请求的，对甲方进行的赔付需满足如下条件：</p>
+                    <p>（a）自等待期结束后的第一年内，外观设计专利被他人提起无效宣告请求，在委托专利代理机构进行无效答辩后，仍被专利复审委员会宣告专利权全部无效的；其中，等待期是指自甲方购买日期的次日起算3个月，购买日期以乙方收到甲方支付的服务费日期为准。</p>
+                    <p>（b）赔付范围包括：</p>
+                    <p>甲方在无效答辩过程中所产生的无效答辩代理费、差旅费、鉴定费、公证费和翻译费。除上述费用类型外，其他费用不属于赔付范围。</p>
+                    <p>赔付金额以实际发生费用为准，且不超过保额上限；果卫外观设计替代性分析的保额上限为1万元/件。</p>
+                    <p>（c）甲方提出赔付请求的时间自外观设计专利被宣告全部无效的审查决定的决定日起不超过1个月。</p>
+                    <p>（4）赔付情形不属于除外责任；也即，如下原因造成的损失、费用和责任，不对甲方进行赔付</p>
+                    <p>（a）甲方及其代表的犯罪行为、重大过失行为或故意使专利被全部无效并请求理赔的行为；</p>
+                    <p>（b）战争、敌对行动、军事行为、武装冲突、罢工、骚乱、暴动、恐怖活动；</p>
+                    <p>（c）外观设计专利自甲方购买日期的次日起3个月内被提起无效宣告的；</p>
+                    <p>（d）外观设计专利被宣告部分无效的。</p>
+                    <p>（e）甲方没有委托专利代理机构进行无效答辩的。</p>
+                    <p>（f）甲方没有向专利复审委员会提交过无效答辩意见书的。</p>
+                    <p>（g）审查决定所依据的无效理由属于下列条款的，不予理赔：</p>
+                    <p>专利法第九条：同样的发明创造只能授予一项专利权。</p>
+                    <p>专利法第二十条第一款：任何单位或者个人将在中国完成的发明或者实用新型向外国申请专利的，应当事先报经国务院专利行政部门进行保密审查。保密审查的程序、期限等按照国务院的规定执行。</p>
+                    <p>（5）甲方提出赔付请求时，应当提供如下理赔材料：</p>
+                    <p>（a）专利无效答辩代理合同或无效答辩代理费的发票；</p>
+                    <p>（b）差旅费、鉴定费、公证费和翻译费相关的各种票据、发票及证明材料；</p>
+                    <p>（c）专利复审委员会作出的宣告外观设计专利全部无效的审查决定。</p>
+                     </div>
+                </div>
+                <div v-if="contractData.hasGWSYXX">
+                    <p>4. 甲方购买的服务项目为果卫实用新型替代性分析时：</p>
+                    <div class="deter_bg">
+                    <p>（1）对于甲方向乙方购买的服务项目，其所涉及的实用新型专利权的申请号为：_______________________， 乙方针对上述实用新型专利，出具专利可替代性分析报告。</p>
+                    <p>（2）出现如下任意一种情况时，乙方有权不接受甲方的购买：</p>
+                    <p>（a）甲方购买时，实用新型专利不处于授权状态；</p>
+                    <p>（b）实用新型专利曾被提出过无效宣告请求的；</p>
+                    <p>（c）甲方不是实用新型专利的专利权人。</p>
+                    <p>（3）实用新型专利被宣告全部无效，甲方提出赔付请求的，对甲方进行的赔付需满足如下条件：</p>
+                    <p>（a）自等待期结束后的第一年内，实用新型专利被他人提起无效宣告请求，在委托专利代理机构进行无效答辩后，仍被专利复审委员会宣告专利权全部无效的；其中，等待期是指自甲方购买日期的次日起算3个月，购买日期以乙方收到甲方支付的服务费日期为准。/p>
+                    <p>（b）赔付范围包括：</p>
+                    <p>甲方在无效答辩过程中所产生的无效答辩代理费、差旅费、鉴定费、公证费和翻译费。除上述费用类型外，其他费用不属于赔付范围。</p>
+                    <p>赔付金额以实际发生费用为准，且不超过保额上限；果卫实用新型替代性分析的保额上限为1万元/件。</p>
+                    <p>（c）甲方提出赔付请求的时间自实用新型专利被宣告全部无效的审查决定的决定日起不超过1个月。</p>
+                    <p>（4）赔付情形不属于除外责任；也即，如下原因造成的损失、费用和责任，不对甲方进行赔付</p>
+                    <p>（a）甲方及其代表的犯罪行为、重大过失行为或故意使专利被全部无效并请求理赔的行为；</p>
+                    <p>（b）战争、敌对行动、军事行为、武装冲突、罢工、骚乱、暴动、恐怖活动；</p>
+                    <p>（c）实用新型专利自甲方购买日期的次日起3个月内被提起无效宣告的；</p>
+                    <p>（d）实用新型专利被宣告部分无效的。</p>
+                    <p>（e）甲方没有委托专利代理机构进行无效答辩的。</p>
+                    <p>（f）甲方没有向专利复审委员会提交过无效答辩意见书的。</p>
+                    <p>（g）审查决定所依据的无效理由属于下列条款的，不予理赔：</p>
+                    <p>专利法第九条：同样的发明创造只能授予一项专利权。</p>
+                    <p>专利法第二十条第一款：任何单位或者个人将在中国完成的发明或者实用新型向外国申请专利的，应当事先报经国务院专利行政部门进行保密审查。保密审查的程序、期限等按照国务院的规定执行。</p>
+                    <p>（5）甲方提出赔付请求时，应当提供如下理赔材料：</p>
+                    <p>（a）专利无效答辩代理合同或无效答辩代理费的发票；</p>
+                    <p>（b）差旅费、鉴定费、公证费和翻译费相关的各种票据、发票及证明材料；</p>
+                    <p>（c）专利复审委员会作出的宣告实用新型专利全部无效的审查决定。</p>
+                    </div>
+                </div>
+                <div v-if="contractData.hasGWFMTD">
+                    <p>4. 甲方购买的服务项目为果卫发明替代性分析时：</p>
+                    <div class="deter_bg">
+                    <p>（1）对于甲方向乙方购买的服务项目，其所涉及的发明专利权的申请号为：_____________________， 乙方针对上述发明专利，出具专利可替代性分析报告。
+                    </p>
+                    <p>（2）出现如下任意一种情况时，乙方有权不接受甲方的购买：</p>
+                    <p>（a）甲方购买时，发明专利不处于授权状态；</p>
+                    <p>（b）发明专利曾被提出过无效宣告请求的；</p>
+                    <p>（c）甲方不是发明专利的专利权人。</p>
+                    <p>（3）发明专利被宣告全部无效，甲方提出赔付请求的，对甲方进行的赔付需满足如下条件：</p>
+                    <p>（a）自等待期结束后的第一年内，发明专利被他人提起无效宣告请求，在委托专利代理机构进行无效答辩后，仍被专利复审委员会宣告专利权全部无效的；其中，等待期是指自甲方购买日期的次日起算3个月，购买日期以乙方收到甲方支付的服务费日期为准。</p>
+                    <p>（b）赔付范围包括：</p>
+                    <p>甲方在无效答辩过程中所产生的无效答辩代理费、差旅费、鉴定费、公证费和翻译费。除上述费用类型外，其他费用不属于赔付范围。</p>
+                    <p>赔付金额以实际发生费用为准，且不超过保额上限；果卫发明替代性分析的保额上限为3万元/件。</p>
+                    <p>（c）甲方提出赔付请求的时间自发明专利被宣告全部无效的审查决定的决定日起不超过1个月。</p>
+                    <p>（4）赔付情形不属于除外责任；也即，如下原因造成的损失、费用和责任，不对甲方进行赔付：</p>
+                    <p>（a）甲方及其代表的犯罪行为、重大过失行为或故意使专利被全部无效并请求理赔的行为；</p>
+                    <p>（b）战争、敌对行动、军事行为、武装冲突、罢工、骚乱、暴动、恐怖活动；</p>
+                    <p>（c）发明专利自甲方购买日期的次日起3个月内被提起无效宣告的；</p>
+                    <p>（d）发明专利被宣告部分无效的。</p>
+                    <p>（e）甲方没有委托专利代理机构进行无效答辩的。</p>
+                    <p>（f）甲方没有向专利复审委员会提交过无效答辩意见书的。</p>
+                    <p>（g）审查决定所依据的无效理由属于下列条款的，不予理赔：</p>
+                    <p>专利法第九条：同样的发明创造只能授予一项专利权。</p>
+                    <p>专利法第二十条第一款：任何单位或者个人将在中国完成的发明或者实用新型向外国申请专利的，应当事先报经国务院专利行政部门进行保密审查。保密审查的程序、期限等按照国务院的规定执行。</p>
+                    <p>（5）甲方提出赔付请求时，应当提供如下理赔材料：</p>
+                    <p>（a）专利无效答辩代理合同或无效答辩代理费的发票；</p>
+                    <p>（b）差旅费、鉴定费、公证费和翻译费相关的各种票据、发票及证明材料；</p>
+                    <p>（c）专利复审委员会作出的宣告发明专利全部无效的审查决定。</p>
+                 </div>
+                 </div>
+                <h3>四、乙方权利义务</h3>
+                <p>1. 乙方就办理本协议委托的相应服务事项，可通过知果果网（www.zhiguoguo.com）或专属顾问以短信、邮件或电话的方式如实向甲方提供业务咨询、资料收集整理、进度查询服务。</p>
+                <p v-if="contractData.hasGWPT">
+                    2.乙方在甲方完成资料填写后，应及时联系甲方，并在收到甲方所提供的准确、完整资料后，及时出具分析报告。
+                </p>
+                    <p v-if="!contractData.hasGWPT">2. 乙方在甲方完成资料填写后，应及时联系甲方，并在收到甲方所提供的准确、完整资料后，及时向主管部门递交申报文件，完成申报工作。</p>
+                <p>3. 乙方有权要求甲方提供完整、有效的联系方式（包括地址、联系人、联系电话、邮箱等）并在联系方式发生变化时，及时以书面方式通知乙方。</p>
+                <div>
+                <p v-if="!contractData.hasGWPT">4. 乙方承办本合同内专利申请从“申请前期准备”至“授权或驳回”阶段的代理事务，包括以下所列：</p>
+                <div v-if="!contractData.hasGWPT" style="margin-left: 30px;">
+                    <p>撰写申请文件；提交申请；</p>
+                    <p>答复初步审查过程中的补正通知或审查意见通知书；（如为实用新型、外观设计）</p>
+                    <p>提交发明专利的实质审查（如为发明申请）；</p>
+                    <p>答复发明专利审查意见（如为发明申请）。</p>
+                </div>
+
+                <p v-if="!contractData.hasGWPT">5. 乙方按照下列标准向甲方收取授权后办理登记手续的代理费、年费缴纳代理费：</p>
+                <div style="margin-left: 30px;" v-if="!contractData.hasGWPT">
+                    <p>授权后办理登记手续（简称：授权办登）代理费：人民币 100  元/件；</p>
+                    <p>年费缴纳代理费：人民币 100  元/年/件。</p>
+                </div>
+                 </div>
+                <h3>五、退款条款</h3>
+                <p v-if="contractData.hasGWPT">
+                    甲方在购买完成后，如果乙方已经出具分析报告，则不予退款。
+                </p>
+                <!--<div  v-if="!contractData.hasGWPT" class="deter_div">-->
+                    <p>甲方在购买完成后，如出现下列情况，甲方可要求乙方退还所收取费用。</p>
+                <!--</div>-->
+                <p>1. 甲方购买后3个月内，乙方未提供任何文书服务。</p>
+                <p v-if="contractData.hasGWPT">
+                    2.由于甲方操作或理解方面的失误，所购买业务与实际需求有误，且乙方已经提供相应服务时，双方协商进行退款程序或重新购买符合要求的相应服务，但乙方已经出具分析报告的除外。
+                </p>
+                <div v-if="!contractData.hasGWPT">
+                    <p>2. 甲方完成支付后超过3个月，但因乙方工作失误而造成业务不能申报的。</p>
+                    <p>3. 由于甲方操作或理解方面的失误，所购买业务与实际需求有误，且乙方已经提供相应服务时，双方协商进行退款程序或重新购买符合要求的相应服务，但乙方已经进行业务申报的除外。</p>
+                </div>
+                <h3>六、保密条款</h3>
+                <p>1. 甲、乙双方均对本协议及相关内容负有保密义务，保密期限不限于本协议履行期限，也不因本协议的解除、终止、无效或被撤销而失效。</p>
+                <p>2. 以下信息不属于保密资料：</p>
+                <p>（1）已公开的与本项目有关的信息；</p>
+                <p>（2）并非由乙方披露的信息；</p>
+                <h3>七、违约责任</h3>
+                <p>甲、乙双方应严格遵守有关法律、法规和规章，遵守本协议约定，任何一方违反法规或本协议约定的，由责任方承担相应的法律责任。</p>
+                <h3>八、争议解决方法</h3>
+                <p>甲、乙双方因履行本协议发生争议，应协商解决，协商不成的，任何一方均有权向乙方所在地人民法院提起诉讼。</p>
+                <h3>九、其他</h3>
+                <p>1. 双方在联系人或联系方式发生变化时，及时以书面方式通知对方。若因不及时通知对方而产生的不良后果，由责任方承担。</p>
+                <p>2. 协议中除双方签章外，均为印刷字体，手写部分须双方在手写处签字或盖章确认后才具备法律效力。</p>
+                <p>3. 为保障甲方权益，提高乙方服务质量，乙方为甲方提供专业咨询服务。如需咨询本协议全部相关事宜，请拨打咨询电话400-888-1426。</p>
+                <p>4. 本协议壹式贰份，甲、乙双方各执壹份，自双方签字/盖章之日起生效。</p>
+                <p>5. 红色与黑色印章效力相同。</p>
+                <p>6. 《保密协议书》视为本合同附件。</p>
+                <h3>(以下无正文)</h3>
+                <h3>(签章页)</h3>
+                <div class="deter_Sign" style="margin-bottom: 150px;overflow: hidden">
+                    <ul>
+                        <li>甲方 (签字/ 盖章) :</li>
+                        <li>日期:</li>
+                    </ul>
+                    <ul class="deter_zhang" :class="{deter_zhang2:contractData.zgOrders[0].pcode.indexOf('pt')>=0}">
+                        <li>乙方 (签字/ 盖章) :</li>
+                        <li>日期: ${contractData.dateObj}</li>
+                    </ul>
+                </div>
+            </p>
+        </div>
+        <div class="c_b"></div>
+        <div class="deter_conter" v-if="!contractData.zgOrderContract || contractData.zgOrderContract.status == 2" @click="validateBeforeSubmit()">确定合同</div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/js/getCookies.js"></script>
+<script type="text/javascript">
+    window.console = window.console || (function(){
+                var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function(){};
+                return c;
+            })();
+    var  contractData={{{ contractData }}};
+    //合同验证
+    Contract(contractData)
+    var contractVM = new Vue({
+        el: "#confirmContract",
+        delimiters: ['${', '}'],
+        data:{
+            contractData:contractData,
+        },
+        computed: {
+            discountedPrice:function() {
+                return this.discounted ? this.price - (0.2 * this.price) : this.price;
+            }
+        },
+        methods:{
+            validateBeforeSubmit:function () {
+                this.$validator.validateAll().then(function(){
+                    // eslint-disable-next-line
+                    var postData = {
+                        "contractcode": contractVM.contractData.contractcode,
+                        "cname": contractVM.contractData.cname,
+                        "caddress": contractVM.contractData.caddress,
+                        "cperson": contractVM.contractData.cperson,
+                        "cphone": contractVM.contractData.cphone,
+                        "cmail": contractVM.contractData.cmail
+                    };
+                    axios.post('/userOrder/confirmContract', postData).then(function (res) {
+                        if(res.data.success){
+                            layer.msg('合同确认成功',{icon:1});
+                            window.location.reload();
+                        }
+                    });
+                }).catch(function() {
+                    layer.msg('请输入甲方必填字段');
+                    $(window).scrollTop(0);
+                });
+            }
+        }
+    })
+</script>

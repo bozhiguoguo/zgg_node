@@ -1,0 +1,931 @@
+{{> head}}
+<link rel="stylesheet" href="/css/buttonColor.css"/>
+<link rel="stylesheet" href="/css/modify_subjectInfo.css" >
+<style>
+    .red{
+        color: #ff0000 !important;
+    }
+    .uploadifive-queue-item {
+        display: none;
+    }
+    .uploadifive-button{
+        border:1px solid #2f3342;
+        border-radius: 5px;
+        margin-top: 30px;
+        width: 75px !important;
+    }
+</style>
+<div class="personCenter_all" id="main_add"  v-cloak>
+    <div class="modify_content">
+        <h3>修改主体信息</h3>
+        <div class="modify_wrapp">
+            <p>账户类型：</p>
+            <div class="modify_tab">
+                <ul v-show="tab_true==3">
+                    <li :class="{modify_red:comp_show,marg24:true,CompanyPar:true}" @click="comp_show=true;clearImgPath();nattype_h();">公司</li>
+                    <li :class="{modify_red:!comp_show,PersonPar:true}" @click="comp_show=false;clearImgPath();nattype_h();">个体（个体工商户）</li>
+                </ul>
+                <ul v-show="tab_true==2">
+                    <li :class="{modify_red:!comp_show,PersonPar:true}" @click="comp_show=false">个体（个体工商户）</li>
+                </ul>
+                <ul v-show="tab_true==1">
+                    <li :class="{modify_red:comp_show,marg24:true,CompanyPar:true}" @click="comp_show=true">公司</li>
+                </ul>
+            </div>
+            <div class="c_b"></div>
+                <div class="modify_radio ComCon">
+                    <p>国籍：</p>
+                    <ul @click="clearImgPath();nattype_h();">
+                        <li class="Per1" @click="other=false;img_show=1;"><a :class="{modify_Choice:true,modify_Choice1:img_show==1}"></a>中国大陆</li>
+                        <li class="Per2" @click="other=true;img_show=2;"><a :class="{modify_Choice:true,modify_Choice1:img_show==2}"></a>中国香港</li>
+                        <li class="Per3" @click="other=true;img_show=3;"><a :class="{modify_Choice:true,modify_Choice1:img_show==3}"></a>中国澳门</li>
+                        <li class="Per4" @click="other=true;img_show=4;"><a :class="{modify_Choice:true,modify_Choice1:img_show==4}"></a>中国台湾</li>
+                        <li class="Per5" @click="other=true;img_show=5;"><a :class="{modify_Choice:true,modify_Choice1:img_show==5}"></a>其他国籍</li>
+                    </ul>
+<!--------------------------------------------------------------------------公司-->
+                    <div v-show="comp_show">
+<!--------------------------------------------------------------------中国大陆-->
+                        <form v-show="img_show==1" @submit.prevent="validateForm('form-c-1')" data-vv-scope="form-c-1">
+                            <div class="modify_table1 conpany_xg">
+                                <ol>
+                                    <li><p><span>*</span>企业名称：</p>
+                                        <input type="text"  v-model="items.companyname" name="companyname" v-validate="'required'" data-vv-as="企业名称"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-1.companyname') }">
+                                        <p class="red" v-show="errors.has('form-c-1.companyname')">${errors.first('form-c-1.companyname')}</p>
+                                    </li>
+                                    <!--<li>-->
+                                        <!--<p><span>*</span>营业执照号：</p>-->
+                                        <!--<input v-model="items.blicensenum" v-validate="'required'" data-vv-as="营业执照号" name="blicensenum" type="text"-->
+                                               <!--:class="{'input': true, 'is-danger': errors.has('form-c-1.blicensenum') }">-->
+                                        <!--<p class="red" v-show="errors.has('form-c-1.blicensenum')">${errors.first('form-c-1.blicensenum')}</p>-->
+                                    <!--</li>-->
+                                    <!--<li><p><span>*</span>所属行业：</p>
+                                        <select name="companykind" v-model="listId" v-validate="'required'" data-vv-as="所属行业"
+                                                :class="{'input': true, 'is-danger': errors.has('form-c-2.companykind') }">
+                                            <option value="">--请选择--</option>
+                                            <option v-for="p in list" v-bind:value="p.id" v-html="p.kindname"></option>
+                                        </select>
+                                        <p class="red" v-show="errors.has('form-c-2.companykind')">${errors.first('form-c-2.companykind')}</p>
+                                    </li>
+                                    <li><p><span>*</span>公司成立时间：</p>
+                                        <input class="layui-input" id="timeData1" v-model="items.establishtime" name="establishtime"  placeholder="自定义日期格式"
+                                               v-validate="'required'" data-vv-as="公司成立时间" :class="{'input': true, 'is-danger': errors.has('form-c-2.establishtime') }"
+                                               onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD',choose:function(datas) {mainAddVM.items.establishtime = datas;}})">
+                                        <p class="marg5">请填写公司成立时间（如：1987-08-31）</p>
+                                        <p class="red" v-show="errors.has('form-c-2.establishtime')">${errors.first('form-c-2.establishtime')}</p>
+                                    </li>-->
+                                    <li><p><span>*</span>注册地址：</p>
+                                        <input type="text" v-model="items.address"  v-validate="'required'" data-vv-as="注册地址"  name="address"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-1.address') }">
+                                        <p class="red" v-show="errors.has('form-c-1.address')">${errors.first('form-c-1.address')}</p>
+                                    </li>
+                                    <li><p><span>*</span>营业执照副本：</p>
+                                        <div class="modify_hover" style="display: block">
+                                            <input type="text" v-model="blicensepic"  name="blicensepic" style="display: none;"
+                                                   v-validate="'required'" data-vv-as="请上传证件" :class="{'input': true, 'is-danger': errors.has('form-c-1.blicensepic') }">
+                                            <a data-method="notice"><div><img v-show="blicensepic==''?false:true" v-bind:src="blicensepic" style="width: 70px;height: 88px;"/> </div></a>
+                                        </div>
+                                        <div id="blicensepic_url" class="f_l" style="margin-right: 30px;">
+                                            <a data-method="notice"  id="blicensepic"></a>
+                                            <span>(营业执照)</span>
+                                        </div>
+                                        <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                        <p class="red clear-both" v-show="errors.has('form-c-1.blicensepic')">${errors.first('form-c-1.blicensepic')}</p>
+                                    </li>
+                                    <div style="clear:both"></div>
+                                </ol>
+                            </div>
+                            <div class="modify_sbumit">
+                                <span class="modify_chancel buttonColorec9c19 btnC" @click="cancel()">取消</span>
+                                <button class="modify_mit buttonColor" type="submit">提交</button>
+                            </div>
+                        </form>
+<!--------------------------------------------------------------------香港，澳门，台湾-->
+                        <form v-show="img_show==2||img_show==3||img_show==4||img_show==5" @submit.prevent="validateForm('form-c-2')" data-vv-scope="form-c-2">
+                            <div class="modify_table1 conpany_xg">
+                                <ol>
+                                    <li v-if="img_show==5">
+                                        <p><span>*</span>国籍名称：</p>
+                                        <input v-validate="'required'" data-vv-as="国籍名称" type="text" v-model="items.nationality" name="nationality3" id="nationality3"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-2.nationality3') }">
+                                        <p class="red" v-show="errors.has('form-c-2.nationality3')">${errors.first('form-c-2.nationality3')}</p>
+                                    </li>
+                                    <li><p><span>*</span>企业名称：</p>
+                                        <input type="text"  v-model="items.companyname" name="companyname" v-validate="'required'" data-vv-as="企业名称"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-2.companyname') }">
+                                        <p class="red" v-show="errors.has('form-c-2.companyname')">${errors.first('form-c-2.companyname')}</p>
+                                    </li>
+                                    <li><p><span>*</span>所属行业：</p>
+                                        <select name="companykind" v-model="listId" v-validate="'required'" data-vv-as="所属行业"
+                                                :class="{'input': true, 'is-danger': errors.has('form-c-2.companykind') }">
+                                            <option value="">--请选择--</option>
+                                            <option v-for="p in list" v-bind:value="p.id" v-html="p.kindname"></option>
+                                        </select>
+                                        <p class="red" v-show="errors.has('form-c-2.companykind')">${errors.first('form-c-2.companykind')}</p>
+                                    </li>
+                                    <li><p><span>*</span>公司英文名称：</p>
+                                        <input v-model="items.englishname" v-validate="'required'" data-vv-as="公司英文名称" name="englishname" type="text"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-2.englishname') }">
+                                        <p class="red" v-show="errors.has('form-c-2.englishname')">${errors.first('form-c-2.englishname')}</p>
+                                    </li>
+                                    <li>
+                                        <p><span>*</span>注册证书编号：</p>
+                                        <input v-model="items.blicensenum" v-validate="'required'" data-vv-as="注册证书编号" name="blicensenum" type="text"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-2.blicensenum') }">
+                                        <p class="red" v-show="errors.has('form-c-2.blicensenum')">${errors.first('form-c-2.blicensenum')}</p>
+                                    </li>
+                                    <li><p><span>*</span>公司成立时间：</p>
+                                        <input class="layui-input" id="timeData1" v-model="items.establishtime" name="establishtime"  placeholder="自定义日期格式" readonly="readonly"
+                                               v-validate="'required'" data-vv-as="公司成立时间" :class="{'input': true, 'is-danger': errors.has('form-c-2.establishtime') }"
+                                               onclick="layui.laydate({elem: this, istime: false, format: 'YYYY-MM-DD',choose:function(datas) {mainAddVM.items.establishtime = datas;}})">
+                                        <p class="marg5">请填写公司成立时间（如：1987-08-31）</p>
+                                        <p class="red" v-show="errors.has('form-c-2.establishtime')">${errors.first('form-c-2.establishtime')}</p>
+                                    </li>
+                                    <li><p><span>*</span>注册地址：</p>
+                                        <input type="text" v-model="items.address"  v-validate="'required'" data-vv-as="注册地址"  name="address2"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-2.address2') }">
+                                        <p class="red" v-show="errors.has('form-c-2.address2')">${errors.first('form-c-2.address2')}</p>
+                                    </li>
+                                    <li><p><span>*</span>注册英文地址：</p>
+                                        <input type="text" v-model="items.englishaddress" v-validate="'required'" data-vv-as="注册英文地址" name="englishaddress"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-2.englishaddress') }">
+                                        <p class="red" v-show="errors.has('form-c-2.englishaddress')">${errors.first('form-c-2.englishaddress')}</p>
+                                    </li>
+                                    <li><p><span>*</span><span>开业登记证副本</span>：</p>
+                                        <div class="modify_hover" style="display: block">
+                                            <input type="text" v-model="blicensepic2[0].imgUrl"  name="blicensepic" style="display: none;"
+                                                   v-validate="'required'" data-vv-as="请上传证件" :class="{'input': true, 'is-danger': errors.has('form-c-2.blicensepic') }">
+                                            <a data-method="notice"><div><img v-show="blicensepic2[0].imgUrl==''?false:true" v-bind:src="blicensepic2[0].imgUrl==''?'':blicensepic2[0].imgUrl" style="width: 70px;height: 88px;"/> </div></a>
+                                        </div>
+                                        <div id="blicensepic_url1" class="f_l" style="margin-right: 30px;">
+                                            <a data-method="notice"  id="blicensepic1"></a>
+                                            <span>(开业登记证副本)</span>
+                                        </div>
+                                        <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                        <p class="red clear-both" v-show="errors.has('form-c-2.blicensepic')">${errors.first('form-c-2.blicensepic')}</p>
+                                    </li>
+                                    <div class="clear"></div>
+                                    <li>
+                                        <div class="modify_hover" style="display: block">
+                                            <input type="text" v-model="blicensepic2.imgUrl"  name="blicensepic" style="display: none;">
+                                            <a data-method="notice"><div><img v-show="blicensepic2[1].imgUrl==''?false:true" v-bind:src="blicensepic2[1].imgUrl==''?'':blicensepic2[1].imgUrl" style="width: 70px;height: 88px;"/> </div></a>
+                                        </div>
+                                        <div id="blicensepic_url2" class="f_l" style="margin-right: 30px;">
+                                            <a data-method="notice"  id="blicensepic2"></a>
+                                            <span>(开业登记证副本)</span>
+                                        </div>
+                                        <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                    </li>
+                                    <div class="clear"></div>
+                                    <li>
+                                        <div class="modify_hover" style="display: block">
+                                            <input type="text" v-model="blicensepic2.imgUrl"  name="blicensepic" style="display: none;">
+                                            <a data-method="notice"><div><img v-show="blicensepic2[2].imgUrl==''?false:true" v-bind:src="blicensepic2[2].imgUrl==''?'':blicensepic2[2].imgUrl" style="width: 70px;height: 88px;"/> </div></a>
+                                        </div>
+                                        <div id="blicensepic_url3" class="f_l" style="margin-right: 30px;">
+                                            <a data-method="notice"  id="blicensepic3"></a>
+                                            <span>(开业登记证副本)</span>
+                                        </div>
+                                        <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                    </li>
+                                    <div class="clear"></div>
+                                    <li>
+                                        <div class="modify_hover" style="display: block">
+                                            <input type="text" v-model="blicensepic2.imgUrl"  name="blicensepic" style="display: none;">
+                                            <a data-method="notice"><div><img v-show="blicensepic2[3].imgUrl==''?false:true" v-bind:src="blicensepic2[3].imgUrl==''?'':blicensepic2[3].imgUrl" style="width: 70px;height: 88px;"/> </div></a>
+                                        </div>
+                                        <div id="blicensepic_url4" class="f_l" style="margin-right: 30px;">
+                                            <a data-method="notice"  id="blicensepic4"></a>
+                                            <span>(开业登记证副本)</span>
+                                        </div>
+                                        <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                    </li>
+                                    <div style="clear:both"></div>
+                                </ol>
+                            </div>
+                            <div class="modify_sbumit">
+                                <span class="modify_chancel buttonColorec9c19 btnC" @click="cancel()">取消</span>
+                                <button class="modify_mit buttonColor" type="submit" name="button">提交</button>
+                            </div>
+                        </form>
+<!--------------------------------------------------------------其他国籍-->
+                        <!--<form v-show="img_show==5" @submit.prevent="validateForm('form-c-3')" data-vv-scope="form-c-3">
+                            <div class="modify_table1 conpany_xg">
+                                <ol>
+                                    <li>
+                                        <p><span>*</span>国籍名称：</p>
+                                        <input v-validate="'required'" data-vv-as="国籍名称" type="text" v-model="items.nationality" name="nationality3"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-3.nationality3') }">
+                                        <p class="red" v-show="errors.has('form-c-3.nationality3')">${errors.first('form-c-3.nationality3')}</p>
+                                    </li>
+                                    <li><p><span>*</span>企业名称：</p>
+                                        <input type="text"  v-model="items.companyname" name="companyname3" v-validate="'required'" data-vv-as="企业名称"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-3.companynam3e') }">
+                                        <p class="red" v-show="errors.has('form-c-3.companyname3')">${errors.first('form-c-3.companyname3')}</p>
+                                    </li>
+                                    <li><p><span>*</span>所属行业：</p>
+                                        <select name="companykind3" v-model="listId" v-validate="'required'" data-vv-as="所属行业"
+                                                :class="{'input': true, 'is-danger': errors.has('form-c-3.companykind3') }">
+                                            <option value="">--请选择--</option>
+                                            <option v-for="p in list" v-bind:value="p.id" v-html="p.kindname"></option>
+                                        </select>
+                                        <p class="red" v-show="errors.has('form-c-3.companykind3')">${errors.first('form-c-3.companykind3')}</p>
+                                    </li>
+                                    <li><p><span>*</span>公司英文名称：</p>
+                                        <input v-model="items.englishname" v-validate="'required'" data-vv-as="公司英文名称" name="englishname3" type="text"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-3.englishname3') }">
+                                        <p class="red" v-show="errors.has('form-c-3.englishname3')">${errors.first('form-c-3.englishname3')}</p>
+                                    </li>
+                                    <li>
+                                        <p><span>*</span>登记证编号：</p>
+                                        <input v-model="items.blicensenum" v-validate="'required'" data-vv-as="登记证编号" name="blicensenum3" type="text"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-3.blicensenum3') }">
+                                        <p class="red" v-show="errors.has('form-c-3.blicensenum3')">${errors.first('form-c-3.blicensenum3')}</p>
+                                    </li>
+                                    <li><p><span>*</span>公司成立时间：</p>
+                                        <input class="layui-input" id="timeData" v-model="items.establishtime" name="establishtime3"  placeholder="自定义日期格式"
+                                               v-validate="'required'" data-vv-as="公司成立时间" :class="{'input': true, 'is-danger': errors.has('form-c-3.establishtime3') }"
+                                               onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD',choose:function(datas) {mainAddVM.items.establishtime = datas;}})">
+                                        <p class="marg5">请填写公司成立时间（如：1987-08-31）</p>
+                                        <p class="red" v-show="errors.has('form-c-3.establishtime3')">${errors.first('form-c-3.establishtime3')}</p>
+                                    </li>
+                                    <li><p><span>*</span>注册地址：</p>
+                                        <input type="text" v-model="items.address"  v-validate="'required'" data-vv-as="注册地址"  name="address3"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-3.address3') }">
+                                        <p class="red" v-show="errors.has('form-c-3.address3')">${errors.first('form-c-3.address3')}</p>
+                                    </li>
+                                    <li><p><span>*</span>注册英文地址：</p>
+                                        <input type="text" v-model="items.englishaddress" v-validate="'required'" data-vv-as="注册英文地址" name="englishaddress3"
+                                               :class="{'input': true, 'is-danger': errors.has('form-c-3.englishaddress3') }">
+                                        <p class="red" v-show="errors.has('form-c-3.englishaddress3')">${errors.first('form-c-3.englishaddress3')}</p>
+                                    </li>
+                                    <li><p><span>*</span><span v-show="!other">营业执照副本</span><span v-show="img_show!=1">开业登记证副本</span>：</p>
+                                        <div class="modify_hover" id="LAY_liner">
+                                            <a class="layui-liner" data-method="notice"><div class="modify_liner"><img src="../img/icon-companyinfo-delete.png"/> </div></a>
+                                        </div>
+                                        <div class="modify_hover" id="LAY_liner">
+                                            <a class="layui-liner" data-method="notice"><div class="modify_liner"><img src="../img/icon-companyinfo-delete.png"/> </div></a>
+                                        </div>
+                                        <div v-show="img_show!=1" class="modify_hover" id="LAY_liner">
+                                            <a class="layui-liner" data-method="notice"><div class="modify_liner"><img src="../img/icon-companyinfo-delete.png"/> </div></a>
+                                        </div>
+                                    </li>
+                                    <div style="clear:both"></div>
+                                </ol>
+                            </div>
+                            <div class="modify_sbumit">
+                                <button class="modify_chancel buttonColorec9c19" @click="cancel()">取消</button>
+                                <button class="modify_mit buttonColor" type="submit" name="button">提交</button>
+                            </div>
+                        </form>-->
+                    </div>
+                </div>
+
+
+<!-----------------------------------------------------------------------------------------个人-->
+                <div class="modify_radio PerCon" v-show="comp_show==false">
+<!--------------------------------------------------------------------中国大陆-->
+                    <form v-show="img_show==1" @submit.prevent="validateForm('form-p-1')" data-vv-scope="form-p-1">
+                        <div class="modify_table1 person_DL" style="display:block">
+                            <ol>
+                                <li><p><span>*</span>真实名称：</p>
+                                    <input type="text" v-model="items.realname" name="realname" v-validate="'required'" data-vv-as="真实名称"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-1.realname') }">
+                                    <p class="red" v-show="errors.has('form-p-1.realname')">${errors.first('form-p-1.realname')}</p>
+                                </li>
+                                <li><p><span>*</span>身份证号码：</p>
+                                    <input type="text" v-model="items.sfzcode" name="sfzcode" v-validate="'required|sfzcode'" data-vv-as="身份证号码"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-1.sfzcode') }">
+                                    <p class="red" v-show="errors.has('form-p-1.sfzcode')">${errors.first('form-p-1.sfzcode')}</p>
+                                </li>
+                                <li><p><span>*</span>身份证地址：</p>
+                                    <input type="text" v-model="items.sfzaddress" name="sfzaddress" v-validate="'required'" data-vv-as="身份证地址"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-1.sfzaddress') }">
+                                    <p class="red" v-show="errors.has('form-p-1.sfzaddress')">${errors.first('form-p-1.sfzaddress')}</p>
+                                </li>
+                            </ol>
+                            <div class="c_b"></div>
+                            <ol>
+                                <li class=""><p><span>*</span>上传身份证：</p>
+                                    <div class="modify_hover" style="display: block">
+                                        <input type="text" v-model="sfzfront"  name="sfzfront" style="display: none;"
+                                               v-validate="'required'" data-vv-as="身份证正面" :class="{'input': true, 'is-danger': errors.has('form-p-1.sfzfront') }">
+                                        <a data-method="notice"><div><img v-show="sfzfront==''?false:true" v-bind:src="sfzfront" style="width: 70px;height: 88px;"/> </div></a>
+                                    </div>
+                                    <div id="sfzfront_url1" class="f_l" style="margin-right: 30px;">
+                                        <a data-method="notice"  id="sfzfront1"></a>
+                                        <span>(身份证正面)</span>
+                                    </div>
+                                    <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                    <p class="red clear-both" v-show="errors.has('form-p-1.sfzfront')">${errors.first('form-p-1.sfzfront')}</p>
+                                </li>
+                                <li class="clear"></li>
+                                <li>
+                                    <div class="modify_hover" style="display: block">
+                                        <input type="text" v-model="sfzverso"  name="sfzverso" style="display: none;"
+                                               v-validate="'required'" data-vv-as="身份证反面" :class="{'input': true, 'is-danger': errors.has('form-p-1.sfzverso') }">
+                                        <a data-method="notice"><div><img v-show="sfzverso==''?false:true" v-bind:src="sfzverso" style="width: 70px;height: 88px;"/> </div></a>
+                                    </div>
+                                    <div id="sfzverso_url1" class="f_l" style="margin-right: 30px;">
+                                        <a data-method="notice"  id="sfzverso1"></a>
+                                        <span>(身份证反面)</span>
+                                    </div>
+                                    <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                    <p class="red clear-both" v-show="errors.has('form-p-1.sfzverso')">${errors.first('form-p-1.sfzverso')}</p>
+                                </li>
+                            </ol>
+                            <div class="c_b"></div>
+                        </div>
+                        <div class="modify_table1 person_QT">
+                            <ol>
+                                <li><p><span>*</span>个体工商户名称：</p>
+                                    <input type="text" v-model="items.shopname" name="shopname" v-validate="'required'" data-vv-as="个体工商户名称"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-1.shopname') }">
+                                    <p class="red" v-show="errors.has('form-p-1.shopname')">${errors.first('form-p-1.shopname')}</p>
+                                </li>
+                                <li><p><span>*</span>工商户执照地址：</p>
+                                    <input type="text" v-model="items.licenseaddress" name="licenseaddress" v-validate="'required'" data-vv-as="工商户执照地址"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-1.licenseaddress') }">
+                                    <p class="red" v-show="errors.has('form-p-1.licenseaddress')">${errors.first('form-p-1.licenseaddress')}</p>
+                                </li>
+                                <li><p><span>*</span>营业执照副本：</p>
+                                    <div class="modify_hover" style="display: block">
+                                        <input type="text" v-model="licensepic"  name="licensepic" style="display: none;"
+                                               v-validate="'required'" data-vv-as="营业执照副本" :class="{'input': true, 'is-danger': errors.has('form-p-1.licensepic') }">
+                                        <a data-method="notice"><div><img v-show="licensepic==''?false:true" v-bind:src="licensepic" style="width: 70px;height: 88px;"/> </div></a>
+                                    </div>
+                                    <div id="licensepic_url1" class="f_l" style="margin-right: 30px;">
+                                        <a data-method="notice"  id="licensepic1"></a>
+                                        <span>(营业执照副本)</span>
+                                    </div>
+                                    <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                    <p class="red clear-both" v-show="errors.has('form-p-1.licensepic')">${errors.first('form-p-1.licensepic')}</p>
+                                </li>
+                                <div style="clear:both"></div>
+                            </ol>
+                        </div>
+                        <div class="modify_sbumit">
+                            <span class="modify_chancel buttonColorec9c19 btnC" @click="cancel()">取消</span>
+                            <button class="modify_mit buttonColor" type="submit">提交</button>
+                        </div>
+                    </form>
+<!--------------------------------------------------------------------香港，澳门，台湾-->
+                    <form v-show="img_show==2||img_show==3||img_show==4||img_show==5"  @submit.prevent="validateForm('form-p-2')" data-vv-scope="form-p-2">
+                        <div v-show="img_show!=1" class="modify_table1 person_QT">
+                            <ol>
+                                <li v-if="img_show==5"><p><span>*</span>国籍名称：</p>
+                                    <input type="text" v-model="items.nationality" name="nationality" v-validate="'required'" data-vv-as="国籍名称"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-2.nationality') }">
+                                    <p class="red" v-show="errors.has('form-p-2.nationality')">${errors.first('form-p-2.nationality')}</p>
+                                </li>
+                                <li><p><span>*</span>真实姓名：</p>
+                                    <input type="text" v-model="items.realname" name="realname" v-validate="'required'" data-vv-as="真实姓名"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-2.realname') }">
+                                    <p class="red" v-show="errors.has('form-p-2.realname')">${errors.first('form-p-2.realname')}</p>
+                                </li>
+                                <li><p><span>*</span>真实英文名：</p>
+                                    <input type="text" v-model="items.englishname" name="englishname" v-validate="'required'" data-vv-as="真实英文名"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-2.englishname') }">
+                                    <p class="red" v-show="errors.has('form-p-2.englishname')">${errors.first('form-p-2.englishname')}</p>
+                                </li>
+                                <li><p><span>*</span>有效ID号（护照）：</p>
+                                    <input type="text" v-model="items.passnr" name="passnr" v-validate="'required'" data-vv-as="有效ID号（护照）"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-2.passnr') }">
+                                    <p class="red" v-show="errors.has('form-p-2.passnr')">${errors.first('form-p-2.passnr')}</p>
+                                </li>
+                                <li><p><span>*</span>中文地址：</p>
+                                    <input type="text" v-model="items.pasaddress" name="pasaddress" v-validate="'required'" data-vv-as="中文地址"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-2.pasaddress') }">
+                                    <p class="red" v-show="errors.has('form-p-2.pasaddress')">${errors.first('form-p-2.pasaddress')}</p>
+                                </li>
+                                <li><p><span>*</span>英文地址：</p>
+                                    <input type="text" v-model="items.pasenglishaddress" name="pasenglishaddress" v-validate="'required'" data-vv-as="英文地址"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-2.pasenglishaddress') }">
+                                    <p class="red" v-show="errors.has('form-p-2.pasenglishaddress')">${errors.first('form-p-2.pasenglishaddress')}</p>
+                                </li>
+                                <li class=""><p><span>*</span>上传有效身份照片(身份证/护照)：</p>
+                                    <div class="modify_hover" style="display: block">
+                                        <input type="text" v-model="pasfile"  name="pasfile" style="display: none;"
+                                               v-validate="'required'" data-vv-as="上传有效身份照片(身份证/护照)" :class="{'input': true, 'is-danger': errors.has('form-p-2.pasfile') }">
+                                        <a data-method="notice"><div><img v-show="pasfile==''?false:true" v-bind:src="pasfile" style="width: 70px;height: 88px;"/> </div></a>
+                                    </div>
+                                    <div id="pasfile_url1" class="f_l" style="margin-right: 30px;">
+                                        <a data-method="notice"  id="pasfile1"></a>
+                                        <span>(身份证正面/护照)</span>
+                                    </div>
+                                    <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                    <p class="red clear-both" v-show="errors.has('form-p-2.pasfile')">${errors.first('form-p-2.pasfile')}</p>
+                                </li>
+                                </ol>
+                                <div style="clear:both"></div>
+                            </div>
+                            <div class="modify_table1 person_QT">
+                                <ol>
+                                <li><p><span>*</span>个体工商户名称：</p>
+                                    <input type="text" v-model="items.shopname" name="shopname" v-validate="'required'" data-vv-as="个体工商户名称"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-2.shopname') }">
+                                    <p class="red" v-show="errors.has('form-p-2.shopname')">${errors.first('form-p-2.shopname')}</p>
+                                </li>
+                                <li><p><span>*</span>工商户执照地址：</p>
+                                    <input type="text" v-model="items.licenseaddress" name="licenseaddress" v-validate="'required'" data-vv-as="工商户执照地址"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-2.licenseaddress') }">
+                                    <p class="red" v-show="errors.has('form-p-2.licenseaddress')">${errors.first('form-p-2.licenseaddress')}</p>
+                                </li>
+                                <li><p><span>*</span>营业执照副本：</p>
+                                    <div class="modify_hover" style="display: block">
+                                        <input type="text" v-model="licensepic_o"  name="licensepic" style="display: none;"
+                                               v-validate="'required'" data-vv-as="营业执照副本" :class="{'input': true, 'is-danger': errors.has('form-p-2.licensepic') }">
+                                        <a data-method="notice"><div><img v-show="licensepic_o==''?false:true" v-bind:src="licensepic_o" style="width: 70px;height: 88px;"/> </div></a>
+                                    </div>
+                                    <div id="licensepic_url" class="f_l" style="margin-right: 30px;">
+                                        <a data-method="notice"  id="licensepic"></a>
+                                        <span>(营业执照副本)</span>
+                                    </div>
+                                    <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                    <p class="red clear-both" v-show="errors.has('form-p-2.licensepic')">${errors.first('form-p-2.licensepic')}</p>
+                                </li>
+                                <div style="clear:both"></div>
+                            </ol>
+                        </div>
+                        <div class="modify_sbumit">
+                            <span class="modify_chancel buttonColorec9c19 btnC" @click="cancel()">取消</span>
+                            <button class="modify_mit buttonColor" type="submit">提交</button>
+                        </div>
+                    </form>
+<!--------------------------------------------------------------其他国籍-->
+                    <!--<form v-show="img_show==5"  @submit.prevent="validateForm('form-p-3')" data-vv-scope="form-p-3">
+                        <div v-show="img_show!=1" class="modify_table1 person_QT">
+                            <ol>
+                                <li v-show="img_show==5"><p><span>*</span>国籍名称：</p>
+                                    <input type="text" v-model="items.nationality" name="nationality" v-validate="'required'" data-vv-as="国籍名称"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-3.nationality') }">
+                                    <p class="red" v-show="errors.has('form-p-3.nationality')">${errors.first('form-p-3.nationality')}</p>
+                                </li>
+                                <li><p><span>*</span>真实姓名：</p>
+                                    <input type="text" v-model="items.realname" name="realname" v-validate="'required'" data-vv-as="真实姓名"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-3.realname') }">
+                                    <p class="red" v-show="errors.has('form-p-3.realname')">${errors.first('form-p-3.realname')}</p>
+                                </li>
+                                <li><p><span>*</span>真实英文名：</p>
+                                    <input type="text" v-model="items.englishname" name="englishname" v-validate="'required'" data-vv-as="真实英文名"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-3.englishname') }">
+                                    <p class="red" v-show="errors.has('form-p-3.englishname')">${errors.first('form-p-3.englishname')}</p>
+                                </li>
+                                <li><p><span>*</span>有效ID号（护照）：</p>
+                                    <input type="text" v-model="items.passnr" name="passnr" v-validate="'required'" data-vv-as="有效ID号（护照）"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-3.passnr') }">
+                                    <p class="red" v-show="errors.has('form-p-3.passnr')">${errors.first('form-p-3.passnr')}</p>
+                                </li>
+                                <li><p><span>*</span>中文地址：</p>
+                                    <input type="text" v-model="items.pasaddress" name="pasaddress" v-validate="'required'" data-vv-as="中文地址"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-3.pasaddress') }">
+                                    <p class="red" v-show="errors.has('form-p-3.pasaddress')">${errors.first('form-p-3.pasaddress')}</p>
+                                </li>
+                                <li><p><span>*</span>英文地址：</p>
+                                    <input type="text" v-model="items.pasenglishaddress" name="pasenglishaddress" v-validate="'required'" data-vv-as="英文地址"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-3.pasenglishaddress') }">
+                                    <p class="red" v-show="errors.has('form-p-3.pasenglishaddress')">${errors.first('form-p-3.pasenglishaddress')}</p>
+                                </li>
+                                <li><p><span>*</span>上传有效身份照片(身份证/护照)：</p>
+                                    <div class="modify_hover" id="LAY_liner">
+                                        <a class="layui-liner" data-method="notice"><div class="modify_liner"><img src="../img/icon-companyinfo-delete.png"/> </div></a>
+                                    </div>
+                                </li>
+                                </ol>
+                                <div style="clear:both"></div>
+                            </div>
+                            <div class="modify_table1 person_QT">
+                                <ol>
+                                <li><p><span>*</span>个体工商户名称：</p>
+                                    <input type="text" v-model="items.shopname" name="shopname" v-validate="'required'" data-vv-as="个体工商户名称"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-3.shopname') }">
+                                    <p class="red" v-show="errors.has('form-p-3.shopname')">${errors.first('form-p-3.shopname')}</p>
+                                </li>
+                                <li><p><span>*</span>工商户执照地址：</p>
+                                    <input type="text" v-model="items.licenseaddress" name="licenseaddress" v-validate="'required'" data-vv-as="工商户执照地址"
+                                           :class="{'input': true, 'is-danger': errors.has('form-p-3.licenseaddress') }">
+                                    <p class="red" v-show="errors.has('form-p-3.licenseaddress')">${errors.first('form-p-3.licenseaddress')}</p>
+                                </li>
+                                <li><p><span>*</span>个体工商户执照：</p>
+                                    <div class="modify_hover" id="LAY_liner">
+                                        <a class="layui-liner" data-method="notice"><div class="modify_liner"><img src="../img/icon-companyinfo-delete.png"/> </div></a>
+                                    </div>
+                                </li>
+                                <div style="clear:both"></div>
+                            </ol>
+                        </div>
+                        <div class="modify_sbumit">
+                            <button class="modify_chancel buttonColorec9c19" @click="cancel()">取消</button>
+                            <button class="modify_mit buttonColor" type="submit">提交</button>
+                        </div>
+                    </form>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--<div class="modify_sbumit">-->
+        <!--<button class="modify_chancel buttonColorec9c19"@click="cancel()">取消</button>-->
+        <!--<button class="modify_mit buttonColor" @click="validateBeforeSubmit()">提交</button>-->
+    <!--</div>-->
+</div>
+</div>
+</div>
+<script type="text/javascript" src="/js/getCookies.js"></script>
+<script type="text/javascript">
+    var user1 = JSON.parse(getCookie('_zg_user'));
+    var sfzcode = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的身份证号';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|[X|x])$/.test(value));
+        }
+    };
+    VeeValidate.Validator.extend('sfzcode', sfzcode);
+    var uData = {{{ uData }}};
+    var hData = {{{ hData }}};
+    var bType = {{{bType}}};
+    var user = {{{user}}};
+    if(uData.blicensepics&&uData.nattype!=1){
+        var img_urles = []
+        for(var i = 0 ; i < uData.blicensepics.length ; i++){
+            img_urles.push({imgUrl:uData.blicensepics[i]});
+        }
+    }
+    layui.use('laydate', function() {
+        var laydate = layui.laydate;
+    });
+    var img_show_init = uData.nattype == undefined ? 1 : uData.nattype;
+//    var listIds= uData.companykind == undefined ?"": uData.companykind;
+    var mainAddVM = new Vue({
+        el: '#main_add',
+        delimiters: ["${", "}"],
+        data: {
+            comp_show:(bType==2?false:true),//true为公司
+            tab_true:bType,
+            other:false,
+            other_h:false,
+            img_show:img_show_init,
+            items:uData,
+            list:hData.data,
+            listId:(uData.companykind == undefined ?"": uData.companykind),
+            blicensepic:(uData.blicensepics==undefined?"":uData.blicensepics[0]),
+            licensepic:(uData.licensepic||""),
+            sfzfront:(uData.sfzfront||""),
+            sfzverso:(uData.sfzverso||""),
+            pasfile:(uData.pasfile||""),
+            licensepic_o:(uData.licensepic||""),
+            blicensepic2:img_urles||[{imgUrl:""},{imgUrl:""},{imgUrl:""},{imgUrl:""}],
+            ImgIp : zgg.Vconfig.contractUrl,
+            img_updata_url:{
+                blicensepic:[],
+            },
+        },
+        methods: {
+            cancel:function () {
+                window.location.href='/userCenter/userMainMsg';
+            },
+            clearImgPath: function(){
+                // 清除
+                if(Array.isArray(this.blicensepic2)){
+                    for(var i=0; i<this.blicensepic2.length; i++){
+                        this.blicensepic2[i].imgUrl = "";
+                    }
+                }
+                this.blicensepic = "";
+                this.sfzfront = "";
+                this.sfzverso = "";
+                this.licensepic="";
+                this.pasfile = "";
+                this.licensepic_o= "";
+            },
+            nattype_h:function () {
+                this.items = {};
+                this.listId = '';
+                if(!this.comp_show){
+                    this.$validator.detach("nationality",'form-p-2');
+                    if(this.img_show == 1){
+                        this.errors.clear('form-p-1');
+                    }else if(this.img_show != 1 && this.img_show != 5 ){
+                        this.errors.clear('form-p-2');
+                    }else if(this.img_show == 5){
+                        this.errors.clear('form-p-3');
+                        this.$validator.attach('nationality', 'required', {scope:'form-p-2',prettyName:"国籍名称",getter:function () {return $("#nationality3").val();},context:function(){return $("#nationality3").context}});
+                    }
+                }else if(this.comp_show){
+                    this.$validator.detach("nationality3",'form-c-2');
+                    if(this.img_show == 1){
+                        this.errors.clear('form-c-1');
+                    }else if(this.img_show != 1 && this.img_show != 5 ){
+                        this.errors.clear('form-c-2');
+                    }else if(this.img_show == 5){
+                        this.$validator.attach('nationality3', 'required', {scope:'form-c-2',prettyName:"国籍名称",getter:function () {return $("#nationality3").val();},context:function(){return $("#nationality3").context}});
+                        this.errors.clear('form-c-2');
+                    }
+                }
+            },
+            main_btn:function () {
+                var user = JSON.parse(getCookie('_zg_user'));
+                if(user.id != user1.id){
+                    layui.use('layer',function(){
+                        layer.open({
+                            title:'提示',
+                            content:'<p>该主体信息不属于此用户</p>'
+                        });
+                    });
+                    return;
+                }
+                var _data = {},url = null;
+                if(this.comp_show){
+                    if(this.img_show == 1){
+                        _data= jQuery.extend({},_data,{
+                            bodyType:1,
+                            nattype:this.img_show,
+                            companyname:this.items.companyname,
+                            address:this.items.address,
+                            blicensepic:this.img_updata_url.blicensepic[0]||this.items.blicensepic,
+                            licenseaddress:this.items.licenseaddress,
+                            companykind:this.listId,
+                            englishname:this.items.englishname,
+//                            registrationNumber:this.items.registrationNumber,
+                            blicensenum:this.items.blicensenum,
+                        })
+                    }else if(this.img_show != 1){
+                        var img_src="",_length=0;
+                        if(mainAddVM.items.blicensepic==undefined){
+                            mainAddVM.items.blicensepic = "";
+                        }
+                        _length = Math.max(mainAddVM.img_updata_url.blicensepic.length,mainAddVM.items.blicensepic.split(",").length);
+                        for(var i = 0;i<_length;i++){
+                            img_src+=(mainAddVM.img_updata_url.blicensepic[i]||mainAddVM.items.blicensepic.split(",")[i])+","
+                        }
+                        _data=jQuery.extend({},_data,{
+                            bodyType:1,
+                            nattype:this.img_show,
+                            companyname:this.items.companyname,
+                            companykind:this.listId,
+                            englishname:this.items.englishname,
+//                            registrationNumber:this.items.registrationNumber,
+                            registrationNumber:this.items.blicensenum,
+                            establishtime:this.items.establishtime,
+                            address:this.items.address,
+                            englishaddress:this.items.englishaddress,
+//                            pasaddress:this.items.pasaddress,
+//                            pasenglishaddress:this.items.pasenglishaddress,
+                            licenseaddress:this.items.licenseaddress,
+                            blicensepic:img_src.substr(0,img_src.length-1),
+                        });
+                        if(this.img_show == 5){
+                            _data = jQuery.extend({},_data,{nationality:this.items.nationality});
+                        }
+                    }
+                }else{
+                    if(this.img_show == 1){
+                        _data= jQuery.extend({},_data, {
+                            bodyType:2,
+                            nattype:this.img_show,
+                            realname:this.items.realname,
+                            sfzcode:this.items.sfzcode,
+                            sfzaddress:this.items.sfzaddress,
+                            shopname:this.items.shopname,
+                            licenseaddress:this.items.licenseaddress,
+                            sfzfront:this.img_updata_url.sfzfront||this.items.sfzfront,
+                            sfzverso:this.img_updata_url.sfzverso||this.items.sfzverso,
+                            licensepic:this.img_updata_url.licensepic||this.items.licensepic
+                        });
+                    }else if(this.img_show != 1){
+                        _data= jQuery.extend({},_data, {
+                            bodyType:2,
+                            nattype:this.img_show,
+                            realname:this.items.realname,
+                            englishname:this.items.englishname,
+                            passnr:this.items.passnr,
+                            pasaddress:this.items.pasaddress,
+                            pasenglishaddress:this.items.pasenglishaddress,
+                            shopname:this.items.shopname,
+                            licenseaddress:this.items.licenseaddress,
+                            pasfile:this.img_updata_url.pasfile||this.items.pasfile,
+                            licensepic:this.img_updata_url.licensepic_o||this.items.licensepic_o
+                        });
+                        if(this.img_show == 5){
+                            _data= jQuery.extend({},_data, {nationality:this.items.nationality});
+                        }
+                    }
+                }
+                _data.user_channel = 'zgg';
+                if(uData.id){
+                    url = '/userCenter/editMainMsg';
+                    _data.id =  uData.id;
+                }else{
+                    url = '/userCenter/judgeMsg';
+//                    url = '/userCenter/addMainMsg';
+                }
+                axios.post(url,_data).then(
+                    function (data) {
+                        if(data.data.success){
+                           if(!uData.id){
+                               axios.post('/userCenter/addMainMsg',_data).then(
+                                   function (data) {
+                                       if(data.data.success){
+                                           window.location.href='/userCenter/userMainMsg';
+                                       }
+                                   }
+                               )
+                           }else{
+                               window.location.href='/userCenter/userMainMsg';
+                           }
+                        }else{
+                            alert(data.data.message);
+                        }
+                    }
+                );
+            },
+            validateForm:function (scope) {
+                this.$validator.validateAll(scope).then(function (result) {
+                    if(result){
+                        mainAddVM.main_btn();
+                    }
+                })
+            },
+            updataFile:function (_str,queueId,ImgUrl,num) {
+                if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0"){
+                    $(_str).uploadify({
+                        'auto' : true,
+                        'queueID' :queueId,
+                        'swf'      : '/lib/uploadify.swf',
+                        'uploader' : '/upload/userProfile',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': '*.jpg;*.bmp;*.jpeg;*.png;*.gif;',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传文件',
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'token':JSON.parse(user).token,
+                        'formData':{
+                            'fType':'ft_2',
+                        },
+                        'onDrop'       : function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onFallback':function () {
+                            layer.msg('请安装或升级更高版本的Flash插件');
+                        },
+                        'onUploadSuccess' : function(file, data, response) {
+                            var data = JSON.parse(data);
+                            if( data && data.success ){
+                                if(ImgUrl=="blicensepic"){
+                                    mainAddVM.blicensepic = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.blicensepic[0] = data.data.filePath;
+                                }else if(ImgUrl=="blicensepic_other"){
+                                    mainAddVM.blicensepic2[num].imgUrl = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.blicensepic[num] = data.data.filePath;
+                                }else if(ImgUrl=="licensepic"){
+                                    mainAddVM.licensepic = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.licensepic = data.data.filePath;
+                                }else if(ImgUrl=="sfzfront"){
+                                    mainAddVM.sfzfront = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.sfzfront = data.data.filePath;
+                                }else if(ImgUrl=="sfzverso"){
+                                    mainAddVM.sfzverso = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.sfzverso = data.data.filePath;
+                                }else if(ImgUrl=="licensepic_o"){
+                                    mainAddVM.licensepic_o = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.licensepic_o = data.data.filePath;
+                                }else if(ImgUrl=="pasfile"){
+                                    mainAddVM.pasfile = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.pasfile = data.data.filePath;
+                                }
+                                layer.msg("上传成功",{icon:1})
+                            }
+                        },
+                        'onUploadError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                }else{
+                    $(_str).uploadifive({
+                        'auto' : true,
+                        'queueID' :queueId,
+                        'checkScript':'/upload/check',
+                        'uploadScript' : '/upload/userProfile',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': 'image/*',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传文件',
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'token':JSON.parse(user).token,
+                        'formData':{
+                            'fType':'ft_2',
+                        },
+                        'onDrop'       : function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onUploadComplete' : function(file, data, response) {
+                            var data = JSON.parse(data);
+                            if( data && data.success ){
+                                if(ImgUrl=="blicensepic"){
+                                    mainAddVM.blicensepic = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.blicensepic[0] = data.data.filePath;
+                                }else if(ImgUrl=="blicensepic_other"){
+                                    mainAddVM.blicensepic2[num].imgUrl = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.blicensepic[num] = data.data.filePath;
+                                }else if(ImgUrl=="licensepic"){
+                                    mainAddVM.licensepic = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.licensepic = data.data.filePath;
+                                }else if(ImgUrl=="sfzfront"){
+                                    mainAddVM.sfzfront = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.sfzfront = data.data.filePath;
+                                }else if(ImgUrl=="sfzverso"){
+                                    mainAddVM.sfzverso = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.sfzverso = data.data.filePath;
+                                }else if(ImgUrl=="licensepic_o"){
+                                    mainAddVM.licensepic_o = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.licensepic_o = data.data.filePath;
+                                }else if(ImgUrl=="pasfile"){
+                                    mainAddVM.pasfile = mainAddVM.ImgIp + data.data.filePath;
+                                    mainAddVM.img_updata_url.pasfile = data.data.filePath;
+                                }
+                                layer.msg("上传成功",{icon:1})
+                            }
+                        },
+                        'onCheck'  : function(file, exists) {
+                            if (exists) {
+                                layer.msg("您上传的文件格式或大小有误");
+                                $(_str).uploadifive('cancel', file)
+                            }
+                        },
+                        'onUploadError' : function (file, data, response) {
+                            debugger;
+                        }
+                    });
+                }
+            }
+        },
+        mounted:function () {
+            //判断产品类型 执行附件初始化
+
+                this.updataFile('#blicensepic','blicensepic_url','blicensepic');
+
+                this.updataFile('#blicensepic1','blicensepic_url1','blicensepic_other',0);
+                this.updataFile('#blicensepic2','blicensepic_url2','blicensepic_other',1);
+                this.updataFile('#blicensepic3','blicensepic_url3','blicensepic_other',2);
+                this.updataFile('#blicensepic4','blicensepic_url4','blicensepic_other',3);
+
+                this.updataFile('#sfzfront1','sfzfront_url1','sfzfront');
+                this.updataFile('#sfzverso1','sfzverso_url1','sfzverso');
+                this.updataFile('#licensepic1','licensepic_url1','licensepic');
+
+                this.updataFile('#pasfile1','pasfile_url1','pasfile');
+                this.updataFile('#licensepic','licensepic_url','licensepic_o');
+
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function TabChanges(ChangesEle,elseEle){
+        $('.'+elseEle).addClass('modify_red').siblings().removeClass('modify_red');
+        $('.'+ChangesEle).show().siblings().hide();
+    }
+    $(".modify_radio ul li").click(function(){
+        $(this).find('a').addClass('modify_Choice1').parent('li').siblings().find('a').removeClass('modify_Choice1');
+    })
+
+
+
+    $(".modify_hover").mouseenter(function(){
+        $(this).find(".modify_liner").stop().slideToggle();
+    }).mouseleave(function(){
+        $(this).find(".modify_liner").stop().slideToggle();
+    });
+
+</script>

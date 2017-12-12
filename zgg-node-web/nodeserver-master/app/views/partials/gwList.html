@@ -1,0 +1,25 @@
+<div  class="order-info-content-r">
+    <div v-if="adviser">
+        <dl>
+            <dt><img src="/img/icon-orderdetail-expertinfo.png" alt=""/>顾问信息</dt>
+        </dl>
+        <div class="adviser-info">
+            <div class="adviser-info-img">
+                <img style="width: 60px;height:60px;" :src="adviser.headPic?gwPicUrl+adviser.headPic:'/img/adviser_head.png'"/>
+            </div>
+            <div class="adviser-info-r">
+                <div>顾问：${adviser.nickname}</div>
+                <div>联系电话：${adviser.tel}</div>
+            </div>
+        </div>
+        <div class="qrCode">
+            <img :src="adviser.headPic?gwPicUrl+adviser.qrcodeid:'/img/icon-home-footer-wechat.png'" style="width:60px;height:60px;" alt=""/>
+        </div>
+        <div class="consultation">
+            <a class="buttonColorec9c19" :href="'/webim/webimAdv/'+adviser.imtokenId+'/'+adviser.nickname" target="_blank"><p class="prodCons" >立即咨询</p></a>
+        </div>
+    </div>
+    <div v-if="!adviser" style="text-align: center;font-size: 30px;line-height: 160px;">
+        暂无顾问信息！
+    </div>
+</div>

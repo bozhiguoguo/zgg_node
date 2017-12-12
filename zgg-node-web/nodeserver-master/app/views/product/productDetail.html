@@ -1,0 +1,294 @@
+<link rel="stylesheet" type="text/css" href="/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/css/productDetail.css">
+<script type="text/javascript" src="/js/productDetail.js"></script>
+<script type="text/javascript" src="/js/funParabola.js"></script>
+<style>
+    .layui-form-select dl dd{
+        color:#333;
+        font-size:12px;
+    }
+
+    .layui-form-select .layui-input{
+        font-size:12px;
+    }
+    .layui-form-select dl{
+        max-height:160px;
+    }
+    .dialogCart .message{
+        font-size:16px;
+        line-height:30px;
+        margin-top:20px;
+    }
+    .dialogCart .product{
+        margin-top:40px;
+    }
+    .layui-layer-btn{
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    var pData = {{{ pData}}},
+        adviser = {{{ adviser }}};
+</script>
+<div class="prodCon" id="product">
+    <div class="prodNav">
+        <ul>
+            <li><a href="/">首页</a><span>></span></li>
+            <p v-html=""></p>
+            <li v-if="product.pcode.indexOf('ht')==-1 && product.pcode.indexOf('law')==-1">
+                <a v-if="product.pcode.indexOf('tr_')!=-1" href="/category/trademark" target="_blank">商标服务</a>
+                <a v-if="product.pcode.indexOf('cr_')!=-1" href="/category/copyright" target="_blank">版权服务</a>
+                <a v-if="product.pcode.indexOf('pt_')!=-1" href="/category/patent" target="_blank">专利服务</a>
+            <!--    <a v-if="product.pcode.indexOf('ht')!=-1" href="/category/trademark" target="_blank">高新服务</a>-->
+                <span> ></span>
+            </li>
+            <li v-html="product.pname"></li>
+        </ul>
+    </div>
+    <div class="prodInfo">
+        <form class="layui-form">
+            <div class="prodInfo_fl">
+                <div class="prodTit">
+                    <h1 v-html="product.pname"></h1>
+                    <span v-if="product.updownState==1" style="background: #a7a5a5;">商品已下架</span>
+                    <!--<span>网上申报</span>
+                    <span>全流程保障</span>-->
+                </div>
+                <div class="clear"></div>
+                <h3 v-html="product.info"></h3>
+                <div class="prodPrice">
+                    <p>价格：<p>
+                    <span></span><span v-html="(countPrice+otherPirce).toFixed(2)"></span>
+                   <!-- <div class="proUp">
+                        <img src="/img/updown.png"/>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="proOfficer">
+                        <div class="proMon">
+                            <dl>
+                                <dt>官费</dt>
+                                <dd>￥${(product.publicexp+otherPirce).toFixed(2)}</dd>
+                            </dl>
+                            <dl>
+                                <dt>服务费</dt>
+                                <dd>￥${((product.priceTax-product.publicexp)+freeSelected.serveexp+freeSelected.publicexp).toFixed(2)}</dd>
+                            </dl>
+                            &lt;!&ndash;<dl>
+                                <dt>税费</dt>
+                                <dd>￥${((product.publicexp+product.serveexp)*((product.taxation/100)*10)/10).toFixed(2)}</dd>
+                            </dl>&ndash;&gt;
+                        </div>
+                    </div>-->
+                </div>
+                <div class="clear"></div>
+                <div class="prodService layui-form-item" v-for="item in product.feeChargedTypes" >
+                    <p><span  v-html="item.feeChargedTypename"></span>：</p>
+                    <ul v-if="item.cssId == 1">
+                        <li v-if="product.pcode != 'ht_ent_0004'" v-for= "feeChargeds in item.feeChargeds"  v-bind:class="{'prodCheck':feeChargeds.isChecked}" v-on:click="setChecked(item.feeChargeds,feeChargeds,feeChargeds.id)">
+                            <span v-html="feeChargeds.feeChargedName"></span>
+                        </li>
+                        <li v-if="product.pcode == 'ht_ent_0004'" v-for= "feeChargeds in item.feeChargeds"  v-bind:class="{'prodCheck':feeChargeds.isChecked}" v-on:click="setHtChecked(item.feeChargeds,feeChargeds,feeChargeds.id)">
+                            <span v-html="feeChargeds.feeChargedName"></span>
+                        </li>
+                    </ul>
+                    <div v-if="item.cssId == 2" class="layui-input-inline">
+                        <select lay-filter="selected">
+                            <option value="">请选附加商品</option>
+                            <option value="0">不加急</option>
+                            <option v-for="feeChargeds in item.feeChargeds" v-bind:value="feeChargeds.id">${ feeChargeds.feeChargedName}
+                            </option>
+                        </select>
+                    </div>
+                    <ul v-if="item.cssId == 3">
+                        <li  v-for="feeChargeds in item.feeChargeds" style="border: 0px; margin-left: 0px; padding:0px">
+                            <div class="prodS1"><input type="text"  v-model="feeChargeds.freeNum"></div>
+                            <div class="prodS2">
+                                <span><input type="button" value="+" v-on:click="editItem(feeChargeds,'add')"></span>
+                                <span style="margin-top:3px;"><input type="button" value='-'v-on:click="editItem(feeChargeds,'subtract')" ></span>
+                            </div>
+                            <div v-show="(feeChargeds.freeNum-feeChargeds.minBuyNum)<=feeChargeds.stepSize" class="layui-form-mid layui-word-aux m-l-lg">最小购买数量为<span class="text-danger" v-html="feeChargeds.minBuyNum"></span></div>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="prodList" v-if="product.pcode != 'law_leg_0001'">
+                    <div class="prodSmall" style="float:left">
+                        <p style="width:auto; text-align:right">购买数量：</p>
+                        <div class="prodS1"><input type="text" v-model='num' v-on:blur="num=(parseInt(num)<1||isNaN(parseInt(num)))?1:num=parseInt(num)"></div>
+                        <div class="prodS2">
+                            <span><input class="min" type="button" value='+' v-on:click="addNum('add')"/></span>
+                            <span style="margin-top:3px;"><input class="add" type="button" value='-'  v-on:click="addNum('subtract')"/></span>
+                        </div>
+                        <div class="prodS3">项</div>
+                    </div>
+                    <div class="prodCount">
+                        <div class="prodSin">
+                            <p>已选清单</p>
+                            <span><img src="/img/updown.png"/></span>
+                        </div>
+                        <div class="prodDet">
+                            <table>
+                                <tr>
+                                    <td>商&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;品：</td>
+                                    <td v-html="product.pname"></td>
+                                    <td><strong v-html="num"></strong>件</td>
+                                </tr>
+                                <tr v-if="tempTypeStr || tempTypeOptionStr">
+                                    <td>增值服务：</td>
+                                    <td><span v-html="tempTypeStr+tempTypeOptionStr"></span></td>
+                                </tr>
+                                <tr v-if="minItem>0">
+                                    <td>商标小项：</td>
+                                    <td><strong>${minItem}</strong>项</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="prodPayment">
+                    <ul>
+                        <li v-if="product.updownState==2 && product.pcode != 'law_leg_0001' && product.pcode.indexOf('ht_')==-1" @click="addCart('/cart/add',$event,product)"  class="btnCart">加入购物车</li>
+                        <li v-if="product.updownState==2 && product.pcode != 'law_leg_0001' && product.pcode.indexOf('ht_')==-1" @click="addCart('/order/buyNow',$event,product)" class="prodPay">立即购买</li>
+                        <li v-if="product.updownState==1"  class="btnCart_miss">加入购物车</li>
+                        <li v-if="product.updownState==1" class="btnCart_miss">立即购买</li>
+                        <li v-if="product.pcode == 'law_leg_0001' || product.pcode.indexOf('ht_')>-1" @click="addCart('/order/buyNow',$event,product)" class="prodPay prodPayleft">立即购买</li>
+                    </ul>
+                </div>
+                <div id="flyItem" class="fly_item" style="visibility:hidden">
+                    <img v-bind:src="ImgUrl+product.picsSmall" width="50" height="50"/>
+                </div>
+            </div>
+        </form>
+        <div class="prodInfo_ce">
+            <div class="prodPic"><img v-bind:src="ImgUrl+product.pics" width="357" height="243"/></div>
+            {{#session}}
+            {{#if user}}
+            <div class="prodCustomer" v-if="adviser">
+                <div class="prodImg"><img :src="adviser.headPic?gwPicUrl+adviser.headPic:'/img/adviser_head.png'"/></div>
+                <div class="prodCus">
+                    <p><span class="prodNam" v-html="adviser.nickname"></span><span></span></p>
+                    <div class="clear"></div>
+                    <p v-html="adviser.tel"></p>
+                    <a :href="'/webim/webimAdv/'+adviser.imtokenId+'/'+adviser.nickname" target="_blank"><p class="prodCons" >立即咨询</p></a>
+                </div>
+            </div>
+            {{/if}}
+            {{/session}}
+            <div class="c_b"></div>
+            <div class="prodDownload" v-if="product.typecode.indexOf('pt_inv')!=-1">
+                <div class="prodClick prodDownLeft">
+                    <h4>资料下载区<img src="/img/button_dropdown.png"/></h4>
+                    <ul class="prodUL prodLi1">
+                        <!--<div class="sell_hover"></div>-->
+                        <li><a href="/files/专利保密协议.pdf" target="_blank">保密协议</a></li>
+                        <li><a href="/files/技术交底书模版.docx" target="_blank">发明新型技术交底书</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="prodDownload" v-if="product.typecode.indexOf('pt_ow')!=-1">
+                <div class="prodClick prodDownLeft">
+                    <h4>资料下载区<img src="/img/button_dropdown.png"/></h4>
+                    <ul class="prodUL prodLi1">
+                        <!--<div class="sell_hover"></div>-->
+                        <li><a href="/files/专利保密协议.pdf" target="_blank">保密协议</a></li>
+                    </ul>
+                </div>
+                <div class="prodClick prodDownRight">
+                    <h4>外观设计质量标准<img src="/img/button-dropdown.png"/></h4>
+                    <ul class="prodUL prodLi2">
+                        <li><a href="/quality/photo.html" target="_blank">照片类</a></li>
+                        <li><a href="/quality/3D.html" target="_blank">3D图类</a></li>
+                        <li><a href="/quality/line.html" target="_blank">线条图类</a></li>
+                        <li><a href="/quality/Software.html" target="_blank">软件界面类</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="prodInfo_fr">
+            {{#pRecommend}}
+            <dl>
+                <dt><a href="/product/productDetail/{{id}}" target="_blank"><img class="p-adside-img" src="{{../config.ImgUrl}}{{pics}}" width="226"></a></dt>
+                <dd class="text-center-xs">
+                    <h4>{{pname}}</h4>
+                    <p>¥{{priceTax}}/件</p>
+                </dd>
+            </dl>
+            {{/pRecommend}}
+        </div>
+    </div>
+    <div class="prodDetails">
+        <div class="prodDetails_con">
+            <div class="prodDetails_left">
+                <div class="prodDetails_nav">
+                    <ul>
+                        {{#pDesc}}
+                        <li class="active_{{@index}}">{{name}}</li>
+                        {{/pDesc}}
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="prodDetails_Content">
+                    <div class="prodDetails_Div">
+                        <div class="prodDetails_Int">
+                            <div class="prodDetails_Explain">
+                                {{#pDesc}}
+                                <div class="active_{{@index}}">
+                                    {{{descPc}}}
+                                </div>
+                                {{/pDesc}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="prodDetails_right">
+                <h3>热门服务</h3>
+                {{#pHotRecommend}}
+                <dl>
+                    <dt><a href="/product/productDetail/{{id}}" target="_blank"><img class="p-adside-img" src="{{../config.ImgUrl}}{{pics}}" width="226"></a></dt>
+                    <dd class="text-center-xs">
+                        <h4>{{pname}}</h4>
+                        <p>¥{{priceTax}}/件</p>
+                    </dd>
+                </dl>
+                {{/pHotRecommend}}
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <form id="dialogCart"  data-vv-scope="form-cart" class="hide dialogCart">
+        <div class="add-title-content" style="padding: 25px 25px">
+            <p class="message">非常抱歉，您已购买过‘法务服务（体验包）’，不可重复购买！</br> 为了不影响您的业务，您可根据需要购买：</p>
+            <p class="product">
+                <a href="/product/productDetail/391" target="_blank">法务服务（果益版）</a>
+                <a href="/product/productDetail/392" target="_blank">法务服务（超值版）</a>
+                <a href="/product/productDetail/393" target="_blank">法务服务（尊享版）</a>
+            </p>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/js/product.js"></script>
+<script>
+    $(window).blur(function(){
+        //your code here
+        $.ajax({
+            type: "GET",
+            url: "/user/getCartNun?" + new Date().getTime(),
+            success: function(data) {
+                $("#cart_nums").text(data.data);
+            }
+        });
+    });
+    $(window).focus(function(){
+        //your code here
+        $.ajax({
+            type: "GET",
+            url: "/user/getCartNun?" + new Date().getTime(),
+            success: function(data) {
+                $("#cart_nums").text(data.data);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,1241 @@
+<link rel="stylesheet" href="/css/modify_subjectInfo.css" >
+<link rel="stylesheet" href="/css/personal_center.css" >
+<link rel="stylesheet" href="/css/fruit_center.css" >
+<link rel="stylesheet" href="/css/words_Copyright.css" >
+<style>
+    .layui-word-aux{
+        padding:3px 0 3px 45px;
+        padding-left: 20px;
+        margin-left: 30px;
+        font-size: 14px;
+        line-height: 22px;
+        box-sizing: border-box;
+        background: url(/img/icon_form_address.png) no-repeat 0px 3px;
+        background-size: 16px 16px;
+        height: 30px;
+    }
+
+    .modify_radio ul.words_radio{
+        width: 540px;
+        border:none;
+        height: 0;
+    }
+
+    .layui-form-select .layui-input{
+        width: 136px;
+    }
+
+    .layui-form-select{
+        width: 136px;
+        float:left;
+        margin-right:10px;
+    }
+
+    .modify_conInfo>div{
+        display:block;
+        float:none;
+    }
+
+    .person_DL{
+        float: left;
+        display: block;
+    }
+
+    .person_GAT{
+        float: left;
+    }
+    .red{
+        color: red !important;
+    }
+    .uploadifive-queue-item{
+        display: none;
+    }
+    .appearance_chart dl dt .uploadifive-button{
+        border:1px solid #959595;
+        border-radius: 5px;
+        padding: 0 3px;
+    }
+
+    .layui-form-radio i{
+        width: 18px;
+        height: 18px;
+        margin-top: -8px;
+    }
+    .uploadify{
+        margin-top: 5px\0;
+         border:0\0;
+        text-align: left\0;
+    }
+    .mainStatusT {
+        color: #3c9214;
+        background-color: #dff2cf;
+    }
+    .mainStatus {
+        padding: 2px 8px;
+        margin-left: 5px;
+        height: 20px;
+        font-size: 12px;
+        font-style: normal;
+        border-radius: 15px;
+        line-height: 20px;
+    }
+    .mainStatusD {
+        color: #c56e00;
+        background: #fce4bd;
+    }
+    .mainStatusF{
+        color: #bd3a4b;
+        background-color: #ffe2e2;
+    }
+</style>
+<div class="personCenter_wrapp" id="pt_form" v-cloak>
+    <div class="personCenter_tab">
+        <ul>
+            <li><a href="/userCenter/home">果蜜中心</a><span>></span></li>
+            <li><a href="/userOrder">订单中心</a><span>></span></li>
+            <li>业务办理</li>
+        </ul>
+    </div>
+    <div class="c_b"></div>
+    <div class="words_Con">
+        <div class="words_top">订单状态</div>
+        <div class="words_bar">
+            <b>订单号：${pData.orderCode}</b>
+            <div class="order-fig">
+                <div class="words_step" style="padding-top: 30px;">
+                    <ul style="margin-left: -50px;">
+                        <li style="margin-right: 0;" class="words_fk" v-for="allNodesList in allNodes" :class="{flowNode_did:nowNodes.stepnum>=allNodesList.stepnum,flowNode_w:nowNodes.stepnum<allNodesList.stepnum}">
+                            <p>${allNodesList.titlename}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="words_top words_write">填写资料</div>
+        <!--<form @submit.prevent="validateForm('form-patent-wg')" data-vv-scope="form-patent-wg">-->
+        <form data-vv-scope="form-patent-wg">
+        <div class="words_left">
+            <div class="words_tit">订单编号：${pData.orderCode}</div>
+            <h3 class="words_h3">请选择您的主体</h3>
+            <div class="words_body">
+                    <div class="layui-form-item words_form">
+                        <div class="layui-input-block" v-for="bodyList in orderCompany">
+                            <div class="layui-unselect layui-form-radio" @click="bodyChoess(bodyList.id,0)" :class="{layui_form_radioed:patentBaseinfo.bodyId==bodyList.id}">
+                                <i v-if="patentBaseinfo.bodyId==bodyList.id" class="layui-anim layui-icon"></i>
+                                <i v-else class="layui-anim layui-icon"></i>
+                                <span>${bodyList.companyname}</span>
+                                <span class="mainStatusD mainStatus" v-if="bodyList.status==0">待审核</span>
+                                <span class="mainStatusT mainStatus" v-if="bodyList.status==1">审核通过</span>
+                                <span class="mainStatusF mainStatus" v-if="bodyList.status==-2">审核未通过</span>
+                            </div>
+                            <div class="layui-word-aux">${bodyList.address}</div>
+                        </div>
+                        <div class="layui-input-block" v-for="bodyList in orderBody">
+                            <div class="layui-unselect layui-form-radio" @click="bodyChoess(bodyList.id,1)" :class="{layui_form_radioed:patentBaseinfo.bodyId==bodyList.id}">
+                                <i v-if="patentBaseinfo.bodyId==bodyList.id" class="layui-anim layui-icon"></i>
+                                <i v-else class="layui-anim layui-icon"></i>
+                                <span>${bodyList.realname}</span>
+                                <span class="mainStatusD mainStatus" v-if="bodyList.status==0">待审核</span>
+                                <span class="mainStatusT mainStatus" v-if="bodyList.status==1">审核通过</span>
+                                <span class="mainStatusF mainStatus" v-if="bodyList.status==-2">审核未通过</span>
+                            </div>
+                            <div class="layui-word-aux">${bodyList.sfzaddress}</div>
+                        </div>
+                        <div class="layui-input-block">
+                            <div class="layui-unselect layui-form-radio" @click="bodyChoess(-10,-1)" :class="{layui_form_radioed:patentBaseinfo.bodyId==-10}">
+                                <i v-if="patentBaseinfo.bodyId==-10" class="layui-anim layui-icon"></i>
+                                <i v-else class="layui-anim layui-icon"></i>
+                                <span>自然人</span>
+                            </div>
+                        </div>
+                        <input  type="hidden" v-model="patentBaseinfo.bodyId" name="bodyId" class="inputW" v-validate="'required'" data-vv-as="主体信息"
+                               :class="{'input': true, 'is-danger': errors.has('form-patent-wg.bodyId') }" />
+                        <p class="red clear-both" style="margin-left: 120px" v-show="errors.has('form-patent-wg.bodyId')">${errors.first('form-patent-wg.bodyId')}
+                    </div>
+                    <h3 class="words_h3 words_work">专利申请信息</h3>
+                    <div class="baseInfo">
+                        <div class="modify_table1">
+                            <ol>
+                                <li><p><span>*</span>专利名称：</p>
+                                    <input type="text" v-model="patentBaseinfo.patentName" name="patentName" class="inputW" v-validate="'required'" data-vv-as="作品名称"
+                                           :class="{'input': true, 'is-danger': errors.has('form-patent-wg.patentName') }" placeholder="请输入作品名称"/>
+                                    <p class="red clear-both" v-show="errors.has('form-patent-wg.patentName')">${errors.first('form-patent-wg.patentName')}</p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="c_b"></div>
+                    <div class="modify_conInfo">
+                        <div class="modify_table1">
+                            <div class="Comcn" v-for="(apply, index) in applyMans">
+                                <div class="modify_radio">
+                                    <p style="font-size:12px;color:#727f8f;"><span style="display: inline-block;color: #d9344b;margin-right: 3px;">*</span>第${index+1}申请人：</p>
+                                    <ul class="words_radio">
+                                        <li class="PerO" @click="apply.orgMan=0;persone();errors.clear();"><a class="modify_Choice" :class="{'modify_Choice1':apply.orgMan==0}"></a>个人</li>
+                                        <li class="PerT" @click="apply.orgMan=1;company();errors.clear();"><a class="modify_Choice" :class="{'modify_Choice1':apply.orgMan==1}"></a>公司</li>
+                                        <li class="appearance_people" @click="addApplyMan()">添加申请人</li>
+                                        <li class="appearance_people" v-if="index>0" @click="delApplyMan(index)">删除申请人</li>
+                                    </ul>
+                                    <div class="c_b"></div>
+                                </div>
+                                <div class="person_DL">
+                                    <ol>
+                                        <li><p><span>*</span>
+                                            <b v-html="apply.orgMan==0?'姓名':'公司名称'"></b>：</p>
+                                            <input type="text" v-model="apply.applyMan"  name="applyMan"  class="inputW"  v-validate="'required'" data-vv-as="姓名或公司名称"
+                                                   style="width: 350px;float:left;":class="{'input': true, 'is-danger': errors.has('form-patent-wg.applyMan') }" />
+                                            <a  class="modify_Choice" style="float:left; display:block;margin-top:12px;" :class="{'modify_Choice1':apply.isDelegate==1}" @click="apply.isDelegate==1?apply.isDelegate=0:apply.isDelegate=1;Exclusion(index)" ></a>
+                                            <span style="font-size:12px;float:left;margin-top:12px;">标记代表人</span>
+                                            <div class="clear"></div>
+                                            <p  v-if="index==0" class="red clear-both" v-show="errors.has('form-patent-wg.applyMan')">${errors.first('form-patent-wg.applyMan')}</p>
+                                        </li>
+                                        <div style="clear:both"></div>
+                                        <li v-if="apply.orgMan==0"><p><span>*</span>
+                                            <b>身份证号</b>：
+                                        </p>
+                                            <input type="text" v-model="apply.certification" data-vv-as="身份证号" id="certification"  name="certification"  class="inputW"
+                                                   v-validate="'required|sfzcode'" :class="{'input': true, 'is-danger': errors.has('form-patent-wg.certification') }" >
+                                            <p  v-if="index==0" class="red clear-both" v-show="errors.has('form-patent-wg.certification')">${errors.first('form-patent-wg.certification')}</p>
+                                        </li>
+                                        <li v-if="apply.orgMan==1"><p><span>*</span>
+                                            <b>组织机构代码</b>：
+                                        </p>
+                                            <input type="text" v-model="apply.certification" data-vv-as="组织机构代码" id="certification_c"  name="certification_c"  class="inputW"
+                                                   v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-patent-wg.certification_c') }" >
+                                            <p  v-if="index==0" class="red clear-both" v-show="errors.has('form-patent-wg.certification_c')">${errors.first('form-patent-wg.certification_c')}</p>
+                                        </li>
+                                        <li><p><span>*</span>
+                                            <b v-html="apply.orgMan==0?'通信地址':'公司地址'"></b>：</p>
+                                            <input type="text" v-model="apply.address" data-vv-as="地址" name="address" class="inputW"
+                                                   v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-patent-wg.address') }" >
+                                            <p  v-if="index==0" class="red clear-both" v-show="errors.has('form-patent-wg.address')">${errors.first('form-patent-wg.address')}</p>
+
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div style="clear: both;"></div>
+                                <ol>
+                                    <li><p><span>*</span><b v-html="apply.orgMan==0?'身份证正面':'统一社会信用代码/组织机构代码证上传'"></b>：</p>
+                                        <div class="modify_hover" >
+                                            <div :class="{'modify_liner':!apply.picUrl  && !(apply.licencePath || apply.idPath)}" v-show="apply.licencePath ||apply.idPath">
+                                                <input type="hidden" class="hide" name="picUrl" v-model="apply.idPath" data-vv-as="证件" class="inputW"
+                                                       v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-patent-wg.picUrl') }" >
+                                                <img :src="apply.picUrl||apply.idPath||apply.licencePath" width="68" height="88"/>
+                                                    <div :class="{'modify_liner':!apply.picUrl|| !apply.idPath|| !apply.licencePath,'hoverImg':apply.picUrl|| apply.idPath|| apply.licencePath}" @click="apply.picUrl='';apply.licencePath='';apply.idPath=''">
+                                                        <img src="/img/icon-companyinfo-delete.png"/>
+                                                    </div>
+                                            </div>
+
+                                            <a class="layui-liner" v-show="!apply.licencePath && !apply.idPath">
+                                                <div class="add">
+                                                    <div class="addSfz" id="addSfz">
+
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                        <div :id="'file_upload_item_sfz'+index"></div>
+                                    </li>
+                                    <div style="clear: both"></div>
+                                    <div class="modify_drag">
+                                        <div class="modify_file" style="float: none">
+                                            <span>涉及权属，请上传清晰的营业执照。</span>
+                                        </div>
+                                    </div>
+                                    <p class="red clear-both" v-show="errors.has('form-patent-wg.picUrl') && !apply.picUrl">${errors.first('form-patent-wg.picUrl')}</p>
+                                </ol>
+                                <div class="c_b"></div>
+                            </div>
+                            <ol v-for="(invent, index) in inventionMans">
+                                <li><p><span>*</span>设计人姓名：</p>
+                                    <input type="text" v-model="invent.man" data-vv-as="设计人姓名"   name="man"  class="inputW"  v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-patent-wg.man') }" >
+                                    <span class="modify_obtain" @click="addApplyInMan()">添加设计人</span>
+                                    <span v-if="index!=0" class="modify_obtain" @click="delApplyInMan(index)">删除设计人</span>
+                                    <p  v-if="index==0" class="red clear-both" v-show="errors.has('form-patent-wg.man')">${errors.first('form-patent-wg.man')}</p>
+                                </li>
+                                <li v-if="index==0"><p><span>*</span>设计人身份证号：</p>
+                                    <input type="text" v-model="invent.postcard" data-vv-as="设计人身份证号"   name="postcard"  class="inputW"  v-validate="'required|sfzcode'" :class="{'input': true, 'is-danger': errors.has('form-patent-wg.postcard') }" >
+                                    <p  v-if="index==0" class="red clear-both" v-show="errors.has('form-patent-wg.postcard')">${errors.first('form-patent-wg.postcard')}</p>
+                                </li>
+                                <li v-if="index==0"><p><span>*</span>设计人身份证：</p>
+                                    <div class="modify_hover" >
+                                    <div :class="{'modify_liner':!invent.picUrl && !invent.postcardPath}" v-show="invent.postcardPath">
+                                        <input type="hidden" class="hide" name="postcardPath" v-model="invent.postcardPath" data-vv-as="证件" class="inputW"
+                                               v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-patent-wg.postcardPath') }" >
+                                        <img :src="invent.picUrl||invent.postcardPath" width="68" height="88"/>
+                                        <div :class="{'modify_liner':!invent.picUrl || !invent.postcardPath,'hoverImg':invent.picUrl ||invent.postcardPath}" @click="invent.postcardPath='';invent.picUrl=''">
+                                            <img src="/img/icon-companyinfo-delete.png"/>
+                                        </div>
+                                    </div>
+                                    <a class="layui-liner" v-show="!invent.postcardPath && !invent.picUrl">
+                                    <div class="add">
+                                        <div class="addSjPic" id="addSjPic"></div>
+                                    </div>
+                                    </a>
+                                    </div>
+                                    <b class="modify_b">图片小于2M，允许类型(jpg,gif,png,bmp)</b>
+                                    <div :id="'file_upload_item_sjr'+index"></div>
+                                </li>
+                                <div class="c_b"></div>
+                                <p class="red clear-both" v-show="errors.has('form-patent-wg.postcardPath')&&!invent.picUrl">${errors.first('form-patent-wg.postcardPath')}</p>
+                            </ol>
+                            <div style="clear: both"></div>
+                            <!--<div class="modify_drag">
+                                <div class="modify_file" style="float: none">
+                                    <p><img src="/img/icon-companyinfo-upload.png"/>拖入文件或从<u>文件夹</u>中选择</p>
+                                    <span>涉及权属，请上传清晰的营业执照。图片小于2M，允许类型(jpg,gif,png,bmp)</span>
+                                </div>
+                            </div>-->
+                            <ol>
+                                <li><p><span>*</span>技术联系人姓名：</p>
+                                    <input type="text" v-model="patentBaseinfo.technicalMan" name="technicalMan" class="inputW"
+                                           v-validate="'required'" data-vv-as="技术联系人姓名"
+                                           :class="{'input': true, 'is-danger': errors.has('form-patent-wg.technicalMan') }" placeholder="技术联系人姓名"/>
+                                    <p class="red clear-both" v-show="errors.has('form-patent-wg.technicalMan')">${errors.first('form-patent-wg.technicalMan')}</p>
+                                </li>
+                                <li><p><span>*</span>电话：</p>
+                                    <input type="text" v-model="patentBaseinfo.tel" name="tel" class="inputW"
+                                           v-validate="'required|phone'" data-vv-as="电话"
+                                           :class="{'input': true, 'is-danger': errors.has('form-patent-wg.tel') }" placeholder="电话"/>
+                                    <p class="red clear-both" v-show="errors.has('form-patent-wg.tel')">${errors.first('form-patent-wg.tel')}</p>
+                                </li>
+                                <li>
+                                    <p><span>*</span>Email：</p>
+                                    <input type="text" v-model="patentBaseinfo.email" name="email" class="inputW"
+                                           v-validate="'required|emailNum'" data-vv-as="邮箱"
+                                           :class="{'input': true, 'is-danger': errors.has('form-patent-wg.email')}" placeholder="邮箱"/>
+                                    <p class="red clear-both" v-show="errors.has('form-patent-wg.email')">${errors.first('form-patent-wg.email')}</p>
+                                </li>
+                                <li><p><span>*</span>用途：</p><textarea v-model="patentBaseinfo.uses" name="uses"
+                                                                      data-vv-as="用途"
+                                                                      class="inputW" v-validate="'required'"
+                                        :class="{'input': true, 'is-danger': errors.has('form-patent-wg.uses')}"></textarea>
+                                    <p class="red clear-both" v-show="errors.has('form-patent-wg.uses')">${errors.first('form-patent-wg.uses')}</p>
+                                </li>
+                            </ol>
+                            <div class="modify_radio">
+                                <p style="font-size:12px;color:#727f8f;"><span style="display: inline-block;color: #d9344b;margin-right: 3px;">*</span>外国优先权：</p>
+                                <ul class="words_radio">
+                                    <li @click="patentBaseinfo.isPriority=1"><a class="modify_Choice "  :class="{'modify_Choice1':patentBaseinfo.isPriority==1}" @click="addisPriority()"></a>有</li>
+                                    <li @click="patentBaseinfo.isPriority=0"><a class="modify_Choice"  :class="{'modify_Choice1':patentBaseinfo.isPriority==0}" @click="delisPriority()"></a>无</li>
+                                </ul>
+                            </div>
+                            <div style="clear: both"></div>
+                            <ol v-show="patentBaseinfo.isPriority==1">
+                                <li><p><span>*</span>在先申请国别：</p><input type="text" v-model="patentBaseinfo.priorApplyCountry" name="priorApplyCountry"
+                                                                       id="priorApplyCountry"
+                                                                       data-vv-as="在先申请国别"
+                                                                       class="inputW" v-validate="'required'"
+                                                                       :class="{'input': true, 'is-danger': errors.has('form-patent-wg.priorApplyCountry')}"/>
+                                    <p class="red clear-both" v-show="errors.has('form-patent-wg.priorApplyCountry')">${errors.first('form-patent-wg.priorApplyCountry')}</p>
+                                </li>
+                                <li><p><span>*</span>在先申请号：</p><input type="text" v-model="patentBaseinfo.priorApplyNo" name="priorApplyNo"
+                                                                       id="priorApplyNo"
+                                                                       data-vv-as="在先申请号"
+                                                                       class="inputW" v-validate="'required'"
+                                                                       :class="{'input': true, 'is-danger': errors.has('form-patent-wg.priorApplyNo')}"/>
+                                    <p class="red clear-both" v-show="errors.has('form-patent-wg.priorApplyNo')">${errors.first('form-patent-wg.priorApplyNo')}</p>
+                                </li>
+                                <li><p><span>*</span>在先申请日：</p><input type="text" v-model="patentBaseinfo.priorApplyDate" name="priorApplyDate"
+                                                                       id="priorApplyDate"
+                                                                       data-vv-as="在先申请日"
+                                                                       @click="setApplyDate('t',$event)"
+                                                                       class="inputW" v-validate="'required'"
+                                                                       :class="{'input': true, 'is-danger': errors.has('form-patent-wg1.priorApplyDate')}"/>
+                                    <p class="red clear-both" v-show="errors.has('form-patent-wg.priorApplyDate')">${errors.first('form-patent-wg.priorApplyDate')}</p>
+                                </li>
+                            </ol>
+                            <div class="modify_radio">
+                                <p style="font-size:12px;color:#727f8f;"><span style="display: inline-block; color: rgb(217, 52, 75); margin-right: 3px;">*</span>同日申请：</p>
+                                <ul class="words_radio">
+                                    <li style="width: auto" @click="patentBaseinfo.isSameDayApply==0?patentBaseinfo.isSameDayApply=1:patentBaseinfo.isSameDayApply=0"><a class="modify_Choice modify_Choice1"  :class="{'modify_Choice1':patentBaseinfo.isSameDayApply==1}"></a>声明本申请人对同样的发明创造在申请本发明专利的同日申请实用新型专利</li>
+                                </ul>
+                            </div>
+                            <div style="clear: both"></div>
+                            <div style="clear: both"></div>
+                            <ol>
+                                <li><p><span>*</span>外观设计图片/照片上传：</p>
+                                    <select style="width: 430px;" v-model="patentBaseinfo.attachment">
+                                        <option  v-for="att in attachmentList" :value="att.value" v-html="att.text"></option>
+                                    </select>
+                                    <span class="modify_obtain appearance_check">
+                                        <a v-if="patentBaseinfo.attachment=='poto_pic'" href="/quality/photo.html" target="_blank">查看质量标准</a>
+                                        <a v-if="patentBaseinfo.attachment=='3d_pic'" href="/quality/3D.html" target="_blank">查看质量标准</a>
+                                        <a v-if="patentBaseinfo.attachment=='line_pic'" href="/quality/line.html" target="_blank">查看质量标准</a>
+                                        <a v-if="patentBaseinfo.attachment=='app_pic'" href="/quality/Software.html" target="_blank">查看质量标准</a>
+                                    </span>
+                                    <a href="javaScript:;" class="yj-btn-min" id="yj-btn-min">一键上传</a>
+                                </li>
+                                <li id="file_upload_item_yj">
+                                </li>
+                            </ol>
+                            <div style="clear: both"></div>
+                            <div class="apperance_box">
+                                <div class="apperance_img"><img src="/img/1.png"/></div>
+                                <div class="apperance_Example">
+                                    <p>1、请将要上传的图片依次对应命名为“主视图、后视图、左视图、右视图、俯视图、仰视图、立体图;</p>
+                                    <p>2、如果要上传软件界面类的界面变化状态图，请将图片依次命名为01、02、03……99后再上传”;</p>
+                                    <p>3、请上传JPG格式、图片大小尽量小于1M、图片长宽3X8cm”-“15X20cm”之间、分辨率≤300dpi.;</p>
+                                    <p>4、选择要上传的文件，点击’打开’即可完成上传;</p>
+                                </div>
+                            </div>
+                            <div class="appearance_chart">
+                                <dl v-for="(item,index) in attachmentText" @mouseenter="setEdit(item,1)" @mouseleave="setEdit(item,0)"
+                                  v-if="!(patentBaseinfo.attachment=='app_pic' && index==6)"  style="height: 260px;">
+                                    <dt>
+                                        <span><img class="picUrlverification" :src="item.picUrl || '/img/patent/'+patentBaseinfo.attachment+(index+1)+'.jpg'"/></span>
+                                        <div id="LAY_linerAA">
+                                            <a>
+                                                <p class="appearance_find">
+                                                    <img src="/img/icon-companyinfo-delete.png"  @click="item.picUrl=''" v-show="item.picUrl"/>
+                                                    <img src="/img/icon-shoppingcart-qtyadd@2x.png" width="26" height="26" class="fileupload" :id="'fileupload'+index"/>
+                                                </p>
+                                            </a>
+                                            <div :id="'file_upload_item_'+index"></div>
+                                        </div>
+                                    </dt>
+                                    <dd v-html="item.text"></dd>
+                                    <!--<dd><span class="text-danger" v-show="!item.picUrl &&!isCheckFalg">请上传图片</span></dd>-->
+                                    <dd><span class="text-danger" v-show="!item.picUrl">请上传图片</span></dd>
+                                </dl>
+                            </div>
+                            <div style="clear: both"></div>
+                            <div class="modify_drag" v-if="patentBaseinfo.attachment=='app_pic'">
+                                <div id="box" style="clear:both;">
+                                    <dl>
+                                        <dd>
+                                            <b class="prev" @click="prev()"></b>
+                                            <div id="div">
+                                                <ol :style="{'marginLeft':-ml+'px'}">
+                                                    <li class="add_upload_block">
+                                                        <span class="s-up-tj" @click="addPantentInfo()">+</span>
+                                                    </li>
+                                                    <li v-if="imgList" v-for="imglist in imgList">
+                                                        <img :src="imglist.picPath">
+                                                    </li>
+                                                    <li v-for="(ptInfo, index) in patentInfoExtends">
+                                                        <img :src="ptInfo.picUrl" v-if="ptInfo.picPath">
+                                                         <div class="addpInfo"></div>
+                                                        <div :id="'file_upload_item_pInfo_'+index"></div>
+                                                   </li>
+                                                </ol>
+                                            </div>
+                                            <s class="next" @click="next()"></s>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c_b"></div>
+                        <div class="appearance_danger">
+                                <h3>注意事项</h3>
+                                <p>1、如果专利授权，还会产生制证的官费和知果果的服务费，发明专利需要向官方缴纳制证费255元，实用新型和外观需要向官方缴纳制证费205元，同时还需缴纳从申请日到授权日的年费，年费根据专利类型、减缓情况而不同，具体费用和顾问联系，知果果的服务费为100元。</p>
+                                <p>2、如果申请人申请国内发明、实用新型申请时，已经提交过与本次申请相同或相似的专利申请，则需要向官方缴纳优先权要求费80元/件，具体地已提交过的专利申请是否会对本次申请造成影响，请与顾问确认。</p>
+                            <div class="c_b"></div>
+                        </div>
+                    </div>
+            </div>
+            {{> adviser}}
+            <div class="c_b"></div>
+            <div class="words_button" v-if="pData.status===1" >
+                <button type="button" class="words_sub"  :disabled="showLoading" v-html="showLoading?'数据提交中...':'确认提交'" @click="verification()"></button>
+                <!--<button type="submit" class="words_sub"  :disabled="showLoading" v-html="showLoading?'数据提交中...':'确认提交'"></button>-->
+            </div>
+        </div>
+        </form>
+        {{> orderList}}
+    </div>
+</div>
+<script type="text/javascript">
+    var phone = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的手机号码';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^(1[3-9][0-9]{9})$/.test(value));
+        }
+    };
+    var uploadify_onSelectError = function(file, errorCode, errorMsg) {
+        var msgText = "上传失败\n";
+        switch (errorCode) {
+            case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+                //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+                msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+                break;
+            case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+                msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+                break;
+            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+                msgText += "文件大小为0";
+                break;
+            case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+                msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+                break;
+            default:
+                msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+        }
+        alert(msgText);
+    };
+    VeeValidate.Validator.extend('phone', phone);
+    var sfzcode = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的身份证号';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|[X|x])$/.test(value));
+        }
+    };
+    VeeValidate.Validator.extend('sfzcode', sfzcode);
+    var emailNum = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的邮箱号';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/.test(value));
+        }
+    };
+    VeeValidate.Validator.extend('emailNum', emailNum);
+    var patentData = {{{ patentData }}};
+    var orderBody = {{{ orderBody }}};
+    var allNodes = {{{ allNodes }}};
+    var nowNodes = {{{ nowNodes }}};
+    var nowNodes = {{{ nowNodes }}};
+    var odata = {{{ oData }}};
+    if(patentData.data.orderDetail.status === -1 || patentData.data.orderDetail.status === 0){
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.alert('该订单未支付或已退款!',{
+                icon: 5,
+                closeBtn: 0,
+                btn:['返回订单列表'],
+                yes:function (index) {
+                    layer.close(index);
+                    window.location.href='/userOrder';
+                }
+            });
+        });
+    }
+    var ptMsgVM = new Vue({
+        el: '#pt_form',
+        delimiters: ["${", "}"],
+        data: {
+            imgList:patentData.data.patentInfoExtends,
+            pData:patentData.data.orderDetail,
+            orderBody:orderBody.data.userBodyList,
+            orderCompany:orderBody.data.userCompanyList,
+            allNodes:allNodes.data,
+            nowNodes:nowNodes.data,
+            patentBaseinfo:patentData.data.patentBaseinfo || {
+                bodyType:1,
+                bodyId:"",
+                isPriority:0,
+                patentName:"",
+                attachment:'poto_pic',
+                tel:"",
+                technicalMan:"",
+                email:"",
+                uses:"",
+                orderid:patentData.data.orderDetail.orderId,
+                isSameDayApply:0,
+                elevation:"主视图",
+                backView:"后视图",
+                leftView:"左视图",
+                rightView:"右视图",
+                topView:"俯视图",
+                upwardView:"仰视图",
+                graphicModel:"立体图",
+
+            },
+            tempMans: {
+                orderid:patentData.data.orderDetail.orderId,
+                orgMan:"0",
+                applyMan:'',
+                certification:'',
+                address:'',
+                /*province:"12",
+                city:"",
+                county:"区县",*/
+                isDelegate:"0",
+                licencePath:"",
+                orgPath:"",
+            },
+            tempInMans:{
+                orderid:patentData.data.orderDetail.orderId,
+                man:'',
+                postcard:'',
+                postcardPath:''
+            },
+            applyMans:patentData.data.applyMans || [{orgMan:"0",isDelegate:0}], //申请人
+            inventionMans:patentData.data.inventionMans || [{}], //设计人
+            attachmentList:[
+                {text:"照片类",value:"poto_pic"},
+                {text:"3D图类",value:"3d_pic"},
+                {text:"线性图类",value:"line_pic"},
+                {text:"网站APP软件等界面类",value:"app_pic"}
+            ],
+            attachmentText:[
+                {text: "主视图",value:"elevation",picUrl:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.elevation:null,picUrlNotH:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.elevation?patentData.data.patentBaseinfo.elevation.split(zgg.Vconfig.contractUrl)[1]:null:null},
+                {text:"后视图",value:"backView",picUrl:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.backView:null,picUrlNotH:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.backView?patentData.data.patentBaseinfo.backView.split(zgg.Vconfig.contractUrl)[1]:null:null},
+                {text:"左视图",value:"leftView",picUrl:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.leftView:null,picUrlNotH:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.leftView?patentData.data.patentBaseinfo.leftView.split(zgg.Vconfig.contractUrl)[1]:null:null},
+                {text:"右视图",value:"rightView",picUrl:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.rightView:null,picUrlNotH:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.rightView?patentData.data.patentBaseinfo.rightView.split(zgg.Vconfig.contractUrl)[1]:null:null},
+                {text:"俯视图",value:"topView",picUrl:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.topView:null,picUrlNotH:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.topView?patentData.data.patentBaseinfo.topView.split(zgg.Vconfig.contractUrl)[1]:null:null},
+                {text:"仰视图",value:"upwardView",picUrl:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.upwardView:null,picUrlNotH:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.upwardView?patentData.data.patentBaseinfo.upwardView.split(zgg.Vconfig.contractUrl)[1]:null:null},
+                {text:"立体图",value:"graphicModel",picUrl:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.graphicModel:null,picUrlNotH:patentData.data.patentBaseinfo?patentData.data.patentBaseinfo.graphicModel?patentData.data.patentBaseinfo.graphicModel.split(zgg.Vconfig.contractUrl)[1]:null:null},
+            ], 
+            isCheckFalg:true, //是否上传图片
+            patentInfoExtends:[],
+            ml:0,
+            adviser:"",
+            gwPicUrl:zgg.Vconfig.gwPicUrl,
+            ImgUrl:zgg.Vconfig.ImgUrl,
+            odataList:[],
+            showLoading:help.showLoading,
+        },
+        /*created:function () {
+            this.applyMans.push(this.tempMans);
+            this.inventionMans.push(this.tempInMans);
+        },*/
+        mounted:function () {
+            if(typeof this.patentBaseinfo.bodyId == 'undefined'){
+                this.patentBaseinfo['bodyId'] = -10;
+                this.patentBaseinfo['bodyType'] = "";
+            }
+            /*this.applyMans.push($.extend({},this.tempMans));
+            this.inventionMans.push($.extend({},this.tempInMans));*/
+            if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0"){
+                //证明文件上传
+                $('.fileupload').map(function(i,t){
+                    $(t).uploadify({
+                        'auto' : true,
+                        'queueID' : 'file_upload_item_'+i,
+                        'swf'      : '/lib/uploadify.swf',
+                        'uploader' : '/upload/profile',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传文件',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': '*.jpg;*.bmp;*.jpeg;*.png;*.gif;',
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'formData':{
+                            'orderId':patentData.data.orderDetail.orderId,
+                            'stepType':nowNodes.data.stepnum,
+                            'stepId':nowNodes.data.id,
+                            "uploadType":"uploadPatPic",
+                        },
+                        'onDrop':function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onUploadSuccess' : function(file, data, response) {
+                            var data = JSON.parse(data),
+                                    ImgUrl = zgg.Vconfig.contractUrl +  data.data;
+                            Vue.set(ptMsgVM.attachmentText[i],'picUrl',ImgUrl);
+                            Vue.set(ptMsgVM.attachmentText[i],'picUrlNotH',data.data);
+                        },
+                        'onFallback':function () {
+                            layer.msg('请安装或升级更高版本的Flash插件');
+                        },
+                        'onError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                });
+                //一键上传
+                $(".yj-btn-min").uploadify({
+                            'auto' : true,
+                            'queueID' : 'file_upload_item_yj',
+                            'swf'      : '/lib/uploadify.swf',
+                            'uploader' : '/upload/profile',
+                            'buttonCursor':'hand',
+                            "buttonClass":"addFile-mini",
+                            'buttonText':'一键上传',
+                            'width':'auto',
+                            'fileSizeLimit ': 1024 * 1024 * 2,
+                            'fileType':  '*.jpg;*.bmp;*.jpeg;*.png;*.gif;',
+                            'height':'20',
+                            'method' : 'post',
+                            // 'progressData':'percentage',
+                            'flieObjName':'files',
+                            'queueSizeLimit':999,
+                            'uploadLimit':999,
+                            'multi':true,
+                            'formData':{
+                                'orderId':patentData.data.orderDetail.orderId,
+                                'stepType':nowNodes.data.stepnum,
+                                'stepId':nowNodes.data.id,
+                                "uploadType":"uploadPatPic",
+                            },
+                            'onDrop':function(file, fileDropCount) {
+                                debugger;
+                            },
+                            'onUploadSuccess' : function(file, data, response) {
+                                //一键上传设置回调
+                                var data = JSON.parse(data),
+                                        ImgUrl = zgg.Vconfig.contractUrl +  data.data,
+                                        index = parseInt(data.data.split("type=")[1]);
+                                Vue.set(ptMsgVM.attachmentText[index-1],'picUrl',ImgUrl);
+                                Vue.set(ptMsgVM.attachmentText[index-1],'picUrlNotH',data.data);
+                            },
+                            'onFallback':function () {
+                                layer.msg('请安装或升级更高版本的Flash插件');
+                            },
+                            'onError' : function (file, data, response) {
+                                debugger;
+                            }});
+            }else{
+                //证明文件上传
+                $('.fileupload').map(function(i,t){
+                    $(t).uploadifive({
+                        'auto' : true,
+                        'queueID' : 'file_upload_item_'+i,
+                        'checkScript':'/upload/check',
+                        'uploadScript' : '/upload/profile',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传文件',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': 'image/*',
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'formData':{
+                            'orderId':patentData.data.orderDetail.orderId,
+                            'stepType':nowNodes.data.stepnum,
+                            'stepId':nowNodes.data.id,
+                            "uploadType":"uploadPatPic",
+                        },
+                        'onDrop':function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onUploadComplete' : function(file, data, response) {
+                            var data = JSON.parse(data),
+                                    ImgUrl = zgg.Vconfig.contractUrl +  data.data;
+                            Vue.set(ptMsgVM.attachmentText[i],'picUrl',ImgUrl);
+                            Vue.set(ptMsgVM.attachmentText[i],'picUrlNotH',data.data);
+                        },
+                        'onCheck'  : function(file, exists) {
+                            if (exists) {
+                                layer.msg("您上传的文件格式或大小有误");
+                                $(t).uploadifive('cancel', file)
+                            }
+                        },
+                        'onError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                });
+                //一键上传
+                $(".yj-btn-min").uploadifive({
+                            'auto' : true,
+                            'queueID' : 'file_upload_item_yj',
+                            'checkScript':'/upload/check',
+                            'uploadScript' : '/upload/profile',
+                            'buttonCursor':'hand',
+                            "buttonClass":"addFile-mini",
+                            'buttonText':'一键上传',
+                            'width':'auto',
+                            'fileSizeLimit ': 1024 * 1024 * 2,
+                            'fileType': '*.jpg;*.bmp;*.jpeg;*.png',
+                            'height':'20',
+                            'method' : 'post',
+                            // 'progressData':'percentage',
+                            'flieObjName':'files',
+                            'queueSizeLimit':999,
+                            'uploadLimit':999,
+                            'multi':true,
+                            'formData':{
+                                'orderId':patentData.data.orderDetail.orderId,
+                                'stepType':nowNodes.data.stepnum,
+                                'stepId':nowNodes.data.id,
+                                "uploadType":"uploadPatPic",
+                            },
+                            'onDrop':function(file, fileDropCount) {
+                                debugger;
+                            },
+                            'onUploadComplete' : function(file, data, response) {
+                                //一键上传设置回调
+                                var data = JSON.parse(data),
+                                        ImgUrl = zgg.Vconfig.contractUrl +  data.data,
+                                        index = parseInt(data.data.split("type=")[1]);
+                                Vue.set(ptMsgVM.attachmentText[index-1],'picUrl',ImgUrl);
+                                Vue.set(ptMsgVM.attachmentText[index-1],'picUrlNotH',data.data);
+                            },
+                            'onCheck'  : function(file, exists) {
+                                if (exists) {
+                                    layer.msg("您上传的文件格式或大小有误");
+                                    $('#yj-btn-min').uploadifive('cancel', file)
+                                }
+                            },
+                            'onError' : function (file, data, response) {
+                                debugger;
+                            }
+                });
+            }
+            this.setSfzPicInit();
+            this.getGwInfo();
+        },
+        methods: {
+            Exclusion:function(isD){
+                console.log(isD)
+                ptMsgVM.applyMans.map(function(v,i){
+                    v.isDelegate = 0;
+                })
+                ptMsgVM.applyMans[isD].isDelegate = 1;
+            },
+            verification:function(){
+                if(this.patentBaseinfo.isPriority == 0){
+                    this.delisPriority();
+                }
+                var count = 0,_self = this;
+                this.$validator.validateAll('form-patent-wg').then(function (result) {
+                    if(result){
+                        $('.picUrlverification').each(function(item,val){
+                            if(val.src.indexOf('//base') == -1){
+                                count++;
+                            }
+                        });
+                        if(count != 0  ){
+                            layer.msg('请补全图片！！！');
+                        }else if(count == 0){
+                            layer.msg('成功')
+                            ptMsgVM.validateForm('form-patent-wg')
+                        }
+                    }
+                })
+            },
+            persone:function(){
+                this.$validator.attach('certification', 'required|sfzcode', {scope:'form-patent-wg',prettyName:"身份证",getter:function ()
+                {return $("#certification").val();},context:function(){return $("#certification").context}});
+                this.$validator.detach("certification_c",'form-patent-wg');
+                this.errors.clear(form-patent-wg);
+            },
+            company:function(){
+                this.$validator.attach('certification_c', 'required', {scope:'form-patent-wg',prettyName:"组织机构代码",getter:function ()
+                {return $("#certification_c").val();},context:function(){return $("#certification_c").context}});
+                this.$validator.detach("certification",'form-patent-wg');
+                this.errors.clear(form-patent-wg);
+            },
+            delisPriority:function(){
+                this.$validator.detach("priorApplyCountry",'form-patent-wg');
+                this.$validator.detach("priorApplyNo",'form-patent-wg');
+                this.$validator.detach("priorApplyDate",'form-patent-wg');
+                this.errors.clear('form-patent-wg');
+            },
+            addisPriority:function(){
+                this.$validator.attach('priorApplyCountry', 'required', {scope:'form-patent-wg',prettyName:"在先申请国别",getter:function ()
+                {return $("#priorApplyCountry").val();},context:function(){return $("#priorApplyCountry").context}});
+                this.$validator.attach('priorApplyNo', 'required', {scope:'form-patent-wg',prettyName:"在先申请号",getter:function ()
+                {return $("#priorApplyNo").val();},context:function(){return $("#priorApplyNo").context}});
+                this.$validator.attach('priorApplyDate', 'required', {scope:'form-patent-wg',prettyName:"在先申请日",getter:function ()
+                {return $("#priorApplyDate").val();},context:function(){return $("#priorApplyDate").context}});
+                //this.errors.clear('form-patent-wg');
+            },
+            bodyChoess:function (bId, tId) {
+                this.patentBaseinfo.bodyId = bId;
+                this.patentBaseinfo.bodyType = tId;
+            },
+            addApplyMan:function () {
+                    this.applyMans.push($.extend({},this.tempMans));
+                    this.setSfzPicInit();
+            },
+            addApplyInMan:function () {
+                    this.inventionMans.push($.extend({},this.tempInMans));
+            },
+            delApplyMan:function (index) {
+                this.applyMans.splice(index,1);
+            },
+            delApplyInMan:function (index) {
+                this.inventionMans.splice(index,1);
+            },
+            setEdit:function (item,v){
+                ptMsgVM.$set(item,'isEdit',v);
+            },
+            setPtUploadInit:function () {
+                //图片上传
+                setTimeout(function(){
+
+                        if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0"){
+                            $('.addpInfo').map(function(i,t){
+                                $(t).uploadify({
+                                'auto' : true,
+                                'queueID' : 'file_upload_item_sfz'+i,
+                                'swf'      : '/lib/uploadify.swf',
+                                'uploader' : '/upload/profile',
+                                'buttonCursor':'hand',
+                                'buttonText':' ',
+                                "buttonClass":"addFile",
+                                'width': 90,
+                                'method' : 'post',
+                                'fileSizeLimit ': 1024 * 1024 * 2,
+                                'fileType':  '*.jpg;*.bmp;*.jpeg;*.png;*.gif;',
+                                'progressData':'percentage',
+                                'formData':{
+                                    'orderId':patentData.data.orderDetail.orderId,
+                                    'stepType':nowNodes.data.stepnum,
+                                    'stepId':nowNodes.data.id,
+                                    'fType':"ft_5"
+                                },
+                                'onDrop':function(file, fileDropCount) {
+                                    debugger;
+                                },
+                                'onUploadSuccess' : function(file, data, response) {
+                                    var data = JSON.parse(data),
+                                            ImgUrl = zgg.Vconfig.contractUrl +  data.data.filePath;
+                                    Vue.set(ptMsgVM.patentInfoExtends[i],'picUrl',ImgUrl);
+                                    Vue.set(ptMsgVM.patentInfoExtends[i],'picPath',data.data.filePath);
+                                },
+                                'onFallback':function () {
+                                    layer.msg('请安装或升级更高版本的Flash插件');
+                                },
+                                'onError' : function (file, data, response) {
+                                    debugger;
+                                }
+                            })
+                            })
+                        }else{
+                            $('.addpInfo').map(function(i,t){
+                               $(t).uploadifive({
+                                'auto' : true,
+                                'queueID' : 'file_upload_item_pInfo_'+i,
+                                'checkScript':'/upload/check',
+                                'uploadScript' : '/upload/profile',
+                                'buttonCursor':'hand',
+                                'buttonText':'上传文件',
+                                'fileSizeLimit ': 1024 * 1024 * 2,
+                                'fileType': '*.jpg;*.bmp;*.jpeg;*.png;*.gif',
+                                'width':'auto',
+                                'method' : 'post',
+                                'progressData':'percentage',
+                                'formData':{
+                                    'orderId':patentData.data.orderDetail.orderId,
+                                    'stepType':nowNodes.data.stepnum,
+                                    'stepId':nowNodes.data.id,
+                                    'fType':"ft_5",
+                                },
+                                'onDrop':function(file, fileDropCount) {
+                                    debugger;
+                                },
+                                'onUploadComplete' : function(file, data, response) {
+                                    var data = JSON.parse(data),
+                                            ImgUrl = zgg.Vconfig.contractUrl +  data.data.filePath;
+                                    Vue.set(ptMsgVM.patentInfoExtends[i],'picUrl',ImgUrl);
+                                    Vue.set(ptMsgVM.patentInfoExtends[i],'picPath',data.data.filePath);
+                                },
+                                'onCheck'  : function(file, exists) {
+                                    if (exists) {
+                                        layer.msg("您上传的文件格式或大小有误");
+                                        $(t).uploadifive('cancel', file)
+                                    }
+                                },
+                                'onError' : function (file, data, response) {
+                                    debugger;
+                                }
+                            })
+                            })
+                        }
+                },100)
+            },
+            setSfzPicInit:function () {
+                //图片上传
+                setTimeout(function () {
+                    if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0"){
+                        $(".addSfz").map(function (i,t) {
+                            $(t).uploadify({
+                                'auto' : true,
+                                'queueID' : 'file_upload_item_sfz'+i,
+                                'swf'      : '/lib/uploadify.swf',
+                                'uploader' : '/upload/profile',
+                                'buttonCursor':'hand',
+                                'buttonText':' ',
+                                "buttonClass":"addFile",
+                                'width': 90,
+                                'fileSizeLimit ': '2M',
+                                'fileType':  '*.jpg;*.bmp;*.jpeg;*.png;*.gif;',
+                                'method' : 'post',
+                                'progressData':'percentage',
+                                'formData':{
+                                    'orderId':patentData.data.orderDetail.orderId,
+                                    'stepType':nowNodes.data.stepnum,
+                                    'stepId':nowNodes.data.id,
+                                    'fType':"ft_5"
+                                },
+                                'onDrop':function(file, fileDropCount) {
+                                    debugger;
+                                },
+                                'onUploadSuccess' : function(file, data, response) {
+                                    var data = JSON.parse(data),
+                                         ImgUrl = zgg.Vconfig.contractUrl +  data.data.filePath;
+                                    Vue.set(ptMsgVM.applyMans[i],'picUrl',ImgUrl);
+                                    //区分身份证和组织机构代码 idPath , licencePath
+                                    Vue.set(ptMsgVM.applyMans[i],'licencePath',data.data.filePath);
+                                    Vue.set(ptMsgVM.applyMans[i],'idPath',data.data.filePath);
+                                },
+                                'onFallback':function () {
+                                    layer.msg('请安装或升级更高版本的Flash插件');
+                                },
+                                'onError' : function (file, data, response) {
+                                    debugger;
+                                }
+                            })
+                        });
+                        //设计人身份证上传
+                        $(".addSjPic").map(function (i,t) {
+                            $(t).uploadify({
+                                'auto' : true,
+                                'queueID' : 'file_upload_item_sjr'+i,
+                                'swf'      : '/lib/uploadify.swf',
+                                'uploader' : '/upload/profile',
+                                'buttonCursor':'hand',
+                                'buttonText':' ',
+                                "buttonClass":"addFile",
+                                'width': 90,
+                                'fileSizeLimit ': '2M',
+                                'fileType':  '*.jpg;*.bmp;*.jpeg;*.png;*.gif;',
+                                'method' : 'post',
+                                'progressData':'percentage',
+                                'formData':{
+                                    'orderId':patentData.data.orderDetail.orderId,
+                                    'stepType':nowNodes.data.stepnum,
+                                    'stepId':nowNodes.data.id,
+                                    'fType':"ft_5"
+                                },
+                                'onDrop':function(file, fileDropCount) {
+                                    debugger;
+                                },
+                                'onUploadSuccess' : function(file, data, response) {
+                                    var data = JSON.parse(data),
+                                            ImgUrl = zgg.Vconfig.contractUrl +  data.data.filePath;
+                                    Vue.set(ptMsgVM.inventionMans[i],'picUrl',ImgUrl);
+                                    Vue.set(ptMsgVM.inventionMans[i],'postcardPath',data.data.filePath);
+                                },
+                                'onFallback':function () {
+                                    layer.msg('请安装或升级更高版本的Flash插件');
+                                },
+                                'onError' : function (file, data, response) {
+                                    debugger;
+                                }
+                            })
+                        })
+                    }else{
+                        $(".addSfz").map(function (i,t) {
+                            $(t).uploadifive({
+                                'auto' : true,
+                                'queueID' : 'file_upload_item_sfz'+i,
+                                'checkScript':'/upload/check',
+                                'uploadScript' : '/upload/profile',
+                                'buttonCursor':'hand',
+                                'buttonText':'',
+                                "buttonClass":"addFile",
+                                'width': 90,
+                                'method' : 'post',
+                                'fileSizeLimit ': 1024 * 1024 * 2,
+                                'fileType': '*.jpg;*.bmp;*.jpeg;*.png;*.gif',
+                                'progressData':'percentage',
+                                'formData':{
+                                    'orderId':patentData.data.orderDetail.orderId,
+                                    'stepType':nowNodes.data.stepnum,
+                                    'stepId':nowNodes.data.id,
+                                    'fType':"ft_5"
+                                },
+                                'onDrop':function(file, fileDropCount) {
+                                    debugger;
+                                },
+                                'onUploadComplete' : function(file, data, response) {
+                                    var data = JSON.parse(data),
+                                            ImgUrl = zgg.Vconfig.contractUrl +  data.data.filePath;
+                                    Vue.set(ptMsgVM.applyMans[i],'picUrl',ImgUrl);
+                                    //区分身份证和组织机构代码 idPath , licencePath
+                                    Vue.set(ptMsgVM.applyMans[i],'licencePath',data.data.filePath);
+                                    Vue.set(ptMsgVM.applyMans[i],'idPath',data.data.filePath);
+                                },
+                                'onCheck'  : function(file, exists) {
+                                    if (exists) {
+                                        layer.msg("您上传的文件格式或大小有误");
+                                        $(t).uploadifive('cancel', file)
+                                    }
+                                },
+                                'onError' : function (file, data, response) {
+                                    debugger;
+                                }
+                            })
+                        });
+                        //设计人身份证上传
+                        $(".addSjPic").map(function (i,t) {
+                            $(t).uploadifive({
+                                'auto' : true,
+                                'queueID' : 'file_upload_item_sjr'+i,
+                                'checkScript':'/upload/check',
+                                'uploadScript' : '/upload/profile',
+                                'buttonCursor':'hand',
+                                'buttonText':'',
+                                "buttonClass":"addFile",
+                                'width': 90,
+                                'fileSizeLimit ': 1024 * 1024 * 2,
+                                'fileType': '*.jpg;*.bmp;*.jpeg;*.png;*.gif',
+                                'method' : 'post',
+                                'progressData':'percentage',
+                                'formData':{
+                                    'orderId':patentData.data.orderDetail.orderId,
+                                    'stepType':nowNodes.data.stepnum,
+                                    'stepId':nowNodes.data.id,
+                                    'fType':"ft_5"
+                                },
+                                'onDrop':function(file, fileDropCount) {
+                                    debugger;
+                                },
+                                'onUploadComplete' : function(file, data, response) {
+                                    var data = JSON.parse(data),
+                                            ImgUrl = zgg.Vconfig.contractUrl +  data.data.filePath;
+                                    Vue.set(ptMsgVM.inventionMans[i],'picUrl',ImgUrl);
+                                    Vue.set(ptMsgVM.inventionMans[i],'postcardPath',data.data.filePath);
+                                },
+                                'onCheck'  : function(file, exists) {
+                                    if (exists) {
+                                        layer.msg("您上传的文件格式或大小有误");
+                                        $(t).uploadifive('cancel', file)
+                                    }
+                                },
+                                'onError' : function (file, data, response) {
+                                    debugger;
+                                }
+                            })
+                        })
+                    }
+                },1000);
+            },
+            validateForm:function (scope) {
+                this.$validator.validateAll(scope).then(function (result) {
+                    if(result){
+                         //保存专利
+                        ptMsgVM.isCheckFalg = true;
+                        ptMsgVM.attachmentText.map(function (item,index) {
+                            if(typeof item.picUrlNotH == "undefined"){
+                                ptMsgVM.isCheckFalg = false
+                            }
+                        })
+                        if(ptMsgVM.isCheckFalg){
+                            ptMsgVM.showLoading = true
+                            axios.post('/business/saveOrUpdatePatent',ptMsgVM.checkSubmitData()).then(
+                                    function (res) {
+                                        if(res.data.success){
+                                            layui.use('layer',function() {
+                                                layer.msg("提交成功！！！",{icon:1});
+                                                window.location.reload();
+                                            })
+                                        }
+                                    },
+                                    function(err){
+                                        console.log(err);
+                                    }
+                            )
+                        }
+                    }
+                })
+            },
+            checkSubmitData:function () {
+                //设置外观图片项
+                this.patentBaseinfo.elevation = this.attachmentText[0].picUrlNotH,
+                this.patentBaseinfo.backView = this.attachmentText[1].picUrlNotH,
+                this.patentBaseinfo.leftView = this.attachmentText[2].picUrlNotH,
+                this.patentBaseinfo.rightView = this.attachmentText[3].picUrlNotH,
+                this.patentBaseinfo.topView = this.attachmentText[4].picUrlNotH,
+                this.patentBaseinfo.upwardView = this.attachmentText[5].picUrlNotH,
+                this.patentBaseinfo.graphicModel = this.attachmentText[6].picUrlNotH
+                if(this.patentBaseinfo.bodyId == -10){
+                    this.patentBaseinfo.bodyId = "";
+                    this.patentBaseinfo.bodyType = "";
+                }
+                var submitData = {
+                    orderId:patentData.data.orderDetail.orderId,
+                    nextStep : true, //是否暂存
+                    ptType : "pt_ow",
+                    stepId : this.nowNodes.id,
+                    patentBaseinfo : this.patentBaseinfo,
+                    inventionMans : this.inventionMans,
+                    applyMans : this.applyMans,
+                }
+                if(this.patentBaseinfo.attachment=='app_pic'){
+                    //外观专利 App界面状态图
+                    submitData.patentInfoExtends = this.patentInfoExtends;
+                }
+                return submitData;
+            },
+            addPantentInfo:function () {
+                this.patentInfoExtends.push({
+                    orderId:patentData.data.orderDetail.orderId,
+                    picPath:""
+                })
+                this.setPtUploadInit();
+            },
+            prev:function() {
+                debugger;
+                if(this.ml>=200){
+                    this.ml -= 200;
+                }
+            },
+            next:function(){
+                debugger;
+              if(this.ml<= this.patentInfoExtends.length*200){
+                  this.ml += 200;
+              }
+            },
+            getGwInfo:function () {
+                axios.get('/userCenter/userCounselorByPcode/'+patentData.data.orderDetail.pcode).then(
+                        function (res) {
+                            if(res){
+                                ptMsgVM.adviser = res.data;
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                )
+            },
+            page:function () {
+                $.post('/userCenter/homeOrderPage',{pageNo:ptMsgVM.currentPage,pageSize:5},function (res) {
+                    if(res.data && res.success){
+                        ptMsgVM.odataList = res.data.list;
+                    }
+                })
+            },
+            setApplyDate:function (t,$e) {
+                layui.laydate({elem: $e.currentTarget, istime: false, format: 'YYYY-MM-DD',choose:function(datas) {ptMsgVM.patentBaseinfo.priorApplyDate = datas;}})
+            }
+        },
+    });
+    ptMsgVM.$watch('patentBaseinfo.attachment',function (n,o) {
+        //设置为APP类型加载附件设置
+        if(n=='app_pic'){
+            ptMsgVM.setPtUploadInit();
+        }
+        ptMsgVM.attachmentText.map(function (item) {
+            item.picUrl = '';
+            item.postcardPath = "";
+        })
+    })
+    layui.use('laydate', function() {
+        var laydate = layui.laydate,$ = layui.jquery, layer = layui.layer;
+    });
+    layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+                ,layer = layui.layer;
+        laypage({
+            cont: 'demo4',
+            curr: odata.totalPage,
+            pages: Math.ceil(parseInt(odata.data.totalCount)/5),
+            first: false,
+            last: false,
+            jump: function (e) {
+                ptMsgVM.currentPage = e.curr;
+                ptMsgVM.page();
+            }
+        });
+    });
+</script>

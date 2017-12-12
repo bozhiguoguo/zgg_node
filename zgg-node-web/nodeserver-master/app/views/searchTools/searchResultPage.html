@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>搜过结果页面</title>
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/searchResultPage.css"/>
+    <style>
+        /*@media screen and (min-height: 768px) {*/
+            /*.footer {*/
+                /*position: absolute;*/
+                /*bottom: 0;*/
+            /*}*/
+        /*}*/
+    </style>
+    <script type="text/javascript" src="/js/tingyun-rum.js"></script>
+</head>
+<body>
+<!--头部-->
+<div id="header_t"></div>
+
+<div class="search-page" id="search_trdata" v-cloak>
+    <p class="f_r">您查询的"<span class="text-info-lter">${keyWords}</span>",共查出 <span v-if="!totalcount" v-html="">0</span> ${totalcount}条</p>
+    <table v-if="items.length>0" class="search-info">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>商标图案</th>
+            <th>注册号</th>
+            <th>类别</th>
+            <th>商标名称</th>
+            <th>申请人</th>
+            <th>详情</th>
+        </tr>
+        </thead>
+        <tbody v-for="(item, index) in items">
+        <tr>
+            <td>${ ((currentPage-1)*10)+(index+1) }</td>
+            <td><img :src="item.tmurl" alt="商标图片" width="120" height="60" /></td>
+            <td>${item.regno}</td>
+            <td>${item.tmtype}</td>
+            <td>${item.brandname}</td>
+            <td>${item.tmapplicant}</td>
+            <td><a  class="search-detail" v-on:click="openDetail(item.regno,item.tmtype)">查看详情</a></td>
+            <!--<td><a  class="search-detail":href="'/search/searchTRDetail/'+item.regno+'/'+item.tmtype.substr(0,2)">查看详情</a></td>-->
+        </tr>
+        </tbody>
+    </table>
+    <div v-if="items.length==0" style="height: 500px;text-align: center;font-size: 40px;line-height: 300px;">
+        未查询到结果
+    </div>
+    <div id="demo7" class="page"></div>
+
+</div>
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/lib/layui/layui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script  type="text/javascript">
+
+    var trData = {{{ trData }}}, keyWords = "{{{ keyWords}}}";
+
+    if(trData.inforegnolist.length <= 8 ){
+        setTimeout(function(){
+            var footer = document.querySelector('.footer');
+            footer.style.position = "absolute";
+            footer.style.bottom = 0 + 'px';
+            console.log(footer)
+        },0);
+    }
+
+    var searchTRVM = new Vue({
+        delimiters: ["${", "}"],
+        el: "#search_trdata",
+        data: {
+            items: trData.inforegnolist,
+            currentPage:1,
+            totalcount:trData.totalcount,
+            keyWords:keyWords
+        },
+        methods:{
+            page:function () {
+                $.post('/search/searchToJson',{"page":searchTRVM.currentPage,"regno":keyWords},function (res) {
+                    if(res.data && res.success){
+                        searchTRVM.items = res.data.inforegnolist;
+                    }
+                })
+            },
+            openDetail:function (regno,tmtype) {
+//                alert(regno);
+//                alert(tmtype.substr(0,2));
+                /*$.get('/search/searchTRDetail',{"tr_regno":regno,"tmtype":tmtype.substr(0,2)},function (res) {
+
+                 })*/
+                window.location.href = '/search/searchTRDetail/'+regno+'/'+tmtype.substr(0,2);
+            }
+        }
+    });
+    layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+            ,layer = layui.layer;
+        laypage({
+            cont: 'demo7',
+            curr: trData.page,
+            pages: trData.totalpages,
+            skip: true,
+            jump: function (e) {
+                searchTRVM.currentPage = e.curr;
+                searchTRVM.page();
+            }
+    });
+    });
+    var searchPage = document.getElementById('search_trdata');
+    searchPage.style.minHeight = (document.documentElement.clientHeight || document.body.clientHeight-55-52-151)+"px";
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<link rel="stylesheet" type="text/css" href="/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/css/productDetail.css">
+<script type="text/javascript" src="/js/productDetail.js"></script>
+<script type="text/javascript" src="/js/funParabola.js"></script>
+<style>
+    .layui-form-item {
+        margin-bottom: 0px;
+    }
+</style>
+<script type="text/javascript">
+    var pData = {{{ pData}}},
+        adviser = {{{ adviser }}};
+</script>
+<div class="prodCon" id="product">
+    <div class="prodNav">
+        <ul>
+            <li><a href="/">首页</a><span>></span></li>
+            <li v-if="product.pcode.indexOf('ht')==-1">
+                <a v-if="product.pcode.indexOf('tr_')!=-1" href="/category/trademark" target="_blank">商标服务</a>
+                <a v-if="product.pcode.indexOf('cr_')!=-1" href="/category/copyright" target="_blank">版权服务</a>
+                <a v-if="product.pcode.indexOf('pt_')!=-1" href="/category/patent" target="_blank">专利服务</a>
+                <!--    <a v-if="product.pcode.indexOf('ht')!=-1" href="/category/trademark" target="_blank">高新服务</a>-->
+                <span> ></span>
+            </li>
+            <li v-html="product.pname"></li>
+        </ul>
+    </div>
+    <div class="prodInfo">
+        <form class="layui-form">
+            <div class="prodInfo_fl">
+                <div class="prodTit">
+                    <h1 v-html="product.pname"></h1>
+                    <p class="tradmerk" v-if="product.pcode == 'tr_reg_11'">
+                        <span>网上申报</span>
+                        <span>全流程保障</span>
+                        <span>税费全免</span>
+                    </p>
+                    <span v-if="product.updownState==1" style="background: #a7a5a5;">商品已下架</span>
+                    <!--<span>网上申报</span>
+                    <span>全流程保障</span>-->
+                </div>
+                <div class="clear"></div>
+                <h3 v-html="product.info"></h3>
+                <div class="prodPrice" style="position: relative;">
+                    <p style="margin-left: 10px;font-size:12px;color: #979797;line-height:56px;">价格：<p>
+                    <!--<span></span>-->
+                    <span style="font-size:28px;">
+                        <span style="font-size:18px;">￥</span>${(otherPirce+countPrice).toFixed(2)}
+                    </span>
+                    <p v-if="product.pcode == 'tr_reg_11'"><img src="/img/tehui2.png" alt=""></p>
+                    <!--<div class="proUp">
+                        <img src="/img/updown.png"/>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="proOfficer">
+                        <div class="proMon">
+                            <dl>
+                                <dt>官费</dt>
+                                <dd>￥${(product.publicexp+otherPirce).toFixed(2)}</dd>
+                            </dl>
+                            <dl>
+                                <dt>服务费</dt>
+                                <dd>￥${(product.serveexp).toFixed(2)}</dd>
+                            </dl>
+                            <dl v-if="product.taxation !=0">
+                                <dt>税费</dt>
+                                <dd>￥${((product.publicexp+product.serveexp)*((product.taxation/100)*10)/10).toFixed(2)}</dd>
+                            </dl>
+                        </div>
+                    </div>-->
+                    <p style="margin-left: 10px;color: #979797;font-size:12px;line-height:56px;" v-if="product.pcode == 'tr_reg_11'">原价：<p>
+                    <span style="color:#727f8f;font-size:16px;line-height:56px;font-weight: 500;position: relative;"
+                          v-if="product.pcode == 'tr_reg_11'">￥${otherPirce+countPrice+18}
+                        <span style="width:30px;height: 1px;background: #727f8f;position: absolute;top: 27px;left: 14px;transform:rotate(-12deg);"></span>
+                    </span>
+                </div>
+                <div class="clear"></div>
+                <div class="prodService layui-form-item" v-for="item in product.feeChargedTypes" >
+                    <p><span  v-html="item.feeChargedTypename"></span>：</p>
+                    <ul v-if="item.cssId == 1">
+                        <li v-for= "feeChargeds in item.feeChargeds"  v-bind:class="{'prodCheck':feeChargeds.isChecked}" v-on:click="setChecked(item.feeChargeds,feeChargeds)">
+                            <span v-html="feeChargeds.feeChargedName"></span>
+                        </li>
+                    </ul>
+                    <div v-if="item.cssId == 2" class="layui-input-inline">
+                        <select lay-filter="selected">
+                            <option value="">请选附加商品</option>
+                            <option v-for="feeChargeds in item.feeChargeds" v-bind:value="feeChargeds.id">${ feeChargeds.feeChargedName }
+                            </option>
+                        </select>
+                    </div>
+                    <ul v-if="item.cssId == 3">
+                        <li  v-for="feeChargeds in item.feeChargeds" style="border: 0px; margin-left: 0px; padding:0px">
+                            <div class="prodS1"><input type="text"  v-model="feeChargeds.freeNum" @blur="selectFreeNum($event)" disabled></div>
+                            <div class="prodS2">
+                                <span><input type="button" value="+" v-on:click="editItem(feeChargeds,'add')"></span>
+                                <span style="margin-top:3px;"><input type="button" value='-'v-on:click="editItem(feeChargeds,'subtract')" ></span>
+                            </div>
+                            <div v-show="(feeChargeds.freeNum-feeChargeds.minBuyNum)==0" class="layui-form-mid layui-word-aux m-l-lg">最小购买数量为<span class="text-danger" v-html="feeChargeds.minBuyNum"></span></div>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="prodList">
+                    <div class="prodSmall" style="float:left">
+                        <p style="width:auto; text-align:right;margin-right:9px;">购买数量：</p>
+                        <div class="prodS1"><input type="text" v-model='num' v-on:blur="num=(parseInt(num)<1||isNaN(parseInt(num)))?1:num=parseInt(num)"></div>
+                        <div class="prodS2">
+                            <span><input class="min" type="button" value='+' v-on:click="addNum('add')"/></span>
+                            <span style="margin-top:3px;"><input class="add" type="button" value='-'  v-on:click="addNum('subtract')"/></span>
+                        </div>
+                        <div class="prodS3">项</div>
+                    </div>
+                    <div class="prodCount">
+                        <div class="prodSin">
+                            <p>已选清单</p>
+                            <span><img src="/img/updown.png"/></span>
+                        </div>
+                        <div class="prodDet">
+                            <table>
+                                <tr>
+                                    <td>商&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;品：</td>
+                                    <td v-html="product.pname"></td>
+                                    <td><strong v-html="num"></strong>件</td>
+                                </tr>
+                                <tr v-if="tempTypeStr">
+                                    <td>增值服务：</td>
+                                    <td><span v-html="tempTypeStr"></span></td>
+                                </tr>
+                                <tr v-if="minItem>0">
+                                    <td>商标小项：</td>
+                                    <td><strong>${minItem}</strong>项</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="prodPayment">
+                    <ul>
+                        <li v-if="product.updownState==2" @click="addCart('/cart/add',$event)"  class="btnCart">加入购物车</li>
+                        <li v-if="product.updownState==2" @click="addCart('/order/buyNow',$event)" class="prodPay">立即购买</li>
+                        <li v-if="product.updownState==1"  class="btnCart_miss">加入购物车</li>
+                        <li v-if="product.updownState==1" class="btnCart_miss">立即购买</li>
+                    </ul>
+                </div>
+                <div id="flyItem" class="fly_item" style="visibility:hidden">
+                    <img v-bind:src="ImgUrl+product.picsSmall" width="50" height="50"/>
+                </div>
+            </div>
+        </form>
+        <div class="prodInfo_ce">
+            <div class="prodPic"><img v-bind:src="ImgUrl+product.pics" width="357" height="243"/></div>
+            {{#session}}
+            {{#if user}}
+            <div class="prodCustomer" v-if="adviser">
+                <div class="prodImg"><img :src="adviser.headPic?gwPicUrl+adviser.headPic:'/img/adviser_head.png'"/></div>
+                <div class="prodCus">
+                    <p><span class="prodNam" v-html="adviser.nickname"></span><span></span></p>
+                    <div class="clear"></div>
+                    <p v-html="adviser.tel"></p>
+                    <a :href="'/webim/webimAdv/'+adviser.imtokenId+'/'+adviser.nickname" target="_blank"><p class="prodCons" >立即咨询</p></a>
+                </div>
+            </div>
+            {{/if}}
+            {{/session}}
+            <div class="c_b"></div>
+        </div>
+        <div class="prodInfo_fr">
+            {{#pRecommend}}
+            <dl>
+                <dt><a href="/product/productDetail/{{id}}" target="_blank"><img class="p-adside-img" src="{{../config.ImgUrl}}{{pics}}" width="226"></a></dt>
+                <dd class="text-center-xs">
+                    <h4>{{pname}}</h4>
+                    <p>¥{{priceTax}}/件</p>
+                </dd>
+            </dl>
+            {{/pRecommend}}
+        </div>
+    </div>
+    <div class="prodDetails">
+        <div class="prodDetails_con">
+            <div class="prodDetails_left">
+                <div class="prodDetails_nav">
+                    <ul>
+                        {{#pDesc}}
+                        <li class="active_{{@index}}">{{name}}</li>
+                        {{/pDesc}}
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="prodDetails_Content">
+                    <div class="prodDetails_Div">
+                        <div class="prodDetails_Int">
+                            <div class="prodDetails_Explain">
+                                {{#pDesc}}
+                                <div class="active_{{@index}}">
+                                    {{{descPc}}}
+                                </div>
+                                {{/pDesc}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="prodDetails_right">
+                <h3>热门服务</h3>
+                {{#pHotRecommend}}
+                <dl>
+                    <dt><a href="/product/productDetail/{{id}}" target="_blank"><img class="p-adside-img" src="{{../config.ImgUrl}}{{pics}}" width="226"></a></dt>
+                    <dd class="text-center-xs">
+                        <h4>{{pname}}</h4>
+                        <p>¥{{priceTax}}/件</p>
+                    </dd>
+                </dl>
+                {{/pHotRecommend}}
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+{{#eq pcode 'tr_reg_12'}}
+<script type="text/javascript" src="/js/product_gs.js"></script>
+{{/eq}}
+{{#eq pcode 'tr_reg_13'}}
+<script type="text/javascript" src="/js/product_gs.js"></script>
+{{/eq}}
+{{#eq pcode 'tr_reg_8'}}
+<script type="text/javascript" src="/js/product_gb.js"></script>
+{{/eq}}
+{{#eq pcode 'tr_reg_11'}}
+<script type="text/javascript" src="/js/product_gy.js"></script>
+{{/eq}}
+<script>
+    $(window).blur(function(){
+        //your code here
+        $.ajax({
+            type: "GET",
+            url: "/user/getCartNun?" + new Date().getTime(),
+            success: function(data) {
+                $("#cart_nums").text(data.data);
+            }
+        });
+    });
+    $(window).focus(function(){
+        //your code here
+        $.ajax({
+            type: "GET",
+            url: "/user/getCartNun?" + new Date().getTime(),
+            success: function(data) {
+                $("#cart_nums").text(data.data);
+            }
+        });
+    });
+</script>

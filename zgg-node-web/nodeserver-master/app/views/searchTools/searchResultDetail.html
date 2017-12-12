@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>搜过结果详情页面</title>
+    <link rel="stylesheet" href="/css/searchResultDetail.css"/>
+    <script type="text/javascript" src="/js/tingyun-rum.js"></script>
+</head>
+<body>
+<!--头部-->
+<!--<div id="header_t">-->
+    <!--<button>返回</button>-->
+<!--</div>-->
+
+<div class="seachDetail" id="tr_detail">
+    <!--基本信息-->
+    <div class="seachDetail-information">
+        <!--左侧-->
+        <div class="information-left pad20">
+            <p class="title"><span class="title-span">商标基本信息</span></p>
+            <div class="information-content">
+                <ul class="information-content-left line-h28">
+                    <li><span class="mr5">注册号：</span>${item.baseinfo.regno}</li>
+                    <li><span class="mr5">类别：</span><i>${item.baseinfo.intcls}</li>
+                    <li><span class="mr5">申请日期：</span>${item.baseinfo.appdate}</li>
+                    <li><span class="mr5">注册日期：</span>${item.baseinfo.regdate}</li>
+                    <li><span mr5>首次使用商标地点：</span>${item.baseinfo.tmaddress}</li>
+                    <li><span class="mr5">商标实际使用时间：</span>${item.baseinfo.regdate}</li>
+                </ul>
+                <div class="information-content-right">
+                    <img :src="item.filepath" alt=""/>
+                </div>
+            </div>
+        </div>
+        <!--右侧-->
+        <div class="information-right pad20">
+            <p class="title"><span class="title-span">申请人基本信息</span></p>
+            <div class="m-b10"><span>中文名称：</span><i>${item.baseinfo.tmapplicant}</i></div>
+            <div><span>英文名称：</span><i>${item.baseinfo.tmen}</i></div>
+            <div class="information-right-b">
+                <div class="m-b10"><span>中文地址：</span><i>${item.baseinfo.tmaddress}</i></div>
+                <div class="information-right-en"><span>英文地址：</span><i>无</i></div>
+            </div>
+        </div>
+    </div>
+
+    <!--注册信息-->
+    <div class="registerInfo m-top40">
+        <!--左侧-->
+        <div class="registerInfo-left pad20">
+            <p class="title"><span class="title-span">商标注册信息</span></p>
+            <div class="registerInfo-left-info">
+                <ul class="line-h28">
+                    <li><span class="mr5 color72">初审公告期号：</span>${item.reginfo.trialnum}</li>
+                    <li><span class="mr5 color72">初审公告日期：</span>${item.reginfo.trialdate}</li>
+                    <li><span class="mr5 color72">专用权时间：</span>${item.reginfo.validdate}</li>
+                </ul>
+                <ul class="line-h28">
+                    <li><span class="mr5 color72">注册公告号：</span>${item.reginfo.regnum}</li>
+                    <li><span class="mr5 color72">注册公告日期：</span>${item.baseinfo.regdate}</li>
+                    <li><span class="mr5 color72">有效年限：</span>${item.reginfo.validdate}</li>
+                </ul>
+                <ul class="line-h28">
+                    <li><span class="mr5 color72">商标类型：</span>${item.reginfo.tmtype}</li>
+                    <li><span class="mr5 color72">是否共有商标：</span>${item.reginfo.istotal}</li>
+                    <li><span class="mr5 color72">商标状态：</span>${item.reginfo.tmstatus}</li>
+                </ul>
+            </div>
+        </div>
+        <!--右侧-->
+        <div class="registerInfo-right pad20">
+            <p class="title"><span class="title-span">代理机构信息</span></p>
+            <p><span class="color72">代理人名称：</span><i>${item.baseinfo.tmagent }</i></p>
+        </div>
+    </div>
+
+    <!--使用项目信息-->
+    <div class="projectInfo m-top40 pad20">
+        <p class="title"><span class="title-span">使用项目信息</span></p>
+        <table class="projectInfo-table">
+            <thead>
+            <tr class="color72">
+                <th>商品 / 服务列表</th>
+                <th>涉及群组</th>
+                <th>未涉及群组</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td width="40%"><p style="padding-left:10px;" v-for="key in item.iteminfo.busserverlist">${key}</p></td>
+                <td width="30%"><p style="padding-left:10px;" v-for="key in item.iteminfo.refergroup">${key}</p> </td>
+                <td width="30%"><p style="padding-left:10px;" v-for="key in item.iteminfo.unrefergroup">${key}</p></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--使用项目状态-->
+    <div class="projectStates m-top40 pad20">
+        <p class="title"><span class="title-span">使用项目状态</span></p>
+        <table class="projectStates-table">
+            <thead>
+            <tr class="color72">
+                <th>进度</th>
+                <th>时间</th>
+            </tr>
+            </thead>
+            <tbody v-for="flowinfo in item.flowinfo">
+            <tr>
+                <td>${flowinfo.flowname}</td>
+                <td>${flowinfo.flowdate}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var trDetail = {{{ trInfo }}};
+    console.log(trDetail);
+    var trDetailVM = new Vue({
+        delimiters: ["${", "}"],
+        el: "#tr_detail",
+        data: {
+            item: trDetail
+        }
+    });
+</script>
+</body>
+</html>

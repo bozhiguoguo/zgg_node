@@ -1,0 +1,82 @@
+.personCenter_all{
+
+    min-height: 450px;
+}
+.adviser_name{
+    width: 442px;
+    height: 235px;
+    border:1px solid #50aaba;
+    border-left-width:3px;
+    border-radius: 3px;
+    float: left;
+    margin-top:30px;
+    background: url("../img/versier_bg.png") no-repeat center;
+}
+
+.advister_left{
+    margin-left:30px;
+    margin-right:30px;
+}
+
+.adviser_info{
+    float: left;
+    margin-left:20px;
+    margin-top:20px;
+}
+
+.adviser_info dl dt{
+    float: left;
+    margin-right:15px;
+}
+
+
+.adviser_info dl dd{
+    float: left;
+    /*width:80px;*/
+    margin-top:4px;
+}
+
+.adviser_info dl dd p{
+    font-size:12px;
+    color:#727f8f;
+    margin-top:7px;
+}
+
+.adviser_info dl dd p.adviser_num{
+    font-size:14px;
+    color:#2a2a2a;
+}
+
+.adviser_contact{
+    margin-top:65px;
+}
+
+.adviser_contact p{
+    min-width:210px;
+    line-height: 24px;
+    color: #727f8f;
+    font-size:14px;
+}
+
+.adviser_zx{
+    float: right;
+    margin-right:30px;
+    margin-top:20px;
+}
+
+.adviser_lj{
+    width: 102px;
+    height:33px;
+    background: #50aaba;
+    font-size:14px;
+    color:#fff;
+    border-radius: 3px;
+    line-height: 33px;
+    margin-top:55px;
+    cursor: pointer;
+}
+
+.adviser_lj img{
+    margin-right:4px;
+    margin-left:10px;
+}

@@ -1,0 +1,153 @@
+*,html,dl,dt,dd{
+    padding:0;
+    margin:0;
+}
+
+.app_html{
+    width: 1200px;
+    margin:0 auto;
+    background: #fff;
+    border:1px solid transparent;
+}
+
+.app_html h2{
+    font-size: 24px;
+    font-weight: 500;
+    color: #2a2a2a;
+    margin:42px auto 0;
+    width: 234px;
+    height: 33px;
+}
+
+.app_html h3{
+    width: 1112px;
+    height: 60px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #2a2a2a;
+    margin:33px auto 0;
+}
+
+.app_con{
+    width:1112px;
+    margin:0 auto;
+}
+
+.app_info{
+    margin-top:10px;
+}
+
+.app_info p{
+    font-size: 14px;
+    color: #2a2a2a;
+    line-height: 24px;
+}
+
+.app_con h4{
+    font-size: 18px;
+    font-weight: 500;
+    color: #2a2a2a;
+    margin-top:30px;
+}
+
+.app_box{
+    width: 1100px;
+    height: 413px;
+    background-color: #f9f8f4;
+    border: solid 1px #e9e7df;
+    /*margin-top:10px;
+    padding-top:10px;*/
+}
+
+.app_box dl{
+    float: left;
+    width:217px;
+    /*height:160px;*/
+    margin-left:36px;
+    margin-top:15px;
+}
+
+.app_box dl dt{
+    width:217px;
+}
+
+.app_box dl dd{
+    font-size: 18px;
+    text-align: center;
+    color: #2a2a2a;
+    margin-top:10px;
+}
+
+.threeD_box dl{
+    margin-left:43px;
+}
+
+.threeD_box dl dt{
+    width:224px;
+    height: 129px;
+  }
+
+.three_box dl{
+    width: 141px;
+    height: 200px;
+    margin-left:14px;
+}
+
+.software_box dl{
+    width:200px;
+    margin-left:15px;
+    margin-top:20px;
+}
+
+.software_box dl dt{
+    width:200px;
+    height:157px;
+
+}
+
+.software_dl dl{
+    width:224px;
+    margin-left:39px;
+}
+
+
+.software_dl dl dt{
+    width:224px;
+    height: 148px;
+}
+
+.line_box dl{
+    width: 548px;
+    margin-left:0;
+    border-right:1px solid #e8e6df;
+    height: 262px;
+}
+
+.line_box dl dt{
+    width:277px;
+    height: 256px;
+    margin:15px auto;
+}
+
+.line_div{
+    margin:15px 0 20px 0;
+}
+
+.line_div dl{
+    width:198px;
+    margin:27px 0 0 15px;
+}
+
+.photo_div dl{
+    width:141px;
+    margin-left:14px;
+}
+
+.photo_div{
+    margin:15px 0 20px 0;
+}
+
+.photo_div dl dt{
+    width:141px;
+    height: 180px;
+}

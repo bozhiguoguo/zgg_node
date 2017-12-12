@@ -1,0 +1,198 @@
+<style>
+    .productClassify{
+        margin-top: 0;
+    }
+   /* .productClassifyBox .productClassify:nth-child(1){
+        left: 60px;
+    }
+    .productClassifyBox .productClassify:nth-child(2){
+        left: 85px;
+    }
+    .productClassifyBox .productClassify:nth-child(3){
+        left: 110px;
+    }*/
+    .busBtn > a{
+        color: #a34a51;
+    }
+</style>
+
+<div class="ad channelPage">
+    <div class="copyright_banner"></div>
+  <!--  <div class="ad-b">
+        <div class="ad-num">
+            <p class="f_l"><span class="dis_b" style="margin-left:41px; ">累计办理</span><span class="ad-num-span counter"
+                                                                                           data-counter-time="1000"
+                                                                                           data-counter-delay="20">75,454,121</span>件
+            </p>
+            <p class="f_l"><span class="dis_b" style="margin: 0 auto;">累计服务用户</span><span class="ad-num-span counter"
+                                                                                          data-counter-time="1000"
+                                                                                          data-counter-delay="20">454,121</span>个
+            </p>
+            <ul class="ad-list">
+                <li>135****1552办理国内加急商标注册</li>
+                <li>185****1342办理国内加急商标注册</li>
+            </ul>
+        </div>
+    </div>-->
+</div>
+<div class="trademark-serve-box tradmark-new-box">
+    <div class="trademark-serve channelH3">
+        <h3>版权服务指南</h3>
+<!--        <h5 class="copyrightSmTitle">
+            常见版权类型
+        </h5>-->
+        <div class="picWraper">
+            <img src="../img/meishu.png"
+                 srcset="../img/pic-channel-copyright-art@2x.png 2x,
+					 ../img/pic-channel-copyright-art@3x.png 3x"
+                 class="pic-channel-copyright-art">
+            <img src="../img/wenzi.png"
+                 srcset="../img/pic-channel-copyright-character@2x.png 2x,
+					 ../img/pic-channel-copyright-character@3x.png 3x"
+                 class="pic-channel-copyright-character">
+            <img src="../img/ruanjian.png"
+                 srcset="../mg/pic-channel-copyright-software@2x.png 2x,
+					 ../img/pic-channel-copyright-software@3x.png 3x"
+                 class="pic-channel-copyright-software">
+            <img src="../img/qita.png"
+                 srcset="../img/pic-channel-copyright-others@2x.png 2x,
+					 ../img/pic-channel-copyright-others@3x.png 3x"
+                 class="pic-channel-copyright-others" style="margin-right:0;">
+        </div>
+
+        <!--<dl class="titleDesc">
+            <dt class=""><img src="/img/icon_channel_copyright_urgent.png" class="icon-channel-copyright-urgent"></dt>
+            <dd class="">
+                <h6>可加急</h6>
+                <p>受理后2个工作日登记成功</p>
+            </dd>
+        </dl>-->
+    </div>
+
+</div>
+<div class="c_b"></div>
+<div class="productBox2 t-productBox3 copyrightService">
+    <div class="productTop trademark-productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader channelHeader tradmerkContent">
+                <h3>版权服务</h3>
+                <p>申请版权保护，做天下文章</p>
+            </div>
+            <div class="productClassifyBox copyright_bg">
+                {{#oData.HotCrChiannel.data.list}}
+                    <div class="productClassify productClassify{{@index}} t-product3 channelBg">
+                        <div class="t-product3-h channelInfo">{{pname}}<p class="busNum channelPrice">¥{{priceTax}}.00&nbsp;<span>/&nbsp; 件</span></p></p></div>
+                        <div class="busBtn channelBtn"><a href="/product/productDetail/{{id}}"><!--<img src="../img/icon_tmchannel_shaoppingcart.png" alt="">-->查看详情</a></div>
+                    </div>
+                {{/oData.HotCrChiannel.data.list}}
+                <!--<div class="productClassify productClassify2 t-product1">
+                    <h4>国内加急商标注册<p class="busNum">¥800.00&nbsp;<span>/&nbsp; 件</span></p></p></h4>
+                    <ul class="busInt">
+                        <li>材料齐全 24h提交</li>
+                        <li class="li_c">无需文件回寄</li>
+                        <li class="li_c">优先处理 网上申报</li>
+                        <li class="li_c">售后跟踪</li>
+                        <li class="li_c">不通过全退款</li>
+                    </ul>
+                    <div class="busBtn"><img src="../img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="trademark-much trademark-ques">
+    <div  class="trademark-much-top">
+        <h3>常见问题</h3>
+    </div>
+    <ul class="quesNav">
+        <li class="quesNavShow Arts" onclick="TabChanges('ArtsCon','Arts')">美术著作权</li>
+        <li class="Software" onclick="TabChanges('SoftwareCon','Software')">软件著作权</li>
+        <li class="words" onclick="TabChanges('wordsCon','words')">文字著作权</li>
+    </ul>
+    <div class="quesMsgBox channelQuestion">
+        <div class="quesMsg channelIscor">
+            <div class="quesMsges ArtsCon" style="display: block">
+                <div class="quesMsges-msg">美术著作权是企业的信誉、竞争力强弱的象征；<br> 美术著作权受到法律的保护，杜绝恶意抄袭、模仿近似商品进入市场，影响企业收益；<br> 转让、授权商标，可以更好的提升无形资产的价值。</div>
+                <div class="quesMsges-case">
+                    <h5>成功案例:</h5>
+                    <a href=""><img src="/img/pic-channel-copyright-example-1-copy.png" alt=""></a>
+                    <a href=""><img src="/img/pic-channel-copyright-example-2-copy.png" alt=""></a>
+                    <a href=""><img src="/img/pic-channel-copyright-example-3-copy.png" alt=""></a>
+                </div>
+            </div>
+            <div class="quesMsges SoftwareCon">
+                <dl>
+                    <dt>什么是计算机软件？</dt>
+                    <dd>
+                        <span>计算机软件是指计算机程序及其有关文档。计算机程序是指能实现一定功能的代码化指令序列，或者符号化语句序列。文档指用来描述程序的内容、组成、设计、功能规格、开发情况、测试结果及使用方法的文字资料和图表，如程序设计说明书、流程图、用户手册等。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>软件著作权保护期限是多长？</dt>
+                    <dd>
+                        <span>自然人的软件著作权，保护期为自然人终生及其死亡后50年；软件是合作开发的，截止于最后死亡的自然人死亡后第50年的12月31日。法人或者其他组织的软件著作权，保护期为软件发表之后50年，但软件自开发完成之日起50年内未发表的，不再保护。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>哪些人可以成为软件著作权人？</dt>
+                    <dd>
+                        <span>独立开发完成软件的自然人、法人或其他组织以及通过合同约定、继承、受让或者承受软件著作权的自然人、法人或者其他组织都可以成为著作权人。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>软件著作权可以保护软件的思想、算法和技术方案吗？</dt>
+                    <dd>
+                        <span>软件著作权保护的范围是程序及其技术文档的表达，即保护语句序列或指令序列的表达以及有关软件的文字说明表达，而不延及开发软件所用的思想、处理过程、操作方法或者数学概念等。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>进行计算机软件著作权登记有什么作用？</dt>
+                    <dd>
+                        <span>企业在登记软件著作权后，会获得软件著作权登记证书，该证书是企业在进入应用市场、招投标、参加展会、融资、许可等经济活动中证明软件所有权的权威证明。并且在企业申报项目、高新认定、财税加计扣除过程中，具有不可替代的作用。</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="quesMsges wordsCon">
+                <dl>
+                    <dt>哪些作品可以获得版权保护？</dt>
+                    <dd>
+                        <span>我国著作权法第三条规定的各类作品均可申请登记。包括：文字作品；口述作品；音乐、 戏剧、 曲艺、舞蹈、杂技艺术作品；美术、建筑作品；摄影作品；电影作品和以类似摄制电影的方法创作的作品；工程设计图、产品设计图、地图、示意图等图形作品和模型作品；计算机软件；法律、行政法规规定的其它作品。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>哪些作品不能申请登记？</dt>
+                    <dd>
+                        <span>(1)依法禁止出版、传播的作品；</span>
+                        <span>(2)法律、法规、国家机关的决议、决定、命令和其他具有立法、行政、司法性质的文件，及其官方正式译文；</span>
+                        <span>(3)时事新闻；</span>
+                        <span>(4)历法、通用数表、通用表格和公式；</span>
+                        <span>(5)超过保护期限的作品。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>版权与商标的区别？</dt>
+                    <dd>
+                        <span>版权与商标是知识产权的两个重要组成部分，从所保护范围和申请保护的意义上来看，二者有相同也有不同。</span>
+                        <span>版权所保护的是以各种形式创作出来的文学、艺术和自然科学、社会科学、工程技术等作品，其中最常见的就是文字作品、美术作品、摄影作品、工程设计图、产品设计图、计算机软件的源程序等等。而商标权所保护的主要是用于某种商品或服务上的标志性的图案或者文字，包括文字、图形、字母、数字、三维标志和颜色组合。由此可见，二者的构成元素有所重叠，版权除了保护文字或图案外，还保护其他作品类型；而商标仅限于图形或文字。</span>
+                        <span>版权保护虽不以必须登记为要件，但办理了版权登记的作品受法律保护的力度更大，保护效率更高；而商标不登记注册则不受法律保护（驰名商标除外）。</span>
+                        <span>由于商标申请注册的周期长，不确定因素较多，风险大，因此建议在商标设计时或商标办理注册申请时就申请做商标图案或文字的版权登记。这样的话，如果商标得以注册，则版权和商标构成双重保护，日后被撤销或无效的可能性大大降低；如果商标未得以注册，也可以基于在先申请登记的商标图案或文字的版权而对他人的相同或类似的商标提出异议、无效甚至撤销。因此版权与商标权的全方位知识产权保护对于企业来讲是非常有必要的。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>版权保护的费用是一次性费用么？后续有没有年费？</dt>
+                    <dd>
+                        <span>版权保护是一次性费用，后续没有年费。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>版权保护的期限是多久？</dt>
+                    <dd>
+                        <span>版权保护期限，个人自其作品创作完成之日起，至作者死后第50年的12月31日止。法人或其他组织作品自该作品发表之日起，到发表之日后第50年的12月31日止。作品始终没有发表的，自作品创作完成50年内为发表的，著作权法不再保护。</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/trademark.js"></script>

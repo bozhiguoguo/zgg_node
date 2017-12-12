@@ -1,0 +1,462 @@
+<script type="text/javascript" src="/js/swiper-3.3.1.js"></script>
+<style>
+    .swiper-pagination span.swiper-pagination-bullet{
+        width:10px;
+        height: 10px;
+    }
+    .swiper-pagination span.swiper-pagination-bullet-active{
+        background: #fff;
+    }
+</style>
+<div class="ad" style="position: relative;">
+
+    <!--<div class="ad-b">
+        <div class="ad-num">
+            <p class="f_l"><span class="dis_b">累计注册用户</span><span class="ad-num-span counter"
+                                                                  data-counter-time="1000"
+                                                                  data-counter-delay="20">75,454,121</span>
+            </p>
+            <p class="f_l"><span class="dis_b" style="margin: 0 auto;">累计服务用户</span><span class="ad-num-span counter"
+                                                                                          data-counter-time="1000"
+                                                                                          data-counter-delay="20">454,121</span>
+            </p>
+            <div class="ad-list">
+                <b>135****1552办理国内加急商标注册</b>
+                <b>185****1642办理普通外观设计专利</b>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="swiper-container">
+
+        <ul class="swiper-wrapper">
+            <!--<li class="swiper-slide">-->
+                <!--<a href="/special/getOpenActivity" target="_blank"><div class="banner_pic" style="background: url('/img/banner-5.jpg')  center" ></div></a>-->
+            <!--</li>-->
+            <!--<li class="swiper-slide">-->
+                <!--<a href="/special/coupon" target="_blank"><div class="banner_pic" style="background: url('/img/60-banner.jpg')  center" ></div></a>-->
+            <!--</li>-->
+            <li class="swiper-slide">
+                <div class="banner_pic" onclick="window.open('/product/productDetail/389')" style="cursor:pointer; background: url('/img/banner_413.png') center"></div>
+            </li>
+			<li class="swiper-slide">
+                <div class="banner_pic" onclick="window.location.href='/product/productDetail/390'" style="cursor:pointer; background: url('/img/8-banner.png') center;width: 100%;"></div>
+            </li>
+            <li class="swiper-slide">
+                <div class="banner_pic" onclick="window.location.href='/product/productDetail/382'" style="cursor:pointer; background: url('/img/7-banner.png') center"></div>
+            </li>
+            <li class="swiper-slide">
+                <div class="banner_pic" onclick="window.location.href='/category/trademark'" style="cursor:pointer; background: url('/img/5-banner.jpg')  center" ></div>
+            </li>
+            <!--<li class="swiper-slide">-->
+                <!--<a href="/category/trademark" target="_blank"><div class="banner_pic" style="background: url('/img/1-banner.jpg') center"></div></a>-->
+            <!--</li>-->
+            <li class="swiper-slide">
+                <div class="banner_pic" onclick="window.open('/category/patent')" style="cursor:pointer; background: url('/img/2-banner.jpg')  center" ></div>
+            </li>
+
+            <!--<li class="swiper-slide"> 318产品
+                <div class="banner_pic" onclick="window.open('/product/productDetail/306')" style="cursor:pointer; background: url('/img/3-banner.jpg') center"></div>
+            </li>-->
+            <!--<li class="swiper-slide">-->
+                <!--<a href="/product/productDetail/75"><div class="banner_pic" style="background: url('/img/4-banner.jpg') center"></div></a>-->
+            <!--</li>-->
+        </ul>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-pagination swiper-pagination-white"></div>
+    </div>
+
+   <!-- <div class="ad-b">-->
+        <!---->
+    <!--</div>-->
+</div>
+<div class="busBox">
+    <div class="bus">
+        <div class="busHeader">
+            <h3>热销产品</h3>
+            <p>一单是为了保障，两单是为了竞争，知识产权铸就你的辉煌</p>
+        </div>
+        <!--<div class="busClassify busClassify1">
+            <h4>国内加急商标注册</h4>
+            <p class="busInt">果保商标注册果保商标注册 果保商标注册果保商标注册</p>
+            <p class="busNum">¥800.00/件</p>
+            <div class="busBtn"><a href="product/productDetail"><img src="img/icon-home-shoppingcart-white.png" alt="">加入购物车</a></div>
+        </div>-->
+       <!--{{#hotProduct.list}}
+            <div class="busClassify busClassify{{@index}} indexRecommend">
+                <h4>{{pname}}<p class="busNum">¥{{price}}.00/件</p></h4>
+                <p class="busInt">{{trim info}}</p>
+                <div class="indexCon_info"><img src="/img/image-product-sale.png"></div>
+                <div class="indexCon_img">
+                    <h4>{{pname}}<p class="busNum">¥{{price}}.00/件</p></h4>
+                    <p class="busInt">{{trim info}}</p>
+                    <div class="busBtn"><a href="/product/productDetail/{{id}}"><img src="img/icon_tmchannel_shaoppingcart.png" alt="">加入购物车</a></div>
+                </div>
+
+            </div>
+        {{/hotProduct.list}}-->
+        {{#hotProduct.list}}
+            <div class="busClassify busClassify{{@index}} indexRecommend">
+                <h4><span>{{pname}}</span><p class="busNum">¥{{priceTax}}.00/件</p></h4>
+                <div class="indexCon_info indexCon_header">
+                    <img src="{{../config.ImgUrl}}{{pics}}"></div>
+                <div class="indexCon_img">
+                    <h4><span title="{{pname}}">{{pname}}</span><p class="busNum">¥{{priceTax}}.00/件</p></h4>
+                    <div class="indexCon_line"></div>
+                    <p class="busInt"  title="{{trim info}}">{{{trim info}}}</p>
+                    <div class="busBtn"><a href="/product/productDetail/{{id}}"><!--<img src="img/icon-tmchannel-shaoppingcart.png" alt="">-->查看详情</a></div>
+                </div>
+            </div>
+        {{/hotProduct.list}}
+
+        <!--<div class="busClassify busClassify2">
+            <h4>国内加急商标注册</h4>
+            <p class="busInt">果保商标注册果保商标注册 果保商标注册果保商标注册</p>
+            <p class="busNum">¥800.00/件</p>
+            <div class="busBtn"><img src="img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+        </div>
+        <div class="busClassify busClassify3">
+            <h4>国内加急商标注册</h4>
+            <p class="busInt">果保商标注册果保商标注册 果保商标注册果保商标注册</p>
+            <p class="busNum">¥800.00/件</p>
+            <div class="busBtn"><img src="img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+        </div>
+        <div class="busClassify busClassify4">
+            <h4>国内加急商标注册</h4>
+            <p class="busInt">果保商标注册果保商标注册 果保商标注册果保商标注册</p>
+            <p class="busNum">¥800.00/件</p>
+            <div class="busBtn"><img src="img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+        </div>-->
+    </div>
+</div>
+{{name}}
+<!--product-->
+<div class="productBox">
+    <div class="productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader">
+                <h3>商标服务</h3>
+                <p>当你需要与人竞争时，——您的商标保护了吗？</p>
+                <div class="productMore"><a href="/category/trademark">查看全部</a></div>
+                <!--<div class="productNum"><span>通过率</span><span class="productNumBig">98%</span></div>-->
+            </div>
+            <div class="productClassifyBox">
+                <!--<div class="productClassify productClassify1">
+                    <h4><img src="img/icon-product-t-m.png" alt="">国内加急商标注册</h4>
+                    <p class="busInt">果保商标注册果保商标注册 果保商标注册果保商标注册</p>
+                    <p class="busNum">¥800.00/件</p>
+                    <div class="busBtn"><img src="img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+                {{#trHotSale.list}}
+                    <div class="productClassify productClassify{{@index}} indexProRecommend">
+                        <h4><!--<img src="img/icon-product-t-m.png" alt="">--><span>{{pname}}</span><p class="busNum">¥{{priceTax}}.00/件</p></h4>
+                        <div class="indexCon_info">
+                            <img src="{{../config.ImgUrl}}{{pics}}">
+                        <!--    <img src="/img/image_product_otherproducts.png">-->
+                        </div>
+                        <div class="indexCon_img indexCon_Classify">
+                            <h4><span title="{{pname}}">{{pname}}</span><p class="busNum">¥{{priceTax}}.00/件</p></h4>
+                            <div class="indexCon_line"></div>
+                            <p class="busInt"  title="{{trim info}}">{{trim info}}</p>
+                            <div class="busBtn"><a href="/product/productDetail/{{id}}"><!--<img src="img/icon-tmchannel-shaoppingcart.png" alt="">-->查看详情</a></div>
+                        </div>
+                    </div>
+                {{/trHotSale.list}}
+
+                <!--<div class="productClassify productClassify2">
+                    <h4><img src="img/icon-product-t-m.png" alt="">国内加急商标注册</h4>
+                    <p class="busInt">果保商标注册果保商标注册 果保商标注册果保商标注册</p>
+                    <p class="busNum">¥800.00/件</p>
+                    <div class="busBtn"><img src="img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>
+                <div class="productClassify productClassify3">
+                    <h4><img src="img/icon-product-t-m.png" alt="">国内加急商标注册</h4>
+                    <p class="busInt">果保商标注册果保商标注册 果保商标注册果保商标注册</p>
+                    <p class="busNum">¥800.00/件</p>
+                    <div class="busBtn"><img src="img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="productBox2">
+    <div class="productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader">
+                <h3>专利服务</h3>
+                <p>专利是最具有创造性的，让我们帮您叩开专利之门——走向创业巅峰</p>
+                <div class="productMore"><a href="/category/patent">查看全部</a></div>
+               <!-- <div class="productNum"><span>通过率</span><span class="productNumBig">98%</span></div>-->
+            </div>
+            <div class="productClassifyBox">
+                {{#ptHotSale.list}}
+                <div class="productClassify productClassify{{@index}} indexProRecommend">
+                    <h4 style="background: #a34a51;color:#fff;"><!--<img src="img/icon-product-t-m.png" alt="">--><span>{{pname}}</span><p class="busNum" style="color:#fff;">¥{{priceTax}}.00/件</p></h4>
+                    <div class="indexCon_info">
+                        <img src="{{../config.ImgUrl}}{{pics}}">
+                        <!--<img src="/img/image_product_otherproducts.png">-->
+                    </div>
+                    <div class="indexCon_img indexCon_Classify">
+                        <h4><span title="{{pname}}">{{pname}}</span><p class="busNum">¥{{priceTax}}.00/件</p></h4>
+                        <div class="indexCon_line"></div>
+                        <p class="busInt"  title="{{trim info}}">{{trim info}}</p>
+                        <div class="busBtn"><a href="/product/productDetail/{{id}}"><!--<img src="img/icon-tmchannel-shaoppingcart.png" alt="">-->查看详情</a></div>
+                    </div>
+                </div>
+                {{/ptHotSale.list}}
+                <!--<div class="productClassify productClassify1">
+                    <h4><img src="img/icon-product-t-m.png" alt="">国内加急商标注册</h4>
+                    <p class="busInt">果保商标注册果保商标注册 果保商标注册果保商标注册</p>
+                    <p class="busNum">¥800.00/件</p>
+                    <div class="busBtn"><img src="img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>
+
+                <div class="productClassify productClassify2">
+                    <h4><img src="img/icon-product-t-m.png" alt="">国内加急商标注册</h4>
+                    <p class="busInt">果保商标注册果保商标注册 果保商标注册果保商标注册</p>
+                    <p class="busNum">¥800.00/件</p>
+                    <div class="busBtn"><img src="img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>
+                <div class="productClassify productClassify3">
+                    <h4><img src="img/icon-product-t-m.png" alt="">国内加急商标注册</h4>
+                    <p class="busInt">果保商标注册果保商标注册 果保商标注册果保商标注册</p>
+                    <p class="busNum">¥800.00/件</p>
+                    <div class="busBtn"><img src="img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product3Box">
+    <div class="product3">
+        <div class="pCopyright">
+            <div class="CopyrightHeader">
+                <h3>版权服务</h3>
+                <p>知果版权服务，留下你原创的智慧——支持正版</p>
+                <div class="productMore"><a href="/category/copyright">查看全部</a></div>
+            </div>
+        </div>
+        <div class="pServe">
+            <div class="ServeHeader">
+                <h3>其他服务</h3>
+                <p>一次不买你的错，二次不买我的错——服务至上</p>
+                <!--<div class="productMore"><a href="/category/trademark">查看全部</a></div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ques">
+    <div class="ServeHeader indexAfter">
+        <h3 style="font-size: 24px;">常见问题</h3>
+        <p style="font-size: 16px;">更多问题，让我们的专业顾问为您解答</p>
+        <!--<div class="productMore"><a href="">立即质询</a></div>-->
+    </div>
+    <ul class="quesNav">
+        <li class="quesNavShow">商标注册</li>
+        <!--<li>办理流程</li>-->
+        <li>专利服务</li>
+        <li>版权服务</li>
+        <li>高新企业</li>
+    </ul>
+    <div class="quesMsgBox channelQuestion indexQue_bg" style="margin-top:-1px;">
+        <div class="quesMsg channelIscor">
+            <div class="quesMsges" style="display: block">
+                <dl>
+                    <dt>注册不成功怎么办？</dt>
+                    <dd>
+                        <span>商标注册不成功可以通过驳回复审进行再次争取。</span>
+                        <span>也可以选取我司“果保商标注册”进行申请，注册不成功，退还全部款项。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>为什么要注册商标？</dt>
+                    <dd>
+                        <span>1、要个性，就要形成自由的品牌形象；</span>
+                        <span> 2、防止商标被侵权；</span>
+                        <span>3、日后成为著名商标、驰名商标的基础；</span>
+                        <span>4、进驻天猫淘宝等商场的依据；</span>
+                        <span>5、办理质量和卫生检查的重要条件；作为无形资产，未来创造收益。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>商标保护期限是多长？</dt>
+                    <dd>
+                        <span>注册商标的有效期为10年。注册商标有效期满后需要继续使用的，应当在期满前的一年内申请续展注册。在此期间未能提出申请的，还有6个月的宽展期。宽展期内仍未提出申请的，期满后商标局将予以注销。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>申请注册商标都需要提交哪些材料？</dt>
+                    <dd>
+                        <span>1）商标注册委托书、申请书完善基本资料后可在我公司网站自动生成。</span>
+                        <span>2）申请人资格证明资料：</span>
+                        <span> a.以公司名义申请，附企业营业执照复印件;</span>
+                        <span> b.以个体名义申请，附身份证或者护照复印件及个体营业执照。</span>
+                        <span>3）商标图样：商标图样（JPG格式，400*400-1000*1000大小）。</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="quesMsges">
+                <dl>
+                    <dt>什么样的技术方案可以申报外观专利？</dt>
+                    <dd>
+                        <span>产品外观的新设计：例如造型独特、图案原创设计的灯具、餐桌、办公椅、玩具等各类生活用品以及工厂生产机器等等。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>什么是专利费用减缓？</dt>
+                    <dd>
+                        <span>国家知识产权局为了鼓励和支持国内公司、个人发明创造的积极性，对于“亏损的公司、低收入的个人”给与申请费方面的减缓。</span>
+                        <span>专利费用减缓可以直接在“专利事务服务系统http://cpservice.sipo.gov.cn/index.jsp”直接申请。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>为什么要申请专利？</dt>
+                    <dd>
+                        <span>1、保护自己的技术成果不受他人侵犯；</span>
+                        <span>2、防止他人滥用专利权恶意、主动造成侵权行为；</span>
+                        <span>3、办理高新技术企业、申请政府补贴、资助等必备资料；</span>
+                        <span>4、提高企业核心竞争力、保护企业产品市场占有份额；</span>
+                        <span>5、形成企业知识产权资产，提升企业注册资本、企业价值 。</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="quesMsges">
+            <dl>
+                <dt>还有哪些作品可以登记版权？</dt>
+                <dd>
+                    <span>我国著作权法第三条规定的各类作品均可申请登记。</span>
+                    <span>包括：文字作品；口述作品；艺术作品；美术、建筑作品；摄影作品；电影作品和以类似摄制电影的方法创作的作品；设计图、地图、示意图等图形作品和模型作品；计算机软件；法律、行政法规规定的其它作品。</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>版权保护的期限是多久？</dt>
+                <dd>
+                    <span>版权保护期限:</span>
+                    <span>个人自其作品创作完成之日起，至作者死后第50年的12月31日止。法人或其他组织作品自该作品发表之日起，到发表之日后第50年的12月31日止。</span>
+                    <span>作品始终没有发表的，自作品创作完成50年内未发表的，著作权法不再保护。</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>版权保护的费用是一次性的么？后续有没有年费？</dt>
+                <dd>
+                    <span>版权保护是一次性费用，后续没有年费。</span>
+                </dd>
+            </dl>
+        </div>
+            <div class="quesMsges">
+                <dl>
+                    <dt>办理“高新企业认定”可以享受的政策优惠？</dt>
+                    <dd>
+                        <span>1、税收优惠：企业所得税降低到了原来的40%，研发费用按照50%加计扣除！</span>
+                        <span>2、人才吸引：北京落户积分政策：</span>
+                        <span>3、吸引投资：帮投资人节省所得税，使企业受到更多投资人的青睐。</span>
+                        <span>4、企业荣誉：企业重要荣誉，对于企业广告宣传和企业形象起到良好作用。</span>
+                        <span>5、政策支持：各地政府对于科研资金、税收、科技计划、用地、金融保险、信贷等多种政策措施更偏向于支持高新技术类企业。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>所有的企业都可以申请高新企业认定吗？</dt>
+                    <dd>
+                        <span>不是的。办理“新企业认定”高需要符合以下条件：</span>
+                        <span>1、在中国境内注册的企业 。</span>
+                        <span>2、对主要产品的核心技术拥有自主知识产权 。</span>
+                        <span>3、产品（服务）属于《国家重点支持的高新技术领域》规定的范围 。</span>
+                        <span>（1）信息技术领域，如电子商务企业；</span>
+                        <span>（2）生物与新医药领域；</span>
+                        <span>（3）航空航天技术；</span>
+                        <span>（4）新材料技术；</span>
+                        <span>（5）高技术服务业；</span>
+                        <span>（6）新能源与节能技术；</span>
+                        <span>（7）资源与环境技术；</span>
+                        <span>（8）高新技术改造的传统行业 ；</span>
+                        <span>4、按照高新技术企业认定标准要求，企业综合评分必须达到70分以上（不含70分）。</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="homeMsgBox">
+    <div class="homeMsg">
+        <div class="homeMsgL">
+            <div class="homeMsgLTop">
+                <h4>为什么选择知果果</h4>
+                <p>知果果为200000+企业提供知识产权服务</p>
+            </div>
+            <div class="homeMsgLB">
+                <div class="homeMsgLBImg">
+                    <img src="/img/icon-tututhree@2x.jpg" alt="" class="big_imgs">
+                </div>
+                <div class="homeMsgLBMsg">
+                    <div>
+                        <div class="homeTitle" style="display: block">
+                            <h2>联想之星、经纬中国投资</h2>
+                            <p>联想之星、经纬中国投资项目，法律电商界获得融资最快的公司</p>
+                        </div>
+                        <div class="homeTitle">
+                            <h2>以“为用户创造价值”为信仰</h2>
+                            <p>我们一直坚持“为用户创造价值”，始终把用户的利益放在第一位</p>
+                        </div>
+                        <div class="homeTitle">
+                            <h2>服务过数十万的企业用户</h2>
+                            <p>三年来，我们服务过数十万的企业用户，为用户有效地节省服务费近3亿元</p>
+                        </div>
+                        <div class="homeTitle">
+                            <h2>专注知识产权服务平台</h2>
+                            <p>大平台，专注知识产权服务，240人服务团队，单月申请量超万件，案件处理经验丰富</p>
+                        </div>
+                    </div>
+
+                    <ul class="PhotoRight">
+                        <li class="homeMsgLBMsgL li" data-bigimg="/img/icon-tututhree@2x.jpg"><img src="/img/icon-someone.jpg" alt=""></li>
+                        <li class="li" data-bigimg="/img/icon-tututwo@2x.jpg"><img src="/img/icon-somethree@2x.jpg" alt=""></li>
+                        <li class="li" data-bigimg="/img/icon-tutuone@2x.jpg"><img src="/img/icon-sometwo@2x.jpg" alt=""></li>
+                        <li class="li" data-bigimg="/img/1.jpg"><img src="/img/1.jpg" alt=""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="homeMsgR">
+            <ul class="homeMsgRLsit">
+                <li class="homeMsgRLsit1">
+                    快速申报
+                    <span>最快60分钟提交注册，次日拿到申请号</span>
+                </li>
+                <li class="homeMsgRLsit2">
+                    进度报告
+                    <span>定期出具最新进度报告，你关心的随时与你同步</span>
+                </li>
+                <li class="homeMsgRLsit3">
+                    简单省心
+                    <span>一键委托，专业顾问一对一全程服务跟进</span>
+                </li>
+                <li class="homeMsgRLsit4">
+                    保险赔付
+                    <span>中国平安保险提供担保赔付</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="partnerBox">
+    <div class="partner">
+        <div class="partnerHeader">
+            <h4>知果果前进之路的伙伴</h4>
+            <!--<p>知果果为10000+企业提供知识产权服务</p>-->
+        </div>
+        <div class="partnerImg">
+            <ul>
+                <li class="parenl_one"><!--<img src="/img/image_footer1.png" hover-src="/img/image_footer1hover.png"/>--></li>
+                <li class="parenl_two"><!--<img src="/img/image_footer2.png" hover-src="/img/image_footer2hover.png"/>--></li>
+                <li class="parenl_three"><!--<img src="/img/image_footer3.png" hover-src="/img/image_footer3hover.png"/>--></li>
+                <li class="parenl_four"><!--<img src="/img/image_footer4.png" hover-src="/img/image_footer4hover.png"/>--></li>
+                <li class="parenl_five"><!--<img src="/img/image_footer5.png" hover-src="/img/image_footer5hover.png"/>--></li>
+                <li class="parenl_six"><!--<img src="/img/image_footer6.png" hover-src="/img/image_footer6hover.png"/>--></li>
+                <li style="margin-right:0;" class="parenl_seven"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/index.js"></script>
+

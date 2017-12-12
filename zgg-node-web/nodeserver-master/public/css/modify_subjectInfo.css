@@ -1,0 +1,433 @@
+.modify_content{
+    width:1000px;
+    margin:25px auto 0;
+}
+
+.modify_content h3{
+    height:26px;
+    border-left:4px solid #a34a51;
+    padding-left:6px;
+    font-size:20px;
+    color:#2a2a2a;
+    line-height: 26px;
+}
+
+.modify_wrapp{
+    margin:40px auto 0;
+}
+
+.modify_wrapp p{
+    font-size:12px;
+    color:#727f8f;
+}
+
+.modify_tab ul{
+    margin-top:5px;
+}
+
+.modify_tab ul li{
+    float: left;
+    width:136px;
+    height:33px;
+    border:1px solid #dadde1;
+    font-size:14px;
+    color:#2a2a2a;
+    text-align: center;
+    line-height: 33px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.modify_tab ul li.marg24{
+    margin-right:24px;
+}
+
+.modify_tab ul li.modify_red{
+    color: #d9344b;
+    border-color: #d9344b;
+}
+
+.modify_conTab>div{
+    width:1000px;
+    height:auto;
+    overflow: hidden;
+    float: left;
+    display: none;
+}
+
+
+.modify_radio{
+    margin-top:16px;
+}
+
+.modify_radio ul{
+    margin-top:5px;
+    width:1000px;
+    height: 40px;
+    border-bottom:1px solid #f2f3f7;
+}
+
+.modify_radio ul li{
+    float: left;
+    width:70px;
+    margin-right:43px;
+    font-size:12px;
+    color: #727f8f;
+    cursor: pointer;
+}
+
+.modify_radio ul li input{
+    margin-right:3px;
+    width:14px;
+    height: 14px;
+    background:#fff;
+}
+
+.modify_Choice{
+    width: 18px;
+    height: 18px;
+    background:url(../img/controller-payment-normal@2x.png) no-repeat;
+    background-size: 18px 18px;
+    float: left;
+    margin-right:2px;
+}
+
+.modify_Choice1{
+    width: 18px;
+    height: 18px;
+    background:url(../img/controller-payment-selected@2x.png) no-repeat;
+    background-size: 18px 18px;
+    float: left;
+    margin-right:2px;
+}
+
+.modify_conInfo{
+    height: auto;
+    overflow: hidden;
+    min-height: 500px;
+    margin-bottom:40px;
+}
+
+.modify_conInfo>div{
+    display: none;
+    float: left;
+}
+
+
+.modify_table1{
+    marign-top:20px;
+}
+
+.modify_table1 ol li{
+    margin-top: 10px;
+}
+
+.modify_table1 ol li p{
+    color:#727f8f;
+    font-size:12px;
+}
+
+.modify_table1 ol li p.marg5{
+    margin-top:5px;
+    color: #b9bfc7;
+}
+
+.modify_table1 ol li p span{
+    display: inline-block;
+    color:#d9344b;
+    margin-right:3px;
+}
+
+.modify_table1 ol li input,.modify_table1 ol li select{
+    width: 430px;
+    height:33px;
+    border:1px solid #dadde1;
+    line-height: 33px;
+    padding-left: 7px;
+    font-size:14px;
+    color:#2a2a2a;
+    margin-top:5px;
+    border-radius: 3px;
+}
+
+.modify_table1 ol li input:focus {
+    border:1px solid #569fd4;
+}
+
+.modify_hover{
+    float: left;
+    width: auto;
+    min-width: 69px;
+    height: 88px;
+    background: #d8d8d8;
+    margin:10px 20px 0 10px;
+    position: relative;
+}
+
+.modify_hover div.modify_liner{
+    display: none;
+    width:69px;
+    height: 28px;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.34));
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.modify_hover div.add{
+    width: 34px;
+    height: 34px;
+    left:50%;
+    top:50%;
+    margin-top: -17px;
+    margin-left: -17px;
+    display: block;
+    position: absolute;
+    cursor:pointer;
+}
+.modify_hover div.add .addFile{
+    background: url('../img/icon-shoppingcart-qtyadd@2x.png') no-repeat;
+}
+.modify_hover div.modify_liner img{
+    margin-left:40px;
+}
+.hoverImg{
+    position: absolute;
+    right: 5px;
+    bottom: 3px;
+    display: none;
+}
+.modify_hover:hover .hoverImg{
+    display: block;
+}
+.modify_hover div.modify_hoverDel{
+    width:102px;
+}
+
+.modify_hover div.modify_hoverDel img{
+    margin-left:73px;
+}
+
+
+
+.modify_drag{
+    margin-top:20px;
+}
+
+.modify_drag>div{
+    float: left;
+    width:430px;
+    margin-right:20px;
+}
+
+.modify_file>div{
+    height: 88px;
+    border:1px dashed #b9bfc7;
+    color:#727f8f;
+    font-size:14px;
+    line-height: 88px;
+    text-align: center;
+}
+
+.modify_file>div>img{
+    width:20px;
+    height: 20px;
+    margin-right:5px;
+}
+
+.modify_file p img{
+    margin-right:4px;
+}
+
+.modify_file p u{
+    color: #49a5de;
+}
+
+.modify_file span{
+    display: block;
+    color:#b9bfc7;
+    font-size:12px;
+    margin-top:3px;
+}
+
+.modify_table1 ol li select.modify_select,.modify_table1 ol li input.modify_select {
+    width: 147px;
+    height: 33px;
+}
+
+
+.modify_radioCheck{
+    margin-top:22px;
+}
+
+.modify_radioCheck label{
+    margin-right:33px;
+}
+
+.modify_obtain{
+    color:#49a5de;
+    padding-left:20px;
+
+}
+
+.modify_table1 ol li input.modify_yzm{
+    width: 119px;
+}
+
+.modify_table1 ol li.modify_marg50{
+    margin-top:62px;
+}
+
+.modify_table1 ol li.modify_marg50 div{
+
+    width:102px;
+    height:62px;
+}
+
+.modify_table1 ol li b.modify_b{
+    float:left;
+    display: block;
+    font-size:12px;
+    color:#b9bfc7;
+    margin:55px 0 0 10px;
+    font-weight: normal;
+}
+
+.modify_sbumit{
+    width:195px;
+    margin:0 auto;
+}
+
+.modify_sbumit button{
+    width:80px;
+    height:33px;
+    border-radius: 3px;
+    font-size:14px;
+    color:#fff;
+    border:none;
+    margin-bottom:20px;
+}
+.modify_sbumit .btnC{
+    width:80px;
+    height:33px;
+    border-radius: 3px;
+    font-size:14px;
+    color:#fff;
+    border:none;
+    margin-bottom:20px;
+    padding: 7px 25px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.modify_sbumit button.modify_mit{
+    /*  background: #a34a51;*/
+}
+
+.modify_sbumit button.modify_chancel{
+    background: #e9c19e;
+    margin-right:30px;
+}
+#box {
+    width: 815px;
+    height: auto;
+}
+
+#box dd {
+    width: 815px;
+    height:300px;
+}
+#div{
+    width:745px;
+    height:300px;
+    margin: 1px 9px 0 9px;
+    float: left;
+    overflow:hidden;
+
+}
+
+#div ol li span{
+    display: block;
+}
+#div ol{
+    width:5000px;
+}
+#box dd b,
+#box dd ol,
+#box dd s{
+    float: left;
+    display: block;
+}
+
+#box dd b,
+#box dd s{
+    width: 17px;
+    height: 56px;
+    background: url('../img/newicon20121210.png') no-repeat;
+    cursor: pointer;
+}
+
+#box dd b {
+    background-position: 0px 0px;
+    margin-top:71px;
+}
+
+#box dd b.light{
+    background-position: 0 -139px;
+}
+#box dd s {
+    background-position: -17px 0px;
+    margin-top:71px;
+}
+
+#box dd s.light {
+    background-position: -17px -139px;
+}
+
+
+
+
+#box dd ol li{
+    float: left;
+    width: 198px;
+    height:198px;
+    border: 1px solid #ccc;
+    margin-right: 9px;
+    position: relative;
+}
+
+#box dd ol li img{
+    width: 100%;
+    height:100%;
+
+
+}
+
+#box dd ol li span i{
+    display: block;
+    float: left;
+}
+
+#box dd ol li span.s-up-img{
+    width:198px;
+    height: 198px;
+}
+
+#box dd ol li span.s-up-del{
+    margin-top:5px;
+
+}
+
+#box dd ol li span.s-up-del i{
+    display: block;
+    float: left;
+    margin-left: 5px;
+}
+#box dd ol li span.s-up-tj{
+    width:198px;
+    height: 198px;
+    text-align: center;
+    line-height: 198px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 50px;
+}

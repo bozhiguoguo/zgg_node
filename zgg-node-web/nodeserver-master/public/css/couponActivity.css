@@ -1,0 +1,182 @@
+body{
+    background-color:#6c377b;
+}
+.coupon-Baner{
+    width: 1024px;
+    height: 684px;
+    background: url("../img/chanpin1_01.png") no-repeat;
+    /*background-position: 50% 100%;
+    background-size:cover;*/
+    border:1px solid transparent;
+    margin:0 auto;
+}
+
+.coupon-info{
+    width: 357px;
+    height: auto;
+    overflow: hidden;
+    margin: 197px auto 0;
+}
+
+.coupon-num input{
+    width: 317px;
+    height: 45px;
+    border:5px solid #ee71ff;
+    border-radius: 15px;
+    font-size: 20px;
+    line-height: 45px;
+    color:#dbdbdc;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.coupon-text{
+    margin-top:18px;
+    width: 357px;
+}
+
+.coupon-text input{
+    width:194px;
+    height: 51px;
+    float: left;
+    border:5px solid #ee71ff;
+    border-radius: 15px;
+    line-height: 51px;
+    font-size: 20px;
+    color:#dbdbdc;
+    padding-left: 20px;
+    box-sizing: border-box;
+    margin-right:20px;
+}
+
+.coupon-text button{
+    background: url("../img/coupon-bg.png") no-repeat;
+    width:97px;
+    height: 51px;
+    float: left;
+    color:#e94fde;
+    font-size:14px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.coupon-Receive{
+    margin-top:38px;
+    margin-left:86px;
+    cursor: pointer;
+}
+
+.coupon-bg{
+    height: 262px;
+    width: 1024px;
+    background: rgba(42,22,52,0.5);
+    margin-top:30px;
+    border:1px solid transparent;
+}
+
+.coupon-con{
+    width: 705px;
+    margin:10px auto 0;
+}
+
+.coupon-con h2{
+    text-align: center;
+    color: #e65afa;
+    font-size:16px;
+}
+
+.coupon-con p{
+    color: #e65afa;
+    font-size:16px;
+    line-height:24px;
+    margin-left:20px;
+}
+
+.coupon-content{
+    width: 1024px;
+    height: 1279px;
+    background: url("../img/coupon-bg1.png") no-repeat;
+   /* background-position: 50% 100%;
+    background-size:cover;*/
+    margin: -2px auto 0;
+    border:1px solid transparent;
+}
+
+/*.coupon-bg2{
+    width: 100%;
+    height: 2884px;
+    background: url("../img/coupon-bg1.png") no-repeat;
+    background-position: 50% 100%;
+    background-size:cover;
+    margin:115px auto 0;
+}*/
+
+.coupon-gb{
+    width: 460px;
+    margin: 0 auto;
+    border:1px solid transparent;
+}
+
+.coupon-img1{
+    width:66px;
+    height: 75px;
+    margin:88px auto 0;
+}
+
+.coupon-img2{
+    width: 456px;
+    margin:15px auto 0;
+}
+
+.coupon-img3{
+    width: 310px;
+    font-size:14px;
+    margin:9px auto 0;
+    color:#fff;
+}
+
+.coupon-gb button{
+    width:141px;
+    height: 35px;
+    margin:20px auto 0;
+    background: none;
+    display: block;
+    cursor: pointer;
+}
+
+.coupon-img5{
+    margin-top:69px;
+}
+
+.coupon-img4{
+    width:205px;
+    margin:10px auto 0;
+}
+
+.witH4{
+    width: 182px;
+}
+
+.witH5{
+     width: 372px;
+ }
+
+.witH6{
+    width: 145px;
+}
+
+.witH7{
+    width: 388px;
+}
+
+.witH8{
+    width: 130px;
+}
+
+.marg20{
+    margin-top:95px;
+}
+
+.marg30{
+    margin-top:100px;
+}

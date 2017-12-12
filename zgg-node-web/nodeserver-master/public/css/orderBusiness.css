@@ -1,0 +1,470 @@
+/*内容部分*/
+.business-process{
+    width: 1200px;
+    height: auto;
+    margin: 0 auto 112px;
+}
+/*订单导航*/
+.business-process-nav{
+    margin-top:23px;
+    width:100%;
+    overflow: hidden;
+}
+.business-process-nav ul{
+    width: 1200px;
+    margin:0 auto;
+}
+.business-process-nav ul li{
+    float: left;
+    color: #8f8f8f;
+    font-size: 16px;
+    margin-right:15px;
+}
+.business-process-navul li a{
+    color: #8f8f8f;
+}
+.business-process-nav ul li span{
+    display: inline-block;
+    padding-left: 15px;
+}
+
+/*订单状态*/
+.business-process .order-status{
+    margin-top:46px;
+    margin-bottom: 46px;
+}
+.business-process .order-status-title{
+    width: 127px;
+    height: 37px;
+    line-height: 37px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+    padding-left:20px;
+    background: url("../img/bg-orderdetail-section.png") no-repeat;
+}
+.business-process .order-status-content{
+    padding: 15px;
+    height: 121px;
+    background: #ffffff;
+}
+.business-process .order-number{
+    font-size:12px;
+    color:#333333;
+}
+.business-process .order-status-content .order-fig{
+    margin: 25px auto 60px;
+}
+.business-process .order-fig .one{
+    width: 840px;
+    margin: auto;
+}
+.business-process .order-fig .one .first,
+.business-process .order-fig .one .four{
+    display: inline-block;
+    margin-left:-3px;
+    width: 137px;
+    height: 2px;
+    background: #79cacd;
+    vertical-align: middle;
+}
+.business-process .order-fig .one .four{
+    width: 250px;
+}
+.business-process .order-fig .one .second{
+    display: inline-block;
+    width: 137px;
+    height: 2px;
+    background: #c8c7c7;
+    vertical-align: middle;
+}
+.business-process .order-fig .one .img{
+    margin-left:-10px;
+    margin-right: -5px;
+}
+.business-process .order-fig .one .third{
+    display: inline-block;
+    width: 250px;
+    height: 2px;
+    background: #c8c7c7;
+    vertical-align: middle;
+}
+.business-process .order-fig .mark{
+    font-size: 16px;
+    font-weight: 500;
+    color:#333333;
+    overflow: hidden;
+    margin-top:10px;
+}
+.business-process .order-fig .mark>div{
+    float: left;
+    text-align: center;
+}
+.business-process .order-fig .mark>div:nth-child(1){
+    margin-left:151px;
+}
+.business-process .order-fig .mark>div:nth-child(2){
+    margin-left: 202px;
+}
+.business-process .order-fig .mark>div:nth-child(3){
+    margin-left: 216px;
+    color: #a5abb0;
+}
+.business-process .order-fig .mark>div:nth-child(4){
+    margin-left: 198px;
+    color: #a5abb0;
+}
+.business-process .order-fig .mark>div a{
+    font-size: 14px;
+    font-weight: normal;
+    color: #79cacd;
+}
+
+/*填写资料*/
+.fill-info{
+    width: 1200px;
+    overflow: hidden;
+}
+
+/*填写资料-左侧内容*/
+.fill-info-left{
+    float: left;
+    width: 909px;
+    background: #ffffff;
+    border:1px solid #f3f6f8;
+    height: auto;
+}
+.fill-info .title{
+    padding: 0 15px;
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    color: #2a2a2a;
+    background: #f3f6f8;
+}
+.fill-left-content{
+    padding: 25px 0 0 25px;
+}
+.fill-content-title{
+    font-size: 20px;
+    color: #2a2a2a;
+}
+.l{
+    position: relative;
+    top:2px;
+    display: inline-block;
+    width: 4px;
+    height: 19px;
+    background: #a34a51;
+    right: 6px;
+}
+
+.adrd{
+    background: url("../img/mark.png") no-repeat;
+    margin-left:27px;
+    padding-left:16px;
+    color: #727f8f;
+}
+
+.m25{
+    margin:25px 0;
+}
+.m-r10{
+    margin-right: 10px;
+}
+.font-size14{
+    font-size: 14px;
+}
+.span2a{
+    color: #2a2a2a;
+    position: relative;
+    top:-3px;
+}
+.radio{
+    width: 16px;
+    height: 16px;
+}
+.m-b50{
+    margin-bottom: 50px;
+}
+.m-r5{
+    margin-right: 2px;
+}
+.m-b20{
+    margin-bottom: 20px;
+}
+.m-r20{
+    margin-right: 20px;
+}
+.span727f8f{
+    color: #727f8f;
+    position: relative;
+    top:-4px;
+}
+/*作品基本信息*/
+.fill-left-content-info{
+    font-size: 12px;
+    color: #727f8f;
+}
+.inputW430{
+    width: 410px;
+    padding: 0 10px;
+    height: 33px;
+    border-radius: 3px;
+    border:1px solid #dadde1;
+    margin-top:5px;
+}
+.inputW136{
+    width: 126px;
+    padding-left: 10px;
+    height: 33px;
+    border-radius: 3px;
+    border:1px solid #dadde1;
+    margin-top:5px;
+}
+.textarea{
+    width: 410px;
+    padding: 10px;
+    resize:none;
+    height: 68px;
+    border-radius: 3px;
+    border:1px solid #dadde1;
+    margin-top:5px;
+}
+.inputW430:active,
+.inputW430:focus,
+.textarea:active,
+.textarea:focus{
+    box-shadow: 0 0 10px 0 rgba(87, 163, 219, 0.25);
+    border:1px solid #569fd4;
+}
+.m-b10{
+    margin-bottom: 10px;
+}
+.add-person{
+    color: #49a5de;
+    cursor: pointer;
+}
+.remove-person{
+    cursor: pointer;
+    display: inline-block;
+    height: 26px;
+    color: #b9bfc7;
+    border:none 0;
+    background: #fff;
+}
+.remove-person img{
+    margin-top:-4px;
+}
+.textarea-info{
+    font-size: 12px;
+    color: #b9bfc7;
+}
+.textarea-info .case{
+    display: block;
+    width: 400px;
+    margin-top:10px;
+
+}
+
+/*联系人信息*/
+.ID-card{
+    overflow: hidden;
+    color: #b9bfc7;
+    width: 430px;
+}
+.ID-card-top{
+    height: 62px;
+    position: relative;
+    margin-bottom: 22px;
+}
+.ID-card .ID-card-just,
+.ID-card .ID-card-back{
+    position: relative;
+    float: left;
+    width: 102px;
+    height: 62px;
+    background:#d8d8d8;
+}
+ .ID-card-remove{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    display: none;
+}
+.show{
+    display: block;
+}
+
+.ID-card span{
+    position: absolute;
+    display: inline-block;
+    bottom:0;
+}
+.ID-card-bottom{
+    height: 123px;
+}
+.ID-card-bottom-t{
+    position: relative;
+    height: 88px;
+    border:1px dashed #b9bfc7;
+    margin-bottom: 3px;
+    font-size: 14px;
+    color: #727f8f;
+    text-align: center;
+    line-height: 88px;
+}
+.ID-card-bottom-t #aa{
+    display:inline-block;
+    width:46px;
+    height:20px;
+    position:relative;
+    overflow:hidden;
+}
+.ID-card-bottom-t a input{
+    position:absolute;
+    right:0;
+    top:0;
+    font-size:100px;
+    opacity:0;
+    filter:alpha(opacity=0);
+}
+.ID-card-bottom #a-file{
+    display: inline-block;
+    font-style: normal;
+    color: #49a5de;
+    position: absolute;
+}
+#line{
+    position: absolute;
+    width: 44px;
+    height: 1px;
+    background:#49a5de;
+    bottom:32px;
+    left:226px;
+}
+.fill-left-content-btn{
+    text-align: center;
+    margin-top:230px;
+    margin-bottom: 230px;
+}
+.fill-left-content-btn button{
+    width: 80px;
+    height: 33px;
+    border-radius: 3px;
+    color: #ffffff;
+    font-size: 14px;
+    border:none 0;
+    line-height: 33px;
+}
+.fill-left-content-btn button:hover{
+    color: #ffffff;
+}
+.fill-left-content-btn .save{
+    background: #e9c19e;
+    margin-right: 30px;
+}
+.fill-left-content-btn .sub{
+    background: #a34a51;
+}
+
+/*填写资料-右侧内容*/
+.fill-info-right{
+    float: right;
+    width: 261px;
+    height: auto;
+    background: #ffffff;
+}
+.fill-right-content{
+    padding: 20px;
+}
+.fill-content-title .all{
+    float: right;
+    font-size: 14px;
+    color: #727f8f;
+    margin-top:7px;
+}
+.fill-right-order{
+    margin-top:27px;
+    margin-bottom: 27px;
+}
+.fill-right-order ul li{
+    position: relative;
+    height: 89px;
+    padding: 12px 0;
+    border-bottom: 2px solid #f2f3f7;
+}
+.fill-right-order ul li button{
+    position: absolute;
+    width: 64px;
+    height: 20px;
+    border-radius: 3px;
+    background: #e9c19e;
+    color: #ffffff;
+    font-size: 12px;
+    border:none 0;
+    right: 0;
+    bottom: 12px;
+}
+.order-img{
+    display: inline-block;
+    width: 63px;
+    height: 63px;
+    float: left;
+    background: #d8d8d8;
+}
+.fill-right-order ul li span{
+    display: block;
+    margin-bottom: 4px;
+}
+.col2a{
+    color: #2a2a2a;
+}
+.col727f8f{
+    color: #727f8f;
+    font-size: 12px;
+}
+/*分页*/
+.page{
+    font-size: 12px;
+    color: #727f8f;
+}
+.page span{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 16px;
+    cursor: pointer;
+    margin-right: 3px;
+}
+.page .page-first{
+    background: #a34a51;
+    border-radius: 50%;
+    color: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

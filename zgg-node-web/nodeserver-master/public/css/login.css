@@ -1,0 +1,309 @@
+.login-inner{
+    width: 1200px;
+    height: 900px;
+    margin:0 auto ;
+}
+
+.login_left{
+    width: 165px;
+    height: 446px;
+    background: url("/img/image_login.png") no-repeat;
+    float: left;
+}
+
+.login_left img{
+    width:80px;
+    height:43px;
+    display: block;
+    margin:20px 0 20px 13px;
+}
+
+.login_left p{
+    font-size: 16px;
+    text-align: left;
+    color: #ffffff;
+    margin:5px 0 0 19px;
+}
+
+
+.login-content{
+    margin:136px auto 0;
+    width:647px;
+    height: 446px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px 0 rgba(44, 52, 75, 0.12);
+}
+.login-content .login-info{
+    float: right;
+    width: 421px;
+    height: 386px;
+    padding: 30px;
+    background: #ffffff;
+    box-shadow: 0 0 4px 0 rgba(44, 52, 75, 0.12);
+    /* border: 2px solid #f2f3f5; */
+    /* border-top: 4px solid #4597d9; */
+
+}
+
+.login-info span{
+    padding-top:55px ;
+}
+
+.login-info h6{
+    color:#727f8f;
+}
+
+
+.modify-center h6,.login-info h6{
+    height:20px;
+    border-left:3px solid #a34a51;
+    padding-left:10px;
+    line-height: 20px;
+    color:#727f8f;
+}
+
+h6{
+    color: #2a2a2a;
+    font-size: 22px;
+    font-weight:500;
+}
+
+.username,.password{
+    margin-top:56px;
+    padding-left: 28px;
+    padding-right: 10px;
+    border:0 none;
+    width: 408px;
+    height: 25px;
+    font-size: 14px;
+    color: #2a2a2a;
+    border-bottom: 2px solid #f2f3f5;
+}
+
+.username:hover,.password:hover{
+    border-bottom-color:#D2D2D2;
+}
+
+.username:focus,.password:focus{
+border-bottom-color:#4990e2;
+}
+
+.username{
+    background: url("/img/icon-login-user@2x.png") no-repeat;
+    background-size:19px 19px;
+}
+.password{
+    background: url("/img/icon-login-pwd@2x.png") no-repeat;
+    background-size:19px 19px;
+}
+.forgetPassword{
+    font-size: 12px;
+    color: #49a5de;
+    margin-top:14px;
+    float: right;
+}
+.forgetPassword:link,
+.forgetPassword:visited,
+.forgetPassword:hover,
+.forgetPassword:active{
+    color: #49a5de;
+}
+.login{
+    width: 408px;
+    height: 45px;
+    border-radius: 3px;
+    background: #a34a51;
+    border:0 none;
+    cursor: pointer;
+    color:#ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top:48px;
+    box-shadow: 0 1px 2px 0 rgba(79,36,36,0.5);
+}
+.register-box{
+    width:408px;
+    margin-top:30px;
+    text-align: center;
+}
+.register{
+    color: #919191;
+    font-size: 18px;
+    display: inline-block;
+}
+.register:link,
+.register:visited,
+.register:hover,
+.register:active{
+    color: #49a5de;
+}
+.register_content {
+    width: 100%;
+    height: auto;
+    min-height: 860px;
+    background: #f9f8f4;
+    overflow: hidden;
+}
+/*忘记密码*/
+.password-center{
+    box-sizing: border-box;
+    padding: 30px;
+    position: relative;
+    width: 552px;
+    height: 470px;
+    margin: 89px auto 0;;
+    background: #ffffff;
+    border:2px solid #f2f3f5;
+    border-top:4px solid #4597d9;
+}
+.font14{
+    font-size: 14px;
+}
+.centerInfo{
+    width: 91px;
+    display: inline-block;
+    text-align: right;
+    color:#727f8f;
+    margin-right: 30px;
+}
+.inputW332{
+    border:0 none;
+    width: 332px;
+    height: 25px;
+    display: inline-block;
+    border-bottom: 2px solid #f2f3f5;
+}
+.password-center p{
+    margin-top:56px;
+}
+
+.errorMsg.forgetPwdMsg{
+    width: 332px;
+    margin-left: 135px;
+}
+.verifyCode{
+    text-align: center;
+    line-height: 30px;
+    width: 212px;
+    height: 30px;
+    margin:56px auto 0;
+}
+.verifyCode .imgCode{
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    background: #cccccc;
+}
+.verifyCode span{
+    color: #49a5de;
+}
+
+.w100{
+    width: 100%;
+    text-align: center;
+    margin-top:50px;
+}
+.btnw110{
+    display: inline-block;
+    width: 110px;
+    height: 45px;
+    background: #a34a51;
+    font-size: 18px;
+    border-radius: 3px;
+    color: #ffffff;
+    cursor: pointer;
+    line-height: 45px;
+}
+
+.btnw110:link,
+.btnw110:visited,
+.btnw110:hover,
+.btnw110:active{
+    color: #ffffff;
+}
+
+/*修改密码*/
+.modify-center{
+    position: relative;
+    box-sizing: border-box;
+    padding: 30px;
+    width: 550px;
+    height: 520px;
+    margin: 80px auto;
+    /*border:2px solid #f2f3f5;
+    border-top:4px solid #4597d9;*/
+    background: #ffffff;
+    box-shadow: 0 1px 4px 0 rgba(79,79,79,0.35);
+}
+.m-t56{
+    margin-top:52px;
+}
+.sendCode{
+    color: #4990e2;
+    cursor: pointer;
+    position: relative;
+    float: right;
+    right: 17px;
+    top: -35px;
+    background: none;
+    border: none;
+    font-size: 13px;
+}
+.sendCode.disabled{
+    color:#afafaf;
+}
+/*修改密码成功提示信息*/
+#success{
+    width: 553px;
+    height: 356px;
+    box-sizing: border-box;
+    background: #ffffff;
+    position: relative;
+    box-shadow: 0 2px 4px 0 rgba(44, 52, 75, 0.12);
+}
+.success-top{
+    height: 153px;
+    font-size: 24px;
+    color: #ffffff;
+    background: #79cacd;
+    text-align: center;
+}
+.top-box{
+    display: inline-block;
+    margin-top:20px;
+}
+.top-box img{
+    margin-bottom: 14px;
+    width: 50px;
+    height: 50px;
+}
+.success-info{
+    height: 153px;
+    font-size: 18px;
+    color: #2a2a2a;
+    text-align: center;
+    line-height: 153px;
+}
+.success-back{
+    float: right;
+    color: #49a5de;
+    font-size: 18px;
+}
+
+.success-back:link,
+.success-back:visited,
+.success-back:hover,
+.success-back:active{
+    color: #49a5de;
+}
+.findPwd{
+    width: 550px;
+    margin: 80px auto;
+}
+
+
+
+
+
+
+

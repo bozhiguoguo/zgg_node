@@ -1,0 +1,455 @@
+{{> head}}
+<link rel="stylesheet" href="../css/words_Copyright.css"/>
+<link rel="stylesheet" href="../css/personalReal.css"/>
+<style>
+
+    .words_chart{
+        width:980px;
+    }
+
+    .words_step ul{
+        margin:10px 0 0 41px;
+    }
+
+    .words_flow span.words_sp1{
+        width:383px;
+    }
+
+    .words_flow span.words_sp4{
+        width:383px;
+    }
+    .words_chart{
+        margin-top:55px;
+    }
+
+    .words_bar{
+        border:1px solid transparent;
+    }
+
+    .words_step ul li.personalNum{
+        margin-right:295px;
+    }
+
+    .words_step ul li.personalFile{
+        margin-right:319px;
+    }
+
+    .personalId_file{
+        min-height: 274px;
+        width:500px;
+    }
+
+    .personal_Example{
+        width: 435px;
+        height: 100px;
+    }
+    .uploadifive-button{
+        border: 1px solid #000;
+        border-radius: 5px;
+    }
+    .img_bg{
+        display: block;
+        background: url(../img/identity-backgound-positive.png) no-repeat;
+        width: 224px;
+        height: 142px;
+        margin: 10px 0 0 10px;
+    }
+    .img_bg1{
+        display: block;
+        background: url(../img/identity-backgound-reverse.png) no-repeat;
+        width: 224px;
+        height: 142px;
+        margin: 10px 0 0 10px;
+    }
+</style>
+
+<div id="approveP" v-cloak class="personCenter_all layui-tab-card" style="padding: 20px;box-sizing: border-box;background: #fff;">
+    <div class="words_bar">
+        <div class="words_chart">
+            <div class="words_flow">
+                <i>
+                    <img src="../img/words_radius.png"/>
+                    <!-- <img src="../img/words_radius_hui.png" v-if="returnData.businessData.atPresentNodes.stepnum <item.stepnum"/>-->
+                    <span  :class="{words_sp1:pType>1,words_sp4:pType==1}"></span>
+                </i>
+                <i>
+                    <img v-show="pType<=1" src="../img/words_radius_hui.png"/>
+                    <img v-show="pType>1" src="../img/words_radius.png"/>
+                    <span :class="{words_sp1:pType>2,words_sp4:pType<=2}"></span>
+                </i>
+                <i>
+                    <img src="../img/words_radius_hui.png"/>
+                    <!--<span class=words_sp4></span>-->
+                </i>
+            </div>
+            <div class="c_b"></div>
+            <div class="words_step">
+                <ul>
+                    <li class="words_fk personalNum" style="margin-left: 0;">
+                        <p>认证手机号码</p>
+                    </li>
+                    <li class="words_fk personalFile" style="margin-left: 0;">
+                        <p>上传身份证照片</p>
+                    </li>
+                    <li class="" style="margin-left: 0;">
+                        <p>认证结果</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--手机认证-->
+    <div v-show="pType==1" class="personlReal">
+        <div class="pesronalReal_tit">
+            <ul>
+                <li class="personalReal_li">大陆个人认证</li>
+            </ul>
+        </div>
+        <div class="pesronalId_wrap">
+            <div style="display: block">
+                <div class="f_l personalId_file">
+                    <h2>认证手机</h2>
+                    <form class="verification-tel-show" @submit.prevent="validateForm('form-3-p')" data-vv-scope="form-3-p">
+                        <ul class="enterprisePhone">
+                            <span><span class="hm-red">*</span>手机：</span>
+                            <br/>
+                            <p style="height: 50px;position: relative">
+                                <input v-if="isShow" v-model="tel" type="text" style="background: #f2f3f7;border-color: #dadde1;color: #b9bfc7;" disabled/>
+                                <input v-else v-model="tel" placeholder="请收入手机号" name="phone" type="text" class="inputW not-active" v-validate="'required|phone'" data-vv-as="手机号"
+                                       :class="{'input': true, 'is-danger': errors.has('form-3-p.phone') }"/>
+                                <span style="position: absolute;right: 90px;top: 12px;">
+                                     <a v-if="!isDis" class="code_btn" v-bind:disabled="isDis" @click="passportCode('form-3-p')" v-bind:class="{ disabled: isDis }">${codeHtml}</a>
+                                    <a v-bind:disabled="isDis" v-else class="code_btn">${codeHtml}</a>
+                                </span>
+                            </p>
+                            <p class="red p_form" v-show="errors.has('form-3-p.phone')" style="line-height: 40px;margin-top: -20px;">${errors.first('form-3-p.phone')}</p>
+                            <span><span class="hm-red">*</span>验证码：</span>
+                            <br/>
+                            <input type="text" placeholder="请收入验证码" v-model="code" name="code" class="inputW" v-validate="'required'" data-vv-as="验证码"
+                                   :class="{'input': true, 'is-danger': errors.has('form-3-p.code') }"/>
+                            <p class="red p_form" v-show="errors.has('form-3-p.code')" style="line-height: 40px;">${errors.first('form-3-p.code')}</p>
+                        </ul>
+                        <div class="personalId_submit">
+                            <button class="personalId_next enterpriseReal_next">下一步</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="f_r personal_Example">
+                    <p>特别提醒：</p>
+                    <span class="personalReal_phone">我司将推出余额宝功能，为了您的账户安全，请尽快完善账户认证，以保证您账户的安全。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--上传图片-->
+    <div v-show="pType==2" class="personlReal">
+        <div class="pesronalReal_tit">
+            <ul>
+                <li class="personalReal_li">个人身份认证</li>
+            </ul>
+        </div>
+        <div class="pesronalId_wrap">
+            <div style="display: block">
+                <form class="f_l personalId_file" @submit.prevent="validateForm('form-p-1')" data-vv-scope="form-p-1">
+                    <h2>请上传身份证正反照片</h2>
+                    <div style="margin: 30px 0 0 10px;">
+                        <p><span class="hm-red">*</span>姓名：</p>
+                        <input style="width: 80%" type="text" placeholder="请输入姓名" class="inputW input" v-model="username" name="username" v-validate="'required'" data-vv-as="姓名"
+                               :class="{'input': true, 'is-danger': errors.has('form-p-1.username') }">
+                        <p class="red p_form" v-show="errors.has('form-p-1.username')" style="line-height: 40px;">${errors.first('form-p-1.username')}</p>
+                    </div>
+                    <div style="position: relative">
+                        <div class="modify_hover img_bg">
+                            <input type="text" v-model="sfzfront"  name="sfzfront" style="display: none;"
+                                   v-validate="'required'" data-vv-as="身份证正面" :class="{'input': true, 'is-danger': errors.has('form-p-1.sfzfront') }">
+                            <a data-method="notice"><div><img v-bind:src="sfzfront" style="width: 100%;height: 142px;"/> </div></a>
+                        </div>
+                        <div id="sfzfront_url1" class="f_l" style="position: absolute ; top: 50px; left: 250px;">
+                            <a data-method="notice"  id="sfzfront1"></a>
+                            <span>(身份证正面)</span>
+                        </div>
+                    </div>
+                    <p class="red p_form" v-show="errors.has('form-p-1.sfzfront')" style="line-height: 40px;padding-left: 10px;">${errors.first('form-p-1.sfzfront')}</p>
+
+                    <div style="position: relative">
+                        <div class="modify_hover img_bg1">
+                            <input type="text" v-model="sfzverso"  name="sfzverso" style="display: none;"
+                                   v-validate="'required'" data-vv-as="身份证反面" :class="{'input': true, 'is-danger': errors.has('form-p-1.sfzverso') }">
+                            <a data-method="notice"><div><img v-bind:src="sfzverso" style="width: 100%;height: 142px;"/> </div></a>
+                        </div>
+                        <div id="sfzverso_url1" class="f_l" style="position: absolute ; top: 50px; left: 250px;">
+                            <a data-method="notice"  id="sfzverso1"></a>
+                            <span>(身份证反面)</span>
+                        </div>
+                    </div>
+
+                    <p class="red p_form" v-show="errors.has('form-p-1.sfzverso')" style="line-height: 40px;padding-left: 10px;">${errors.first('form-p-1.sfzverso')}</p>
+                    <div class="c_b"></div>
+                    <div class="personalId_submit">
+                        <!--<a @click="clear();">返回</a>-->
+                        <button class="personalId_next">下一步</button>
+                    </div>
+                </form>
+                <div class="f_r personal_Example" style="height:auto;padding-bottom: 20px;">
+                    <p>示例：</p>
+                    <dl>
+                        <dt><img style="width: 160px;" src="../img/case-positive.png"></dt>
+                        <dd>
+                            <span>请上传本人身份证正面头部照片</span>
+                            <span>必须看清证件信息，且证件信息不能被遮挡</span>
+                            <span>仅支持.jpg .bmp .png .gif的图片格式</span>
+                            <span>图片大小不超过2M，长宽4096px以内</span>
+                        </dd>
+                    </dl>
+                    <div class="c_b"></div>
+                    <dl style="margin-top:39px;">
+                        <dt><img src="../img/case-reverse.png"></dt>
+                        <dd>
+                            <span>请上传本人身份证正面头部照片</span>
+                            <span>必须看清证件信息，且证件信息不能被遮挡</span>
+                            <span>仅支持.jpg .bmp .png .gif的图片格式</span>
+                            <span>图片大小不超过2M，长宽4096px以内</span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+</div>
+</div>
+
+
+<script type="text/javascript">
+    var user = {{{user}}};
+    var udata = {{{udata}}};
+    var phone = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的手机号码';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^(1[3-9][0-9]{9})$/.test(value));
+        }
+    };
+    VeeValidate.Validator.extend('phone', phone);
+    var personVM = new Vue({
+        el: "#approveP",
+        delimiters: ['${', '}'],
+        data:{
+            pType:1,
+            tel:udata.data.tel||'',
+            isShow:(udata.data.tel.length>0?true:false),
+            codeHtml:'获取验证码',
+            isDis:false,
+            userData:{},
+            code:"",
+            sfzfront:"",
+            sfzverso:"",
+            ImgIp:zgg.Vconfig.contractUrl,
+            img_updata_url:{},
+            username:"",
+        },
+        methods: {
+            clear:function () {
+                this.pType=1;
+                this.sfzfront="";
+                this.sfzverso="";
+                this.username="";
+                this.isDis =false;
+                this.codeHtml='获取验证码';
+            },
+            passportCode: function (_str) {
+                var layer = layui.layer;
+                if(this.tel==''){
+                    layer.msg("请输入手机号码",{icon:2});
+                    return;
+                }
+                var url='',_data={},that=this;
+                if(_str == 'form-3-p'){
+                    url='/user/getuserCode';
+                    _data={passport:this.tel};
+                }
+                function countDown(that, num) {
+                    var num = num;
+                    function TimeFn() {
+                        if (num == 0) {
+                            personVM.isDis = false;
+                            personVM.codeHtml = "获取验证码";
+                            num = 60;
+                            clearInterval(personVM.Td);
+                            return;
+                        } else {
+                            num--;
+                            personVM.codeHtml = num + 's';
+                            personVM.isDis = true;
+                        }
+                    }
+                    personVM.Td = setInterval(function () {
+                        TimeFn()
+                    }, 1000)
+                };
+                axios.post(url, _data).then(
+                        function (res) {
+                            if (res.data.success) {
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layui.use('layer', function () {
+                                        var layer = layui.layer;
+                                        layer.msg('验证码发送成功',{icon:1});
+                                    });
+                                });
+                                countDown(this, 60)
+                            } else {
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layui.use('layer', function () {
+                                        var layer = layui.layer;
+                                        layer.msg( res.data.message);
+                                    });
+                                });
+                                countDown(this, 0)
+                            }
+                        }, function (errRespone) {
+                            alert(errRespone)
+                        });
+            },
+            getCodeTrue:function (url,_userData) {
+                axios.post(url,_userData).then(
+                        function (data) {
+                            if(data.data.success){
+                                layer.msg("验证成功",{icon:1});
+                                personVM.codeHtml = "获取验证码";
+                                clearInterval(personVM.Td);
+                                personVM.pType=2;
+                            }else{
+//                              layer.msg(data.data.messages);
+                            }
+                        })
+            },
+            validateForm:function (scope) {
+                this.$validator.validateAll(scope).then(function (result) {
+                    if (result) {
+                        if (scope == 'form-3-p') {
+                            var url = '/user/userCodeTrue';
+                            var _userData = {passport:personVM.tel,code:personVM.code};
+                            personVM.getCodeTrue(url,_userData);
+                        }else if (scope == 'form-p-1') {
+                            var _userData = {uid:udata.data.uid,
+                                type:1,
+                                idcardBackend:personVM.img_updata_url.sfzfront,
+                                idcardFrontend:personVM.img_updata_url.sfzverso,
+                                contactName:personVM.username};
+                            axios.post('/userCenter/mainSave',_userData).then(
+                                function (data) {
+                                    if(data.data.success){
+                                        layer.msg("提交成功！",{inco:1});
+                                        window.location.href='/userCenter/userApprove';
+                                    }
+                                }
+                            );
+                        }
+                    }
+                });
+            },
+            updataFile:function (_str,queueId,ImgUrl,num) {
+                if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0"){
+                    $(_str).uploadify({
+                        'auto' : true,
+                        'queueID' :queueId,
+                        'swf'      : '/lib/uploadify.swf',
+                        'uploader' : '/upload/userProfile',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': '*.jpg;*.bmp;*.jpeg;*.png;*.gif;',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传文件',
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'token':JSON.parse(user).token,
+                        'formData':{
+                            'fType':'ft_2',
+                        },
+                        'onDrop'       : function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onFallback':function () {
+                            layer.msg('请安装或升级更高版本的Flash插件');
+                        },
+                        'onUploadSuccess' : function(file, data, response) {
+                            var data = JSON.parse(data);
+                            if( data && data.success ){
+                                if(ImgUrl=="sfzfront"){
+                                    personVM.sfzfront = personVM.ImgIp + data.data.filePath;
+                                    personVM.img_updata_url.sfzfront = data.data.filePath;
+                                }else if(ImgUrl=="sfzverso"){
+                                    personVM.sfzverso = personVM.ImgIp + data.data.filePath;
+                                    personVM.img_updata_url.sfzverso = data.data.filePath;
+                                }
+                                layer.msg("上传成功",{icon:1})
+                            }
+                        },
+                        'onUploadError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                }else{
+                    $(_str).uploadifive({
+                        'auto' : true,
+                        'queueID' :queueId,
+                        'checkScript':'/upload/check',
+                        'uploadScript' : '/upload/userProfile',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': 'image/*',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传文件',
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'token':JSON.parse(user).token,
+                        'formData':{
+                            'fType':'ft_2',
+                        },
+                        'onDrop'       : function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onUploadComplete' : function(file, data, response) {
+                            var data = JSON.parse(data);
+                            if( data && data.success ){
+                                if(ImgUrl=="sfzfront"){
+                                    personVM.sfzfront = personVM.ImgIp + data.data.filePath;
+                                    personVM.img_updata_url.sfzfront = data.data.filePath;
+                                }else if(ImgUrl=="sfzverso"){
+                                    personVM.sfzverso = personVM.ImgIp + data.data.filePath;
+                                    personVM.img_updata_url.sfzverso = data.data.filePath;
+                                }
+                                layer.msg("上传成功",{icon:1})
+                            }
+                        },
+                        'onCheck'  : function(file, exists) {
+                            if (exists) {
+                                layer.msg("您上传的文件格式或大小有误");
+                                $(_str).uploadifive('cancel', file)
+                            }
+                        },
+                        'onUploadError' : function (file, data, response) {
+                            debugger;
+                        }
+                    });
+                }
+            }
+        },
+        mounted:function () {
+            //判断产品类型 执行附件初始化
+            this.updataFile('#sfzfront1','sfzfront_url1','sfzfront');
+            this.updataFile('#sfzverso1','sfzverso_url1','sfzverso');
+
+        }
+    });
+</script>

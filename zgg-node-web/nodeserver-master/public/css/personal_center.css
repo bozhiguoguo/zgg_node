@@ -1,0 +1,808 @@
+.personCenter_wrapp{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+.personCenter_tab ul{
+    width: 1200px;
+    margin:0 auto;
+    line-height: 58px;
+}
+
+.personCenter_tab ul li{
+    float: left;
+    color: #727f8f;
+    font-size: 16px;
+    margin-right:15px;
+}
+
+.personCenter_tab ul li a{
+    color: #727f8f;
+}
+
+.personCenter_tab ul li a:hover{
+    color:#a34a51;
+}
+
+.personCenter_tab ul li span{
+    display: inline-block;
+    padding-left: 15px;
+}
+
+#tabOne{
+    padding-left: 0;
+}
+
+.personCenter_content{
+    width: 1200px;
+    margin: 20px auto 0;
+}
+
+.personCenter_aside{
+    width: 72px;
+    float: left;
+    margin-top:24px;
+}
+
+.personCenter_aside h2{
+    font-size: 18px;
+    color: #2a2a2a;
+    marign-top:19px;
+}
+
+.personCenter_aside h2.personCenter_set{
+    margin-top:41px;
+}
+
+.personCenter_aside ul{
+    margin-top:7px;
+}
+
+.personCenter_aside ul li{
+    color:#727f8f;
+    font-size:14px;
+    margin-top:10px;
+}
+
+.personCenter_aside ul .personCenter_check{
+    color: #a34a51;
+}
+
+.personCenter_all{
+    width: 1050px;
+    float: right;
+    height: auto;
+    min-height: 400px;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+}
+
+.personCenter_nav{
+    height: 54px;
+    background: #eff0f4;
+}
+
+.personCenter_nav ul{
+    float: left;
+}
+
+
+.personCenter_nav ul li{
+    float: left;
+    padding:0px 62px;
+    font-size: 16px;
+    color: #727f8f;
+    cursor: pointer;
+    height: 54px;
+    line-height: 54px;
+}
+
+.personCenter_search{
+    position: relative;
+}
+.personCenter_search>input{
+    margin-top: 13px;
+    width: 228px;
+    height:28px;
+    border-radius: 3px;
+    color: #c8c7c7;
+    font-size: 12px;
+    padding-left:85px;
+    padding-right:29px;
+    border:1px solid #a34a51;
+    background: #fff;
+    margin-right:18px;
+}
+.personCenter_search>button{
+    background-color: #fff;
+    border:0;
+    position: absolute;
+    cursor: pointer;
+    right:24px;
+    top:16px;
+}
+.personCenter_search>button img{
+    width:20px;
+    height:20px;
+}
+.personCenter_search select{
+    border: 0px;
+    font-size: 12px;
+    position: absolute;
+    left: 5px;
+    top:18px;
+}
+.personCenter_details{
+    width: 1016px;
+    margin:19px auto 0;
+}
+
+.personCenter_checkAll{
+    margin-left:15px;
+}
+
+.personCenter_checkAll span{
+    display: block;
+    float: left;
+    font-size: 14px;
+    text-align: center;
+}
+
+.cartCheckAll{
+    width: 20px;
+    height: 20px;
+    border-radius: 1px;
+    background:url(../img/icon-shoppingcart-tickbox.png) no-repeat left 2px;
+    float: left;
+    margin-right: 5px;
+}
+.cartCheckTrue{
+    width: 20px;
+    height: 20px;
+    border-radius: 1px;
+    float: left;
+    background:url(../img/icon-shoppingcart-tickbox-selected.png) no-repeat left 2px;
+}
+.personCenter_checkAll span.center1 button[disabled]{
+    background:#eff0f4;
+    border:1px solid #e2e2e2;
+    color:#e2e2e2
+}
+.personCenter_checkAll span.center1 button{
+    height: 21px;
+    background: #e9c19e;
+    line-height: 21px;
+    color: #fff;
+    text-align: center;
+    border:none;
+    border-radius: 3px;
+    font-size: 12px;
+    margin-left: 5px;
+    border:1px solid #e9c19e;
+    margin-top:-3px;
+}
+
+.personCenter_checkAll span.center2{
+    width: 180px;
+}
+
+.personCenter_checkAll span.center3{
+    width: 174px;
+}
+
+.personCenter_checkAll span.center4{
+    width: 106px;
+}
+
+.personCenter_checkAll span.center5{
+    width: 118px;
+}
+
+.personCenter_checkAll span.center6{
+    width: 128px;
+}
+
+.personCenter_checkAll span.center7{
+    width: 154px;
+}
+
+.personCenter_codity{
+    width: 1016px;
+    height: auto;
+    /*min-height: 168px;*/
+    overflow: hidden;
+    border:1px solid #fcf3ec;
+    margin-top:15px;
+}
+
+.personCenter_contract{
+    height: 46px;
+    background: #fcf3ec;
+}
+
+.personCenter_contract p{
+    float: left;
+    line-height: 45px;
+    margin-left:15px;
+}
+
+.personCenter_contract p span{
+    display: inline-block;
+    color: #333;
+    font-size: 12px;
+    margin-right:4px;
+}
+
+.personCenter_contract div{
+    float: right;
+}
+
+.personCenter_contract div.personCenter_pay{
+    width: 80px;
+    height: 33px;
+    background: #a34a51;
+    line-height: 33px;
+    text-align: center;
+    font-size: 14px;
+    color:#fff;
+    border:none;
+    border-radius: 3px;
+    margin-top:6px;
+}
+
+.personCenter_contract div.personCenter_pay a{
+    color: #fff;
+}
+
+.personCenter_more{
+    float: right;
+    width: 66px;
+    height: 50px;
+    position: relative;
+    margin-left:10px;
+}
+.personCenter_more .menu {
+    width:50px;
+    height:33px;
+    line-height:33px;
+    padding-left:10px;
+    background:#fff;
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+}
+
+.personCenter_more span img{
+    display: inline-block;
+    margin-right:4px;
+    margin-left:4px;
+    cursor: pointer;
+    width:12px;
+    height: 12px;
+}
+
+.personal_order{
+    position: absolute;
+    right: 1px;
+    top: 46px;
+    width: 100px;
+    height:auto;
+    background: #fff;
+    border-radius: 3px;
+    /* background: url(../img/bg-myorder-dropdownbg.png) no-repeat; */
+    display: none;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+
+}
+
+
+.personal_order:before{
+    content: "";
+    position: absolute;
+    left: 65px;
+    top: -10px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+}
+
+.personal_order dl{
+    margin:20px 11px;
+    height: 15px;
+}
+
+.personal_order dl dt{
+    float: left;
+    margin-right: 5px;
+}
+
+.personal_order dl dt img{
+    width: 17px;
+    height: 17px;
+    margin-top:-4px;
+}
+
+.personal_order dl dd{
+    float: left;
+    cursor: pointer;
+    font-size: 14px;
+    color: #727f8f;
+}
+
+.personal_order dl dd.personal_check{
+    color: #a34a51;
+}
+
+
+.personal_table ul{
+    width: 1014px;
+    border-top:1px solid #fcf3ec;
+    height: 125px;
+    clear: both;
+}
+
+.personal_table ul li{
+    float: left;
+    height: 123px;
+}
+
+.table1{
+    width: 360px;
+    border-right:1px solid #fcf3ec;
+}
+.table1.isentrust{
+    background: url("../img/icon-stamp.png") no-repeat 215px 38px;
+    background-size:85px 85px;
+}
+.table1 span{
+    display: block;
+    margin:13px 0 0 15px;
+    font-size:12px;
+    color: #727f8f;
+}
+
+.table1 span b{
+    display: inline-block;
+    font-weight: normal;
+}
+
+.table1 span b{
+    width: 100px;
+}
+
+.table1 span b.zgg_zy{
+    width: 75px;
+    height: 21px;
+    border:1px solid #f77978;
+    line-height: 21px;
+    text-align: center;
+    color: #f77978;
+    border-radius: 3px;
+    margin-right:5px;
+}
+
+.table1 dl{
+    margin:10px 0 0 42px;
+}
+
+.table1 dl dt{
+    width: 63px;
+    height: 63px;
+    background-color: #d8d8d8;
+    float: left;
+    margin-right: 20px;
+    border:1px solid #eaeaea;
+}
+
+/*
+.table1 dl dd{
+    float: left;
+}
+*/
+
+.table1 dl dd p.personal_zi{
+    font-size: 12px;
+    color: #2a2a2a;
+    margin-bottom: 5px;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+
+.table1 dl dd p{
+    color:#727f8f;
+    font-size:12px;
+}
+
+.table2{
+    width: 173px;
+    border-right:1px solid #fcf3ec;
+    font-size: 14px;
+    color: #2a2a2a;
+    text-align: center;
+    line-height: inherit;
+    padding-top: 50px;
+    box-sizing: border-box;
+}
+
+.table3{
+    width: 105px;
+    height: 123px;
+    border-right:1px solid #fcf3ec;
+}
+
+.table4{
+    width: 110px;
+    height: 123px;
+    border-right:1px solid #fcf3ec;
+    padding:52px 0;
+    /*padding:52px 32px;*/
+}
+
+.table4 span{
+    display: block;
+    color: #727f8f;
+    font-size: 12px;
+    text-align: center;
+}
+
+.table4 span.personal_color{
+    color: #f77978;
+    font-size: 14px;
+}
+
+.table5{
+    width: 127px;
+    height: 123px;
+    border-right:1px solid #fcf3ec;
+    color: #f77978;
+    font-size: 14px;
+    line-height: 123px;
+    text-align: center;
+}
+
+.table6{
+    width: 134px;
+}
+
+.table6 a{
+    display: block;
+    width: 80px;
+    height: 33px;
+    background: #e9c19e;
+    line-height: 33px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 3px;
+    margin: 44px 28px;
+}
+.table6.spcButton a{
+    margin:22px 28px 0px 28px;
+}
+.table6 a:nth-child(2){
+    margin-top: 10px;
+}
+.marg20{
+    margin-top:20px;
+}
+ .layui-tab-title{
+     height: 54px;
+     border-bottom: none;
+ }
+
+.layui-tab-title li{
+    min-width: 0;
+    line-height: 0;
+}
+
+.layui-tab-title .layui-this{
+    color: #727f8f;
+    background: #fff;
+}
+
+.layui-tab-title .layui-this:after{
+    border:none;
+    border-bottom-color: none;
+}
+
+
+.basicNoinfo{
+    width:165px;
+    margin:58px auto;
+}
+
+.basicNoinfo dl dt img{
+    width:151px;
+    height: 151px;
+}
+
+.basicNoinfo dl dd{
+    font-size:14px;
+    color:#727f8f;
+    margin-top:19px;
+    text-align: center;
+}
+
+.basicNoinfo dl dd span{
+    display: inline-block;
+    color: #49a5de;
+    margin-left:13px;
+    cursor: pointer;
+}
+/**
+/ 待确认列表
+ */
+.titleFlag{
+    display: inline-block;
+    height: 19px;
+    position: relative;
+    top: 2px;
+    width: 4px;
+    margin-right: 5px;
+    background-color:#a34a51 ;
+}
+.changelog{
+    padding:0 20px 20px 20px;
+}
+.changelog ul{
+    width: 100%;
+    height: auto;
+}
+.changelog ul li{
+    width: 100%;
+    padding-top: 9px;
+    padding-bottom: 19px;
+    border-bottom: 1px solid #f2f3f7;
+}
+.changelog ul li:last-child{
+    border:none;
+}
+.changelog ul li span{
+    display: inline-block;
+    width: 32.8%;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #727f8f;
+}
+.changelog ul li span label{
+    color: #2a2a2a;
+}
+/*果蜜中心*/
+
+/*待确认订单*/
+.confirmedTable{
+    width: 100%;
+    height: auto;
+    border: 1px solid #fcf3ec;
+    margin-bottom: 20px;
+}
+.confirmedTable thead{
+    background-color: #fcf3ec;
+    height: 45px;
+    line-height: 45px;
+}
+.confirmedTable thead *{
+    color: #333;
+    font-family: '微软雅黑 Bold', '微软雅黑 Regular', '微软雅黑';
+    font-size: 14px;
+}
+.confirmedTable thead th,.confirmedTable tbody tr td{
+    text-align: center;
+}
+.confirmedTable thead th:nth-child(1),.confirmedTable tbody tr td:nth-child(1){
+    width: 338px;
+}
+.confirmedTable thead th:nth-child(2),.confirmedTable tbody tr td:nth-child(2){
+    width: 305px;
+}
+.confirmedTable thead th:nth-child(3),.confirmedTable tbody tr td:nth-child(3){
+    width: 180px;
+}
+.confirmedTable thead th:nth-child(4),.confirmedTable tbody tr td:nth-child(4){
+    width: 310px;
+}
+.confirmedTable thead th:nth-child(5),.confirmedTable tbody tr td:nth-child(5){
+    width: 400px;
+}
+.confirmedTable tbody tr{
+    height: 53px;
+    line-height: 53px;
+}
+.confirmedTable tbody tr td{
+    border: 1px solid #fcf3ec;
+    color: #727f8f;
+}
+.confirmedTable .del,.confirmedTable .pay{
+    display: inline-block;
+    width: 80px;
+    height: 33px;
+    border-radius: 3px;
+    line-height: 33px;
+    background-color: #e9c19e;
+    font-size: 14px;
+    color: #fff;
+}
+.confirmedTable .pay{
+    background-color: #a34a51;
+    margin-left: 43px;
+}
+.modifyTip{
+    padding: 10px 20px;
+}
+
+
+/*
+*索要发票弹框信息
+*/
+.demandDialog{
+    height: auto
+}
+.demandDialog .layui-layer-title:before {
+     content: "";
+     position: absolute;
+     left: 25px;
+     top: 30px;
+     width: 4px;
+     height: 19px;
+     background: #a34a51;
+ }
+.demandDialog .layui-layer-title {
+    margin-left: 35px;
+    margin-top: 19px;
+    border-bottom: none;
+    padding-left: 0;
+}
+.posi_abso {
+    position: absolute;
+    top: 17px;
+    left: 320px;
+    font-size: 14px;
+    color: #2384cc;
+    cursor: pointer;
+}
+.invoiceBtn{
+    position: absolute;
+    right: 25px;
+    top: 21px;
+    color: #fff;
+    border-radius: 3px;
+    background-color: #a34a51;
+}
+.posi_abso span:nth-child(1) {
+    margin-right: 10px;
+}
+.posi_abso span:nth-child(2) {
+    margin-left: 10px;
+}
+.demandDialog .confim_invoceInfo{
+    margin: 20px 0 0 25px;
+    padding-bottom: 25px;
+}
+.demandDialog .confim_invoceInfo ul{
+    float: left;
+}
+
+.demandDialog .confim_invoceInfo ul li{
+    float: left;
+    width: 136px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 14px;
+    color: #2a2a2a;
+    margin-right: 24px;
+    cursor: pointer;
+    border: 1px solid #daddee;
+    border-radius: 3px;
+}
+
+.demandDialog .confim_invoceInfo ul li.confim_chenckRed{
+    color: #d9344b;
+    border:1px solid #d9344b;
+}
+.demandDialog .border_bottom{
+    margin-top: 19.5px;
+    clear: both;
+    width: 430px;
+    border: solid 1px #f2f3f6;
+}
+.demandDialog .confim_invoceInfo table {
+    margin-top: 20px;
+}
+.demandDialog .confim_invoceInfo table tr{
+    line-height: 34px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+}
+.demandDialog .confim_invoceInfo table tr:nth-child(7) {
+    line-height: 20px;
+}
+
+/*
+*选择更多
+*
+*/
+.moreInvoiceInfo {
+    padding-left: 35px;
+    background: #fff;
+}
+.moreInvoiceInfo .moreInvoiceInfo1{
+    background-color: var(--light-grey);
+    width: 410px;
+    float:left;
+    box-shadow: 0 10px 20px 0 rgba(180, 82, 69, 0.2);
+    box-sizing: border-box;
+}
+.moreInvoiceInfo .moreInvoiceInfo1:nth-child(1) {
+    margin-right: 35px;
+}
+.moreInvoiceInfo .moreInvoiceInfo1:nth-child(3) {
+    margin-right: 35px;
+}
+.moreInvoiceInfo .isCheched {
+    border: solid 3px #b45245;
+}
+
+
+
+
+
+
+.confimCont_left{
+    float: left;
+    width: 600px;
+    min-height: 182px;
+    background: #fff;
+}
+
+.confimCont_left>div>img{
+    width:590px;
+    height: 15px;
+    margin-top: -7px;
+}
+.moreInvoiceList1 {
+    width: 430px;
+    height: 261px;
+    margin-left: 24px;
+    margin-top: 20px;
+    background: #f9f8f4;
+    float: left;
+    box-sizing: border-box;
+}
+.moreInvoiceList1 .title {
+    line-height: 50px;
+    border-bottom: 1px dashed #e4e4e4;
+}
+.chechInvoice {
+    background-color: #f9f8f4;
+    background-color: var(--light-grey);
+    box-shadow: 0 10px 20px 0 rgba(180, 82, 69, 0.2);
+    border: solid 4px #b45245;
+    box-sizing: border-box;
+}
+.billType1 {
+    color:#D9344B;
+    border:1px solid #D9344B;
+}
+.billType2 {
+    color:#000;
+    border:1px solid #daddee;
+}
+#moreInvoiceLists form ul li{
+    max-width: 400px;
+    height: 30px;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
+
+

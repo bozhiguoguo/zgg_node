@@ -1,0 +1,388 @@
+.balanceInfo{
+    width: 1016px;
+    height: 60px;
+    background-color: #fcf3ec;
+    margin:45px auto 26px;
+}
+
+.balanceInfo p{
+   margin:21px 0 0 15px;
+}
+
+.balanceInfo p span{
+    display: block;
+    float: left;
+    font-size: 14px;
+    text-align: left;
+    color: #2a2a2a;
+}
+
+.balanceInfo p b{
+    float: left;
+    display: block;
+    font-weight: inherit;
+    font-size: 18px;
+    text-align: left;
+    color: #d9344b;
+    margin-top:-3px;
+}
+
+.balanBut a{
+    display: block;
+    width: 79px;
+    height: 33px;
+    border-radius: 3px;
+    background-color: #a34a51;
+    margin:14px 20px 0 0;
+    float: left;
+    text-align: center;
+    line-height: 33px;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.balanBut a.balanRecharge{
+    background-color: #e9c19e;
+}
+
+.rechargeJl{
+    font-size: 12px;
+    text-align: left;
+    color: #69717d;
+}
+
+.balanceTab{
+    width:1020px;
+    height: auto;
+    overflow: hidden;
+    margin:7px auto 20px;
+    border: solid 1px #eff0f4;
+}
+
+.balanceTab tr.balanceTr{
+    background: #eff0f4;
+    font-size: 14px;
+    text-align: center;
+    color: #727f8f;
+}
+
+.balanceTab tr.balanceTr th{
+    font-weight: normal;
+}
+
+.balanceTab tr{
+    height: 39px;
+    line-height: 39px;
+    font-size: 14px;
+    color: #2a2a2a;
+    border-top: solid 1px #eff0f4;
+}
+
+.balanceTab tr td.widthO{
+    width: 200px;
+    text-align: center;
+    position: relative;
+}
+
+.balanceTab tr td.widthO:before{
+    content: " ";
+    width: 8px;
+    height: 8px;
+    background-color: #f55064;
+    border-radius: 100%;
+    position: absolute;
+    left: 100px;
+    top: 16px;
+}
+
+.balanceTab tr td.myRecharge:before{
+    content: " ";
+    width: 8px;
+    height: 8px;
+    background-color:#7ed321;
+    border-radius: 100%;
+    position: absolute;
+    left: 100px;
+    top: 16px;
+}
+
+.balanceTab tr td.myCash:before{
+    content: " ";
+    width: 8px;
+    height: 8px;
+    background-color: #f6a623;
+    border-radius: 100%;
+    position: absolute;
+    left: 100px;
+    top: 16px;
+}
+.balanceTab tr td.myRefund:before{
+    content: " ";
+    width: 8px;
+    height: 8px;
+    background-color: #837ad9;
+    border-radius: 100%;
+    position: absolute;
+    left: 100px;
+    top: 16px;
+}
+.balanceTab tr td.myBack:before{
+    content: " ";
+    width: 8px;
+    height: 8px;
+    background-color: #72cef2;
+    border-radius: 100%;
+    position: absolute;
+    left: 100px;
+    top: 16px;
+}
+.balanceTab tr td.myRelieve:before{
+    content: " ";
+    width: 8px;
+    height: 8px;
+    background-color: #96a3a8;
+    border-radius: 100%;
+    position: absolute;
+    left: 100px;
+    top: 16px;
+}
+.tb_pl{
+    padding-left:25px;
+}
+.balanceTab tr td.widthT{
+    width: 200px;
+    text-align: center;
+}
+
+.balanceTab tr td.widthH{
+    width: 200px;
+    text-align: center;
+}
+
+.balanceTab tr td.widthF{
+    width: 200px;
+    text-align: center;
+}
+
+
+
+/*��ֵ*/
+.rechargeCon{
+    width: 1000px;
+    margin:25px auto;
+}
+
+.rechargeCon h2{
+    font-size: 20px;
+    color: #2a2a2a;
+    border-left:4px solid  #a34a51;
+    height: 19px;
+    line-height: 19px;
+    padding-left:5px;
+}
+
+.rechargeMoney{
+    margin-top:40px;
+    font-size: 12px;
+    color: #727f8f;
+}
+
+.rechargeCheck{
+    margin-top:15px;
+}
+
+.rechargeRad label{
+    margin-right:36px;
+    font-size: 14px;
+    text-align: left;
+    color: #2a2a2a;
+}
+
+.rechargeRad label input{
+    margin-right:7px;
+    margin-top:-3px;
+}
+
+.rechargeOther{
+    margin-top:15px;
+}
+
+.rechargeOther p{
+    font-size: 12px;
+    text-align: left;
+    color: #727f8f;
+}
+
+.rechargeOther p.rechargeIn input{
+    margin-top: -3px;
+    margin-right:7px;
+}
+
+.rechargTxt input{
+    width: 229px;
+    height: 33px;
+    border-radius: 3px;
+    border: solid 1px #dadde1;
+    margin:5px 0 0 9px;
+}
+
+
+.rechargePay{
+    width: 1000px;
+    /*height: 2px;*/
+    border-top: solid 1px #e4e4e4;
+    margin-top:25px;
+}
+
+.rechargePay p{
+    font-size: 12px;
+    color: #727f8f;
+    margin-top:15px;
+}
+
+
+.rechargeEmty{
+    width:1016px;
+    height: 60px;
+    background-color: #fcf3ec;
+    margin-top: 20px;
+    line-height: 60px;
+}
+
+.rechargeEmty p{
+    float: left;
+    font-size: 14px;
+    color: #2a2a2a;
+    margin-left: 15px;
+}
+
+.rechargeEmty span{
+    display: block;
+    float: left;
+    font-size: 18px;
+    color: #d9344b;
+}
+
+
+.rechargeNoinfo{
+    width:163px;
+    /*height: 156px;*/
+    margin:56px auto;
+}
+
+.rechargeNoinfo dt img{
+    width:163px;
+    height: 156px;
+}
+
+.rechargeNoinfo dd p{
+    text-align: center;
+    margin-top:25px;
+}
+
+.rechargeNoinfo dd a{
+    display: block;
+    width: 149px;
+    height: 33px;
+    border-radius: 3px;
+    background-color: #a34a51;
+    margin-top:60px;
+    font-size: 16px;
+    color:#fff;
+    line-height: 33px;
+    text-align: center;
+}
+
+
+
+
+/*����*/
+.cashInfo{
+    margin-top:35px;
+}
+
+.cashInfo p{
+    font-size: 12px;
+    text-align: left;
+    color: #727f8f;
+}
+
+.cashTxt{
+    margin-top:5px;
+}
+
+.cashTxt input{
+    width: 229px;
+    height: 33px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    border: solid 1px #dadde1;
+    float: left;
+    padding-left: 10px;
+}
+
+.cashTxt span{
+    float: left;
+    display: block;
+    font-size: 12px;
+    color: #b9bfc7;
+    margin:17px 0 0 10px;
+}
+
+.cashTime{
+    width: 405px;
+    height: 30px;
+    border-radius: 3px;
+    background-color: #fbe3e3;
+    border: solid 1px #f7cdd0;
+    font-size: 12px;
+    color: #c96d6d;
+    margin-top:8px;
+    line-height: 30px;
+    padding-left: 6px;
+}
+
+.cashTime img{
+    width: 19px;
+    height: 19px;
+}
+
+.cashBut{
+    width:195px;
+    height: 33px;
+    margin:135px auto 128px;
+}
+
+.cashBut a{
+    display: block;
+    float: left;
+    width:79px;
+    height: 33px;
+    border-radius: 3px;
+    background-color: #e9c19e;
+    line-height: 33px;
+    text-align: center;
+    font-size:16px;
+    color:#fff;
+}
+
+.cashBut a.cashSure{
+    background-color: #a34a51;
+    margin-left:30px;
+}
+
+
+/*֧��*/
+.mypayment{
+    height:30px;
+    margin:12px 0 12px 15px;
+}
+
+.mypayment li{
+    float: left;
+    margin-right:60px;
+}
+
+.mypayment input{
+    margin: 2px 5px 0 0;
+}

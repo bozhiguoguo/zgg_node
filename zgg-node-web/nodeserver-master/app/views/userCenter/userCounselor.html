@@ -1,0 +1,53 @@
+{{> head}}
+<link rel="stylesheet" href="/css/exclusive_adviser.css" >
+<div class="personCenter_all layui-tab-card" id="user_counselor"  v-cloak>
+    <div class="adviser_name advister_left" v-for="item in items">
+        <div class="adviser_info">
+            <dl>
+                <dt><img style="width: 60px;height:60px;" :src="item.headPic?gwPicUrl+item.headPic:gwPicUrl+0"/></dt>
+                <!--<dt><img :src="gwPicUrl+item.headPic"/></dt>-->
+                <dd>
+                    <p class="adviser_num" v-if="item.type=='gw'">顾问：<span>${item.nickname}</span></p>
+                    <p v-if="item.type=='gw'">${item.deptName}顾问</p>
+
+                    <p class="adviser_num" v-if="item.type=='kf'">客服：<span>${item.nickname}</span></p>
+                    <p  v-if="item.type=='kf'">知果果客服</p>
+                </dd>
+            </dl>
+            <div class="c_b"></div>
+            <div class="adviser_contact">
+                <p>联系电话：<span>${item.tel}</span></p>
+                <p>QQ：<span>${item.qq}</span></p>
+                <p>邮箱：<span>${item.email}</span></p>
+            </div>
+        </div>
+        <div class="adviser_zx">
+            <div ><img style="width: 102px;height: 102px;" :src="item.qrcodeid?gwPicUrl+item.qrcodeid:gwPicUrl+0"/></div>
+            <a :href="'/webim/webimAdv/'+item.imtokenId+'/'+item.nickname" target="_blank"><div class="adviser_lj"><img  src="/img/versiter_ingo.png"/>立即咨询</div></a>
+        </div>
+    </div>
+    <!--<div class="basicNoinfo" v-if="items.length==0">-->
+        <!--<dl>-->
+            <!--<dt><img src="/img/icon-emptystate.png" /></dt>-->
+            <!--<dd>暂无顾问！</dd>-->
+        <!--</dl>-->
+    <!--</div>-->
+</div>
+
+
+</div>
+</div>
+<script type="text/javascript">
+    var gwData = {{{ gwData }}};
+        var counselorVM = new Vue({
+            delimiters: ["${", "}"],
+            el: "#user_counselor",
+            data:{
+                gwPicUrl:zgg.Vconfig.gwPicUrl,
+                items: gwData.data
+            },
+            mounted:function () {
+                
+            }
+        });
+</script>

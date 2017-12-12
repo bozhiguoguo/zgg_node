@@ -1,0 +1,44 @@
+{
+  "apiUrl": {
+    "base": "http://base-api.zhiguoguo.cn/base-web-rest/",
+    "pc":"http://pc-api.zhiguoguo.cn/pc-web-rest/",
+    "crm":"http://crm-api.zhiguoguo.cn/crm-web-rest/",
+    "admin":"http://project-api.zhiguoguo.cn/zgg-web-admin-rest/"
+  },
+  "seo": {
+    "index": {
+      "title": "商标查询|免费商标注册查询|中国商标网-知果果官网",
+      "keywords":"商标注册,商标查询,商标注册查询,注册全球商标,知果果",
+      "description":"知果果知产电商平台,提供商标注册、专利申请、版权登记全流程服务,智能商标注册省钱到底,商标注册监控等服务获得京东、360、搜狗、乐视等知名公司的认可"
+    },
+    "category": {
+      "title": "商标查询|免费商标注册查询|中国商标网-知果果官网-栏目页",
+      "keywords":"商标注册,商标查询,商标注册查询,注册全球商标,知果果",
+      "description":"知果果知产电商平台,提供商标注册、专利申请、版权登记全流程服务,智能商标注册省钱到底,商标注册监控等服务获得京东、360、搜狗、乐视等知名公司的认可"
+    },
+    "detail": {
+      "title": "商标查询|免费商标注册查询|中国商标网-知果果官网--详情页",
+      "keywords":"商标注册,商标查询,商标注册查询,注册全球商标,知果果",
+      "description":"知果果知产电商平台,提供商标注册、专利申请、版权登记全流程服务,智能商标注册省钱到底,商标注册监控等服务获得京东、360、搜狗、乐视等知名公司的认可"
+    }
+  },
+  "auth":["/cart/","/order/","/search/","/userCenter/","/userOrder/","/business/","/comfirmedOrder/"],
+  "specialPcode":["tr_reg_11","tr_reg_12","tr_reg_13","tr_reg_8"], //果实 国保 国益类型
+  "businessTrPcode":["ht_tr_ec_1","ht_tr_ec_2","tr_oa_cm","tr_rv_cm","tr_nd_cm", "tr_rd_cm", "tr_oc_cm","tr_dd_cm"], //商标买卖及答辩
+  "viwConfig":{
+    "maxBuyNum":50,
+    "ImgUrl":"http://resource.zhiguoguo.com:81/", //所有产品图片地址
+    "backstageUrl":"http://project-api.zhiguoguo.cn/",
+    "gwPicUrl":"http://base-api.zhiguoguo.cn/base-web-rest/sysuser/loadImage/",
+    "gwDownloadFielUrl":"http://project-api.zhiguoguo.cn/zgg-web-admin-rest/base/down/downLoadFilesST?allPath=",
+    "contractUrl":"http://pc-api.zhiguoguo.cn/pc-web-rest/", //所有图片地址
+    "pcode":[{
+      "copyright":["","",""]
+    }],
+    "fileExts":["jpg","gif","png","bmp","doc","docx","xls","xlsx","ppt","pptx","pdf","txt","rar","zip"],
+    "fileMaxSize": {"img":2,"otherFile":100}//最大2MB//最大100MB
+  },
+  "site":"http://www-staging.zhiguoguo.cn/", //站点网站
+  "redisHost":"192.168.89.221",
+  "redisPort":[7000,7001,7002,7003,7004,7005]
+}

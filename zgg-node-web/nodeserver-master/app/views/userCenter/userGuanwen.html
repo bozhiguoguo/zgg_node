@@ -1,0 +1,877 @@
+{{> head}}
+<link rel="stylesheet" href="/css/gw_administration.css" >
+<style>
+    #layui-layer1{
+        position: absolute\9;
+        top:0px\9!important;
+        left:0\9!important;
+    }
+</style>
+<div class="layui-tab layui-tab-card personCenter_all" id="user_guanWen" style="overflow: inherit"  v-cloak>
+    <div class="personCenter_nav">
+        <ul class="layui-tab-title">
+            <li class="layui-this" @click="clearData();notMail_list('jump');">已下发未邮寄<span>(${gDataNum.isMateCount})</span>份</li>
+            <li @click="clearData();getIsExpress('jump');edit_show=false;pageNumber=20;">已申请邮寄<span>(${gDataNum.isExpressCount})</span>份</li>
+            <li @click="clearData();his_list('jump');edit_show=false;pageNumber=20;">历史邮寄<span>(${gDataNum.historyCount})</span>份</li>
+        </ul>
+    </div>
+    <div class="c_b"></div>
+    <div v-show="!edit_show" class="layui-tab-content">
+        <!--<p style="color: #cc0000;padding-left:14px;">-->
+            <!--<img src="/img/1@3x.png" alt="" style="width:20px;height:20px;display: inline-block;margin-right:6px;">亲爱的果蜜，知果果将于11月22-11月27号乔迁新址，期间将暂停官文邮寄业务，给您带来的不便深表歉意！-->
+        <!--</p>-->
+        <div class="layui-tab-item layui-show">
+            <div class="admin_text">
+                <ul>
+                    <li><input type="text" v-model="bodyName" name="bodyName" placeholder="主体名称"></li>
+                    <li><input type="text" v-model="tmName" name="tmName" placeholder="商标名称"></li>
+                    <li style="margin-right:1px;">
+                        <select v-model="docType">
+                            <option  value="">全部商标文件</option>
+                            <option  value="0">商标注册受理通知书</option>
+                            <option  value="6">商标注册证</option>
+                        </select>
+                    </li>
+                    <li><button @click="notMail_list('jump');">查询</button></li>
+                </ul>
+            </div>
+            <div class="admin_info">
+                <table>
+                    <tr class="admin_th">
+                        <th>
+                            <a :class="{cartCheckTrue:i_show,cartCheck:!i_show}" @click="selectAll();i_show=!i_show;"></a>全选
+                        </th>
+                        <th>商标名称</th>
+                        <th>商标类别</th>
+                        <th>主体名称</th>
+                        <th>订单号</th>
+                        <th>文档类型</th>
+                        <th>申请号</th>
+                    </tr>
+                    <tr class="admin_Issued" v-for="item in items">
+                        <td> <a :class="{cartCheckTrue:item.isCheck,cartCheck:!item.isCheck}" @click="select(item)"></a></td>
+                        <td>${item.name}</td>
+                        <td>${item.tmType}</td>
+                        <td>${item.bodyName}</td>
+                        <td>${item.orderCode}</td>
+                        <td>${item.docTypeName}</td>
+                        <td>${item.appNum}</td>
+                    </tr>
+                </table>
+            </div>
+            <div v-show="items.length>0">
+                <div class="admin_choice">已选<span>${num}</span>件</div>
+                <div style="position: relative;">
+                    <div id="GuanwenPage1" class="page"></div>
+                    <div style="position: absolute;right: 30px;top: 15px;">每页显示
+                        <select name="" id="" v-model="pageNumber" @change="notMail_list('jump')">
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        条
+                    </div>
+                </div>
+                <div class="admin_button" v-show="num!=0">
+                    <a class="admin_mail btn_c_bg" @click="getMail()">邮 寄</a>
+                    <!--<a class="admin_mail" style="color:#fff;background-color: #EBEBE4">邮 寄</a>-->
+                    <a class="admin_download btn_c_bg" @click="down_notMail()">下 载</a>
+                </div>
+                <div class="admin_button" v-show="num==0">
+                    <a class="admin_mail" style="color:#fff;background-color: #EBEBE4">邮 寄</a>
+                    <a class="admin_download" style="color:#fff;background-color: #EBEBE4">下 载</a>
+                </div>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <div class="admin_text">
+                <ul>
+                    <li><input v-model="bodyName" name="bodyName" type="text" placeholder="主体名称"></li>
+                    <li><input v-model="tmName" name="tmName" type="text" placeholder="商标名称"></li>
+                    <li style="margin-right:0;">
+                        <select v-model="docType">
+                            <option  value="">全部商标文件</option>
+                            <option  value="0">商标注册受理通知书</option>
+                            <option  value="6">商标注册证</option>
+                        </select>
+                    </li>
+                </ul>
+                <ul class="marg7">
+                    <li><input v-model="beginTime" name="beginTime" type="text" class="layui-input" readonly="readonly" placeholder="开始日期" id="LAY_demorange_s"></li>
+                    <li><input v-model="endTime" name="endTime" type="text" class="layui-input" readonly="readonly" placeholder="结束日期" id="LAY_demorange_e"></li>
+                    <li class="admin_place"><input v-model="tmType" name="tmType" type="text" placeholder="商标类别"></li>
+                    <li class="admin_fr"><button @click="getIsExpress('jump')">查询</button></li>
+                </ul>
+            </div>
+            <div class="admin_info">
+                <table>
+                    <tr class="admin_th">
+                        <th>申请日期</th>
+                        <th>邮寄日期</th>
+                        <th>邮寄内容</th>
+                        <th>快递单号</th>
+                        <th>快递公司</th>
+                        <th>邮寄状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr class="admin_td" v-for="item in items">
+                        <td>${item.addTime}</td>
+                        <td><span v-if="item.expresscode">${item.appTime}</span></td>
+                        <td>商标官文</td>
+                        <!--<td>${item.fileType}</td>-->
+                        <td>${item.expresscode}</td>
+                        <td>${item.expressName}</td>
+                        <td>
+                            <span v-if="item.expressStatus==0">已申请</span>
+                            <span v-if="item.expressStatus==1">支付成功</span>
+                            <span v-if="item.expressStatus==2">待邮寄</span>
+                            <span v-if="item.expressStatus==4">处理中</span>
+                            <span v-if="item.expressStatus==3">已邮寄</span>
+                        </td>
+                        <td>
+                            <a v-show="item.expressStatus==0" @click="cancelMail(item.id)">取消邮寄</a>
+                            <a @click="seeMailMsge($event,item.id)" data-method="notice">查看详情</a>
+                            <a @click="downloadMail(item.id)">下载</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="GuanwenPage2" class="page page2"></div>
+        </div>
+        <div class="layui-tab-item">
+            <div class="admin_text">
+                <ul>
+                    <li><input v-model="bodyName" type="text" placeholder="主体名称"></li>
+                    <li><input  v-model="tmName" type="text" placeholder="商标名称"></li>
+                    <li style="margin-right:1px;">
+                        <select>
+                            <option>全部商标文件</option>
+                        </select>
+                    </li>
+                    <li><button @click="his_list('jump')">查询</button></li>
+                </ul>
+            </div>
+            <div class="admin_info">
+                <table>
+                    <tr class="admin_th">
+                        <th>
+                            <a :class="{cartCheckTrue:i_show,cartCheck:!i_show}" @click="selectAll();i_show=!i_show;"></a>全选
+                        </th>
+                        <th>商标名称</th>
+                        <th>商标类别</th>
+                        <th>主体名称</th>
+                        <th>文件类型</th>
+                        <th>订单号</th>
+                        <th>申请号</th>
+                    </tr>
+                    <tr class="admin_Issued" v-for="item in items">
+                        <td> <a :class="{cartCheckTrue:item.isCheck,cartCheck:!item.isCheck}" @click="select(item)"></a></td>
+                        <td>${item.tmName}</td>
+                        <td>${item.tmType}</td>
+                        <td>${item.bodyName}</td>
+                        <td>${item.doccode}</td>
+                        <td>${item.ordercode}</td>
+                        <td>${item.appcode}</td>
+                    </tr>
+
+                </table>
+            </div>
+            <div id="GuanwenPage3" class="page page3"></div>
+            <!--<div v-show="items.length>0">
+                <div class="admin_button" v-show="num!=0">
+                    <a class="admin_download btn_c_bg" @click="down_notMail()">下 载</a>
+                </div>
+                <div class="admin_button" v-show="num==0">
+                    <a class="admin_download" style="color:#fff;background-color: #EBEBE4">下 载</a>
+                </div>
+            </div>-->
+        </div>
+        <div id="edit_dialog" class="hide" style="height: auto;overflow: hidden">
+            <div class="fruit_centerDetail">
+                <div class="fruit_centerTitle">商标局已下发的官方文书，本次邮件的快递内容如下</div>
+                <div style="max-height: 400px;overflow-y: auto;width:650px;padding-right: 20px;">
+                    <table>
+                        <tr style="text-align: center;">
+                            <th>订单号</th><th>申请号</th><th>商标名称</th><th>商标类别</th><th>文档类型</th><th>业务类型</th><th>公司名称</th>
+                        <tr class="fruit_centerTr" v-for="item in seeMainMsg.zgExpressMailOrderList">
+                            <td>${item.ordercode}</td>
+                            <td>${item.appcode}</td>
+                            <td>${item.tmName}</td>
+                            <td>${item.tmType}</td>
+                            <td>${item.fileType}</td>
+                            <td>${item.expressType}</td>
+                            <td :title="item.bodyName">${item.bodyName}</td>
+                        </tr>
+                        </tr>
+                    </table>
+                </div>
+                <ul>
+                    <li>快递单号：<span id="mail_cope">${seeMainMsg.zgExpressMail.expresscode}</span></li>
+                    <!--<li>快递单号：<span id="mail_cope">${seeMainMsg.zgExpressMail.expresscode}</span><button @click="cope()">复制</button></li>-->
+                    <li>快递公司：<span>${seeMainMsg.zgExpressList.expressName} / 客服：${seeMainMsg.zgExpressList.expressPhone} / 官网：</span>
+                        <a :href="seeMainMsg.zgExpressList.expressUrl" target="_blank" style="color:#49a5de">${seeMainMsg.zgExpressList.expressUrl}</a>
+                    </li>
+                    <li>收件人姓名：<span>${seeMainMsg.zgExpressMail.recipientName}</span></li>
+                    <li>收件人电话：<span>${seeMainMsg.zgExpressMail.recipientPhone}</span></li>
+                    <li>收件人地址：<span>${seeMainMsg.zgExpressMail.recipientAddress}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="basicNoinfo" v-show="items.length==0">
+        <dl>
+            <dt><img src="/img/icon-emptystate.png" /></dt>
+            <dd>暂无邮寄信息</dd>
+        </dl>
+    </div>
+    <div v-if="edit_show" class="layui-tab-content">
+        <!--点击邮寄按钮显示的页面-->
+        <div class="layui-tab-item layui-show">
+            <div class="mail_con">
+                <h4>邮寄内容：商标官方文书</h4>
+                <div class="admin_info">
+                    <table>
+                        <tr class="admin_th">
+                            <th>商标名称</th>
+                            <th>商标类别</th>
+                            <th>主体名称</th>
+                            <th>文档号</th>
+                            <th>订单号</th>
+                            <th>文档类型</th>
+                            <th>申请号</th>
+                        </tr>
+                        <tr class="admin_Issued" v-for="item in mail_list.dispatchVOList">
+                            <td>${item.name}</td>
+                            <td>${item.tmType}</td>
+                            <td>${item.bodyName}</td>
+                            <td>${item.docCode}</td>
+                            <td>${item.orderCode}</td>
+                            <td>${item.docTypeName}</td>
+                            <td>${item.appNum}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mail_info">
+                    <ul>
+                        <li>快递公司：<span>（必填）</span></li>
+                        <li>
+                            <select v-model="mail.expressName" name="expressName"  v-validate:expressName.initial="'required'" data-vv-as="快递公司"
+                                    :class="{'input': true, 'is-danger': errors.has('expressName') }">
+                                <option value="">--请选择--</option>
+                                <option v-for="p in mail_list.zgExpressList" v-bind:value="p" v-html="p.expressName">
+                            </select>
+                            <p class="red clear-both" v-show="errors.has('expressName')">${errors.first('expressName')}</p>
+                        </li>
+                        <li>快递费用：</li>
+                        <li v-show ='!mail.expressName'><input type="text" disabled="disabled"></li>
+                        <li v-show ='mail.expressName'>
+                            <span v-show="mail.expressName.hkAmount!=0" class="disable_span">快递费用以快递方实际收取金额为准</span>
+                            <span v-show="mail.expressName.hkAmount==0" class="disable_span">快递费用以快递方实际收取金额为准</span>
+                        </li>
+                        <li>收件人姓名：<span>（必填）</span></li>
+                        <li>
+                            <input type="text" v-model="seeMainMsg.zgRecipientInfoList.recipientName" name="recipientName"  v-validate:recipientName.initial="'required'" data-vv-as="收件人姓名"
+                                   :class="{'input': true, 'is-danger': errors.has('recipientName') }">
+                            <p class="red clear-both" v-show="errors.has('recipientName')">${errors.first('recipientName')}</p>
+                        </li>
+                        <li>收件人电话：<span>（必填）</span></li>
+                        <li>
+                            <input type="text" v-model="seeMainMsg.zgRecipientInfoList.recipientPhone" name="recipientPhone"  v-validate:recipientPhone.initial="'required|phone'" data-vv-as="收件人电话"
+                                   :class="{'input': true, 'is-danger': errors.has('recipientPhone') }">
+                            <p class="red clear-both" v-show="errors.has('recipientPhone')">${errors.first('recipientPhone')}</p>
+                        </li>
+                        <li>收件人地址：<span>（必填）</span></li>
+                        <li class="clearfix" style="width: 800px;">
+                            <select name="quiz1" v-model="selected_p" id="selected_p" @change="tre_city()" style="float: left;margin-right:20px;width:150px;"
+                                    v-validate:quiz1.initial="'required'" data-vv-as="收件人地址"
+                                    :class="{'input': true, 'is-danger': errors.has('quiz1') }">
+                                <option v-for="p in province" v-bind:value="p.code" v-html="p.name"></option>
+                            </select>
+                            <select name="quiz2" v-model="selected_c" @change="tre_country()" style="float: left;margin-right:20px;width:150px;" data-vv-as="收件人地址"
+                                    :class="{'input': true, 'is-danger': errors.has('quiz2') }" v-validate:quiz2.initial="'required'">
+                                <option v-for="c in city.data" v-bind:value="c.code" v-html="c.name"></option>
+                            </select>
+                            <select v-show="selected_show" name="quiz3" v-model="selected_co" style="float: left;margin-right:20px;width:150px;"
+                                    :class="{'input': true, 'is-danger': errors.has('recipientAddress') }">
+                                <option v-for="co in country.data" v-bind:value="co.code" v-html="co.name"></option>
+                            </select>
+                            <p class="red clear-both" style="line-height: 33px;" v-show="errors.has('quiz2') ||errors.has('quiz1') || errors.has('recipientAddress')">
+                                ${errors.first('quiz1') || errors.first('quiz2') || errors.first('recipientAddress') } </p>
+                        </li>
+                        <li v-show="selected_c">
+                            <input  type="text" v-model="seeMainMsg.zgRecipientInfoList.recipientAddress" name="recipientAddress"
+                                   v-validate:recipientAddress.initial="'required'" data-vv-as="地址"  maxlength="100"
+                                   :class="{'input': true, 'is-danger': errors.has('recipientAddress') }">
+                            <p class="red clear-both" v-show="errors.has('recipientAddress')">${errors.first('recipientAddress')}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="admin_button">
+                    <span><a class="admin_mail mail_edit buttonColorec9c19 btn_c_bg" @click="edit_show=false">返回修改</a></span>
+                    <span id="LAY_submit"><a class="admin_download layui-submit buttonColor btn_c_bg" data-method="notice" @click="validateBeforeSubmit($event)">提交</a></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+</div>
+<script type="text/javascript" src="/js/getCookies.js"></script>
+<script type="text/javascript">
+    var user1 = JSON.parse(getCookie('_zg_user'));
+    var phone = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的手机号码';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^(1[3-9][0-9]{9})$/.test(value)
+            );
+        }
+    };
+    VeeValidate.Validator.extend('phone', phone);
+    var gData = {{{ udata }}};
+    var gDataNum = {{{ udataNum }}};
+    layui.use('laydate', function() {
+        var laydate = layui.laydate;
+        var start = {
+            max: '2099-06-16 23:59:59'
+            ,istoday: false
+            ,choose: function(datas){
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            min: laydate.now()
+            ,max: '2099-06-16 23:59:59'
+            ,istoday: false
+            ,choose: function(datas){
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        document.getElementById('LAY_demorange_s').onclick = function(){
+            start.elem = this;
+            laydate(start);
+        }
+        document.getElementById('LAY_demorange_e').onclick = function(){
+            end.elem = this
+            laydate(end);
+        }
+    });
+    var guanWenVM = new Vue({
+        delimiters: ["${", "}"],
+        el: "#user_guanWen",
+        data: {
+            pageNumber:20,
+            selected_show:true,
+            i_show: false,
+            i_true:false,
+            num:0,
+            edit_show:false,
+            gData:gData.data,
+            gDataNum:gDataNum.data,
+            items: gData.data.list,
+            couponList: [],
+            bodyName:'',
+            tmName:'',
+            beginTime:'',
+            endTime:'',
+            tmType:'',
+            mail:{expressName:""},
+            mail_list:[],
+            orderCode:'',
+            selected_p:null,
+            selected_pNane:null,
+            province:[],
+            city:{},
+            selected_c:null,
+            selected_cName:null,
+            country:{},
+            selected_co:null,
+            selected_coName:null,
+            seeMainMsg:{
+                zgExpressMail:{},
+                zgExpressList:{},
+                zgExpressMailOrderList:{},
+                zgRecipientInfoList:{
+                    recipientName:'',
+                    recipientPhone:''
+                },
+            },
+            currentPage:1,
+            cont:"GuanwenPage1",
+            gwDownloadFielUrl:zgg.Vconfig.gwDownloadFielUrl,
+            docType:'',
+            docTypes:'',
+        },
+        methods: {
+            clearData:function () {
+                this.bodyName ="";
+                this.tmName ="";
+                this.tmType ="";
+                this.beginTime ="";
+                this.endTime ="";
+                this.docType ="";
+
+            },
+            resetNum:function(){
+                var that = this;
+                this.i_show = false;
+                this.i_true = false;
+                if(this.items){
+                    this.items.forEach(function(item) {
+                        that.$set(item, "isCheck", false);
+                    });
+                }
+                this.counNum();
+            },
+            select:function(item){
+                var that = this,is_allSelect=true;
+                this.$set(item,"isCheck",!item.isCheck);
+                var list=that.items;
+                list.map(function(item){
+                    if(item.isCheck == false||item.isCheck == undefined) {
+                        is_allSelect = false;
+                    }
+                });
+                if(is_allSelect==false){
+                    that.i_show = false;
+                }else{
+                    that.i_show = true;
+                }
+                this.counNum();
+            },
+            selectAll:function(){
+                var that = this;
+                var list=this.items;
+                if(list){
+                    list.forEach(function(item){
+                        if(that.i_show == false) {
+                            that.$set(item, "isCheck", true);
+                        }else if(that.i_show == true) {
+                            that.$set(item, "isCheck", false);
+                        }
+                    });
+                }
+                this.counNum();
+            },
+            counNum:function () {
+                var that = this,munDe=0;
+                var list=this.items;
+                if(list){
+                    list.forEach(function(item){
+                        if(item.isCheck == true){munDe++;}
+                    });
+                }
+                that.num = munDe;
+                munDe = 0;
+            },
+            his_list:function (_str) {
+                var _data = {
+                    bodyName:this.bodyName,
+                    tmName:this.tmName,
+                    pageParam:{pageNo:guanWenVM.currentPage, pageSize:guanWenVM.pageNumber}
+                };
+                if(_str == 'jump'){
+                    _data.pageParam.pageNo = 1;
+                }
+                axios.post('/userCenter/userHistoryList',_data).then(
+                    function (data) {
+                        guanWenVM.page_show=3;
+                        guanWenVM.items = data.data.data.list;
+                        guanWenVM.gData = data.data.data;
+                        guanWenVM.GuanwenNum();
+                        guanWenVM.cont="GuanwenPage3";
+                        if(_str == 'jump'){
+                            guanWenVM.pagees();
+                        }
+                    })
+                this.resetNum();
+            },
+            GuanwenNum:function(){
+                axios.get('/userCenter/userGuanwenNum?'+new Date).then(
+                        function (data) {
+                            if(data.data.success){
+                                guanWenVM.gDataNum = data.data.data;
+                            }
+                        })
+            },
+            notMail_list:function (_str) {
+                var _data = {
+                    bodyName:this.bodyName,
+                    tmName:this.tmName,
+                    docType:this.docType,
+                    pageParam:{pageNo:guanWenVM.currentPage, pageSize:guanWenVM.pageNumber}
+                };
+                if(_str == 'jump'){
+                    _data.pageParam.pageNo = 1;
+                }
+                axios.post('/userCenter/userGuanwen',_data).then(
+                        function (data) {
+                            if(data.data.success){
+                                guanWenVM.items = data.data.data.list;
+                                guanWenVM.gData = data.data.data;
+                                guanWenVM.page_show=1;
+                                guanWenVM.cont="GuanwenPage1";
+                                guanWenVM.GuanwenNum();
+                                if(_str == 'jump'){
+                                    guanWenVM.pagees();
+                                }
+                            }
+                        })
+                this.resetNum();
+            },
+            down_notMail:function () {
+                //cookies用户信息校验
+                var user = JSON.parse(getCookie('_zg_user'));
+                if(user.id != user1.id){
+                    layui.use('layer',function(){
+                        layer.open({
+                            title:'提示',
+                            content:'<p>该官文信息不属于此用户</p>'
+                        });
+                    });
+                    return;
+                }
+                var orderCode='',docTypes="";
+                this.items.map(function (item) {
+                    if(item.isCheck == true){
+                        orderCode+=(item.orderCode||item.ordercode)+","
+                        docTypes+=item.docType+","
+                    }
+                });
+                orderCode = orderCode.substring(0,orderCode.length-1);
+                docTypes = docTypes.substring(0,docTypes.length-1);
+                axios.post('/userCenter/userDownNotMail',{orderCodes:orderCode,docTypes:docTypes}).then(
+                    function (data) {
+                        if(data.data.success){
+                            window.open(guanWenVM.gwDownloadFielUrl+data.data.data ,'_blank' );
+                        }
+                    })
+            },
+            getMail:function () {
+                //cookies用户信息校验
+                var user = JSON.parse(getCookie('_zg_user'));
+                if(user.id != user1.id){
+                    layui.use('layer',function(){
+                        layer.open({
+                            title:'提示',
+                            content:'<p>该官文信息不属于此用户</p>'
+                        });
+                    });
+                    return;
+                }
+                var orderCode='',that = this,docTypes="";
+                this.items.map(function (item) {
+                    if(item.isCheck == true){
+                        orderCode+=item.orderCode+","
+                        docTypes+=item.docType+","
+                    }
+                });
+                orderCode = orderCode.substring(0,orderCode.length-1);
+                docTypes = docTypes.substring(0,docTypes.length-1);
+                this.orderCode = orderCode;
+                this.docTypes = docTypes;
+                axios.post('/userCenter/userGetMail',{orderCodes:orderCode,docTypes:docTypes}).then(
+                    function (data) {
+                        if (data.data.success) {
+                            var isIsDefault = true;
+                            that.edit_show=true;
+                            that.mail_list=data.data.data;
+                            if(that.mail_list.zgRecipientInfoList.length==0){
+                                that.seeMainMsg.zgRecipientInfoList = {
+                                    recipientName : '',
+                                    recipientPhone : ''
+                                }
+                            }
+                            that.mail_list.zgRecipientInfoList.map(function (item) {
+                                if(item.isDefault == 1){
+                                    that.$set(that.seeMainMsg,'zgRecipientInfoList',item);
+                                    that.selected_p=that.seeMainMsg.zgRecipientInfoList.province;
+                                    axios.get('/region.json').then(
+                                            function (data) {
+                                                that.province = data.data.data;
+                                            }
+                                    ).then(function () {
+                                        that.selected_c=that.seeMainMsg.zgRecipientInfoList.city;
+                                        that.tre_city();
+                                    }).then(function () {
+                                        that.selected_co=that.seeMainMsg.zgRecipientInfoList.country;
+                                        that.tre_country();
+                                    })
+                                    isIsDefault=false;
+                                }
+                            });
+                            //that.mail.expressName = that.mail_list.zgExpressList[0].expressName;
+                            if(isIsDefault){
+                                axios.get('/region.json').then(
+                                    function (data) {
+                                        that.province = data.data.data;
+                                    }
+                                )
+                            }
+//                            axios.get('/region.json').then(
+//                                function (data) {
+////                                    data.data.data.map(function (item) {
+////                                        if(item.code == that.seeMainMsg.zgRecipientInfoList.province){
+////                                            that.selected_p = item;
+////                                            that.selected_p.sub.map(function (i) {
+////                                                if(i.code == that.seeMainMsg.zgRecipientInfoList.city){
+//////                                                    that.selected_c = i;
+////                                                    that.$set(guanWenVM,'selected_c',i);
+////                                                    that.selected_c.sub.map(function (k) {
+////                                                        if(that.seeMainMsg.zgRecipientInfoList.country == 'undefined'){
+////                                                            that.$set(guanWenVM,'selected_show',false);
+////                                                            return;
+////                                                        }
+////                                                        if(k.code == that.seeMainMsg.zgRecipientInfoList.country){
+////                                                            that.selected_co = k;
+////                                                            that.$set(guanWenVM,'selected_co',k);
+////                                                        }
+////                                                    })
+////                                                }
+////                                            })
+////                                        }
+////                                    })
+//                                }
+//                            ).then(that.tre_city()).then(that.tre_country());
+                        }
+                    }
+                );
+
+            },
+            tre_city:function () {
+                var that = this;
+                this.province.map(function (item) {
+                    if(item.code == that.selected_p){
+                        that.$set(that.city,'data',item.sub);
+                    }
+                })
+//                if(this.selected_p != undefined){
+//                    if(this.selected_p.sub.length !==0){
+//                        this.$set(this.city,'data',this.selected_p.sub);
+//                    }else{
+//                        this.city = {};
+//                        this.selected_c = [];
+//                        this.selected_co = [];
+//                    }
+                    this.$set(this.country,'data',[]);
+                    that.selected_show=true;
+            },
+            tre_country:function () {
+                var that = this;
+                    this.city.data.map(function (item) {
+                        if(item.code == that.selected_c){
+                            that.$set(that.country,'data',item.sub);
+                            that.selected_show=true;
+                            if(item.sub.length==0){
+                                that.selected_show=false;
+                            }
+                        }
+                    })
+//                if(this.selected_c!= undefined){
+//                    if(this.selected_c.sub.length !== 0){
+//                        this.$set(this.country,'data',this.selected_c.sub);
+//                        this.$set(this.selected_co,'data',this.selected_c.sub);
+//                        this.selected_show=true;
+//                    }else{
+//                        this.country = {};
+//                        this.selected_show=false;
+//                    }
+//                }
+            },
+            edit_mail: function (t) {
+                var address = '',that=this;
+                this.province.map(function (item) {
+                    if(item.code==that.selected_p){
+                        address+=item.name
+                    }
+                });
+                this.city.data.map(function (item) {
+                    if(item.code==that.selected_c){
+                        address+=item.name
+                    }
+                });
+                if(this.country.data.length !=0 ){
+                    this.country.data.map(function (item) {
+                        if(item.code==that.selected_co){
+                            address+=item.name
+                        }
+                    });
+                }
+                var _data={
+                    zgExpressMail:{expressid : this.mail.expressName.id,
+                    expressName : this.mail.expressName.expressName,
+                    recipientName:this.seeMainMsg.zgRecipientInfoList.recipientName,
+                    recipientPhone:this.seeMainMsg.zgRecipientInfoList.recipientPhone,
+                    recipientAddress:address+this.seeMainMsg.zgRecipientInfoList.recipientAddress},
+                    orderCodes:this.orderCode,
+                    docTypes:this.docTypes,
+                }
+                axios.post('/userCenter/userEditMail',_data).then(
+                        function (data) {
+                            if (data.data.success) {
+                                help.showLoading = true;
+//                                this.edit_show=false;
+                                window.location.href='/userCenter/userGuanwen';
+                            }
+                        }
+                )
+            },
+            getIsExpress:function (_str) {
+                this.beginTime=$('#LAY_demorange_s').val();
+                this.endTime=$('#LAY_demorange_e').val();
+                var _data = {
+                    bodyName:this.bodyName,
+                    tmName:this.tmName,
+                    tmType:this.tmType,
+                    docType:this.docType,
+                    beginTime:$('#LAY_demorange_s').val(),
+                    endTime:$('#LAY_demorange_e').val(),
+                    pageParam:{pageNo:guanWenVM.currentPage, pageSize:guanWenVM.pageNumber}
+                };
+                if(_str == 'jump'){
+                    _data.pageParam.pageNo = 1;
+                }
+                axios.post('/userCenter/userIsExpress',_data).then(
+                    function (data) {
+                        guanWenVM.items = data.data.data.list;
+                        guanWenVM.gData = data.data.data;
+                        guanWenVM.cont="GuanwenPage2";
+                        guanWenVM.GuanwenNum();
+                        if(_str == 'jump'){
+                            guanWenVM.pagees();
+                        }
+                    })
+                this.resetNum();
+            },
+            seeMailMsge:function (t,id) {
+                var t = t.currentTarget;
+                axios.post('/userCenter/userSeekMail',{id:id}).then(function (data) {
+                    if(data.data.success){
+                        guanWenVM.seeMainMsg = data.data.data;
+                        guanWenVM.seeMainMsg.zgExpressMail = data.data.data.zgExpressMail;
+                        guanWenVM.seeMainMsg.zgExpressMailOrderList = data.data.data.zgExpressMailOrderList;
+                        guanWenVM.seeMainMsg.zgExpressList = data.data.data.zgExpressList[0];
+                        guanWenVM.seeMailmsgOpen(t);
+                    }
+                })
+
+            },
+            seeMailmsgOpen:function (t) {
+                var that = t;
+                var othis = $(that), method = othis.data('method');
+                var active = {
+                    notice: function () {
+                        layer.open({
+                            type: 1,
+                            title: "邮寄详情",//false不显示标题栏,
+                            area: '750px',
+                            offset:'100px',
+                            shade: 0.6,
+                            moveType: 1 ,//拖拽模式，0或者1,
+                            content: $("#edit_dialog"),
+                        });
+                    }
+                };
+                active[method] ? active[method].call(that, othis) : '';
+            },
+            cope:function () {
+//                var Url2=document.getElementById("'mail_cope'");
+//                Url2.innerText(); // 选择对象
+//                Url2.execCommand("Copy");
+            },
+            refer:function () {
+                var _data = {
+                        bodyName:this.bodyName||"",
+                        tmName:this.tmName||"",
+                        pageParam:{pageNo:1, pageSize:20}
+                };
+                axios.post('/userCenter/userGuanwenRefer',_data).then(
+                        function (data) {
+                            guanWenVM.page_show=1;
+                            guanWenVM.cont="GuanwenPage1";
+                            guanWenVM.items = data.data.list;
+                        })
+            },
+            cancelMail:function (id) {
+                axios.post('/userCenter/userCancelMail',{id:id}).then(
+                        function (data) {
+                           if(data.data.success){
+                               var _arr = [];
+                               guanWenVM.items.forEach(function(item) {
+                                   if(item.id !== id){
+                                       _arr.push(item) ;
+                                   }
+
+                               });
+                               guanWenVM.items = _arr;
+                               _arr = [];
+                               guanWenVM.GuanwenNum();
+                           }
+                        })
+            },
+            downloadMail:function (id) {
+                axios.post('/userCenter/userDownloadMail',{id:id}).then(
+                        function (data) {
+                           if(data.data.success){
+                               window.open(guanWenVM.gwDownloadFielUrl+data.data.data ,'_blank' );
+                           }
+                        })
+            },
+            validateBeforeSubmit:function (t) {
+                //cookies用户信息校验
+                var user = JSON.parse(getCookie('_zg_user'));
+                if(user.id != user1.id){
+                    layui.use('layer',function(){
+                        layer.open({
+                            title:'提示',
+                            content:'<p>该官文信息不属于此用户</p>'
+                        });
+                    });
+                    return;
+                }
+                this.$validator.validateAll().then(function () {
+                    guanWenVM.edit_mail();
+                })
+            },
+            pagees:function () {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                    laypage({
+                        cont: guanWenVM.cont,
+                        curr: guanWenVM.gData.totalPage,
+                        pages: Math.ceil(parseInt(guanWenVM.gData.totalCount)/parseInt(guanWenVM.pageNumber)),
+                        skip: true,
+                        first: false,
+                        last: false,
+                        groups:5,
+                        jump: function (e) {
+                            if(e.curr !=1 || guanWenVM.currentPage>1){
+                                guanWenVM.currentPage = e.curr;
+                                if(guanWenVM.cont=="GuanwenPage1"){
+                                    guanWenVM.notMail_list();
+                                }else if(guanWenVM.cont=="GuanwenPage2"){
+                                    guanWenVM.getIsExpress();
+                                }else if(guanWenVM.cont=="GuanwenPage3"){
+                                    guanWenVM.his_list();
+                                }
+                            }
+                        }
+                    });
+                })
+            }
+        },
+
+    });
+
+
+    guanWenVM.pagees();
+
+</script>

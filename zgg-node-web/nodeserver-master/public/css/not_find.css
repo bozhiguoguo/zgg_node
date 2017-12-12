@@ -1,0 +1,66 @@
+body{
+    background: #f9f8f4;
+}
+
+.Nofind_con{
+    width: 100%;
+}
+
+.Nofind_left{
+    float: left;
+    width: 50%;
+    margin-top:352px;
+}
+
+.Nofind_box{
+    width: 500px;
+    margin:0 auto;
+}
+
+.Nofind_left dl dd{
+    font-size:18px;
+    color:#727f8f;
+    margin-top:38px;
+}
+
+.Nofind_left dl dd span{
+    color:#49a5de;
+    cursor: pointer;
+    display: inline-block;
+    margin-left:10px;
+}
+
+.Nofind_load{
+    margin-top:33px;
+    margin-left:40px;
+}
+
+.Nofind_load p{
+     float: left;
+}
+
+.Nofind_load p span{
+    display: block;
+    font-size: 18px;
+    color: #727f8f;
+}
+
+.Nofind_load button{
+    float: left;
+    width: 173px;
+    height: 50px;
+    border-radius: 45px;
+    border: solid 1px #5eb648;
+    background: none;
+    font-size: 16px;
+    color: #5eb648;
+    margin-left:40px;
+    margin-top:15px;
+}
+
+.Nofind_tree{
+    float: right;
+    background: url("../img/tree.png") no-repeat;
+    width: 50%;
+    height:915px;
+}

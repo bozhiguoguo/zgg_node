@@ -1,0 +1,498 @@
+<link rel="stylesheet" href="/css/personal_center.css" >
+<link rel="stylesheet" href="/css/fruit_center.css" >
+<link rel="stylesheet" href="/css/words_Copyright.css" >
+<link rel="stylesheet" href="/css/orderDetailsPaid.css"/>
+<style>
+    .words_step ul li.words_fk{
+        margin: 0;
+        margin-right:200px ;
+    }
+    .words_step ul li.words_fk.words_tj{
+        margin-right: 0;
+    }
+    .words_step ul {
+        width: 900px;
+    }
+    .words_step ul li.words_fk {
+        margin-right: 271px;
+        margin-left: -14px;
+    }
+    .words_flow span.words_sp4{
+        width: 300px;
+    }
+    .words_flow span.words_sp1{
+        width: 300px;
+    }
+    .words_left{
+        height: 535px;
+    }
+    .stencil_h{
+        height: 55px;
+    }
+    .stencil_p{
+        padding-left: 415px;
+    }
+    .fir_stencil{
+        height: 150px;
+        margin-left: 28px;
+    }
+    .stencil_word1 {
+        width: 45px;
+        height: 45px;
+        border-radius: 2px;
+        background:url(/img/icon-file@2x.png) no-repeat center;
+        background-size: 38px 45px;
+        font-size: 12px;
+        color: #ffffff;
+        cursor: pointer;
+        line-height: 57px;
+        text-align: center;
+        float: left;
+    }
+    .stencil_word2{
+        float: left;
+        width: 220px;
+        height: 16px;
+        font-size: 12px;
+        text-align: left;
+        color: #505255;
+        margin-left: 13px;
+        line-height: 45px;
+    }
+    .down_word{
+        width: 45px;
+        height: 22px;
+        border-radius: 4px;
+        border: solid 1px #0366d6;
+        text-align: center;
+        float: left;
+        line-height: 22px;
+        margin-right: 230px;
+    }
+    .word_btn{
+        width: 80px;
+        height: 33px;
+        border-radius: 3px;
+        background-color: #a34a51;
+        font-size: 14px;
+        text-align: center;
+        color: #ffffff;
+        line-height: 33px;
+        float: left;
+        cursor: pointer;
+    }
+    .word_tiem{
+        font-size: 12px;
+        color: #505255;
+        padding-bottom: 15px;
+    }
+
+</style>
+<div class="personCenter_wrapp" id="noFlow" v-cloak>
+    <div class="personCenter_tab">
+        <ul>
+            <li>果蜜中心<span>></span></li>
+            <li>订单中心<span>></span></li>
+            <li>业务办理</li>
+        </ul>
+    </div>
+    <div class="c_b"></div>
+
+    <div class="words_Con">
+        <div class="words_top">订单状态</div>
+        <div class="words_bar">
+            <b>订单号：${ commonData.orderData.orderCode}</b>
+            <div class="words_chart">
+                <div class="words_flow">
+                    <i v-for="(item,index) in  commonData.allNodes">
+                        <img src="/img/words_radius.png" v-if=" commonData.atPresentNodes.stepnum >= item.stepnum&&item.stepnum!=3"/>
+                        <img src="/img/words_radius_hui.png" v-if=" commonData.atPresentNodes.stepnum <item.stepnum&&item.stepnum!=3"/>
+                        <span :class="{words_sp1: commonData.atPresentNodes.stepnum > item.stepnum,'words_sp4': commonData.atPresentNodes.stepnum <= item.stepnum}"
+                              v-if="index != ( commonData.allNodes.length -1) && item.stepnum!=3"></span>
+                    </i>
+                </div>
+                <div class="c_b"></div>
+                <div class="words_step">
+                    <ul>
+                        <li class="words_fk" v-bind:class="{ words_tj:index == ( commonData.allNodes.length -1)}" v-for="(item,index) in  commonData.allNodes">
+                            <p  v-if="item.stepnum!=3">${ item.titlename }</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="fillin clearfix">
+            <div>
+                <div class="words_top words_write">填写资料</div>
+                <div class="words_left">
+                    <div class="words_tit">订单编号：${ commonData.orderData.orderCode}</div>
+                    <div v-if="commonData.atPresentNodes.stepnum == 1">
+                        <h3 class="words_h3" :class="{'disBlock': errors.has('body'),'text-danger': errors.has('body')}">第一步-下载模板并完善信息</h3>
+                        <div class="fir_stencil">
+                            <div class="stencil_h">
+                                <span class="stencil_word1">文件</span>
+                                <span  class="stencil_word2">业务信息模板</span>
+                            </div>
+                            <a :href="downText+commonData.word.attachUrl" class="down_word" target="_blank">下载</a>
+                        </div>
+                        <h3 class="words_h3" :class="{'disBlock': errors.has('body'),'text-danger': errors.has('body')}">第二步-上传已填写模板</h3>
+                        <div class="fir_stencil">
+                            <div class="stencil_h">
+                                <span class="stencil_word1">文件</span>
+                                <span class="stencil_word2" style="width: 500px;">${textName}
+                                    <i style="color: rgb(95, 184, 120)" class="layui-icon"  v-show="dataFilePath" >&#xe616;</i>
+                                </span>
+                            </div>
+                            <div></div>
+                            <a class="down_word">&nbsp;</a>
+                            <div id="commonWord" class="f_l" style="margin: -3px 0 0 -277px;padding: 0 10px;">
+                                <a data-method="notice"  id="word"></a>
+                            </div>
+
+                        </div>
+                        <div class="stencil_p">
+                            <span @click="btnText()" class="word_btn">保存提交</span>
+                        </div>
+                    </div>
+
+                    <div v-if="  commonData.atPresentNodes.stepnum > 1&&  commonData.atPresentNodes.stepnum < 4">
+                        <h3 class="words_h3" :class="{'disBlock': errors.has('body'),'text-danger': errors.has('body')}">已上传业务信息</h3>
+                        <div class="fir_stencil">
+                            <div class="stencil_h">
+                                <span class="stencil_word1">文件</span>
+                                <span  class="stencil_word2">业务信息</span>
+                            </div>
+                            <a :href="commonData.word.dataFilePath" class="down_word">下载</a>
+                        </div>
+                    </div>
+
+                    <div v-if="commonData.atPresentNodes.stepnum ==4">
+                        <h3 class="words_h3" :class="{'disBlock': errors.has('body'),'text-danger': errors.has('body')}">已上传业务信息</h3>
+                        <div class="fir_stencil">
+                            <div class="stencil_h">
+                                <!--<span class="stencil_word1">WORD</span>-->
+                                <!--<span  class="stencil_word2">业务信息模板业务信息模板业务信息模板-已完成</span>-->
+                                <span class="stencil_word1">文件</span>
+                                <span  class="stencil_word2">业务信息</span>
+                            </div>
+                            <a :href="commonData.word.dataFilePath" class="down_word">下载</a>
+                            <!--<a  href="" class="down_word">下载</a>-->
+                        </div>
+                        <h3 class="words_h3" :class="{'disBlock': errors.has('body'),'text-danger': errors.has('body')}">报件信息</h3>
+                        <div class="fir_stencil">
+                            <div class="word_tiem">
+                                业务报件时间：${commonData.word.reportTime}
+                            </div>
+                            <div class="stencil_h">
+                                <span class="stencil_word1">文件</span>
+                                <span  class="stencil_word2">报件凭证</span>
+                            </div>
+                            <a :href="commonData.word.reportCertPath" class="down_word">下载</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{> orderList}}
+        </div>
+
+        <div class="order-info">
+            <div class="order-info-title">订单信息</div>
+            <div class="order-info-content">
+                <div class="order-info-content-l">
+                    <dl>
+                        <dt><img src="/img/icon-orderdetail-orderinfo.png" alt=""/>订单信息</dt>
+                        <dd>商品名称：${  commonData.orderData.pname }</dd>
+                        <dd v-for="item in  commonData.addChannel">${item.feeChargedTypename}：${item.feeChargedName} * ${ item.buyNum }</dd>
+                        <!--<dd>小项：${  commonData.addChannel.buynum }个</dd>-->
+                        <dd>金额：￥${  commonData.orderData.money }</dd>
+                    </dl>
+                    <dl class="order-info-content-l-second">
+                        <dt><img src="/img/icon-orderdetail-invoice.png" alt=""/>发票信息</dt>
+                        <dd v-if="invoicData.unitName">发票抬头 ：${  invoicData.unitName }</dd>
+                        <dd v-if="invoicData && invoicData.billType == 1">发票类型 ：普票</dd>
+                        <dd v-if="invoicData && invoicData.billType == 2">发票类型 ：专票</dd>
+                        <dd v-if="invoicData && invoicData.billType == 3">发票类型 ：未选择</dd>
+
+                        <dd v-if="invoicData.billStatus"><span style="float:left;">开票状态 ：</span>
+                            <div style="float:left;width:260px;word-break:break-word;">
+                                <span v-if="invoicData.billStatus == 1">未开票</span>
+                                <span v-if="invoicData.billStatus == 2">已开票</span>
+                                <span v-if="invoicData.billStatus == 3">已邮寄</span>
+                                <span v-if="invoicData.billStatus == 4">已退回</span>
+                                <div v-show="invoicData.billLinks.length > 0" style="color:#727f8f;">
+                                    <a :href="val" target="_blank" v-for="val in invoicData.billLinks" style="display:block;">${val}</a>
+                                </div>
+                            </div>
+                        </dd>
+
+                        <!--0：邮政小包;1:顺丰快递2：申通快递 3：邮政EMS 4：圆通快递 5：其他快递-->
+                        <dd v-show="invoicData.zgYjBillOfContractVo && kddType"><span style="float:left;">邮寄单号：</span>
+                            <div style="float: left;">
+                                <div v-for="item in invoicData.zgYjBillOfContractVo">
+                                    <span>${item.kddhNbrs}</span>(<span v-show="item.yjType == 0">邮政小包</span>
+                                    <span v-show="item.yjType == 1">顺丰快递</span>
+                                    <span v-show="item.yjType == 2">申通快递</span>
+                                    <span v-show="item.yjType == 3">邮政EMS</span>
+                                    <span v-show="item.yjType == 4">圆通快递</span>
+                                    <span v-show="item.yjType == 5">其他快递</span>)；
+                                </div>
+                            </div>
+                        </dd>
+
+                        <dd v-if="!invoicData.unitName">无</dd>
+                    </dl>
+                </div>
+                <div class="order-info-content-c">
+                    <dl>
+                        <dt><img src="/img/icon-orderdetail-contactperson.png" alt=""/>联系人信息</dt>
+                        <dd>姓名：${  commonData.orderData.userName }</dd>
+                        <dd>手机号码：${  commonData.orderData.zuTel }</dd>
+                    </dl>
+                    <dl class="order-info-content-c-second">
+                        <dt><img src="/img/icon-orderdetail-mailingperson.png" alt=""/>收件人信息</dt>
+                        <dd>姓名：${  commonData.orderData.recipientName }</dd>
+                        <dd>手机号码：${  commonData.orderData.recipientPhone }</dd>
+                        <dd>邮寄地址：<span>${  commonData.orderData.address }</span></dd>
+                    </dl>
+
+                </div>
+                {{> gwList}}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var _oData = {{{data}}};
+    console.log(_oData);
+    var odata = _oData.oData;
+    if(_oData.orderData.orderDetail){
+        _obj=_oData.orderData.orderDetail;
+        _oData.orderData = _obj;
+    }
+    var _noFlow = new Vue({
+        delimiters: ['${', '}'],
+        el: '#noFlow',
+        data: {
+            commonData: _oData,
+            adviser:"",
+            gwPicUrl:zgg.Vconfig.gwPicUrl,
+            ImgUrl:zgg.Vconfig.ImgUrl,
+            odataList:[],
+            allDataFilePath:"",
+            dataFilePath:"",
+            ImgIp : zgg.Vconfig.contractUrl,
+            textName:"业务信息",
+            downText:zgg.Vconfig.ImgUrl,
+            num:'0%',
+            invoicData:'',
+            kddType:false,
+        },
+        methods: {
+            initGetOrderDetail:function(){
+                axios.post('/userCenter/findBillInfOfOrderDetailsByOrderId/',{orderId : _oData.orderData.orderId}).then(
+                    function (res) {
+                        if(res.data.success && res.data.data){
+                            _noFlow.invoicData = res.data.data;
+                            if(_noFlow.invoicData.zgYjBillOfContractVo.length>0){
+                                if(_noFlow.invoicData.zgYjBillOfContractVo[0].hasOwnProperty('kddhNbrs') && _noFlow.invoicData.zgYjBillOfContractVo[0].hasOwnProperty('yjType')){
+                                    _noFlow.kddType = true;
+                                }
+                            }
+                        }
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+            },
+            getGwInfo:function () {
+                axios.get('/userCenter/userCounselorByPcode/'+ _oData.orderData.pcode).then(
+                    function (res) {
+                        if(res){
+                            _noFlow.adviser = res.data;
+                        }
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+
+            },
+            page:function () {
+                $.post('/userCenter/homeOrderPage',{pageNo:_noFlow.currentPage,pageSize:5},function (res) {
+                    if(res.data && res.success){
+                        _noFlow.odataList = res.data.list;
+                    }
+                })
+            },
+            btnText:function () {
+                if(this.dataFilePath==''){
+                    layer.msg("请上传资料",{icon:2});
+                    return;
+                }
+                axios.post("/business/updataText",{"orderid":_oData.orderData.orderId, "dataFilePath":this.dataFilePath}).then(
+                    function (res) {
+                        if(res.data && res.data.success){
+                            layer.msg("提交成功！",{icon:1});
+                            _noFlow.commonData.atPresentNodes.stepnum = parseInt(_noFlow.commonData.atPresentNodes.stepnum) + 1;
+                            _noFlow.commonData.word.dataFilePath =  _noFlow.allDataFilePath;
+//                            window.location.reload();
+                        }
+                })
+            },
+            updataFile:function (_str,queueId,ImgUrl,_oth) {
+                if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0") {
+                    var _fileSizeLimit =  '2MB', _fileTypeExts = '*.jpg;*.bmp;*.jpeg;*.png;*.gif;';
+                    if(_oth === 'other' ){
+                        _fileSizeLimit =  '100MB';
+                        _fileTypeExts = '*.jpg;*.gif;*.png;*.bmp;*.doc;*.docx;*.xls;*.xlsx;*.ppt;*.pptx;*.pdf;*.txt;*.rar;*.zip';
+                    }
+                    $(_str).uploadify({
+                        'auto' : true,
+                        'queueID' :queueId,
+                        'swf'      : '/lib/uploadify.swf',
+                        'uploader' : '/upload/profile',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传',
+                        'fileSizeLimit ': _fileSizeLimit,
+                        'fileTypeExts': _fileTypeExts,
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'removeCompleted':false,
+                        'token':_oData.user.token,
+                        'formData':{
+                            'orderId':_oData.orderData.orderId,
+                            'stepType':_oData.atPresentNodes.stepnum,
+                            'stepId':_oData.atPresentNodes.id,
+                            'fType':'ft_6',
+                        },
+                        'onDrop'       : function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onFallback':function () {
+                            alert('请安装或升级更高版本的Flash插件');
+                        },
+                        'onUploadSuccess' : function(file, data, response) {
+//                            $(_str).uploadify('clearQueue');
+                            var data = JSON.parse(data);
+                            if( data && data.success ){
+                                _noFlow.allDataFilePath = _noFlow.ImgIp +  data.data.filePath;
+                                _noFlow.dataFilePath = data.data.filePath;
+                                _noFlow.textName = "业务信息-上传已成功（"+ file.name+"）";
+                                layer.msg('上传成功',{icon:1});
+                            }
+                        },
+                        'onClearQueue' : function(queueItemCount) {
+                            debugger;
+                        },
+                        'onSelectError'  : function(file, errorCode, errorMsg) {
+                            var msgText = "上传失败，";
+                            switch (errorCode) {
+                                case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+                                    msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+                                    break;
+                                case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+                                    msgText += "文件大小为0";
+                                    break;
+                                case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+                                    msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+                                    break;
+                                default:
+                                    msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+                            }
+                            layer.msg(msgText,{icon:2});
+                        },
+                        'onUploadError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                }else{
+                    $(_str).uploadifive({
+                        'auto' : true,
+                        'queueID' :queueId,
+                        'uploadScript' : '/upload/profile',
+                        'checkScript':'/upload/check',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传',
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'removeCompleted':false,
+                        'token':_oData.user.token,
+                        'formData':{
+                            'orderId':_oData.orderData.orderId,
+                            'stepType':_oData.atPresentNodes.stepnum,
+                            'stepId':_oData.atPresentNodes.id,
+                            'fType':'ft_6',
+                        },
+                        'onDrop'       : function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onUploadComplete' : function(file, data, response) {
+                            $(_str).uploadifive('clearQueue');
+                            var data = JSON.parse(data);
+                            if( data && data.success ){
+                                _noFlow.allDataFilePath = _noFlow.ImgIp +  data.data.filePath;
+                                _noFlow.dataFilePath = data.data.filePath;
+                                _noFlow.textName = "业务信息-上传已成功（"+ file.name+"）";
+                                layer.msg('上传成功',{icon:1});
+                            }
+                        },
+//                        'onProgress'   : function(file, e) {
+//                            if (e.lengthComputable) {
+//                                var percent = Math.round((e.loaded / e.total) * 100);
+//                            }
+////                            file.queueItem.find('.fileinfo').html(' - ' + percent + '%');
+////                            file.queueItem.find('.progress-bar').css('width', percent + '%');
+////                            $('.progress-bar').css('width', percent + '%');
+////                            $('.progress-bar').animate({
+////                                'width': percent + '%'
+////                            });
+////                            _noFlow.num = percent+'%';
+//                        },
+                        'onClearQueue' : function(queueItemCount) {
+                            debugger;
+                        },
+                        'onCheck'  : function(file, exists) {
+                            if (exists) {
+                                layer.msg("您上传的文件格式或大小有误");
+                                $(_str).uploadifive('cancel', file)
+                            }
+                        },
+                        'onUploadError' : function (file, data, response) {
+                            debugger;
+                            $(_str).uploadifive('clearQueue');
+                        }
+                    })
+                }
+            },
+
+        },
+        mounted:function () {
+            this.getGwInfo();
+            this.initGetOrderDetail();
+            //判断产品类型 执行附件初始化
+            this.updataFile('#word', 'commonWord', 'ImgUrl_sfz1');
+        }
+
+    })
+    layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+                ,layer = layui.layer;
+        laypage({
+            cont: 'demo4',
+            curr: odata.totalPage,
+            pages: Math.ceil(parseInt(odata.totalCount)/5),
+            first: false,
+            last: false,
+            jump: function (e) {
+                _noFlow.currentPage = e.curr;
+                _noFlow.page();
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,121 @@
+{{> head}}
+<link rel="stylesheet" href="/css/subject_info.css" >
+<div class="layui-tab layui-tab-card personCenter_all" id="user_main" v-cloak>
+    <div class="personCenter_nav">
+        <ul class="layui-tab-title">
+            <li class="layui-this" >公司</li>
+            <li>个人</li>
+        </ul>
+        <a class="add_main" href="userMainAdd">添加主体信息</a>
+    </div>
+    <div class="c_b"></div>
+    <div class="layui-tab-content">
+        <div class="subject_con layui-tab-item layui-show">
+            <div class="subject_type" v-for="item in udata_c" :class="{'pending':item.status ==0,'nopending':item.status ==-2,'through':item.status ==1}">
+
+                <div class="subject_infomation">
+                    <p v-if="item.nattype==1"><b>主体类型：</b><span>公司</span></p>
+                    <p><b>国籍：</b>
+                        <span v-if="item.nattype==1">中国大陆</span>
+                        <span v-if="item.nattype==2">中国香港</span>
+                        <span v-if="item.nattype==3">中国澳门</span>
+                        <span v-if="item.nattype==4">中国台湾</span>
+                        <span v-if="item.nattype==5">其他国籍</span>
+                    </p>
+                    <p><b>企业名称：</b><span>${item.companyname}</span></p>
+                    <p v-if="item.nattype!=1" v-for="hItem in hData">
+                        <span v-if="hItem.id == item.companykind" style="width:700px;">
+                             <b style="color:#727f8f;display: inline-block">所属行业：</b><span style="display: inline-block">${hItem.kindname}</span>
+                        </span>
+                    </p>
+                    <!--<p><b v-if="item.nattype==1">营业执照号：</b><span>${item.blicensenum}</span></p>-->
+                    <p v-if="item.nattype!=1"><b>注册证书编号：</b><span>${item.blicensenum}</span></p>
+                    <p v-if="item.nattype!=1"><b>公司成立时间：</b><span>${item.establishtime}</span></p>
+                    <p v-if="item.nattype!=1"><b>公司英文名称：</b><span>${item.englishname}</span></p>
+                    <p><b>注册地址：</b><span>${item.address}</span></p>
+                    <p v-if="item.nattype!=1"><b>注册英文地址：</b><span>${item.englishaddress}</span></p>
+                    <!--<p v-if="item.nattype!=1"><b>收文地址：</b><span>${item.englishaddress}</span></p>-->
+                    <!--<p v-if="item.nattype!=1"><b>法人/经办人姓名：</b><span>${item.englishaddress}</span></p>-->
+                </div>
+                <div class="subject_license">
+                    <p>营业执照：</p>
+                    <div v-for="imgSrc in item.blicensepics" v-if="imgSrc"><img :src="imgSrc" alt="" style="width: 69px;height: 88px;"></div>
+                </div>
+                <div class="subject_edit" v-if="item.status!=1">
+                    <p><a class="subject_modify" :href="'/userCenter/userMainEdit/'+item.id+'/1'">修改主体信息</a></p>
+                    <!--<p id="subject_set"><a class="subject_set layui-set" data-method="notice">设置认证主体</a></p>-->
+                    <!--<p><a class="subject_batch">批量下载</a></p>-->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="subject_con layui-tab-item">
+            <div class="subject_type" v-for="item in udata_p" :class="{'pending':item.status ==0,'nopending':item.status ==-2,'through':item.status ==1}">
+                <div class="subject_infomation">
+                    <p><b>真实姓名：</b><span>${item.realname}</span></p>
+                    <p><b>国籍：</b>
+                        <span v-if="item.nattype==1">中国大陆</span>
+                        <span v-if="item.nattype==2">中国香港</span>
+                        <span v-if="item.nattype==3">中国澳门</span>
+                        <span v-if="item.nattype==4">中国台湾</span>
+                        <span v-if="item.nattype==5">其他国籍</span>
+                    </p>
+                    <p v-if="item.nattype!=1"><b>真实英文名：</b><span>${item.englishname}</span></p>
+                    <p v-if="item.nattype==1"><b>身份证号码：</b><span>${item.sfzcode}</span></p>
+                    <p v-if="item.nattype!=1"><b>有效ID号 (护照) ：</b><span>${item.passnr}</span></p>
+                    <p><b>个体工商户名称：</b><span>${item.shopname}</span></p>
+                    <p><b>工商户执照地址：</b><span>${item.licenseaddress}</span></p>
+                    <p v-if="item.nattype!=1"><b>中文地址：</b><span>${item.pasaddress}</span></p>
+                    <p v-if="item.nattype!=1"><b>英文地址：</b><span>${item.pasenglishaddress}</span></p>
+                    <!--<p><b>收文地址地址：</b><span>${item.address}</span></p>-->
+                </div>
+                <div class="subject_license">
+                    <p>证件照片：</p>
+                    <img v-if="item.sfzfront" :src="item.sfzfront" alt="" style="width: 69px;height: 88px;">
+                    <img v-if="item.sfzverso" :src="item.sfzverso" alt="" style="width: 69px;height: 88px;">
+                    <img v-if="item.pasfile" :src="item.pasfile" alt="" style="width: 69px;height: 88px;">
+                    <img :src="item.licensepic" alt=""  style="width: 69px;height: 88px;">
+                    <!--<div v-for="imgSrc in item.blicensepics"><img :src="imgSrc" alt=""></div>-->
+                </div>
+                <div class="subject_edit" v-if="item.status!=1">
+                    <p><a class="subject_modify" :href="'/userCenter/userMainEdit/'+item.id+'/2'">修改主体信息</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="basicNoinfo" v-if="udata_p.length==0&&udata_c.length==0">
+            <dl>
+                <dt><img src="/img/icon-emptystate.png" /></dt>
+                <dd>暂无主体信息，请添加！</dd>
+            </dl>
+        </div>
+
+
+
+
+    </div>
+
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    var udata_c = {{{ uData1 }}};
+    var udata_p = {{{ uData2 }}};
+    var hData = {{{hData}}}
+    var userMainVM = new Vue({
+        el:'#user_main',
+        delimiters:["${", "}"],
+        data:{
+            udata_c:udata_c,
+            udata_p:udata_p,
+            hData:hData,
+            ImgUrl:zgg.Vconfig.contractUrl,
+        },
+        methods: {}
+    });
+    $(".subject_type").mouseenter(function(){
+        $(this).find(".subject_edit").stop().slideToggle();
+    }).mouseleave(function(){
+        $(this).find(".subject_edit").stop().slideToggle();
+    });
+</script>

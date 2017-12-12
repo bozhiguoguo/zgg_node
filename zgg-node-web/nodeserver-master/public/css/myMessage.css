@@ -1,0 +1,170 @@
+.personCenter_details {
+    font-size: 14px;
+    color: #727f8f;
+}
+
+.personCenter_checkAll {
+    overflow: hidden;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 2px solid #dadde1;
+}
+
+.personCenter_checkAll span {
+    display: block;
+    float: left;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 40px;
+}
+
+.cartCheckAll {
+    width: 20px;
+    height: 20px;
+    border-radius: 1px;
+    background: url(../img/icon-shoppingcart-tickbox.png) no-repeat left 2px;
+    float: left;
+    margin-right: 5px;
+    margin-top: 15px;
+}
+
+.personCenter_checkAll span.center1 button {
+    width: 75px;
+    height: 21px;
+    background: #e9c19e;
+    line-height: 21px;
+    color: #fff;
+    text-align: center;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    margin-left: 10px;
+    padding:0;
+}
+
+.personCenter_checkAll img {
+    float: right;
+    margin-top: 13px;
+    margin-left:-2px;
+    cursor: pointer;
+}
+.personCenter_details .mag-Info{
+    color: #727f8f;
+    height: 50px;
+    margin-left: 15px;
+}
+.personCenter_details .mag-Info ul li{
+    cursor: pointer;
+    border-bottom: 2px solid #dadde1;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+}
+.personCenter_details .mag-Info ul li .dots{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: #79cacd;
+    border-radius: 50%;
+    margin:0 11px 0 9px;
+    position: relative;
+    top:-18px;
+}
+.personCenter_details .mag-Info .mag-Info-title,
+.mag-Info-time{
+    font-weight: 500;
+    color: #333333;
+}
+.personCenter_details .mag-Info .mag-Info-content{
+    display: inline-block;
+    width: 750px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.personCenter_details .mag-Info .mag-Info-time{
+    position: absolute;
+    right: 20px;
+}
+.l-bg{
+    background: #f7f7f9;
+}
+.l-v{
+    visibility: hidden;
+}
+
+/*我的消息详情页面*/
+.myMessage-detail{
+    width: 1050px;
+    height: 263px;
+    padding: 20px;
+    box-sizing:border-box;
+    font-size: 14px;
+    color: #2a2a2a;
+}
+.myMessage-detail .myMessage-detail-top{
+    height: 45px;
+}
+.myMessage-detail .myMessage-detail-top .img{
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    background: #d8d8d8;
+    float: left;
+    margin-right: 15px;
+}
+.myMessage-detail .myMessage-detail-top .myMessage-detail-time{
+    position: relative;
+    top:10px;
+    font-size: 12px;
+    color:#727f8f;
+
+}
+.myMessage-detail .myMessage-detail-top .top-title{
+    font-weight: 500;
+}
+.myMessage-detail-line{
+    height: 1px;
+    background: #dadde1;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.myMessage-detail-content{
+    color: #2a2a2a;
+    line-height: 22px;
+}
+
+
+
+.active{
+    color: #a34a51;
+}
+.m-l-20{
+    margin-left: 20px;
+}
+.m-r-20{
+    margin-right: 20px;
+}
+
+.mag-Info-title{
+    margin-right:15px;
+}
+.tab_pb{
+    margin-top:0;
+    min-height:300px;
+    padding-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

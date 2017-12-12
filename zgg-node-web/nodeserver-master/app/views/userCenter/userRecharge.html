@@ -1,0 +1,705 @@
+{{> head}}
+<link rel="stylesheet" href="/css/myWallet.css" xmlns="http://www.w3.org/1999/html"/>
+<link rel="stylesheet" href="../css/modify_subjectInfo.css"/>
+<link rel="stylesheet" href="../css/confimProduct.css">
+<script src="/js/qrcode.min.js" type="text/javascript"></script>
+<style>
+    .payment-list li{
+        width:170px;
+    }
+</style>
+<div id="recharge" class="personCenter_all layui-tab-card">
+<div class="rechargeCon">
+    <h2>充值</h2>
+    <div class="rechargeMoney">充值金额：</div>
+    <div class="rechargeCheck">
+        <div class="rechargeRad" @click="othCount='';payType=1;">
+            <label @click="count=1000" for="re1"><input v-model="Rcount" type="radio" name="radio1" value="one" id="re1">1000元</label>
+            <label @click="count=2000" for="re2"><input v-model="Rcount" type="radio" name="radio1" value="two" id="re2">2000元</label>
+            <label @click="count=5000" for="re3"><input v-model="Rcount" type="radio" name="radio1" value="three" id="re3">5000元</label>
+        </div>
+        <div class="rechargeOther">
+            <form class="rechargeIn" @click="count=othCount;payType=1;" >
+                <label for="re4">
+                    <input v-model="Rcount" type="radio" name="radio1" value="oth" id="re4">其他金额：
+                    <p @click="Rcount='oth'" class="rechargTxt">
+                        <input onpaste="return false" id="money" name="money" v-model="othCount"  type="number" min="0" max="999999">
+                    </p>
+                </label>
+            </form>
+        </div>
+    </div>
+    <div class="rechargePay">
+        <p>请选择支付方式：</p>
+        <div class="confimMode" style="width:auto;">
+            <ol>
+                <li class="confimMode_li" :class="{'confimChecked':payType==1}" @click="payType=1;" :disabled="isOrderPay">
+                    <input type="radio" name="radio" value="1" class="radio" id="alipay" v-model="payType">
+                    <label>
+                        <dl>
+                            <dt><img src="/img/icon_payment_alipay.png"/></dt>
+                            <dd>支付宝</dd>
+                        </dl>
+                    </label>
+                </li>
+                <li class="confimMode_li" v-if="!isPatent" :class="{'confimChecked':payType==2}" :disabled="isOrderPay" @click="payType=2;weixinCode();">
+                    <input type="radio" name="radio" value="2" class="radio" id="wechat" v-model="payType">
+                    <label>
+                        <dl>
+                            <dt><img src="/img/icon_payment_wechat.png"/></dt>
+                            <dd>微信支付</dd>
+                        </dl>
+                    </label>
+                </li>
+                <li class="confimMode_li" v-if="!isPatent" :class="{'confimChecked':payType==3}" @click="payType=3; " :disabled="isOrderPay">
+                    <input type="radio" name="radio" value="3" class="radio" id="bankcard" v-model="payType">
+                    <label>
+                        <dl class="confimBank">
+                            <dt><img src="/img/icon_payment_bankcard.png"/></dt>
+                            <dd>
+                                <span>银行卡支付</span>
+                                <span class="confimZc">支持在线对公转账</span>
+                            </dd>
+                        </dl>
+                    </label>
+                </li>
+                <li class="confimMode_li" :class="{'confimChecked':payType==4}" @click="payType=4;" :disabled="isOrderPay">
+                    <input type="radio" name="radio" value="4" class="radio" id="transfer" v-model="payType">
+                    <label>
+                        <dl>
+                            <dt><img src="/img/icon_payment_transfer.png"/></dt>
+                            <dd>转账汇款</dd>
+                        </dl>
+                    </label>
+                </li>
+            </ol>
+
+            <div class="clear"></div>
+            <div class="confimTotal_con" style="width:auto;">
+                <div class="confimTotal_transfer"style="display: none"></div>
+                <div v-if="payType==2" >
+                    <div v-show="Rcount!='oth'||(Rcount=='oth'&&othCount!=''&&othCount<=999999&&othCount>0)" class="confim_wechat">
+                        <h4 v-html="'¥'+count"></h4>
+                        <div class="confim_weImg" id="qrcode"></div>
+                        <div class="confim_weSacn">
+                            <b><img src="/img/icon_scan.png" style="width:32px;height:32px;"></b>
+                            <b class="confim_weSpan">
+                                <span>打开手机微信</span>
+                                <span>扫一扫继续付款</span>
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="payType==3" >
+                    <dl class="clear payment-box">
+                        <dd>
+                            <ul class="payment-list clearfix">
+                                <li>
+                                    <div class="checkbox"  for="bank82">
+                                        <label class="i-checks">
+                                            <input type="radio" value="82" name="r2" v-model="bankCode" id="bank82">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_30.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank70">
+                                        <label class="i-checks">
+                                            <input type="radio" value="70" name="r2" v-model="bankCode" id="bank70">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_24.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank71">
+                                        <label class="i-checks">
+                                            <input type="radio" value="71" name="r2" v-model="bankCode" id="bank71">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_25.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank74">
+                                        <label class="i-checks">
+                                            <input type="radio" value="74" name="r2" v-model="bankCode" id="bank74">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_26.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank75">
+                                        <label class="i-checks">
+                                            <input type="radio" value="75" name="r2" v-model="bankCode" id="bank75">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_27.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank76">
+                                        <label class="i-checks">
+                                            <input type="radio" value="76" name="r2" v-model="bankCode" id="bank76">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_28.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank78">
+                                        <label class="i-checks">
+                                            <input type="radio" value="78" name="r2" v-model="bankCode" id="bank78">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_29.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"for="bank25">
+                                        <label class="i-checks" >
+                                            <input type="radio" value="25" name="r2" v-model="bankCode" id="bank25">
+                                            <i></i>
+                                        </label>
+                                        <span><img src="/img/bank/s-yh-pic_1.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"for="bank29">
+                                        <label class="i-checks" >
+                                            <input type="radio" value="29" name="r2" v-model="bankCode" id="bank29">
+                                            <i></i>
+                                        </label>
+                                        <span><img src="/img/bank/s-yh-pic_2.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"for="bank23">
+                                        <label class="i-checks" >
+                                            <input type="radio" value="23" name="r2" v-model="bankCode" id="bank23">
+                                            <i></i>
+                                        </label>
+                                        <span><img src="/img/bank/s-yh-pic_3.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"for="bank19">
+                                        <label class="i-checks" >
+                                            <input type="radio" value="19" name="r2" v-model="bankCode" id="bank19">
+                                            <i></i>
+                                        </label>
+                                        <span><img src="/img/bank/s-yh-pic_6.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"for="bank19">
+                                        <label class="i-checks" >
+                                            <input type="radio" value="27" name="r2" v-model="bankCode" id="bank27">
+                                            <i></i>
+                                        </label>
+                                        <span><img src="/img/bank/s-yh-pic_8.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox" for="bank55">
+                                        <label class="i-checks">
+                                            <input type="radio" value="55" name="r2" v-model="bankCode" id="bank55">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_23.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox" for="bank21">
+                                        <label class="i-checks">
+                                            <input type="radio" value="21" name="r2" v-model="bankCode" id="bank21">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_4.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox" for="bank46">
+                                        <label class="i-checks">
+                                            <input type="radio" value="46" name="r2" v-model="bankCode" id="bank46">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_5.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox" for="bank45">
+                                        <label class="i-checks">
+                                            <input type="radio" value="45" name="r2" v-model="bankCode" id="bank45">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_9.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox" for="bank16">
+                                        <label class="i-checks">
+                                            <input type="radio" value="16" name="r2" v-model="bankCode" id="bank16">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_10.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank12">
+                                        <label class="i-checks">
+                                            <input type="radio" value="12" name="r2" v-model="bankCode" id="bank12">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_11.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank36">
+                                        <label class="i-checks">
+                                            <input type="radio" value="36" name="r2" v-model="bankCode" id="bank36">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_12.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank33">
+                                        <label class="i-checks">
+                                            <input type="radio" value="33" name="r2" v-model="bankCode" id="bank33">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_13.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank50">
+                                        <label class="i-checks">
+                                            <input type="radio" value="50" name="r2" v-model="bankCode" id="bank50">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_14.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank13">
+                                        <label class="i-checks">
+                                            <input type="radio" value="13" name="r2" v-model="bankCode" id="bank13">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_15.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank15">
+                                        <label class="i-checks">
+                                            <input type="radio" value="15" name="r2" v-model="bankCode" id="bank15">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_16.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank54">
+                                        <label class="i-checks">
+                                            <input type="radio" value="54" name="r2" v-model="bankCode" id="bank54">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_17.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank69">
+                                        <label class="i-checks">
+                                            <input type="radio" value="69" name="r2" v-model="bankCode" id="bank69">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_18.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank40">
+                                        <label class="i-checks">
+                                            <input type="radio" value="40" name="r2" v-model="bankCode" id="bank40">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_19.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank53">
+                                        <label class="i-checks">
+                                            <input type="radio" value="53" name="r2" v-model="bankCode" id="bank53">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_20.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank49">
+                                        <label class="i-checks">
+                                            <input type="radio" value="49" name="r2" v-model="bankCode" id="bank49">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_21.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank51">
+                                        <label class="i-checks">
+                                            <input type="radio" value="51" name="r2" v-model="bankCode" id="bank51">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_22.png" alt=""></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox"  for="bank09">
+                                        <label class="i-checks">
+                                            <input type="radio" value="09" name="r2" v-model="bankCode" id="bank09">
+                                            <i></i>
+                                        </label>
+                                        <span><img
+                                                src="/img/bank/s-yh-pic_7.png" alt=""></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+                <div v-if="payType==4" class="confimTotal_transfer">
+                    <div class="confimtran_bank">
+                        <dl>
+                            <dt><img src="/img/bank.png"/></dt>
+                            <dd v-if="!isPatent">
+                                <p>银行账号：1109 1590 4910 206</p>
+                                <p>开户行：招商银行北京分行海淀黄庄支行</p>
+                                <p>账户名：北京知果科技有限公司</p>
+                            </dd>
+                            <dd v-if="isPatent">
+                                <p>银行账号：1109 2162 6410 506</p>
+                                <p>开户行：招商银行北京分行海淀黄庄支行</p>
+                                <p>账户名：北京卓唐知识产权代理有限公司</p>
+                            </dd>
+                        </dl>
+                    </div>
+                    <!--<div class="confimInput"><input type="text" v-model="trandCode" placeholder="请输入银行流水号"></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="cartAccountsBox">
+        <div class="confimAccounts" style="width: auto;">
+            <ul>
+                <li class="accountsBtn" >
+                    <span class="order_btn1" v-if="!btnShow" @click="createContract()">立即充值</span>
+                    <span v-if="btnShow" style="color: #f1f1f1">立即充值中</span>
+                </li>
+                <li class="accounts">金额：
+                    <span v-show="Rcount!='oth'" v-html="count">0</span>
+                    <span v-show="Rcount=='oth'" v-html="othCount||0">0</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="hide" id="alipayBox">
+        <form action="https://mapi.alipay.com/gateway.do?_input_charset=utf-8" id="alipayForm" method="get" target="_blank" >
+            <input type="hidden" :value="alipay.partner" name="partner">
+            <input type="hidden" :value="alipay.seller_id" name="seller_id">
+            <input type="hidden" :value="alipay.out_trade_no" name="out_trade_no">
+            <input type="hidden" :value="alipay.subject" name="subject">
+            <input type="hidden" :value="alipay.body" name="body">
+            <input type="hidden" :value="alipay.total_fee" name="total_fee">
+            <input type="hidden" :value="alipay.notify_url" name="notify_url">
+            <input type="hidden" :value="alipay.service" name="service">
+            <input type="hidden" :value="alipay.payment_type" name="payment_type">
+            <input type="hidden" :value="alipay._input_charset" name="_input_charset">
+            <input type="hidden" :value="alipay.it_b_pay" name="it_b_pay">
+            <input type="hidden" :value="alipay.return_url" name="return_url">
+            <input type="hidden" :value="alipay.app_id" name="app_id">
+            <input type="hidden" :value="alipay.sign" name="sign">
+            <input type="hidden" :value="alipay.sign_type" name="sign_type">
+        </form>
+    </div>
+    <div class="hide" id="hftx">
+        <form name="payForm"  id='payForm' method="post" target="_blank" action="http://mas.chinapnr.com/gar/RecvMerchant.do" class="hide">
+            <input type="hidden"  name="ChkValue"  v-model="hftxReq.chkValue">
+            <input type="hidden"  name="Version"  v-model="hftxReq.version">
+            <input type="hidden"  name="CmdId"  v-model="hftxReq.cmdId">
+            <input type="hidden"  name="MerId" v-model="hftxReq.merId">
+            <input type="hidden"  name="OrdId" v-model="hftxReq.ordId">
+            <input type="hidden"  name="OrdAmt" v-model="hftxReq.ordAmt">
+            <input type="hidden"  name="CurCode" v-model="hftxReq.curCode">
+            <input type="hidden"  name="Pid" v-model="hftxReq.pid">
+            <input type="hidden"  name="RetUrl" v-model="hftxReq.retUrl">
+            <input type="hidden"  name="BgRetUrl" v-model="hftxReq.bgRetUrl">
+            <input type="hidden"  name="MerPriv" v-model="hftxReq.merPriv">
+            <input type="hidden"  name="GateId" v-model="hftxReq.gateId">
+            <input type="hidden"  name="UsrMp" v-model="hftxReq.usrMp">
+            <input type="hidden"  name="DivDetails" v-model="hftxReq.divDetails">
+            <input type="hidden"  name="PayUsrId" v-model="hftxReq.payUsrId">
+        </form>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    var moneyMsg = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的金额';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^(([0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/.test(value)
+            );
+        }
+    };
+    VeeValidate.Validator.extend('moneyMsg', moneyMsg);
+    var rechargeVM = new Vue({
+        el:"#recharge",
+        delimiters: ['${', '}'],
+        data:{
+            payType:1,
+            isOrderPay:false, //是否触发支付操作,
+            isPatent:"",//是否是专利产品 专利涉及的支付方式显示 (不显示 微信   银行卡  线下支付显示:卓唐(南京)账号)
+            btnShow:false,
+            selectCouponItem:0,//优惠券初始化
+            bankCode:"",  //银行卡CODE；
+            trandCode:"",//银行流水初始化
+            alipay:{},
+            hftxReq:{},
+            count:1000,
+            othCount:'',
+            Rcount:'one',
+            contractcode:'',
+        },
+        methods:{
+            //创建微信二维码
+            weixinCode:function () {
+                this.createContract();
+            },
+            //创建合同号
+            createContract:function() {
+                var _str="";
+                if(rechargeVM.Rcount == 'oth'){
+                    if((typeof (rechargeVM.othCount)==undefined||rechargeVM.othCount==0)){
+                        _str = '请填写充值的金额！！';
+                    }else if(Number(rechargeVM.othCount)>999999){
+                        _str = '你充值的金额大于最大充值金额！！';
+                    }else if(Number(rechargeVM.othCount)<=0){
+                        _str = '你充值的金额小于最小充值金额！！';
+                    }else if((rechargeVM.othCount.toString()).slice(rechargeVM.othCount.toString().indexOf("."),rechargeVM.othCount.toString().length).length>3){
+                        _str = '你充值的金额有误！！';
+                    }
+                    if(_str!=""){
+//                        rechargeVM.othCount = '';
+                        layui.use('layer',function() {
+                            layer.msg(_str,{icon: 5,time: 3*1000});
+                        });
+                        _str="";
+                        return;
+                    }
+                }
+                if(parseInt(rechargeVM.payType) == 3){
+                    if(rechargeVM.bankCode == "" ){
+                        layui.use('layer',function() {
+                            layer.msg('请选择付款银行！！',{
+                                icon: 5
+                                ,time: 3*1000 //6s后自动消失
+                            });
+                        })
+                        return;
+                    }
+                }else if(parseInt(rechargeVM.payType) == 4){
+                    layui.use('layer',function() {
+                        layer.msg('操作成功！！',{
+                            icon: 1
+                            ,time: 3*1000 //6s后自动消失
+                        });
+                    })
+                    window.open('/userCenter/userWallet','_self');
+                }
+                axios.post('/userCenter/userContract',this.convertOrderData()).then(
+                        function (res) {
+                            if(res.data){
+                                rechargeVM.contractcode = res.data.data.comcode;
+                                //提交订单
+                                rechargeVM.btnShow = true;
+                                rechargeVM.submitOrder(rechargeVM.payType);
+                            }
+                        }
+                )
+
+            },
+            submitOrder:function (payType) {
+                //线下支付流程
+                if(parseInt(payType) == 4){
+                    window.open('/userCenter/userWallet','_self');
+                }else{
+                    //网上银行 支付宝 微信
+                    rechargeVM.isOrderPay = true;
+                    axios.post('/userCenter/userRechargeBtn',this.convertOrderData()).then(
+                            function (res) {
+                                if(res && res.data.success){
+                                    //提交订单成功 订单号
+                                    if(parseInt(payType) == 1){
+                                        rechargeVM.alipay = res.data.data;
+                                        setTimeout(function () {
+                                            $("#alipayForm").submit();
+                                            payTips();
+                                            rechargeVM.btnShow=false;
+                                            rechargeVM.isOrderPay = false;
+                                        },1000);
+                                    }
+                                    if(parseInt(payType) == 2){
+                                        //微信支付弹出微信二位码
+                                        $("#qrcode").empty();
+                                        new QRCode($("#qrcode")[0], {
+                                            text:res.data.data.code_url,
+                                            width: 188,
+                                            height: 188,
+                                            colorDark : "#000000",
+                                            colorLight : "#ffffff",
+                                        });
+                                        rechargeVM.btnShow=false;
+                                        rechargeVM.weixinCallBack();
+                                    }
+                                    if(parseInt(payType) == 3){
+                                        rechargeVM.hftxReq = res.data.data;
+                                        setTimeout(function () {
+                                            $("#payForm").submit();
+                                            payTips();
+                                            rechargeVM.btnShow=false;
+                                            rechargeVM.isOrderPay = false;
+                                        },1000)
+                                    }
+                                }
+                            }
+                    )
+                }
+
+            },
+            //微信轮询接口
+            weixinCallBack:function(){
+                if(this.times<=0) return;
+                this.times--;
+                axios.get('/userCenter/payCallBackToJson/'+rechargeVM.contractcode+"?"+new Date()).then(
+                        function (res) {
+                            if(res.data.data.status == 2 && res.data.success){
+                                this.times = 0;
+                                window.open('/userCenter/payCallBack/'+rechargeVM.contractcode,'_blank');
+                                payTips()
+                            }else{
+                                window.setTimeout(function () {
+                                    rechargeVM.weixinCallBack();
+                                },1000)
+                            }
+                        }
+                )
+            },
+            //转化订单支付数据 type 1:支付宝  2:微信 3:网银  4:转账
+            convertOrderData:function (){
+                var convertData={};
+                if( rechargeVM.Rcount == 'oth'){
+                    rechargeVM.count=rechargeVM.othCount
+                }
+                if(rechargeVM.count.length==0){
+                    return;
+                }
+                convertData.money = rechargeVM.count.toString();//总金额
+                convertData.channelSource = 'pc';//平台
+                convertData.comcode = rechargeVM.contractcode;//合同号
+                switch (parseInt(rechargeVM.payType)){
+                    case 1:
+                        convertData.payType = 12;
+                        break
+                    case 2:
+                        convertData.payType = 33;
+                        break
+                    case 3:
+                        convertData.payType = 11;
+                        convertData.bankCode = rechargeVM.bankCode
+                        break
+                    case 4:
+                        convertData.trandCode = rechargeVM.trandCode //汇款流水号
+                        break
+                }
+                return convertData;
+            },
+        }
+    });
+    //显示支付跳转提示
+    function payTips() {
+        var layer_type = {
+            type: 1,
+            title: "支付提示",//false不显示标题栏,
+            closeBtn: false,//是否显示头部删除按钮
+            offset: '100px',
+            area: '480px;',
+            shade: 0.6,
+            id: 'LAY_payTips' ,//设定一个id，防止重复弹出,
+            btn: ['充值成功', '继续充值'],
+            moveType: 1 ,//拖拽模式，0或者1,
+            content: "<div class='paytips'><h1>请您在新打开的页面完成支付</h1><p>支付完成前请不要关闭此窗口，<a href='/help/index' target='_blank'>遇到问题?</a></p></div>",
+            success: function (layero) {
+                //弹框加载成功
+            },
+            yes:function () {
+                //点击支付成功
+                window.location.href="/userCenter/userWallet";
+            },
+            btn2:function () {
+                window.location.href="#";
+            }
+        }
+        layui.use('layer',function() {
+            payTipsOpen = layer.open(layer_type);
+        })
+    }
+    function Youji() {
+        rechargeVM.count=rechargeVM.othCount;
+        rechargeVM.payType=1;
+        return false;
+    }
+    //为某个dom元素添加鼠标右击事件
+    document.getElementById("money").oncontextmenu=Youji;
+    $("#money").on("input propertychange",function(){
+        console.log($(this).val().length);//打印输入框字符长度
+        if($(this).val().length>6){
+            rechargeVM.othCount=(Number(($(this).val().toString()).slice(0,6)));
+        }
+        rechargeVM.count=rechargeVM.othCount;
+        rechargeVM.payType=1;
+        return false;
+    });
+</script>
+

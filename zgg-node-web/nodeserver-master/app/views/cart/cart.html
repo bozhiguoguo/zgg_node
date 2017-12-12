@@ -1,0 +1,373 @@
+<link rel="stylesheet" href="/css/cart.css" >
+<div id="cart_data1" v-cloak style="min-height: 500px">
+    <div class="cartNav"  >
+        <ul>
+            <li v-bind:class="{cartNavShow:isShow==1}" v-on:click="pType=['tr','cr'];isShow=1;resetNum()">商标版权服务（<span v-html="crCount_trCount"></span>）</li>
+            <li v-bind:class="{cartNavShow:isShow==2}" v-on:click="pType=['pt'];isShow=2;resetNum()">专利服务（<span v-html="ptCount"></span>）</li>
+            <li v-bind:class="{cartNavShow:isShow==4}" v-on:click="pType=['law'];isShow=4;resetNum()">法律服务（<span v-html="lawCount"></span>）</li>
+            <li v-bind:class="{cartNavShow:isShow==3}" v-on:click="pType=['other'];isShow=3;resetNum()">其他服务（<span v-html="otherCount"></span>）</li>
+        </ul>
+    </div>
+    <div class="cartHeader" v-if="coverntCartList.length>0">
+        <span class="cartTd1" ><a :class="{cartCheckTrue:i_show,cartCheck:!i_show}" @click="selectAll();i_show=!i_show;"></a>全选</span>
+        <span class="cartTd2">商品信息</span>
+        <span class="cartTd3">单价</span>
+        <span class="cartTd4">数量</span>
+        <span class="cartTd5">小计</span>
+        <span class="cartTd6">操作</span>
+    </div>
+    <div class="cartTable">
+        <ul v-if="coverntCartList.length>0" v-for="(item,index) in coverntCartList" >
+            <li class="cartTd1" >
+                <a v-if="item.updownState!==1" :class="{cartCheckTrue:item.isCheck,cartCheck:!item.isCheck}" @click="select(item)"></a>
+                <a v-if="item.updownState==1" class="miss_p">商品已下架</a>
+            </li>
+            <li class="cartTd2 cartTableMsg">
+                <div class="cartMsgImg"><img :src="ImgUrl+item.picsSmall" alt="" style="width: 64px;height: 64px;"></div>
+                <div class="cartMsgP f_l">
+                    <p class="cartMsgP1" v-html="item.pname"></p>
+                    <div v-for="list in item.shopFeeChargeds">
+                        <span><b style="font-weight: 400" v-html="list.feeChargedTypename"></b>：
+                            <b style="font-weight: 400" v-if="list.buyNum>0">${list.feeChargedName}*${list.buyNum}</b>
+                             <!--<b style="font-weight: 400" v-if="!list.buyNum" v-html="list.feeChargedName"></b>-->
+                        </span>
+                    </div>
+                </div>
+            </li>
+            <li class="cartTd3 cartTd3_top" >
+                <span>¥ <span v-html="item.money"></span></span>
+                <!--<div class="cartT_Msg" @mouseenter="pPriceMsg(item)" @mouseleave="pPriceMsg(item)">-->
+                    <!--价格明细-->
+                    <!--<img class="f_r" src="../img/icon-productdetail-dropdown_2.png" alt="">-->
+                    <!--<div class="cartT_MsgShow"  v-show="item.isClick==true">-->
+                        <!--<p v-for="msgList in pPriceMsgList">-->
+                            <!--<span v-html="msgList.pname"></span>：￥-->
+                            <!--<span v-html="msgList.price"></span>-->
+                        <!--</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </li>
+            <li class="cartTd4 cartTd4_top">
+                <span class="cartNumSubt cartNumBtn" v-on:click="numChange(item,'add')">-</span>
+                <input class="cartNum" type="text"  v-model="item.number" v-on:blur="numChange(item);">
+                <span class="cartNumAdd cartNumBtn" v-on:click="numChange(item,'subtract')">+</span>
+            </li>
+            <li class="cartTd5 cartTableH">¥ <span v-html="item.money*100*item.number/100"></span></li>
+            <li id="LAY_demo" class="cartTd6 cartTableH" :class="{miss_top:item.updownState==1}" >
+                <a class="layui-btn" data-method="notice" v-on:click="del_cart(item.id,$event)" style="background: #009688;">删除</a>
+            </li>
+        </ul>
+        <div v-if="coverntCartList.length==0">
+            <dl>
+                <dt><img class="no_produce" src="/img/icon_shopping.png" /></dt>
+                <dd class="no_produce_word">亲，购物车暂无该类型的商品！</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="cartFooter">
+        <ul>
+            <li><img src="../img/icon_shoppingcart_time_grey.png" alt=""><span>7*24小时服务</span>顾问一站式一对一服务</li>
+            <li><img src="../img/icon_shoppingcart_professional_grey.png" alt=""><span>专业团队</span>严格把控风险</li>
+            <li><img src="../img/icon_shoppingcart_value_grey.png" alt=""><span>超高性价比</span>价格公开透明，低服务费</li>
+            <li><img src="../img/icon_shoppingcart_customerservice_grey.png" alt=""><span>售后无忧</span>平台客服反馈解决客户问题</li>
+        </ul>
+    </div>
+    <div class="cartAccountsBox">
+        <div :class="{cartAccountChange:i_true,cartAccounts:true}" id="accounts">
+            <ul>
+                <li class="accountsCheck"><a :class="{cartCheckTrue:i_show,cartCheck:!i_show}" @click="selectAll();i_show=!i_show;"></a>全选</li>
+                <li id="LAY_demo" class="delCheck"><a class="layui-btn" data-method="notice" v-on:click="delAll_cart($event)" style="color: #1c2b36;">删除选中</a></li>
+                <li class="accountsBtn" v-on:click="account()">结算</li>
+                <li class="accountsAll">合计 <span v-html="coun_num"></span></li>
+                <li class="accounts">已选中 <span v-html="mun_de"></span> 商品</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<form class="hide" action="/order/account" method = "post" id="upSub">
+    <input type="hidden" name="ids" value="" id="ids">
+</form>
+<script type="text/javascript" src="../js/cart.js"></script>
+<script type="text/javascript">
+    var cData = {{{ cData }}};
+    console.log(cData);
+    layui.use('layer', function() { //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+        var cartVM = new Vue({
+        delimiters:["${", "}"],
+        el:"#cart_data1",
+        data:{
+            i_show: false,
+            cData : cData,
+            items :cData.shoppinglists,
+            isShow : 1,
+            pType:['tr','cr'],
+            pPriceMsgList : [],
+            numList : [],
+            coun_num:0.00,
+            mun_de:0,
+            i_true:false,
+            cartList:[],
+            ImgUrl:zgg.Vconfig.ImgUrl,
+            crCount_trCount:cData.crCount+cData.trCount,
+            ptCount:cData.ptCount,
+            otherCount:cData.otherCount,
+            lawCount:cData.lawCount
+        },
+
+        methods:{
+            resetNum:function(){
+                var that = this;
+                this.i_show = false;
+                this.i_true = false;
+                this.items.forEach(function(item) {
+                    that.$set(item, "isCheck", false);
+                });
+                this.counNum();
+            },
+            select:function(item){
+                var that = this,is_allSelect=true;
+                this.$set(item,"isCheck",!item.isCheck);
+                var list=this.coverntCartList;
+                list.map(function(item){
+                    if(item.isCheck == false||item.isCheck == undefined) {
+                        is_allSelect = false;
+                    }
+                });
+                if(is_allSelect==false){
+                    that.i_show = false;
+                }else{
+                    that.i_show = true;
+                }
+                this.counNum();
+            },
+            selectAll:function(){
+                var that = this;
+                var list=this.coverntCartList;
+                list.forEach(function(item){
+                    if(item.updownState == 1){
+                        return;
+                    }
+                    if(that.i_show == false) {
+                        that.$set(item, "isCheck", true);
+                    }else if(that.i_show == true) {
+                        that.$set(item, "isCheck", false);
+                    }
+                });
+                this.counNum();
+            },
+            counNum:function () {
+                var that = this,newNum=0,munDe=0,carNum=0;
+                var list=this.coverntCartList;
+                list.map(function(item){
+                    if(item.isCheck == true){
+                        munDe+=parseInt(item.number)
+                        newNum += (parseFloat(item.money)*parseInt(item.number))
+                    }
+                    carNum += parseInt(item.number);
+                });
+                that.coun_num = newNum.toFixed(2);
+                that.mun_de = munDe;
+                if(that.isShow==1){
+                    that.crCount_trCount = carNum;
+                }else if(that.isShow==2){
+                    that.ptCount = carNum;
+                }else if(that.isShow==3){
+                    that.otherCount = carNum;
+                }else if(that.isShow==4){
+                    that.lawCount = carNum;
+                }
+                $("#cart_nums").text(parseInt(that.crCount_trCount)+parseInt(that.ptCount)+parseInt(that.otherCount)+parseInt(that.lawCount));
+                if(that.mun_de>0){
+                    that.i_true = true;
+                }else{
+                    that.i_true = false;
+                }
+                newNum = munDe = carNum = 0;
+            },
+            //订单明细
+//            pPriceMsg:function (item) {
+//                axios.post('/cart/pPriceMsg', {pId: item.id}).then(
+//                    function (pPriceMsg) {
+//                        cartVM.pPriceMsgList = pPriceMsg.data.data;
+//                        item.isClick = !item.isClick;
+//                    }
+//                )
+//            },
+            //数量的变化
+            numChange:function (_item,_str) {
+                var cart_num = 0,old_num = 0;
+                if(_str=='add'){
+                    _item.number-=1;
+                }else if(_str=='subtract'){
+                    _item.number=parseInt(_item.number)+1;
+                }
+                if(_item.number<=0){
+                    _item.number=1;
+                }else if(_item.number>50){
+                    _item.number=50;
+                    layer.msg("商品购买数最多为50件！")
+                }
+                cartVM.items.map(function (item) {
+                    cart_num += parseInt(item.number);
+                    if(item.id !== _item.id){
+                        old_num += parseInt(item.number);
+                    }
+                });
+                if(cart_num>200){
+                    cartVM.items.map(function (thisItem) {
+                        if(thisItem.id == _item.id){
+                            thisItem.number = 200 - old_num;
+                        }
+                    });
+                    layer.msg("购物车最多可添加200件商品！");
+                    return;
+                }
+                axios.post('/cart/numChange',{"id":_item.id, "number":_item.number}).then(
+                    function () {
+                        cartVM.counNum();
+                    }
+                )
+
+            },
+            del_cart:function (id,t) {
+                var t = t.currentTarget;
+               this.del(id,'/cart/del',t);
+
+            },
+            delAll_cart:function (t) {
+                var id='',t = t.currentTarget,_arrId=[];
+                this.items.map(function (item) {
+                    if(item.isCheck == true){
+                        id+=item.id+",";
+                        _arrId.push(item.id)
+                    }
+                })
+                id=id.substring(0,id.length-1);
+                if(id){
+                    this.del(id,'/cart/delAll',t,_arrId);
+                }
+            },
+            del:function (id ,url,t,_arrId) {
+                var that = t,vue_that=this;
+                var othis = $(that), method = othis.data('method');
+                var active = {
+                    notice: function () {
+                        layer.open({
+                            type: 1,
+                            title: "删除订单",//false不显示标题栏,
+                            area: '350px;',
+                            shade: 0.6,
+                            id: 'LAY_layuipro' ,//设定一个id，防止重复弹出,
+                            btn: ['取消', '确认'],
+                            moveType: 1 ,//拖拽模式，0或者1,
+                            content: '<div style="padding:30px 25px;font-size: 16px;color: #2a2a2a;">确认删除订单？</div>   ',
+                            success: function (layero) {
+                                var btn = layero.find('.layui-layer-btn');
+                                btn.css('text-align', 'center');
+                                btn.find('.layui-layer-btn1').on('click',function () {
+                                    $.ajax({
+                                        url:url,
+                                        type:'post',
+                                        data:{id: id},
+                                        success: function(_data) {
+                                            if (_data.success) {
+                                                var _arr = [];
+                                                if(!_arrId){
+                                                    vue_that.items.forEach(function (item) {
+                                                        if (item.id !== id) {
+                                                            _arr.push(item);
+                                                        }else{
+                                                            if(item.pcode.substr(0,2)=='pt'){
+                                                                cartVM.cData.ptCount-=1;
+                                                            }else if(item.pcode.substr(0,2)=='tr'||item.pcode.substr(0,2)=='cr'){
+                                                                cartVM.cData.crCount-=1;
+                                                            }else{
+                                                                cData.otherCount-=1;
+                                                            }
+                                                        }
+                                                    });
+                                                }else{
+//                                                    window.location.href='/cart/index';
+                                                    vue_that.items.map(function (item) {
+                                                        for(i=0;i<_arrId.length;i++){
+                                                            if (item.id == _arrId[i]) {
+                                                               return
+                                                            }
+                                                        }
+                                                        _arr.push(item);
+                                                    });
+                                                }
+                                                vue_that.items = _arr;
+                                                _arr = [];
+                                                vue_that.i_show =  false;
+                                                watchFiexd();
+                                            }
+                                            cartVM.counNum();
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    }
+                };
+                active[method] ? active[method].call(that, othis) : '';
+            },
+            account:function () {
+                if(this.mun_de ==0){
+                    return;
+                }
+                var id='';
+                this.items.map(function (item) {
+                    if(item.isCheck == true && item.updownState != 1){
+                        id+=item.id+","
+                    }
+                })
+                $('#ids').val(id.substring(0,id.length-1));
+                $('#upSub').submit();
+//                axios.post('/cart/account',{"id":id}).then(
+//                    function (res) {
+//                        var resJson = res.data;
+//                        if(resJson.success && resJson.data){
+//                            window.location.href='/order/buyNow'
+//                        }
+//                    }
+//                )
+            }
+        },
+
+        computed:{
+            coverntCartList:function () {
+                this.cartList = this.items,
+                     pType = this.pType;
+                //alert(pType);
+                return this.cartList.filter(function (item) {
+                    if(pType[0] == "other"){
+                        return $.inArray(item.pcode.substr(0,2),['tr','cr','pt','la']) == -1;
+                    }
+                    return ($.inArray(item.pcode.substr(0,2),pType) != -1 || $.inArray(item.pcode.substr(0,3),pType) != -1);
+                });
+            }
+        },
+        updated:function () {
+            watchFiexd();
+        }
+    });
+//        cartVM.$watch('items',function (newVal, oldVal) {
+//            var num = 0,oldArr=oldVal;
+//            newVal.map(function (item) {
+//                num += parseInt(item.number);
+//                if(num>200){
+//                    oldArr.forEach(function (_arr) {
+//                        cartVM.items.push(_arr);
+//                    });
+//                    cartVM.items.splice(0,cartVM.items.length/2);
+//                    layer.msg("购物车最多可添加200件商品！");
+//                }
+//            });
+//            },{deep: true}
+//        )
+    });
+
+
+</script>

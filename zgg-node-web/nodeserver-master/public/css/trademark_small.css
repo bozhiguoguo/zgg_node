@@ -1,0 +1,298 @@
+.tradSmall_table{
+    margin-top:27px;
+    position: relative;
+}
+
+.tradSmall_top{
+    width: 859px;
+    height: 54px;
+    background: #f3f6f8;
+}
+
+.tradSmall_top h3{
+    float: left;
+    margin:17px 0 0 22px;
+    font-size: 16px;
+    color:#2a2a2a;
+}
+
+.tradSmall_top h3 img{
+    display: inline-block;
+    margin-right:6px;
+    margin-top:-2px;
+}
+
+.tradSmall_search{
+    float: right;
+    width: 178px;
+    height: 28px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    border: solid 1px #a34a51;
+    margin:14px 20px 0 0;
+    position: relative;
+}
+
+.tradSmall_search input{
+    border:none;
+    margin-left:29px;
+    color:#c8c7c7;
+    font-size:12px;
+    line-height: 28px;
+    height: 28px;
+}
+
+.tradSmall_search img{
+    position: absolute;
+    left:5px;
+    top:5px;
+}
+
+.tradSmall_check{
+    width: 859px;
+    height: auto;
+    min-height:200px;
+    overflow: hidden;
+    border: solid 1px #eff0f4;
+}
+
+.tradSmall_type{
+    height: 57px;
+}
+
+.tradSmall_type p{
+    float: left;
+    font-size: 14px;
+    color: #727f8f;
+    text-align: center;
+    margin-top:25px;
+}
+
+.tradSmall_bie{
+    width: 175px;
+
+}
+
+.tradSmall_su{
+    width: 588px;
+}
+
+.tradSmall_tr{
+    width: 859px;
+    height: 50px;
+    background: #fafafb;
+    border-top:1px solid #eff0f4;
+}
+
+.tradSmall_tr:hover{
+    background:#f8e9e3;
+}
+
+.tradSmall_tr p{
+    float: left;
+    font-size: 14px;
+    color: #727f8f;
+    text-align: center;
+}
+
+.tradSmall_tr p.tradSmall_num{
+    padding:3px 5px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: solid 1px #dadde1;
+    margin:12px 90px 0 70px;
+}
+
+.tradSmall_tr p.tradSmall_info{
+    width: 588px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top:16px;
+    color: #333333;
+}
+
+.tradSmall_bg{
+    background: #fff;
+}
+
+
+.traaSmall_childen{
+    width:601px;
+    height: auto;
+    min-height: 200px;
+    overflow: hidden;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    top:0;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #dadde1;
+}
+
+.tradSmall_Sub{
+    height: 54px;
+    background: #f3f6f8;
+}
+
+.tradSmall_Sub p{
+    margin-top:17px;
+    font-size:16px;
+    color:#2a2a2a;
+}
+
+.tradSmall_zi{
+    float: left;
+    margin-left:23px;
+}
+
+.tradSmall_yi{
+    float: right;
+    margin-right:39px;
+}
+
+.tradSmall_left{
+    float: left;
+    width: 430px;
+}
+
+.tradSmall_right{
+    width: 170px;
+    float: left;
+}
+
+.tradSmall_describe{
+    height: 80px;
+    background: #fff7f1;
+    color:#727f8f;
+    font-size:12px;
+    padding:15px 0 0 15px;
+}
+
+
+.tradSmall_01{
+    width: 95px;
+    height: 350px;
+    float: left;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.tradSmall_01 ul li{
+    width: 95px;
+    height: 50px;
+    font-size:14px;
+    color:#727f8f;
+    line-height: 50px;
+    text-align: center;
+}
+
+.tradSmall_01 ul li.tradSmall_click{
+    background: #fafafb;
+    color:#a34a51;
+}
+
+.tradSmall_checked{
+    width: 335px;
+    float: left;
+    background-color: #fafafb;
+    height: 350px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.tradSmall_chioce{
+    width: 140px;
+    height: 26px;
+    border-radius: 3px;
+    background-color: #fbe3e3;
+    border: solid 1px #f7cdd0;
+    margin:15px auto;
+}
+
+.tradSmall_chioce p{
+    width: 118px;
+    font-size: 14px;
+    color: #c96d6d;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+    padding-left: 9px;
+    padding-top: 3px;
+}
+
+.tradSmall_chioce img{
+    display: inline-block;
+    float: left;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.tradSmall_wrap{
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.tradSmall_number{
+    margin:15px 0 0 24px;
+    clear: both;
+    height: 20px;
+}
+
+.tradSmall_number b{
+    display: block;
+    float: left;
+    background: #e9c19e;
+    color:#fff;
+    padding:3px 10px;
+    font-size:12px;
+    border-radius: 3px;
+    font-weight: normal;
+}
+
+.tradSmall_number p{
+    float: left;
+    width: 150px;
+    margin-left:10px;
+    font-size: 12px;
+    color: #2a2a2a;
+    margin-top:2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tradSmall_number a{
+    display: block;
+    float: left;
+    width:15px;
+    height: 15px;
+    background: url("../img/checkbox-nor.png") no-repeat;
+    margin-top:2px;
+}
+
+.tradSmall_number a.tradSmall_checkbox{
+    background: url("../img/checkbox-ticked.png") no-repeat;
+}
+
+.tradSmall_but{
+    margin:30px auto;
+    width:190px;
+}
+
+.tradSmall_but button{
+    width: 79px;
+    height: 33px;
+    border-radius: 3px;
+    background-color: #e9c19e;
+    border:none;
+    color:#fff;
+    font-size:14px;
+}
+
+.tradSmall_but button.tradSmall_sure{
+    background: #a34a51;
+    margin-left:25px;
+}

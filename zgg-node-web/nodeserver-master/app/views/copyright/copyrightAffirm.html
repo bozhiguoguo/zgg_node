@@ -1,0 +1,295 @@
+<link rel="stylesheet" href="/css/personal_center.css"/>
+<link rel="stylesheet" href="/css/orderBusiness.css"/>
+<link rel="stylesheet" href="/css/orderDetailsPaid.css"/>
+<div id="orderBox" v-cloak>
+    <!--订单状态-->
+    <div class="personCenter_wrapp">
+        <div class="personCenter_tab">
+            <ul>
+                <li class="f_l"><a href="/userCenter/home">果蜜中心</a><span>></span></li>
+                <li class="f_l"><a href="/userOrder">订单中心</a><span>></span></li>
+                <li class="f_l">业务办理</li>
+            </ul>
+        </div>
+        <div class="c_b"></div>
+    </div>
+    <div class="order-status">
+        <div class="order-status-title">订单状态</div>
+        <div class="order-status-content">
+            <div class="order-number">订单号：${crData.orderCode}</div>
+            <div class="order-fig">
+                <div class="words_step affirmCss">
+                    <ul>
+                        <li class="words_fk" v-for="allNodesList in allNodes" :class="{flowNode_did:nowNodes.stepnum>=allNodesList.stepnum,flowNode_w:nowNodes.stepnum<allNodesList.stepnum}">
+                            <p>${allNodesList.titlename}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--业务信息-->
+    <div class="business-info">
+        <div class="business-info-title">业务信息</div>
+        <div style="min-height: 304px;background: #FFFFff;">
+            <div class="bussDiv">
+                <ul class="f_l bussList">
+                    <li>作品名称：<span >${items.worksName||items.softFullName}</span></li>
+                    <li>服务类别：<span v-if="crData.pcode=='cr_pro_1'||crData.pcode.indexOf('cr_ms')>=0">美术作品</span>
+                        <span v-if="crData.pcode=='cr_pro_2'||crData.pcode.indexOf('cr_wz')>=0">文字作品</span>
+                        <span v-if="(crData.pcode=='cr_soft_1'||crData.pcode=='cr_soft_2'||crData.pcode.indexOf('cr_soft')>=0)">软著作品</span>
+                    </li>
+                    <li>官方费用：<span>${crDataes.publicexp}</span></li>
+                    <li>服务费用：<span>${crDataes.serveexp}</span></li>
+                </ul>
+                <ul class="f_l bussList">
+                    <li>联系人：<span>${items.contact}</span></li>
+                    <li>详细地址：<span>${items.contactAddress}</span></li>
+                    <li>联系人手机：<span>${items.contactTel}</span></li>
+                    <li>Email：<span>${items.contactEmail}</span></li>
+                </ul>
+            </div>
+            <div class="bussDiv"style="margin-bottom: 0">
+                <ul class="f_l bussList">
+                    <li v-for="(list,index) in owners">
+                        <b v-if="index<1" style="font-weight: 400;">申请人：</b>
+                        <span v-if="index>=1" style="padding-left: 60px;"></span>
+                        <span>${list.ownerName}</span>
+                    </li>
+                    <li>创作完成时间：<span>${items.ctime||items.finishTime}</span></li>
+                    <li v-if="(crData.pcode=='cr_pro_2'||crData.pcode=='cr_pro_1'||crData.pcode.indexOf('cr_wz')>=0||crData.pcode.indexOf('cr_ms')>=0)">创作完成城市：<span>${items.city}</span></li>
+                    <li>发表状态：
+                        <span v-if="items.status==1">已发表</span>
+                        <span v-if="items.status==0">未发表</span>
+                    </li>
+                </ul>
+                <ul v-if="(crData.pcode=='cr_pro_2'||crData.pcode=='cr_pro_1'||crData.pcode.indexOf('cr_wz')>=0||crData.pcode.indexOf('cr_ms')>=0)" class="f_l bussList">
+                    <li>作品创作意图：<span>${items.crtIntention}</span></li>
+                    <li>作品创作过程：<span>${items.crtProcess}</span></li>
+                    <li>作品独创性：<span>${items.workDcx}</span></li>
+                </ul>
+                <ul v-if="(crData.pcode=='cr_soft_1'||crData.pcode=='cr_soft_2'||crData.pcode.indexOf('cr_soft')>=0)" class="f_l bussList">
+                    <li>编程语言：<span>${items.programYuyan}</span></li>
+                    <li>硬件环境：<span>${items.hardwareEnv}</span></li>
+                    <li>软件环境：<span>${items.softEnv}</span></li>
+                </ul>
+            </div>
+            <div style="clear: both"></div>
+            <div v-if="nowNodes.stepnum==3 &&crDataes.status!=-1" class="words_button">
+                <button @click="khAffirm()" class="words_sub">确认提交</button>
+            </div>
+        </div>
+
+    </div>
+    <!--资料下载-->
+    <div class="business-info" v-if="patentFiles">
+        <div class="business-info-title">资料下载</div>
+        <div class="downloadArea">
+            <h6 class="Msg_title"><img src="/img/icon-orderdetail-orderinfo.png" alt=""/><span>资料下载模版列表</span></h6>
+            <div v-if="crDataes.contracStatus==1" class="downloadFile m-t-sm">
+                合同下载  <a @click="downFile()" >合同下载</a>
+            </div>
+            <div class="downloadFile m-t-sm" v-if="patentFiles.startStep">
+                业务填写: <a v-for="file in patentFiles.startStep.files" :href="file.filePath" target="_blank"  v-if="file.filePath">${file.fileName}</a>
+            </div>
+            <div class="downloadFile m-t-sm" v-if="patentFiles.uplaodedFiles">
+                上传资料: <a v-for="file in patentFiles.uplaodedFiles.files" :href="file.filePath" target="_blank"  v-if="file.filePath">${file.fileName}</a>
+            </div>
+        </div>
+    </div>
+    <!--&lt;!&ndash;资料下载&ndash;&gt;-->
+    <!--<div class="business-info">-->
+        <!--<div class="business-info-title">资料下载</div>-->
+        <!--<div class="downloadArea">-->
+            <!--<h6 class="Msg_title"><img src="/img/icon-orderdetail-orderinfo.png" alt=""/><span>资料下载模版列表</span></h6>-->
+            <!--<div class="downloadFile m-t-sm">-->
+                <!--<a :href="contractUrl+'/zgOrderTrademark/getZgOrderTrademarkRelatedFiles/'+crData.orderId " target="_blank" >合同下载</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--订单信息-->
+    <div class="order-info">
+        <div class="order-info-title">订单信息</div>
+        <div class="order-info-content">
+            <div class="order-info-content-l">
+                <dl>
+                    <dt><img src="/img/icon-orderdetail-orderinfo.png" alt=""/>订单信息</dt>
+                    <dd>商品名称：${crDataes.pname}</dd>
+                    <dd v-for="item in orderMsg">${item.feeChargedTypename}：${item.feeChargedName} * ${ item.buyNum }</dd>
+                    <dd>金额：￥${crDataes.money}</dd>
+                </dl>
+
+                <dl class="order-info-content-l-second">
+                    <dt><img src="/img/icon-orderdetail-invoice.png" alt=""/>发票信息</dt>
+                    <dd v-if="invoiceDatas.unitName">发票抬头 ：${ invoiceDatas.unitName }</dd>
+
+                    <dd v-if="invoiceDatas.billType == 1">发票类型 ：普票</dd>
+                    <dd v-if="invoiceDatas.billType == 2">发票类型 ：专票</dd>
+                    <dd v-if="invoiceDatas.billType == 3">发票类型 ：未选择</dd>
+
+                    <dd v-if="invoiceDatas.billStatus"><span style="float:left;">开票状态 ：</span>
+                        <div style="float:left;width:260px;word-break:break-word;">
+                            <span v-if="invoiceDatas.billStatus == 1">未开票</span>
+                            <span v-if="invoiceDatas.billStatus == 2">已开票</span>
+                            <span v-if="invoiceDatas.billStatus == 3">已邮寄</span>
+                            <span v-if="invoiceDatas.billStatus == 4">已退回</span>
+                            <div v-show="invoiceDatas.billLinks.length > 0" style="color:#727f8f;">
+                                <a :href="val" target="_blank" v-for="val in invoiceDatas.billLinks" style="display:block;">${val}</a>
+                            </div>
+                        </div>
+                    </dd>
+
+                    <!--0：邮政小包;1:顺丰快递2：申通快递 3：邮政EMS 4：圆通快递 5：其他快递-->
+                    <dd v-show="invoiceDatas.zgYjBillOfContractVo && kddType"><span style="float:left;">邮寄单号：</span>
+                        <div style="float: left;">
+                            <div v-for="item in invoiceDatas.zgYjBillOfContractVo">
+                                <span>${item.kddhNbrs}</span>(<span v-show="item.yjType == 0">邮政小包</span>
+                                <span v-show="item.yjType == 1">顺丰快递</span>
+                                <span v-show="item.yjType == 2">申通快递</span>
+                                <span v-show="item.yjType == 3">邮政EMS</span>
+                                <span v-show="item.yjType == 4">圆通快递</span>
+                                <span v-show="item.yjType == 5">其他快递</span>)；
+                            </div>
+                        </div>
+                    </dd>
+
+                    <dd v-if="!invoiceDatas.unitName">无</dd>
+                </dl>
+            </div>
+            <div class="order-info-content-c">
+                <dl>
+                    <dt><img src="/img/icon-orderdetail-contactperson.png" alt=""/>联系人信息</dt>
+                    <dd>姓名：${crDataes.userName}</dd>
+                    <dd>手机号码：${crDataes.zuTel}</dd>
+                </dl>
+                <dl class="order-info-content-c-second">
+                    <dt><img src="/img/icon-orderdetail-mailingperson.png" alt=""/>收件人信息</dt>
+                    <dd>姓名：${crDataes.recipientName}</dd>
+                    <dd>手机号码：${crDataes.recipientPhone}</dd>
+                    <dd>邮寄地址：<span>${crDataes.address}</span></dd>
+                </dl>
+
+            </div>
+            {{> gwList}}
+
+        </div>
+    </div>
+
+    <!--跟踪服务-->
+    <div class="business-info">
+        <div class="business-info-title">跟踪信息</div>
+        <div style="padding: 30px 15px;background: #FFFFff;">
+            <table style="height:auto;width: 100%;line-height: 40px;color: #2a2a2a;text-align: center;font-size: 14px;">
+                <thead style="background: #f3f6f8;margin-top: 30px;">
+                    <tr>
+                        <td>官文类型</td>
+                        <td>收到日期</td>
+                        <td>是否邮寄</td>
+                        <td>下载文件</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="list in server">
+                        <td>${list.docTypeName}</td>
+                        <td>${list.upTime}</td>
+                        <td>${list.expressStatus}</td>
+                        <td></td>
+                    </tr>
+                    <tr class="basicNoinfo" v-if="server.length==0">
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td><img src="/img/icon-emptystate.png"  style="width: 156px;height:156px;"/><br/>亲，暂无服务！</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+</div>
+<script type="text/javascript">
+    var crData = {{{ crData }}};
+    var crDataes = {{{ crDataes }}};
+    var orderBody = {{{ orderBody }}};
+    var allNodes = {{{ allNodes }}};
+    var nowNodes = {{{ nowNodes }}};
+    var server = {{{ server }}};
+    var orderMsg = {{{ orderMsg }}};
+    var patentFiles = {{{ patentFiles}}};
+    var crAffirm = new Vue({
+        el: '#orderBox',
+        delimiters: ["${", "}"],
+        data: {
+            orderBody:orderBody.data.userBodyList,
+            orderCompany:orderBody.data.userCompanyList,
+            crData:crData.data.orderDetail,
+            items:crData.data.wzbqWorkinfo||crData.data.msbqWorkinfo||crData.data.rzWorkinfo,
+            owners:crData.data.copyrightOwners,
+            authors:crData.data.copyrightAuthors,
+            allNodes:allNodes.data,
+            nowNodes:nowNodes.data,
+            crDataes:crDataes.data,//合同信息
+            server:server.data,
+            orderMsg:orderMsg.data,
+            contractUrl:zgg.Vconfig.contractUrl,
+            gwPicUrl:zgg.Vconfig.gwPicUrl,
+            patentFiles:patentFiles.data,
+            adviser:"",
+            invoiceDatas:{
+            },//发票信息
+            kddType:false,
+        },
+        methods: {
+            downFile:function (item) {
+                axios.get('/userOrder/downContractFile/cr'+"/"+this.crData.contractcode).then(
+                        function (res) {
+                            if(res.data.success && res.data.data){
+                                /* Vue.set(item,'ContracStatus',res.data.data);*/
+                                item.isloading = false
+                                window.open('/userOrder/downContractByPathConcode/'+escape(res.data.data)+"/"+item.contractCode)
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                )
+            },
+            getGwInfo:function () {
+                axios.get('/userCenter/userCounselorByPcode/'+crData.data.orderDetail.pcode).then(
+                        function (res) {
+                            if(res){
+                                crAffirm.adviser = res.data;
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                )},
+            khAffirm:function () {
+                _data={stepId:this.crData.stepId, orderId:this.crData.orderId};
+                axios.post("/copyright/copyrightKhAffirm",_data).then(
+                    function (data) {
+                        if(data.data.success){
+                           window.location.reload();
+                        }else{
+
+                        }
+                })
+            }
+        },
+        mounted:function () {
+            this.getGwInfo();
+            axios.post('/userCenter/findBillInfOfOrderDetailsByOrderId/',{orderId:this.crData.orderId}).then(function(res){
+                crAffirm.invoiceDatas = res.data.data;
+                if(!!crAffirm.invoiceDatas.zgYjBillOfContractVo && crAffirm.invoiceDatas.zgYjBillOfContractVo.length > 0){
+                    if(crAffirm.invoiceDatas.zgYjBillOfContractVo[0].hasOwnProperty('kddhNbrs') && crAffirm.invoiceDatas.zgYjBillOfContractVo[0].hasOwnProperty('yjType')){
+                        crAffirm.kddType = true;
+                    }
+                }
+            })
+        }
+    })
+</script>

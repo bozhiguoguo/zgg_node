@@ -1,0 +1,594 @@
+{{> head}}
+<link rel="stylesheet" href="../css/words_Copyright.css"/>
+<link rel="stylesheet" href="../css/personalReal.css"/>
+
+<link rel="stylesheet" href="../css/modify_subjectInfo.css"/>
+<style>
+
+    .words_chart{
+        width:980px;
+    }
+
+    .words_step ul{
+        margin:10px 0 0 41px;
+    }
+
+    /*.words_flow span.words_sp1{*/
+        /*width:383px;*/
+    /*}*/
+
+    /*.words_flow span.words_sp4{*/
+        /*width:383px;*/
+    /*}*/
+    .words_chart{
+        margin-top:55px;
+    }
+
+    .words_bar{
+        border:1px solid transparent;
+    }
+
+    .words_step ul li.personalNum{
+        margin-right:295px;
+    }
+
+    .words_step ul li.personalFile{
+        margin-right:319px;
+    }
+
+    .personalId_file{
+        min-height: 274px;
+        width:500px;
+    }
+
+    .personal_Example{
+        width: 435px;
+        height: 100px;
+    }
+    .img_bg{
+        display: block;
+        background: url(../img/identity-backgound-reverse.png) no-repeat;
+        width: 224px;
+        height: 142px;
+        margin: 10px 0 0 10px;
+    }
+    ._span{
+        color: #727f8f !important;
+    }
+    .words_flow span.words_sp4 {
+        width: 383px;
+    }
+    .words_flow span.words_sp1 {
+        width: 383px;
+    }
+    .uploadifive-button {
+        border: 1px solid #000;
+        border-radius: 5px;
+    }
+</style>
+
+<div id="approveC" class="personCenter_all layui-tab-card" v-cloak style="padding: 20px;box-sizing: border-box;background: #fff;">
+    <div class="words_bar">
+        <div class="words_chart">
+            <div class="words_flow">
+                <i>
+                    <img src="../img/words_radius.png"/>
+                    <!-- <img src="../img/words_radius_hui.png" v-if="returnData.businessData.atPresentNodes.stepnum <item.stepnum"/>-->
+                    <span  :class="{words_sp1:pType>1,words_sp4:pType==1}"></span>
+                </i>
+                <i>
+                    <img v-show="pType<=1" src="../img/words_radius_hui.png"/>
+                    <img v-show="pType>1" src="../img/words_radius.png"/>
+                    <span :class="{words_sp1:pType>2,words_sp4:pType<=2}"></span>
+                </i>
+                <i>
+                    <img src="../img/words_radius_hui.png"/>
+                    <!--<span class=words_sp4></span>-->
+                </i>
+            </div>
+            <div class="c_b"></div>
+            <div class="words_step">
+                <ul>
+                    <li class="words_fk personalNum" style="margin-left: 0;">
+                        <p>认证手机号码</p>
+                    </li>
+                    <li class="words_fk personalFile" style="margin-left: 0;">
+                        <p>认证企业信息</p>
+                    </li>
+                    <li class="" style="margin-left: 0;">
+                        <p>认证结果</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--手机认证-->
+    <div v-show="pType==1" class="personlReal">
+        <div class="pesronalId_wrap">
+            <div style="display: block">
+                <div class="f_l personalId_file">
+                    <h2>认证手机</h2>
+                    <form class="verification-tel-show" @submit.prevent="validateForm('form-3-p')" data-vv-scope="form-3-p">
+                        <ul class="enterprisePhone">
+                            <span>手机：</span>
+                            <br/>
+                            <p style="height: 50px;position: relative">
+                                <input v-if="isShow" v-model="tel" type="text" style="background: #f2f3f7;border-color: #dadde1;color: #b9bfc7;" disabled/>
+                                <input v-else v-model="tel" placeholder="请收入手机号" name="phone" type="text" class="inputW not-active" v-validate="'required|phone'" data-vv-as="手机号"
+                                       :class="{'input': true, 'is-danger': errors.has('form-3-p.phone') }"/>
+                                <span style="position: absolute;right: 90px;top: 12px;">
+                             <a v-if="!isDis" class="code_btn" v-bind:disabled="isDis" @click="passportCode('form-3-p')" v-bind:class="{ disabled: isDis }">${codeHtml}</a>
+                            <a v-bind:disabled="isDis" v-else class="code_btn">${codeHtml}</a>
+                        </span>
+                            </p>
+                            <p class="red p_form" v-show="errors.has('form-3-p.phone')" style="line-height: 40px;margin-top: -20px;">${errors.first('form-3-p.phone')}</p>
+                            <span>验证码：</span>
+                            <br/>
+                            <input type="text" placeholder="请收入验证码" v-model="code" name="code" class="inputW" v-validate="'required'" data-vv-as="验证码"
+                                   :class="{'input': true, 'is-danger': errors.has('form-3-p.code') }"/>
+                            <p class="red p_form" v-show="errors.has('form-3-p.code')" style="line-height: 40px;">${errors.first('form-3-p.code')}</p>
+                        </ul>
+                        <div class="personalId_submit">
+                            <button class="personalId_next enterpriseReal_next">下一步</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="f_r personal_Example">
+                    <p>特别提醒：</p>
+                    <span class="personalReal_phone">我司将推出余额宝功能，为了您的账户安全，请尽快完善账户认证，以保证您账户的安全。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   <!--企业信息-->
+    <div v-show="pType==2" class="personlReal">
+        <!--<div class="pesronalReal_tit">-->
+            <!--<ul>-->
+                <!--<li class="personalReal_li">个人身份认证</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <div class="pesronalId_wrap">
+            <div style="display: block">
+                <form class="f_l personalId_file" @submit.prevent="validateForm('form-p-1')" data-vv-scope="form-p-1">
+                    <h2>请填写企业信息</h2>
+                    <div style="margin: 30px 0 0 10px;">
+                        <p><span>*</span>企业名称：</p>
+                        <div style="position: relative;">
+                            <input style="width: 80%" id="companyname" type="text" placeholder="请输入企业名称" class="inputW input" v-model="companyname" name="companyname"
+                                   v-validate="'required'" data-vv-as="企业名称" :class="{'input': true, 'is-danger': errors.has('form-p-1.companyname') }">
+                            <ol v-show="comList.length>0&&selectShow==true" style="position: absolute;z-index: 10;background: #fff;width: 80%;padding: 10px;border: 1px solid #e2e2e2;border-radius: 2px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);cursor: pointer;">
+                                <li v-for="item in comList" @click="selectMsg(item)">${item.companyName}</li>
+                            </ol>
+                        </div>
+                        <p class="red p_form" v-show="errors.has('form-p-1.companyname')" style="line-height: 40px;">${errors.first('form-p-1.companyname')}</p>
+                    </div>
+                    <div style="position: relative">
+                        <p style="padding: 10px 0 0 10px;"><span>*</span>营业执照副本扫描件：</p>
+                        <div class="modify_hover img_bg">
+                            <input type="text" v-model="blicensePic"  name="blicensePic" style="display: none;"
+                                   v-validate="'required'" data-vv-as="营业执照副本" :class="{'input': true, 'is-danger': errors.has('form-p-1.blicensePic') }">
+                            <a data-method="notice"><div><img v-bind:src="blicensePic" style="width: 100%;height: 142px;"/> </div></a>
+                        </div>
+                        <div id="blicensePic_url" class="f_l" style="position: absolute ; top: 80px; left: 250px;">
+                            <a data-method="notice"  id="blicensePic"></a>
+                            <span>(营业执照)</span>
+                        </div>
+                    </div>
+                    <p class="red p_form" v-show="errors.has('form-p-1.blicensePic')" style="line-height: 40px;">${errors.first('form-p-1.blicensePic')}</p>
+                    <div class="c_b"></div>
+                    <div class="enterInfo">
+                        <span>请上传由中国大陆工商局办法的，在效期内且年检章齐全(当年成立的公司可无年检章)</span>
+                        <span>请提供清晰、完整的彩色原件扫描件或数码照</span>
+                        <span>证件必须是彩色原件电子版，可以是扫描件或者数码拍摄照片</span>
+                        <span>仅支持.jpg .bmp .png .gif的图片格式，图片大小不超过3M</span>
+                    </div>
+                    <div class="personalId_submit">
+                        <!--<a  @click="clear();">返回</a>-->
+                        <button class="personalId_next">下一步</button>
+                    </div>
+                </form>
+                <div v-show="msgShow" class="f_r personal_Example" style="width: 450px;box-sizing: border-box;padding-left: 15px;height: auto;">
+                    <p style="margin: 15px 0 0 0;">公司信息：</p>
+                    <div class="enterpriseConfim_txt" >
+                        <ol style="margin-top: 0">
+                            <li><span class="_span">企业名称：</span><span>${companyMsg.companyName}</span></li>
+                            <li><span class="_span">营业执照注册号：</span><span>${companyMsg.regNumber}</span></li>
+                            <li><span class="_span">营业执照所在地：</span><span>${companyMsg.regOrgName}</span></li>
+                            <li><span class="_span">常用地址：</span><span>${companyMsg.address}</span></li>
+                            <!--<li><span class="_span">营业年限：</span><span>${companyMsg.issueTime}</span></li>-->
+                            <li><span class="_span">经营范围：</span><span>${companyMsg.bussinessDes}</span></li>
+                            <li>
+                                <span class="_span" style="float: none">营业执照副本扫描件：</span>
+                                <div><img v-bind:src="blicensePic"></div>
+                            </li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pesronalId_wrap">
+        <!--大陆-->
+        <!--<div class="personalId_file" style="width: 800px;">
+            <h2>企业信息</h2>
+            <div class="modify_table1">
+                <ol>
+                    <li>
+                        <p><span>*</span>企业名称：</p>
+                        <input type="text" placeholder="企业名称" class="inputW input">
+                    </li>
+                    <li>
+                        <p><span>*</span>营业执照副本扫描件：</p>
+                        <dl class="file_other">
+                            <dt><img src=""/> </dt>
+                            <dd>
+                                <button>点击上传</button>
+                            </dd>
+                        </dl>
+                        <div class="c_b"></div>
+                        <div class="enterInfo">
+                            <span>请上传由中国大陆工商局办法的，在效期内且年检章齐全(当年成立的公司可无年检章)</span>
+                            <span>请提供清晰、完整的彩色原件扫描件或数码照</span>
+                            <span>证件必须是彩色原件电子版，可以是扫描件或者数码拍摄照片</span>
+                            <span>仅支持.jpg .bmp .png .gif的图片格式，图片大小不超过3M</span>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="personalId_submit">
+                <a>返回</a>
+                <button class="personalId_next enterpriseReal_next">下一步</button>
+            </div>
+        </div>-->
+        <div class="clear"></div>
+        <!--境外-->
+        <!--<div class="personalId_file" style="width: 800px;">
+                <h2>企业信息</h2>
+                <div class="modify_table1">
+                    <ol>
+                        <li>
+                            <p><span>*</span>企业名称：</p>
+                            <input type="text" placeholder="请输入企业名称" class="inputW input">
+                        </li>
+                        <li>
+                            <p><span>*</span>国籍：</p>
+                            <select>
+                                <option>美国</option>
+                            </select>
+                        </li>
+                        <li>
+                            <p><span>*</span>注册证件号码：</p>
+                            <input type="text" placeholder="请输入注册证件号码" class="inputW input">
+                        </li>
+                        <li>
+                            <p><span>*</span>营业年限：</p>
+                            <ul class="words_radio enterpriseCheck">
+                                <li class="f_l">
+                                    <a class="modify_Choice modify_Choice1 f_l"></a>
+                                    <input type="text" class="f_l enterpriseInput" placeholder="选择日期">
+                                </li>
+                                <li class="f_l" style="margin-left:35px;"><a class="modify_Choice"></a><span class="f_l enterLog">长期</span></li>
+                            </ul>
+                            <div class="c_b"></div>
+                            <p class="enterAb_info">若证件有效期为长期，请勾选长期。例如：有效期为2016.11.16-长期，则勾选长期</p>
+                        </li>
+                        <li>
+                            <p><span>*</span>税务登记证号：</p>
+                            <input type="text" placeholder="请输入税务登记证号" class="inputW input">
+                        </li>
+                        <li>
+                            <p><span>*</span>经营范围：</p>
+                            <input type="text" placeholder="请输入经营范围" class="inputW input">
+                        </li>
+                        <li>
+                            <p><span>*</span>注册证书扫描件：</p>
+                            <dl class="file_other">
+                                <dt><img src=""/> </dt>
+                                <dd>
+                                    <button>点击上传</button>
+                                </dd>
+                            </dl>
+                            <div class="c_b"></div>
+                            <div class="enterInfo">
+                                <span>请上传由中国大陆工商局办法的，在效期内且年检章齐全(当年成立的公司可无年检章)</span>
+                                <span>请提供清晰、完整的彩色原件扫描件或数码照</span>
+                                <span>证件必须是彩色原件电子版，可以是扫描件或者数码拍摄照片</span>
+                                <span>仅支持.jpg .bmp .png .gif的图片格式，图片大小不超过3M</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="personalId_submit">
+                    <a>返回</a>
+                    <a class="personalId_next">下一步</a>
+                </div>
+            </div>-->
+        <div class="clear"></div>
+        <!--客户确认信息-->
+        <!--<div class="personalId_file" style="width: 800px;">
+            <h2 style="margin-top:24px;">企业信息</h2>
+            <div class="enterpriseConfim_txt">
+                <ol>
+                    <li><p>企业名称：</p><span>北京有度致远科技有限公司</span></li>
+                    <li><p>营业执照注册号：</p><span>16675499277487299489</span></li>
+                    <li><p>营业执照所在地：</p><span>北京市海淀区中关村知识产权大厦A座6层</span></li>
+                    <li><p>常用地址：</p><span>北京市海淀区中关村知识产权大厦A座6层</span></li>
+                    <li><p>营业年限：</p><span>长期</span></li>
+                    <li><p>经营范围：</p><span>食品类、化学类</span></li>
+                    <li>
+                        <p style="float: none">营业执照副本扫描件：</p>
+                        <div><img src=""></div>
+                    </li>
+                </ol>
+            </div>
+            <div class="c_b"></div>
+            <div class="personalId_submit">
+                <a>返回编辑</a>
+                <a class="personalId_next">下一步</a>
+            </div>
+        </div>-->
+    </div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    var user = {{{user}}};
+    var udata = {{{udata}}};
+    var phone = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的手机号码';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^(1[3-9][0-9]{9})$/.test(value));
+        }
+    };
+    VeeValidate.Validator.extend('phone', phone);
+    var personVM = new Vue({
+        el: "#approveC",
+        delimiters: ['${', '}'],
+        data: {
+            pType: 2,
+            tel:udata.data.tel||'',
+            isShow:(udata.data.tel.length>0?true:false),
+            codeHtml: '获取验证码',
+            isDis: false,
+            userData: {},
+            code: "",
+            blicensePic: "",
+            ImgIp: zgg.Vconfig.contractUrl,
+            img_updata_url: {},
+            companyname: "",
+            comList:{},
+            companyMsg:{},
+            selectShow:false,
+            msgShow:false,
+            txtType : ['jpg','bmp','png','gif'],
+        },
+        methods: {
+            clear:function () {
+                this.pType=1;
+                this.blicensePic="";
+                this.companyname="";
+                this.comList={};
+                this.companyMsg={};
+                this.selectShow=false;
+                this.msgShow = false;
+                this.isDis =false;
+                this.codeHtml='获取验证码';
+            },
+            selectMsg:function (item) {
+                this.companyMsg = item;
+                this.selectShow = false;
+                this.companyname = item.companyName;
+                this.msgShow = true;
+            },
+            getCompanyMsg:function () {
+                this.msgShow = false;
+                if(this.companyname.length<4){
+                    return personVM.selectShow = false;
+                }
+                axios.post('/userCenter/userGetCompanyMsg',{companyname:this.companyname}).then(
+                        function (data) {
+                            if(data.data.success){
+                                personVM.selectShow = true;
+                                personVM.comList=data.data.data||{};
+                            }
+                        }
+                );
+            },
+            passportCode: function (_str) {
+                var layer = layui.layer;
+                if(this.tel==''){
+                    layer.msg("请输入手机号码",{icon:2});
+                    return;
+                }
+                var url='',_data={},that=this;
+                if(_str == 'form-3-p'){
+                    url='/user/getuserCode';
+                    _data={passport:this.tel};
+                }
+                function countDown(that, num) {
+                    var num = num;
+                    function TimeFn() {
+                        if (num == 0) {
+                            personVM.isDis = false;
+                            personVM.codeHtml = "获取验证码";
+                            num = 60;
+                            clearInterval(personVM.Td);
+                            return;
+                        } else {
+                            num--;
+                            personVM.codeHtml = num + 's';
+                            personVM.isDis = true;
+                        }
+                    }
+                    personVM.Td = setInterval(function () {
+                        TimeFn()
+                    }, 1000)
+                };
+                axios.post(url, _data).then(
+                        function (res) {
+                            if (res.data.success) {
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layui.use('layer', function () {
+                                        var layer = layui.layer;
+                                        layer.msg('验证码发送成功',{icon:1});
+                                    });
+                                });
+                                countDown(this, 60)
+                            } else {
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layui.use('layer', function () {
+                                        var layer = layui.layer;
+                                        layer.msg( res.data.message);
+                                    });
+                                });
+                                countDown(this, 0)
+                            }
+                        }, function (errRespone) {
+                            alert(errRespone)
+                        });
+            },
+            getCodeTrue:function (url,_userData) {
+                axios.post(url,_userData).then(
+                        function (data) {
+                            if(data.data.success){
+                                layer.msg("验证成功",{icon:1});
+                                personVM.codeHtml = "获取验证码";
+                                clearInterval(personVM.Td);
+                                personVM.pType=2;
+                            }else{
+//                              layer.msg(data.data.messages);
+                            }
+                        })
+            },
+            validateForm:function (scope) {
+                this.$validator.validateAll(scope).then(function (result) {
+                    if (result) {
+                        if (scope == 'form-3-p') {
+                            var url = '/user/userCodeTrue';
+                            var _userData = {passport:personVM.tel,code:personVM.code};
+                            personVM.getCodeTrue(url,_userData);
+                        }else if (scope == 'form-p-1') {
+                            var uid = JSON.parse(user).id;
+                            var _userData = {uid:JSON.parse(user).id,
+                                type:2,
+                                blicensePic:personVM.img_updata_url.blicensePic,
+                                companyKey:personVM.companyMsg.companyKey||'',
+                                companyname:personVM.companyname};
+                            axios.post('/userCenter/mainSave',_userData).then(
+                                    function (data) {
+                                        if(data.data.success){
+                                            layer.msg("提交成功！",{icon:1});
+                                            window.location.href='/userCenter/userApprove';
+                                        }
+                                    }
+                            );
+                        }
+                    }
+                });
+            },
+            updataFile:function (_str,queueId) {
+                if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0"){
+                    $(_str).uploadify({
+                        'auto' : true,
+                        'queueID' :queueId,
+                        'swf'      : '/lib/uploadify.swf',
+                        'uploader' : '/upload/userProfile',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': '*.jpg;*.bmp;*.jpeg;*.png;*.gif;',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传文件',
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'token':JSON.parse(user).token,
+                        'formData':{
+                            'fType':'ft_2',
+                        },
+                        'onDrop'       : function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onFallback':function () {
+                            layer.msg('请安装或升级更高版本的Flash插件');
+                        },
+                        'onUploadSuccess' : function(file, data, response) {
+                            var data = JSON.parse(data);
+                            if( data && data.success ){
+                                personVM.blicensePic = personVM.ImgIp + data.data.filePath;
+                                personVM.img_updata_url.blicensePic = data.data.filePath;
+                                layer.msg("上传成功",{icon:1})
+                            }
+                        },
+                        'onUploadError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                }else{
+                    $(_str).uploadifive({
+                        'auto' : true,
+                        'queueID' :queueId,
+                        'checkScript':'/upload/check',
+                        'uploadScript' : '/upload/userProfile',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': 'image/*',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传文件',
+                        'width':'auto',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'token':JSON.parse(user).token,
+                        'formData':{
+                            'fType':'ft_2',
+                        },
+                        'onDrop'       : function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onUploadComplete' : function(file, data, response) {
+                            var data = JSON.parse(data);
+                            if( data && data.success ){
+                                personVM.blicensePic = personVM.ImgIp + data.data.filePath;
+                                personVM.img_updata_url.blicensePic = data.data.filePath;
+                                layer.msg("上传成功",{icon:1})
+                            }
+                        },
+                        'onCheck'  : function(file, exists) {
+                            if(parseInt(file.size/1024/1024) >= 3){
+                                layer.msg("您上传的文件格式或大小有误");
+                                $(_str).uploadifive('cancel', file)
+                            }
+                            if (personVM.txtType.indexOf(file.name.split(".")[file.name.split(".").length - 1].toLowerCase()) == -1) {
+                                layer.msg("请上传jpg格式图片！");
+                                $(_str).uploadifive('cancel', file)
+                            }
+                        },
+                        'onUploadError' : function (file, data, response) {
+                            debugger;
+                        }
+                    });
+                }
+            }
+        },
+        mounted:function () {
+            //判断产品类型 执行附件初始化
+            this.updataFile('#blicensePic','blicensePic_url');
+
+        }
+    });
+    $("#companyname").attachEvent.on("input propertychange",function(){
+//        console.log($(this).val().length);//打印输入框字符长度
+            personVM.getCompanyMsg();
+
+    });
+</script>
+
+

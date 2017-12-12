@@ -1,0 +1,193 @@
+{{> head}}
+<link rel="stylesheet" href="/css/myWallet.css"/>
+<link rel="stylesheet" href="../css/modify_subjectInfo.css"/>
+<link rel="stylesheet" href="../css/confimProduct.css">
+<div class="personCenter_all layui-tab-card" id="wallet">
+    <div v-show="!rechargeShow" class="rechargeCon" style="width:1020px;">
+        <h2>余额信息</h2>
+        <div class="balanceInfo">
+            <p class="f_l">
+                <span>我的余额：</span>
+                <b>${moneys}元</b>
+            </p>
+            <div v-if="moneyList.length>0" class="balanBut f_r">
+                <a href="/userCenter/userRecharge" class="balanRecharge">充值</a>
+                <a v-if="moneys>0" @click="rechargeShow=true">提现</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div v-if="moneyList.length>0">
+            <div class="rechargeJl">交易详情</div>
+            <div style="min-height: 440px;">
+                <table class="balanceTab">
+                    <tr class="balanceTr">
+                        <th>交易方式</th>
+                        <th>金额</th>
+                        <th>日期</th>
+                        <th>充值方式</th>
+                    </tr>
+                    <tr v-for="item in moneyList">
+                        <td class="widthO" :class="{myRecharge:item.operationType==1,myCash:item.operationType==2,myRefund:item.operationType==4,myBack:item.operationType==5||item.operationType==11||item.operationType==12,myRelieve:item.operationType==6}">
+                            <span v-if="item.operationType!=6 && item.operationType!=7 && item.operationType!=11 && item.operationType!=12 " :class="{tb_pl:item.operationType==5}">${item.operationTypeName}</span>
+                            <span v-if="item.operationType==6">消费</span>
+                            <span class="tb_pl" v-if="item.operationType==7">补单消费</span>
+                            <span class="tb_pl" v-if="item.operationType==11">优惠退款</span>
+                            <span class="tb_pl" v-if="item.operationType==12">赠送退款</span>
+                        </td>
+                        <td class="widthT">
+                            <span>¥${item.money}</span>
+                        </td>
+                        <td class="widthH">
+                            <span>${item.payTime}</span>
+                        </td>
+                        <td class="widthF">
+                            <span>${item.payTypeName}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="position: relative">
+                <div id="walletPage" class="page" style="margin-left: 40px;"></div>
+               <div style="position: absolute;top: 17px;right: 50px;">
+                   共<span>${Math.ceil(parseInt(totalCount)/10)}</span>页
+               </div>
+            </div>
+        </div>
+
+        <div v-if="moneyList.length==0">
+            <dl class="rechargeNoinfo">
+                <dt><img src="../img/icon-empty-state-no-bank-card@2x.png"></dt>
+                <dd>
+                    <p>暂无余额！</p>
+                    <a href="/userCenter/userRecharge" class="balanRecharge">充值</a>
+                </dd>
+            </dl>
+        </div>
+
+        </div>
+    <div v-show="rechargeShow" class="rechargeCon">
+        <h2>提现</h2>
+        <div class="rechargeEmty">
+            <p>当前余额：</p>
+            <span>${moneys}元</span>
+        </div>
+        <div class="cashInfo">
+            <p>提现金额：</p>
+            <div class="cashTxt">
+                <form @submit.prevent="validateForm('form-money')" data-vv-scope="form-money" style="height: 5px;">
+                    <input v-model="Tmoney"  name="Tmoney" placeholder="请输入金额" :class="{'input': true, 'is-danger': errors.has('form-money.Tmoney') }"
+                           v-validate="'required|moneyMsg'" data-vv-as="金额"  type="text">
+                    <p style="color: red;padding: 5px 0 0 235px;" v-show="errors.has('form-money.Tmoney')">${errors.first('form-money.Tmoney')}</p>
+                </form>
+                <span>最多可提现${moneys}元</span>
+            </div>
+            <div class="clear"></div>
+            <div class="cashTime"><img src="../img/icon-myorder-info@2x.png">到账时间为72小时之内，如果不符合提现要求，会有专属客服联系您。</div>
+        </div>
+        <div class="cashBut">
+            <a @click="rechargeShow=false;Tmoney='';">取消</a>
+            <a @click="recharge('form-money')" class="cashSure">确定</a>
+        </div>
+    </div>
+
+
+</div>
+
+</div>
+</div>
+<script type="text/javascript">
+    var moneys = {{{moneys}}};
+    var moneyData ={{{moneyData}}};
+    var moneyMsg = {
+        messages: {
+            en: function en(field, args) {
+                return args + '请输入正确的金额';
+            }
+        },
+        validate: function validate(value, args) {
+            return (/^(([0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/.test(value)
+            );
+        }
+    };
+    VeeValidate.Validator.extend('moneyMsg', moneyMsg);
+    var walletVM = new Vue({
+        el:"#wallet",
+        delimiters: ['${', '}'],
+        data:{
+            moneys:moneys.data.money,
+            totalCount:moneyData.data.totalCount,
+            moneyList:moneyData.data.list,
+            rechargeShow:false,
+            Tmoney:'',
+            num:1,
+        },
+        methods:{
+            recharge:function (scope) {
+                this.$validator.validateAll(scope).then(function (result) {
+                    if(result){
+                        if(Number(walletVM.Tmoney)>Number(walletVM.moneys)){
+                            layer.msg("提现金额超过账户余额！",{inco:2});
+                            return;
+                        }else if(Number(walletVM.Tmoney)>999999){
+                            layer.msg("提现金额超过单笔提现金额！",{inco:2});
+                            return;
+                        }else if(Number(walletVM.Tmoney)==0){
+                            layer.msg("提现金额不能为0元！",{inco:2});
+                            return;
+                        }else if(Number(walletVM.Tmoney)<0){
+                            layer.msg("提现金额有误！",{inco:2});
+                            return;
+                        }
+                        axios.post('/userCenter/rechargePay',{'money':walletVM.Tmoney}).then(
+                                function (data) {
+                                    if(data.data.success){
+                                        walletVM.rechargeShow = false;
+                                        walletVM.Tmoney='';
+                                        walletVM.errors.clear('form-money');
+                                        layer.msg("提现申请操作成功！",{inco:1});
+                                        walletVM.num = 1;
+                                        walletVM.page_Num();
+                                    }else{
+                                        walletVM.rechargeShow = false;
+                                        layer.msg(data.data.message,{inco:2});
+                                    }
+                                }
+                        )
+                    }
+                })
+
+            },
+            getList:function () {
+                axios.post('/userCenter/userWallet', {"pageParam" : {"pageNo" :walletVM.num, "pageSize" :10}}).then(
+                    function (data) {
+                        walletVM.moneys = data.data.moneys.data.money;
+                        walletVM.moneyList = data.data.moneyData.data.list;
+                        walletVM.totalCount = data.data.moneyData.data.totalCount;
+                    }
+                )
+            },
+            page_Num:function () {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                    laypage({
+                        cont: "walletPage",
+                        curr: walletVM.num,
+                        pages: Math.ceil(parseInt(walletVM.totalCount)/10),
+                        skip: true,
+                        first: false,
+                        last: false,
+                        groups:5,
+                        jump: function (e) {
+                            walletVM.num = e.curr;
+                            walletVM.getList();
+                        }
+                    });
+                });
+            }
+        }
+    });
+    walletVM.page_Num();
+</script>
+

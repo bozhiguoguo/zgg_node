@@ -1,0 +1,926 @@
+.edit_change_show{
+	display: none;
+}
+.dis_none .edit_es{
+	display: none;
+}
+.dis_none .save_es{
+	display: none;
+	width: 54px;
+	height: 33px;
+	border-radius: 3px;
+	background-color: #a34a51;
+	font-size: 16px;
+	text-align: center;
+	color: #ffffff;
+	line-height: 30px;
+	margin-top: 10px;
+}
+.cartAccountsBox{
+	width: 100%;
+	height: 59px;
+	position: relative;
+	/*margin: 50px 0 90px 0;*/
+	margin: 50px 0;
+}
+.dis_p, .save_es, .isEdit .edit_es{
+	display: none;
+}
+.isEdit .dis_p, .isEdit .save_es{
+	display: block;
+}
+
+.confimContacts .layui-input{
+	display: inline-block;
+	/*width: 50%;*/
+	padding-left: 10px;
+	height: 35px;
+	border: solid 1px #c8c7c7;
+	border-radius: 3px;
+}
+.layui-input:focus{
+	height: 35px;
+	background-color: #ffffff;
+	box-shadow: 0 0 10px 0 rgba(87, 163, 219, 0.4);
+	border-color: #2b5f85 !important;
+	border-radius: 3px;
+}
+
+
+.confimWrapp{
+	width: 100%;
+	height: auto;
+	background: #f9f8f4;
+	font-family: '微软雅黑';
+	overflow: hidden;
+}
+
+.confimContent{
+	width: 1200px;
+	margin:0 auto;
+}
+
+.confimTit{
+	font-size: 22px;
+	color: #2a2a2a;
+	margin-top: 35px;
+	font-weight: bold;
+}
+
+.confimInfo{
+	width: 1200px;
+	background: #fff;
+	height: auto;
+	overflow: hidden;
+	margin-top:14px;
+}
+
+.confimInfo ul{
+	margin-top:10px;
+}
+
+.confimInfo ul li{
+	float: left;
+	color: #727f8f;
+	font-size: 14px;
+}
+
+.confimInfo ul li.confimLi1{
+	margin:0 345px 0 119px;
+}
+
+.confimInfo ul li.confimLi2{
+	margin-right: 198px;
+}
+
+.confimInfo ul li.confimLi3{
+	margin-right: 199px;
+}
+
+.confimInfo ul li.confimLi4{
+	/*margin-right: 199px;*/
+}
+
+.confimDetails{
+	width: 1155px;
+	height: 91px;
+	border:1px solid #dcdcdc;
+	margin:20px auto;
+}
+
+.confimDetails dl{
+	float: left;
+	margin:15px 0 0 15px;
+	width: 445px;
+}
+
+.confimDetails dl dt{
+	float: left;
+	width: 63px;
+	height: 63px;
+	margin-right:20px;
+}
+
+.confimDetails dl dt img{
+	width: 63px;
+	height: 63px;
+	text-align: center;
+}
+
+.confimDetails dl dd{
+	float: left;
+}
+
+.confimDetails dl dd p{
+	color:#2a2a2a;
+	font-size: 14px;
+}
+
+.confimDetails dl dd div, .confimDetails dl dd span{
+	font-size: 12px;
+	color: #727f8f;
+	line-height: 20px;
+}
+
+.confimDetails>div{
+	float: left;
+	font-size:14px;
+	color: #2a2a2a;
+	margin-top:36px;
+}
+
+.confimUnit{
+	width: 100px;
+	text-align: center;
+}
+
+.confimNum{
+	width: 354px;
+	text-align: center;
+}
+
+.confimTotal{
+	width: 110px;
+	text-align: center;
+}
+
+.confimContacts{
+	height: auto;
+	min-height: 182px;
+	overflow: hidden;
+	margin-top:14px;
+}
+
+.confimCont_left{
+	float: left;
+	width: 600px;
+	min-height: 182px;
+	background: #fff;
+}
+
+.confimCont_left>div>img{
+	width:590px;
+	height: 15px;
+	margin-top: -7px;
+}
+
+.confimCont_moreInfo>div>img{
+	width:590px;
+	height: 15px;
+	margin-top: -7px;
+}
+
+.confimCont_bg{
+	width: 588px;
+	height: 15px;
+	background: #a6b7c4;
+}
+
+.confimTop{
+	width: 558px;
+	height: 56px;
+	border-bottom: 1px dashed #e4e4e4;
+	margin:0 auto;
+}
+
+.confimTop h3{
+	float: left;
+	line-height: 56px;
+	font-size: 18px;
+	color: #2a2a2a;
+}
+
+.confimTop h3 span{
+	font-size: 12px;
+	color: #727f8f;
+	display: inline-block;
+	margin-left: 46px;
+}
+
+.confimTop p{
+	line-height: 56px;
+	float: right;
+	margin-right: 15px;
+	font-size: 14px;
+	color: #2384cc;
+	cursor: pointer;
+}
+
+.confimEdit{
+	width: 558px;
+	margin:0 auto;
+}
+
+.confimEdit ul{
+	float: left;
+	width: 100%;
+}
+
+
+.confimEdit ul li{
+	color: #727f8f;
+	font-size: 14px;
+	margin-top:10px;
+	padding: 5px 0 0px 10px;
+
+}
+
+.confimEdit ul li:last-child{
+	padding-bottom: 15px;
+}
+
+.confimCont_right{
+	float: right;
+	width: 590px;
+	height: auto;
+	min-height: 182px;
+	overflow: hidden;
+	background: #fff;
+}
+
+.confimCont_moreInfo{
+	float: left;
+	width: 590px;
+	height: auto;
+	min-height: 182px;
+	overflow: hidden;
+	background: #fff;
+	border: 3px solid #fff;
+	box-sizing: border-box;
+}
+
+.confim_checkClick{
+	border:3px solid #b45245;
+	width: 600px;
+	height: auto;
+	min-height: 176px;
+	overflow: hidden;
+	box-shadow: 0 10px 20px 0 rgba(163, 73, 80, 0.15);
+	box-sizing: border-box;
+}
+
+.invoic_checkClick{
+	border:3px solid #b45245;
+	width: 584px;
+	height: auto;
+	min-height: 176px;
+	overflow: hidden;
+	box-shadow: 0 10px 20px 0 rgba(163, 73, 80, 0.15);
+	box-sizing: border-box;
+}
+
+.confim_Margin{
+	margin-left:20px;
+}
+
+.confimMore{
+	margin-top:15px;
+	float: right;
+
+}
+
+.confim_moreAddress{
+	margin-top:20px;
+	display: none;
+}
+
+.confimMore p{
+	float: left;
+	color: #49a5de;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.confimMore p.confimMore_Add{
+	color: #727f8f;
+	margin-right:27px;
+}
+
+.confimMore p.confimMore_Add span{
+	display: inline-block;
+	margin-left:10px;
+}
+
+.confimMore p.confim_addMore{
+	margin-top:-7px;
+}
+
+.confimInvoice{
+	width: 1200px;
+	height:auto;
+	overflow: hidden;
+	margin-top: 14px;
+	background: #fff;
+}
+
+.confimIsvoice{
+	width: 1170px;
+	height: 55px;
+	border-bottom:1px dashed #e4e4e4;
+	margin:0 auto;
+}
+
+.confimYvoice ul{
+	float: left;
+}
+
+.confimYvoice ul li{
+	color: #727f8f;
+	font-size: 14px;
+	margin:10px 0;
+
+}
+
+.confimIsvoice ol li{
+	float: left;
+	line-height: 55px;
+}
+
+.confimIsvoice ol li.confimYes{
+	margin-left:31px;
+}
+
+.confimIsvoice ol li input{
+	width: 14px;
+	height: 14px;
+	background: #fff;
+	margin-right: 7px;
+	/* margin-top: 6px; */
+	display: block;
+	float: left;
+	margin-top: 20px;
+}
+
+.confimIsvoice ol li label{
+	color: #2a2a2a;
+	font-size: 16px;
+	/* margin-top: -7px; */
+	display: block;
+	float: left;
+}
+
+.confimYvoice{
+	display: none;
+}
+
+.confim_bianji{
+	display: block;
+	float: right;
+	margin-top:25px;
+}
+
+.confimMode{
+	width: 1200px;
+	height: auto;
+	background: #fff;
+	overflow: hidden;
+	margin-top:15px;
+}
+
+.confimMode ol li{
+	float: left;
+	margin-top:15px;
+	width: 196px;
+	height: 50px;
+	padding:8px 2px 0;
+	margin-right:30px;
+	box-sizing: border-box;
+}
+
+.confimMode ol li.confimChecked{
+	border-radius: 3px;
+	border: solid 2px #b45245;
+	padding:6px 0 0;
+}
+
+.confimMode input{
+	float: left;
+	width: 14px;
+	height: 14px;
+	margin:8px 19px 0 15px;
+}
+
+.confimMode dl{
+	float: left;
+}
+
+.confimMode dl dt{
+	float: left;
+	margin-right: 6px;
+}
+
+.confimMode dl dt img{
+	width:32px;
+	height: 33px;
+}
+
+.confimMode dl dd{
+	float: left;
+	font-size: 16px;
+	color: #2a2a2a;
+	margin-top:5px;
+}
+
+.confimMode dl dd span{
+	display: block;
+
+}
+
+.confimMode dl dd span.confimZc{
+	color: #579ef0;
+	font-size: 12px;
+}
+
+.confimMode dl.confimBank dd{
+	margin-top:0;
+}
+
+.confimTotal_con{
+	width: 1170px;
+	background: #f3f6f8;
+	border-radius: 3px;
+	margin:28px auto 15px;
+	border:1px solid transparent;
+	height: auto;
+	overflow: hidden;
+}
+
+.confimTotal_transfer{
+	margin-top:20px;
+}
+
+.confimtran_bank{
+	float: left;
+	width: 270px;
+	height: 130px;
+	border-right: 1px dashed #c8c7c7;
+	margin: 0 36px 20px 20px;
+}
+
+.confimtran_bank dl dt img{
+	width:148px;
+	height: 51px;
+}
+
+.confimtran_bank dd p{
+	font-size: 14px;
+	color: #2a2a2a;
+	line-height: 25px;
+}
+
+.confimInput{
+	float: left;
+	margin-top: 48px;
+}
+
+.confimInput input{
+	width: 352px;
+	height: 34px;
+	line-height: 34px;
+	padding-left: 9px;
+	font-size: 14px;
+	border-radius: 3px;
+	border:1px solid #727f8f;
+}
+
+.confimCoupon span{
+	display: inline-block;
+	margin-left:5px;
+	cursor: pointer;
+}
+
+.confimCou_use{
+	width: 1200px;
+	height: auto;
+	min-height: 159px;
+	overflow: hidden;
+	margin-top:15px;
+	background: #fff;
+}
+
+.confimCou_use dl{
+	float:left;
+	width: 270px;
+	margin:20px 0 0 23px;
+}
+
+.confimCou_use dl dd input{
+	width: 14px;
+	height: 14px;
+}
+
+.confimCou_use dl dd{
+	float: left;
+	margin-top:52px;
+}
+
+.confimCou_use dl dt{
+	float: left;
+}
+
+.confimAccounts{
+	width: 1200px;
+	height: 59px;
+	margin: 50px auto;
+	background:#f3e4d7;
+}
+
+.cartAccountsFixed{
+	position: fixed;
+	left: 50%;
+	bottom:0;
+	-webkit-transform: translate(-50%,0);
+	-moz-transform: translate(-50%,0);
+	-ms-transform: translate(-50%,0);
+	-o-transform: translate(-50%,0);
+	transform: translate(-50%,0);
+	margin: 0;
+}
+.confimAccounts li{
+	height:59px;
+	line-height: 59px;
+	font-size: 14px;
+	color: #333333;
+}
+.confimAccounts ul li.accountsBtn{
+	float: right;
+	width: 132px;
+	height: 59px;
+	background-color: #a34a51;
+	font-size: 18px;
+	text-align: center;
+	color: #ffffff;
+	cursor: pointer;
+}
+.confimAccounts ul li.accountsCheck{
+	float: left;
+	padding:21px 37px 0;
+	line-height:16px;
+}
+
+.accountsAll{
+	float: right;
+}
+.accounts{
+	float: right;
+	padding-right: 29px;
+	color:#2a2a2a;
+	font-size: 14px;
+}
+
+.accountsAll span{
+	color: #d9344b;
+	font-size: 20px;
+	line-height: 20px;
+	padding-right: 50px;
+}
+
+
+
+.confim_box tr{
+	line-height: 35px;
+}
+
+.confim_box tr td input{
+	width: 375px;
+	height: 33px;
+	line-height: 33px;
+	padding-left: 10px;
+	box-sizing: border-box;
+	border-color:#dadde1;
+	box-shadow:none;
+	font-size: 14px;
+}
+
+.confim_box tr td{
+	font-size:12px;
+	color:#727f8f;
+}
+
+.confim_box tr td input:focus{
+	border-color:#569fd4!important;
+	box-shadow: 0 0 10px 0 rgba(88,164,219,0.25);
+}
+
+.confim_box tr td.confim_boxNum span{
+	font-size:12px;
+	color:#d9344b;
+	display: inline-block;
+	margin-right:3px;
+}
+
+.confim_boxNum{
+	margin-bottom:10px;
+}
+
+.confim_boxNum span{
+	font-size:12px;
+	color:#d9344b;
+	display: inline-block;
+	margin-right:3px;
+	line-height:28px;
+}
+
+.confim_invoceInfo{
+	margin: 20px 0 0 45px;
+}
+
+.confim_divTtpe{
+	float: left;
+	color: #727f8f;
+	font-size: 12px;
+	margin-top:7px;
+}
+
+.confim_invoceInfo ul{
+	float: left;
+}
+
+.confim_invoceInfo ul li{
+	float: left;
+	width: 136px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 14px;
+	color: #2a2a2a;
+	margin-right: 24px;
+	cursor: pointer;
+	border: 1px solid #daddee;
+	border-radius: 3px;
+}
+
+.confim_invoceInfo ul li.confim_chenckRed{
+	color: #d9344b;
+	border:1px solid #d9344b;
+}
+
+.confim_divCon table{
+	float: left;
+}
+.payment-con .xm-plain-box .box-hd .title {
+	float:left
+}.payment-list li img
+ .payment-con .xm-plain-box .box-hd .tip-tag {
+	 float:left;
+	 height:18px;
+	 line-height:18px;
+	 padding:0 7px;
+	 margin:17px 20px 0 20px;
+	 color:#ff4a00;
+	 font-size:12px
+ }
+.payment-con .xm-plain-box .box-bd {
+	border-bottom:none
+}
+.payment-con .xm-plain-box .box-ft {
+	background:#fafafa;
+	padding:20px 30px;
+	border-top:none
+}
+.payment-con .xm-plain-box .box-ft .btn,.payment-con .xm-plain-box .box-ft .tip {
+	float:right;
+	margin-left:10px
+}
+.payment-con .xm-plain-box .box-ft .btn-lineDakeLight {
+	border-color:#dfdfdf
+}
+.payment-con .xm-plain-box .box-ft .tip {
+	line-height:40px
+}
+
+.payment-list {
+	padding:20px;
+	background:#fff
+}
+.payment-list li {
+	float:left;
+	width:200px;
+	margin-left: 20px;
+	padding:10px 0
+}
+.payment-list li label {
+	cursor:pointer;
+	float: left;
+	margin-top: 8px;
+}
+.payment-list li input {
+	vertical-align:middle
+}
+.payment-list li img {
+	margin-left:2px; width:140px;
+	height: 45px;
+	display: inline;
+	border:1px solid #e8e6e6
+}
+.confim_wechat{
+	width:289px;
+	height:397px;
+	border-radius: 9px;
+	background-color: #ffffff;
+	box-shadow: 0 2px 6px 0 rgba(122, 140, 147, 0.4);
+	margin:25px 0 25px 25px;
+}
+
+.confim_wechat h4{
+	height: 71px;
+	background: #f0f7ff;
+	text-align: center;
+	font-size:28px;
+	color:#4a94f1;
+	line-height: 71px;
+}
+
+.confim_weImg{
+	width: 198px;
+	height: 198px;
+	margin:30px auto;
+}
+
+.confim_weImg img{
+	text-align: center;
+}
+
+.confim_weSacn{
+	width:165px;
+	margin:0 auto;
+}
+
+.confim_weSacn b{
+	display: block;
+	float: left;
+}
+
+.confim_weSacn b.confim_weSpan{
+	width:116px;
+	margin-left:14px;
+	margin-top:-4px;
+}
+
+.confim_weSacn b span{
+	font-size:14px;
+	color:#4a94f1;
+	display: block;
+}
+.addressLi select{
+	width: 31%;
+	float:left;
+	margin-right: 2%;
+}
+.addressLi select[name=quiz3]{
+	margin-right: 0px;
+	width: 34%;
+}
+.paytips{
+	margin: 40px 0  40px 60px;
+}
+.paytips h1{
+	font-size: 16px;
+}
+.layui-layer-title:before {
+	content: "";
+	position: absolute;
+	left: 13px;
+	top: 12px;
+	width: 4px;
+	height: 19px;
+	background: #a34a51;
+}
+.upload_add_file .delete_pic{
+	width:24px;
+	height:24px;
+	position:absolute;
+	left:38px;
+	top:38px;
+}
+.upload_add_file .uploadifive-button{
+	width:100px;
+	height:100px!important;
+	font-size:30px;
+	opacity:0;
+}
+.upload_add_file .uploadifive-button input{
+	width:100px;
+	height:100px;
+}
+.upload_add_file #item_sfz_addSfz{
+	width:100px;
+	height:100px;
+}
+.upload_add_file #item_sfz_addSfz #uploadifive-addSfz{
+	width: 100px!important;
+	height:100px!important;
+	margin-right:0!important;
+}
+.upload_add_file #item_sfz_addSfz img{
+	width:24px;
+	height:24px;
+	display:inline-block;
+	position:absolute;
+	left:38px;
+	top:38px;
+}
+.upload_add_file #item_sfz_addSfz input{
+	width:100px;
+	height:100px;
+}
+.upload_add_file #item_edit{
+	width:100px;
+	height:100px;
+	position:relative;
+	border:1px dashed #979797;
+}
+.upload_add_file #item_edit #uploadifive-editInvoic{
+	width: 100px!important;
+	height:100px!important;;
+	background:#d8d8d8;
+	margin-right:0!important;;
+}
+.upload_add_file #item_edit img{
+	width:24px;
+	height:24px;
+	display:inline-block;
+	position:absolute;
+	left:38px;
+	top:38px;
+}
+.upload_add_file #item_edit input{
+	width:100px;
+	height:100px;
+}
+.upload_add_file #item_edit_more{
+	width:100px;
+	height:100px;
+	position:relative;
+	border:1px dashed #979797;
+}
+.upload_add_file #item_edit_more #uploadifive-editInvoicMore{
+	width: 100px!important;
+	height:100px!important;;
+	background:#d8d8d8;
+	margin-right:0!important;;
+}
+.upload_add_file #item_edit_more input{
+	width:100px;
+	height:100px;
+	background:#d8d8d8;
+}
+.upload_add_file #item_edit_more img{
+	width:24px;
+	height:24px;
+	display:inline-block;
+	position:absolute;
+	left:38px;
+	top:38px;
+}
+.upload_add_file{
+	position:relative;
+	background-image: url("../img/icon_upload_plus.png");
+	background-repeat:no-repeat;
+	background-size:30%;
+	background-position: 34px;
+	width:100px;
+	height:100px;
+	border:1px dashed #979797;
+}
+.upload_add_file .pictureShow .icon_delete{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	right:0;
+}
+.uploadifive-queue-item{
+	display:none;
+}
+#addInfo+input {
+	width: 100px;
+	height:100px;
+}
+.Invoice_table_td {
+	max-width: 340px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space:no
+}

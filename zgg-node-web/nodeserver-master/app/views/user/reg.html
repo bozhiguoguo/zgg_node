@@ -1,0 +1,440 @@
+<link rel="stylesheet" href="/css/register.css" type="text/css">
+<link rel="stylesheet" href="/css/userAgreement.css" type="text/css">
+<script type="text/javascript" src="/lib/layui/layui.js"></script>
+<style>
+    .layui-form-label {
+        width: 84px;
+    }
+
+    .layui-form-item .layui-input-inline {
+        width: 341px;
+    }
+
+    .layui-input, .layui-select, .layui-textarea {
+        border-bottom: 2px solid rgba(114, 127, 143, 0.09);
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+
+    .layui-input:focus, .layui-textarea:focus {
+        border-bottom-color: #4597d9 !important;
+    }
+
+    .layui-form-mid {
+        font-size: 14px;
+        color: #49a5de;
+        margin-left: -84px;
+        margin-right: 0;
+        cursor: pointer;
+    }
+
+    .layui-input:focus, .layui-textarea:focus {
+        border-bottom-color: #4597d9 !important;
+    }
+
+    .layui-form-danger + .layui-form-select .layui-input, .layui-form-danger:focus {
+        border-bottom: 2px solid #FF5722 !important;
+        border-top: none !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+
+    .getCodeBtn {
+        background: none;
+        border: 0;
+        color:#4990e2;
+    }
+
+    .getCodeBtn.disabled {
+        color: #afafaf;
+    }
+
+    .registerWrap {
+        width: 408px;
+        margin: 40px auto 20px;
+    }
+    .layui-input-inline span{
+        padding-top: 10px;
+    }
+
+
+    .layui-form-checked span, .layui-form-checked:hover span,.layui-unselect span{
+        display: none;
+        background: none;
+    }
+
+    .layui-form-checked i, .layui-form-checked:hover i{
+        color: #4990e2;
+    }
+
+    .layui-form-checked, .layui-form-checked:hover{
+        border: 1px solid #4990e2;
+    }
+</style>
+<div class="register_content" id="registerWrap">
+    <div class="register_box">
+        <div class="register_title">
+            注册账号
+        </div>
+        <div class="register_form">
+            <div class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号码</label>
+                    <div class="layui-input-inline">
+                        <input v-model="registerParams.passport" data-vv-as="手机号" name="phone"
+                               v-validate="{rules:{ required: true,regex: /^(1[3-9][0-9]{9})$/ }}"
+                               type="text" autocomplete="off" class="layui-input"/>
+                        <p class="red disNone textIndent1"
+                           :class="{'disBlock': errors.has('phone'),'text-danger': errors.has('phone')}"
+                           v-if="errors.has('phone')">${ errors.first('phone') }</p>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">验证码</label>
+                    <div class="layui-input-inline">
+                        <!--<input type="text" class="layui-input" v-model="registerParams.verCode" name="verCode">-->
+                        <input v-model="registerParams.verCode" data-vv-as="验证码" name="verCode"
+                               v-validate="{rules:{ required: true }}" type="text"
+                               autocomplete="off" class="layui-input"/>
+                        <p class="red disNone textIndent1"
+                           :class="{'disBlock': errors.has('verCode'),'text-danger': errors.has('verCode')}"
+                           v-if="errors.has('verCode')">${ errors.first('verCode') }</p>
+                    </div>
+                    <button class="layui-form-mid layui-word-aux getCodeBtn" id="CodeText" v-html="codeHtml"
+                            @click="getCode()" v-bind:disabled="isDis" v-bind:class="{ disabled: isDis }"></button>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设置密码</label>
+                    <div class="layui-input-inline">
+                        <input v-model="registerParams.pwd" data-vv-as="密码" name="pwd"
+                               v-validate="{rules:{ required: true }}" type="password" autocomplete="off"
+                               class="layui-input"/>
+                        <p class="red disNone textIndent1"
+                           :class="{'disBlock': errors.has('pwd'),'text-danger': errors.has('pwd')}"
+                           v-if="errors.has('pwd')">${ errors.first('pwd') }</p>
+                        <!--<input type="password" name="pwd"  required lay-verify="required" autocomplete="off" class="layui-input" v-model="registerParams.pwd">-->
+                        <p v-if="!errors.has('pwd')">6-20位字符，建议用字母，数字和符号两种以上组合</p>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">确认密码</label>
+                    <div class="layui-input-inline">
+                        <input v-model="registerParams.confirmPwd" data-vv-as="密码" name="repwd"
+                               v-validate="{rules:{ required: true }}" type="password" autocomplete="off"
+                               class="layui-input"/>
+                        <p class="red disNone textIndent1"
+                           :class="{'disBlock': errors.has('repwd'),'text-danger': errors.has('repwd')}"
+                           v-if="errors.has('repwd')">${ errors.first('repwd') }</p>
+
+
+                        <!--<input type="password" name="repwd" required lay-verify="required" autocomplete="off" class="layui-input" v-model="registerParams.confirmPwd">-->
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-top:35px;">
+
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="agreement" lay-skin="primary" v-model="registerParams.agreement" data-vv-as="用户协议" v-validate="'required'">
+                    </div>
+
+                    <label class="layui-form-label register_agree" style="float: right;width:240px;">我已阅读并同意知果果<a @click="openxiyi($event)" data-method="notice" style="color:#4990e2">《用户协议》</a></label>
+
+                    <!--<label class="layui-form-label register_agree" style="float: right;width:240px;">我已阅读并同意知果果<a href="/user/uesrAgreement" target="_blank">《用户协议》</a></label>-->
+                    <p class="red disNone textIndent1 layui-input-block"
+                       :class="{'disBlock': errors.has('agreement'),'text-danger': errors.has('agreement')}"
+                       v-if="errors.has('agreement')">${ errors.first('agreement') }</p>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="hm-auto registerWrap">
+                        <button @click="chooseIntention()" class="layui-btn" id="register">注册</button>
+                    </div>
+                </div>
+            </div>
+            <div class="register_go">已有账号？去<a href="/user/login">登录</a></div>
+        </div>
+    </div>
+    <div id="LAY_layuipro" class="disNone">
+        <div class="reg_success">
+            <dl class="regSuc_dl1" >
+                <dt @click="Checked('trCheck')"><img src="/img/icon_RandC.png" class="regSuc_pic regSuc_pic1" v-show="!trCheck"><img src="/img/icon_RandC_selected.png" class="regSuc_pic regSuc_pic2" v-show="trCheck"></dt>
+                <dd :class="{'regSucc_click':trCheck}">商标版权</dd>
+            </dl>
+            <dl class="regSuc_dl2">
+                <dt @click="Checked('ptCheck')"><img src="/img/icon_patent.png" class="regSuc_pic regSuc_pic3" v-show="!ptCheck"><img src="/img/icon_patent_selected.png" class="regSuc_pic regSuc_pic4" v-show="ptCheck"></dt>
+                <dd :class="{'regSucc_click':ptCheck}">专利</dd>
+            </dl>
+            <dl class="regSuc_dl3" style="margin-right:0; display:none">
+                <dt @click="Checked('otherCheck')"><img src="/img/icon_others.png" class="regSuc_pic regSuc_pic5" v-show="!otherCheck"><img src="/img/icon_others_selected.png" class="regSuc_pic regSuc_pic6" v-show="otherCheck"></dt>
+                <dd  :class="{'regSucc_click':otherCheck}">其他服务</dd>
+            </dl>
+        </div>
+    </div>
+    <div id="openxiyi" class="hide">
+        <div class="container">
+            <h1 class="tac">知果果网服务条款 </h1>
+            <p>知果果网服务（以下简称&#8220;本服务&#8221;）是由北京知果科技有限公司（以下简称&#8220;本公司&#8221;）向知果果网用户提供的知识产权法律服务及其相关服务。本协议由您和本公司签订。 </p>
+            <h3>一、总则 </h3>
+            <p>(一)您确认：在您注册成为知果果网用户以接受本服务之前，您已充分阅读、理解并接受本协议的全部内容，一旦您选择&#8220;同意&#8221;并完成注册进行购买或使用本服务，即表示您同意遵循本协议之所有约定。 </p>
+            <p>(二)您同意，本公司有权随时对本协议内容进行单方面的变更，并以在本网站公告的方式予以公布，无需另行单独通知您；若您在本协议内容公告变更后继续使用本服务的，表示您已充分阅读、理解并接受修改后的协议内容，也将遵循修改后的协议内容使用本服务；若您不同意修改后的协议内容，您应停止使用本服务。 </p>
+            <p>(三)您声明，在您同意接受本协议并注册成为知果果网用户时，您是具有法律规定的完全民事权利能力和民事行为能力，能够独立承担民事责任的自然人、法人或其他组织；本协议内容不受您所属国家或地区法律的排斥。不具备前述条件的，您应立即终止注册或停止使用本服务。 </p>
+            <h3>二、本服务简介</h3>
+            <p>知果果向注册用户提供知识产权法律及其相关服务，知果果网所提供的相关服务说明详见<a href="http://www.zhiguoguo.com">www.zhiguoguo.com</a>相关产品及服务介绍。 </p>
+            <h3>三、知果果网账户</h3>
+            <p>(一)注册相关 </p>
+            <p>在使用本服务前，您必须先行注册，取得本公司提供给您的知果果网账户（以下简称&#8220;该账户&#8221;），您同意并保证： </p>
+            <ol>
+                <li>您所填写的用户信息是真实、准确、完整、及时的，并且没有任何引人误解或者虚假的陈述，且保证知果果网可以通过您所填写的联系方式与您取得联系。 </li>
+                <li>您应根据知果果网对于相关服务的要求及时提供相应的身份证明等资料，否则UCloud有权拒绝向您提供相关服务。 </li>
+                <li>您承诺将及时更新您用户信息以维持该等信息的有效性。 </li>
+                <li>如果您提供的资料或信息包含有不正确、不真实的信息，知果果网保留取消您会员资格并随时结束为您提供服务的权利。 </li>
+            </ol>
+            <p>(二)账户安全 </p>
+            <p>您将对使用该账户及密码进行的一切操作及言论负完全的责任，您同意： </p>
+            <ol>
+                <li>本公司通过您的用户名和密码识别您的指示，请您妥善保管您的用户名和密码，对于因密码泄露所致的损失，由您自行承担。您保证不向其他任何人泄露该账户及密码，亦不使用其他任何人的知果果网账户及密码。 </li>
+                <li>如您发现有他人冒用或盗用您的账户及密码或任何其他未经合法授权之情形时，应立即以有效方式通知本公司，要求本公司暂停相关服务。同时，您理解本公司对您的请求采取行动需要合理期限，在此之前，本公司对已执行的指令及(或)所导致的您的损失不承担任何责任。 </li>
+            </ol>
+            <h3>四、知果果网服务使用守则</h3>
+            <p>为有效保障您使用本服务的合法权益，您理解并同意接受以下规则： </p>
+            <p>(一)您在使用本服务过程中，本协议内容、网页上出现的关于相关操作的提示或本公司发送到您手机的信息（短信或电话等）内容是您使用本服务的相关规则，您使用本服务即表示您同意接受本服务的相关规则。您了解并同意本公司单方修改服务的相关规则，而无须征得您的同意，服务规则应以您使用服务时的页面提示（或发送到该手机的短信或电话等）为准，您同意并遵照服务规则是您使用本服务的前提。 </p>
+            <p>(二)本公司可能会以电子邮件（或发送到您手机的短信或电话等）方式通知您服务进展情况以及提示您进行下一步的操作，但本公司不保证您能够收到或者及时收到该邮件（或发送到该手机的短信或电话等），且不对此承担任何后果。因此，在服务过程中您应当及时登录到本网站查看和进行相关操作。因您没有及时查看和对服务状态进行修改或确认或未能提交相关申请而导致的任何纠纷或损失，本公司不负任何责任。 </p>
+            <p>(三)服务费用，在您使用本服务时，本公司有权依照相应的服务收费介绍、订单及/或相关协议向您收取服务费用。本公司拥有制订及调整服务费之权利，具体服务费用以您使用本服务时本网站上所列之收费方式公告或您与本公司达成的其他书面协议为准。 </p>
+            <h3>五、您的权利和义务</h3>
+            <p>(一)您有权利拥有自己在知果果网的用户名和密码并有权利使用自己的用户名和密码随时登录知果果网网站。 </p>
+            <p>(二)您有权利享受知果果网提供的知识产权法律及其相关服务，并有权利在接受知果果网提供的服务时获得知果果网的支持、咨询等服务，服务内容详见知果果网相关产品介绍。 </p>
+            <p>(三)您保证不会利用技术或其他手段破坏及扰乱知果果网网站和服务以及知果果网其他客户的网站和服务。 </p>
+            <p>(四)您应尊重知果果网及其他第三方的知识产权和其他合法权利，并保证在发生侵犯上述权益的违法事件时尽力保护知果果网及其股东、雇员、合作伙伴等免于因该等事件受到影响或损失；知果果网保留您侵犯知果果网合法权益时终止向您提供服务的权利。 </p>
+            <p>(五)对由于您向知果果网提供的联络方式有误以及您用于接受知果果网邮件的电子邮箱安全性、稳定性不佳而导致的一切后果，您应自行承担责任，包括但不限于因您未能及时收到知果果网的相关通知而导致的后果和损失。 </p>
+            <p>(六)您保证您使用知果果网服务时将遵从国家、地方法律法规、行业惯例和社会公共道德，不会利用知果果网提供的服务进行违反国家法律法规政策的信息。您承认知果果网有权在您违反上述约定时有权终止向您提供服务，因您上述行为给知果果网造成损失的，您应予赔偿。 </p>
+            <h3>六、知果果网的权利和义务</h3>
+            <p>(一)知果果网应根据您选择的服务以及交纳款项的情况向您提供合格的知识产权法律服务。 </p>
+            <p>(二)知果果网承诺对您资料采取对外保密措施，不向第三方披露您资料，不授权第三方使用您资料，除非： </p>
+            <ol>
+                <li>依据本协议条款或者您与知果果网之间其他服务协议、合同等规定可以提供； </li>
+                <li>依据法律法规的规定应当提供； </li>
+                <li>行政、司法等职权部门要求知果果网提供； </li>
+                <li>您同意知果果网向第三方提供； </li>
+                <li>知果果网解决举报事件、提起诉讼而提交的； </li>
+                <li>知果果网为防止严重违法行为或涉嫌犯罪行为发生而采取必要合理行动所必须提交的； </li>
+                <li>知果果网为向您提供产品、服务、信息而向第三方提供的，包括知果果网通过第三方向您提供产品、服务、咨询。 </li>
+            </ol>
+            <p>(三)知果果网及知果果网关联公司所有网站有权使用您的资料和信息。 </p>
+            <p>(四)知果果网保留在您违反国家、地方法律法规规定或违反本在线注册条款的情况下终止为您提供服务并终止您帐号的权利。 </p>
+            <h3>七、隐私及其他个人信息的保护</h3>
+            <p>一旦您同意本协议或使用本服务，您即同意本公司按照以下条款来使用和披露您的个人信息。 </p>
+            <p>(一)用户名和密码 </p>
+            <p>在您注册为知果果网用户时，我们会要求您设置用户名和密码来识别您的身份。您仅可通过您设置的密码来使用该账户，如果您泄漏了密码，您可能会丢失您的个人识别信息，并可能导致对您不利的法律后果。该账户和密码因任何原因受到潜在或现实危险时，您应该立即和本公司取得联系，在本公司采取行动前，本公司对此不负任何责任。 </p>
+            <p>(二)注册信息 </p>
+            <p>您注册该账户时应向本公司提供您的真实姓名、地址、电话号码和电子邮件地址，您还可以选择来填写相关附加信息（包括但不限于您公司所在的省份和城市、和邮政编码、传真号码、网址和您的职务）。为有针对性地向您提供新的服务和机会，您了解并同意本公司及其关联公司或您登录的其他网站将通过您的电子邮件地址或该手机通知您这些信息。 </p>
+            <p>(三)手机信息 </p>
+            <p>您应保护好您的手机，一旦您手机出借、被盗、遗失或被他人窥视等，均可能引起您知果果网账户相关个人信息之外泄，知果果网对此不承担任何责任。 </p>
+            <p>(四)银行账户信息 </p>
+            <p>若本公司所提供的服务需要您提供您的银行账户信息，在您提供相应信息后，本公司将严格履行相关保密约定。 </p>
+            <p>(五)登录记录 </p>
+            <p>为了保障您使用本服务的安全以及不断改进服务质量，本公司将记录并保存您登录和使用本服务的相关信息，但本公司承诺不将此类信息提供给任何第三方（除双方另有约定或法律法规另有规定及本公司关联公司外）。 </p>
+            <p>(六)广告 </p>
+            <p>本公司会对知果果网用户的身份数据进行综合统计，并出于销售和奖励的需要使用或披露。 </p>
+            <p>(七)外部链接 </p>
+            <p>本网站含有到其他网站的链接，但本公司对其他网站的隐私保护措施不负任何责任。本公司可能在任何需要的时候增加商业伙伴或共用品牌的网站。 </p>
+            <p></p>
+            <h3>八、系统中断或故障</h3>
+            <p>系统因下列状况无法正常运作，使您无法使用各项服务时，本公司不承担损害赔偿责任，该状况包括但不限于： </p>
+            <p>(一)本公司在本网站公告之系统停机维护期间。 </p>
+            <p>(二)电信设备出现故障不能进行数据传输的。 </p>
+            <p>(三)因台风、地震、海啸、洪水、停电、战争、恐怖袭击等不可抗力之因素，造成本公司系统障碍不能执行业务的。 </p>
+            <p>(四)由于黑客攻击、电信部门技术调整或故障、网站升级、银行方面的问题等原因而造成的服务中断或者延迟。 </p>
+            <h3>九、责任范围及责任限制</h3>
+            <p>(一)本公司仅对本协议中列明的责任承担范围负责。 </p>
+            <p>(二)知果果网用户信息是由您本人自行提供的，本公司无法保证该信息之准确、及时和完整，您应对您的判断承担全部责任。 </p>
+            <p>(三)您自本公司及本公司工作人员或经由本服务取得之建议和资讯，无论其为书面或口头形式，均不构成本公司对本服务之保证。 </p>
+            <p>(四)在法律允许的情况下，本公司对于与本协议有关或由本协议引起的任何间接的、惩罚性的、特殊的、派生的损失（包括业务损失、收益损失、利润损失、使用数据或其他经济利益的损失），不论是如何产生的，也不论是由对本协议的违约（包括违反保证）还是由侵权造成的，均不负有任何责任，即使事先已被告知此等损失的可能性。另外即使本协议规定的排他性救济没有达到其基本目的，也应排除本公司对上述损失的责任。 </p>
+            <p>(四)除本协议另有规定外，在任何情况下，本公司对本协议所承担的违约赔偿责任总额不超过向您收取的当次代理服务费用的总额。 </p>
+            <h3>十、完整协议</h3>
+            <p>本协议由本协议条款与本网站公示的各项规则组成，相关名词可互相引用参照，如有不同理解，以本协议条款为准。 </p>
+            <p>您对本协议理解和认同，您即对本协议所有组成部分的内容理解并认同，一旦您使用本服务，您和本公司即受本协议所有组成部分的约束。 </p>
+            <p>本协议部分内容被有管辖权的法院认定为违法的，不因此影响其他内容的效力。 </p>
+            <h3>十一、商标、知识产权的保护 </h3>
+            <p>(一)本网站上所有内容，包括但不限于著作、图片、档案、资讯、资料、网站架构、网站画面的安排、网页设计，均由本公司或本公司关联企业依法拥有其知识产权，包括但不限于商标权、专利权、著作权、商业秘密等。 </p>
+            <p>(二)非经本公司或本公司关联企业书面同意，任何人不得擅自使用、修改、复制、公开传播、改变、散布、发行或公开发表本网站程序或内容。 </p>
+            <p>(三)尊重知识产权是您应尽的义务，如有违反，您应承担损害赔偿责任。 </p>
+            <h3>十二、法律适用与管辖 </h3>
+            <p>本协议之效力、解释、变更、执行与争议解决均适用中华人民共和国法律。因本协议产生之争议，均应依照中华人民共和国法律予以处理，并提交上海市杨浦区人民法院审判。 </p>
+            <p>Copyright&#169;2014知果果网版权所有 </p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form(),layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+        form.on('checkbox', function (data) {
+            _regisiter.registerParams.agreement = data.elem.checked;
+        })
+    });
+    //$("input[name='passport']").focus();
+
+    var _regisiter = new Vue({
+        delimiters: ['${', '}'],
+        el: '#registerWrap',
+        data: {
+            registerParams: {
+                passport: '',
+                pwd: '',
+                confirmPwd: '',
+                verCode: '',
+                agreement: true,
+                serveType: ''
+            },
+            codeHtml: '获取验证码',
+            isDis: false,
+            trCheck: false,
+            ptCheck: false,
+            otherCheck: false
+        },
+        methods: {
+            getCode: function () {
+                var layer = layui.layer;
+                if (!this.errors.has('phone') && !!this.registerParams.passport) {
+                    function countDown(that, num) {
+                        var num = num;
+                        function TimeFn() {
+                            if (num == 0) {
+                                that.isDis = false;
+                                that.codeHtml = "获取验证码";
+                                num = 60;
+                                clearInterval(Td);
+                                return;
+                            } else {
+                                num--;
+                                that.codeHtml = num + 's';
+                                that.isDis = true;
+                            }
+                        }
+                        var Td = setInterval(function () {
+                            TimeFn()
+                        }, 1000)
+                    }
+
+                    axios.post('/user/getCode', this.registerParams).then(
+                        function (res) {
+                            if (res.data.success) {
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layer.msg('验证码发送成功');
+                                });
+                                countDown(_regisiter, 60)
+                            } else {
+                                countDown(_regisiter, 0)
+                            }
+                        }
+                    )
+                } else {
+                    this.$validator.errorBag.add('phone', '请输入手机号之后再获取验证码', 'auth')
+                }
+            },
+            register: function () {
+                this.registerParams.serveType = '';
+                if(this.trCheck){
+                    this.registerParams.serveType += 'tr,'
+                };
+                if(this.ptCheck){
+                    this.registerParams.serveType += 'pa,'
+                }
+                if(this.otherCheck){
+                    this.registerParams.serveType += 'tpp'
+                }
+                axios.post('/user/regLogin', this.registerParams).then(
+                    function (res) {
+                        if (res.data.success) {
+                            //debugger
+                            localStorage.isLogin = 'true';
+                            /*layui.use('layer', function () {
+                                var layer = layui.layer;
+                                layer.msg(res.data.message,function () {
+                                    _regisiter.getCoupon();
+                                });
+                            });*/
+                            window.location.href='/';
+                        }
+                    }
+                )
+            },
+            getCoupon:function () {
+                axios.post('/special/getRegCoupon', {tel:this.registerParams.passport}).then(
+                        function (res) {
+                            console.log(res.data.success);
+                            if(res.data.success){
+                                window.location.href='/';
+                            }
+                        }
+                )
+            },
+            openxiyi:function () {
+                var active = {
+                    notice: function () {
+                        layer.open({
+                            type: 1,
+                            title: "知果果网服务条款",//false不显示标题栏,
+                            area: '1200px;',
+                            shade: 0.6,
+                            id: '',//设定一个id，防止重复弹出,
+                            moveType: 1,//拖拽模式，0或者1,
+                            content: $("#openxiyi"),
+                            cancel :function (layero, index) {
+                                layer.close();
+                                $(".hide").css({display:"none"});
+                            }
+                        });
+                    }
+                };
+                active.notice();
+            },
+            chooseIntention: function () {
+                this.$validator.validateAll().then(function(result) {
+                    if(_regisiter.registerParams.confirmPwd !== _regisiter.registerParams.pwd){
+                        _regisiter.$validator.errorBag.add('repwd', '两次密码不一致，请检查后继续', 'auth');
+                    }else{
+                        layer.open({
+                            type: 1,
+                            title: "告诉我们您想了解什么",//false不显示标题栏,
+                            // closeBtn: false,是否显示头部删除按钮
+                            btn: ['完成'],
+                            area: '553px;',
+                            closeBtn:0,
+                            shade: 0.6,
+                            move: false,//拖拽模式，0或者1,
+                            content: $('#LAY_layuipro'),
+                            success: function (layero) {
+                                var btn = layero.find('.layui-layer-btn');
+                                btn.css('text-align', 'center');
+
+                                /* $('.regSuc_pic').on('click',function () {
+                                 var _obj = $('.reg_success  dt img'), len = _obj.length;
+                                 $.each(_obj,function (index) {
+                                 if(!!(index % 2)){
+                                 $(this).hide().prev().show();
+                                 }
+                                 })
+                                 $(this).hide().next().show();
+                                 })*/
+                            },
+                            yes: function(index, layero){
+                                layer.close(index); //如果设定了yes回调，需进行手工关闭
+                                _regisiter.register()
+                            }
+
+                        })
+                    }
+                })
+            },
+            Checked: function(param) {
+                this[param] = !this[param];
+            },
+
+        }
+    })
+
+
+</script>

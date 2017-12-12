@@ -1,0 +1,3010 @@
+<link rel="stylesheet" href="/css/index.css" type="text/css">
+<link rel="stylesheet" href="/css/modify_subjectInfo.css" >
+<link rel="stylesheet" href="/css/personal_center.css" >
+<link rel="stylesheet" href="/css/fruit_center.css" >
+<link rel="stylesheet" href="/css/words_Copyright.css" >
+<link rel="stylesheet" href="/css/orderDetailsPaid.css" >
+<link rel="stylesheet" href="/css/trademark_small.css" >
+<style>
+    .words_step ul li.words_fk{
+        margin: 0;
+        margin-right:200px ;
+    }
+    .words_step ul li.words_fk.words_tj{
+        margin-right: 0;
+    }
+    .chooseCategory.FixHei{
+        height: 960px;
+    }
+    .uploadify{
+        float: left;
+    }
+    .modify_b{
+        float: left;
+        display: block;
+        font-size: 12px;
+        color: #b9bfc7;
+        font-weight: normal;
+    }
+    .uploadBtn>div{
+        width: 100%;
+        margin-top: -46px;
+        border: 0;
+    }
+    .uploadBtn>div>.swfupload{
+        padding: 0 34px;
+    }
+    .delDoc{
+        display: none !important;\0;
+    }
+    .mainStatus{
+        padding: 2px 8px;
+        margin-left: 5px;
+        height: 20px;
+        font-size: 12px;
+        font-style: normal;
+        border-radius: 15px;
+        line-height: 20px;
+    }
+    .mainStatusD{
+        color: #c56e00;
+        background: #fce4bd;
+    }
+    .mainStatusF{
+        color: #bd3a4b;
+        background-color: #ffe2e2;
+    }
+    .mainStatusT{
+        color: #3c9214;
+        background-color: #dff2cf;
+    }
+    .bussRule{
+        font-size: 12px;
+        color: #a34a51;
+    }
+    .bussRule:hover{
+        color: #d4636c;
+    }
+    .modify_table1 .bussRule_d{
+        position: absolute;
+        width: 343px;
+        height: 695px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        /*border:1px solid #f1f1f1;*/
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+        z-index: 999;
+        padding: 15px 9px;
+        box-sizing: border-box;
+        left: 435px;
+        top: 50px;
+    }
+    .modify_table1 .bussRule_d p{
+        width: 325px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 5px;
+        background-color: #fbe3e3;
+        border: solid 1px #f7cdd0;
+        color: #c96d6d;
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .bussRule_d dl{
+        margin-bottom: 10px;
+    }
+    .bussRule_d dl>dt{
+        padding-bottom: 5px;
+    }
+    .bussRule_d dl>dd{
+        line-height: 18px;
+        font-size: 12px;
+        color: #727f8f;
+    }
+    .bussRule_d dl>dd>span{
+        color: #a34a51;
+    }
+   .modify_file .picRule{
+        height: 16px;
+        font-size: 12px;
+        color: #a34a51;
+        line-height: 16px;
+       cursor: pointer;
+    }
+    .modify_drag .picRule_d{
+        width: 310px;
+        height: 316px;
+        border-radius: 2px;
+        background-color: #ffffff;
+        border:1px solid #f1f1f1;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+        position: absolute;
+        z-index: 999;
+        padding: 0 10px;
+        box-sizing: border-box;
+        top: 15px;
+    }
+    .modify_drag .picRule_d>img{
+        width:133px;
+        padding:5px 87px ;
+    }
+    .modify_drag .picRule_d>p{
+        font-size: 12px;
+        line-height: 16px;
+        color: #727f8f;
+        padding-bottom: 14px;
+    }
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s
+    }
+    .fade-enter, .fade-leave-active {
+        opacity: 0
+    }
+    .pic_msg{
+        width: 152px;
+        margin: 8px;
+    }
+    .pic_ul{
+        width: 340px;
+        height: 380px;
+        background-color: #f3f6f8;
+        padding: 2px;
+        box-sizing: border-box;
+        margin-left: 26px;
+    }
+    .pic_img{
+        width: 332px;
+        height: 380px;
+        background-color: #ffffff;
+        border: solid 1px #d9dce1;
+    }
+    .pic_p{
+        float:left;
+        width: 370px;
+        text-align: center;
+        line-height: 19px;
+        font-size: 14px;
+        color: #2a2a2a;
+        margin-top: 14px;
+    }
+    .pic_div{
+        width: 500px;
+        height: 16px;
+        font-size: 12px;
+        color: #a34a51;
+        margin: 15px 0 0 25px;
+        padding-bottom: 40px;
+    }
+    .errMeg{
+        width: 450px;
+    }
+    #uploadifive-IdCardInput{
+        margin-top: 22px;
+    }
+    #uploadifive-IdCardInput1{
+        margin-top: 0px;
+    }
+    .upload_add_file{
+        height: 100px;
+    }
+    .pictureShow{
+        position: relative;
+    }
+
+    .Search_318{
+        border: solid 1px #a34a51;
+        width: 178px;
+        height: 28px;
+        border-radius: 3px;
+        padding-left: 30px;
+        box-sizing: border-box;
+        background: url("/img/icon-myorder-search.png") no-repeat 3px 3px;
+        background-color: #fff;
+    }
+    .Search_318 input {
+        width: 145px;
+        height: 26px;
+        line-height: 26px;
+        border: 0;
+        font-size: 12px;
+        position: relative;
+    }
+    #item_addInfo>#uploadifive-addInfo {
+        width: 102px !important;
+        height: 102px !important;
+    }
+    #item_addInfo>#uploadifive-addInfo input{
+        width: 102px;
+        height: 102px;
+        right: -5px;
+        padding: 0;
+        margin : 0;
+    }
+    .error{
+        clear: both;
+        text-align: center;
+        margin-top: 80px;
+    }
+    .error h3{
+        font-size: 14px;
+        margin-top: 20px;
+        margin-bottom: 8px;
+    }
+    .error p{
+        font-size: 16px;
+        color: #A34A51;
+    }
+    .selectedItem{
+        width: 280px !important;
+        height: 600px !important;
+        overflow-y: auto;
+    }
+    .selectedItem ul {
+        width: 258px;
+    }
+    .selectedItem ul li p span {
+        max-width: 200px;
+    }
+    .selectedCategory{
+        width: 858px !important;
+    }
+    .ItemTitle{
+        width: 861px !important;
+    }
+    .ItemCon{
+        width: 860px !important;
+    }
+    /*编号滚动条隐藏*/
+    .Content .typeIndex {
+        overflow-y: auto;
+        width: 130px;
+    }
+    .Content .typeIndex ul li {
+        cursor: pointer;
+        position: relative;
+    }
+    .setRed {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: red;
+        margin-top: 19px;
+        position: absolute;
+        left: 16px;
+    }
+    /* 小项已选择提示文字*/
+    .ItemTitle .selected {
+        right: 125px;
+    }
+    /*二级三级小项左侧*/
+    .Content {
+        width: 565px !important;
+    }
+    /* 描述文字*/
+    .Content .desc {
+        width: 565px;
+    }
+    /* 三级小项*/
+    .Content .ItemOpt {
+        width: 435px;
+    }
+    .Content .ItemOpt ul {
+        width: 435px;
+    }
+    /* 选择小项按钮*/
+    .categoryBtn {
+        width: 863px;
+    }
+    .Content .ItemOpt ul li p a {
+        max-width: 240px;
+    }
+    .tradReg_title {
+        margin-top: 15px;
+    }
+</style>
+<div id="trademarkReg" v-cloak>
+
+    <div class="tradReg_Prompt" v-show="returnData.businessData.atPresentNodes.stepnum == 1 && !entrustFalg">
+        <div class="tradReg_dear" >
+            <p>温馨提示</p>
+            <h3>亲爱的果蜜：请填写以下内容，如有不明之处，可委托您的顾问处理。</h3>
+            <button type="button" v-on:click="entrust" v-show="isEntrust==0">委托处理</button>
+            <button type="button" v-on:click="cencelEntrust" v-show="isEntrust==1">取消委托</button>
+            <span @click="entrustFalg = !entrustFalg"><img src="/img/icon-shoppingcart-close.png"/></span>
+        </div>
+    </div>
+    <div class="personCenter_wrapp">
+        <div class="personCenter_tab">
+            <ul>
+                <li><a href="/userCenter/home">果蜜中心</a><span>></span></li>
+                <li><a href="/userOrder">订单中心</a><span>></span></li>
+                <li>业务办理</li>
+            </ul>
+        </div>
+        <div class="c_b"></div>
+        <div class="words_Con">
+            <div class="words_top">订单状态</div>
+            <div class="words_nav">
+                <b>订单号：${returnData.businessData.orderData.orderCode}</b>
+                <div class="words_chart">
+                    <div class="words_flow">
+                        <i v-for="(item,index) in returnData.businessData.allNodes">
+                            <img src="/img/words_radius.png" v-if="returnData.businessData.atPresentNodes.stepnum >= item.stepnum"/>
+                            <img src="/img/words_radius_hui.png" v-if="returnData.businessData.atPresentNodes.stepnum <item.stepnum"/>
+                            <span :class="{words_sp1:returnData.businessData.atPresentNodes.stepnum > item.stepnum,'words_sp4':returnData.businessData.atPresentNodes.stepnum <= item.stepnum}" v-if="index != (returnData.businessData.allNodes.length -1)"></span>
+                        </i>
+                    </div>
+                    <div class="c_b"></div>
+                    <div class="words_step">
+                        <ul>
+                            <li class="words_fk" v-bind:class="{ words_tj:index == (returnData.businessData.allNodes.length -1)}" v-for="(item,index) in returnData.businessData.allNodes">
+                                <p>${ item.content }</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="error"  v-if="error && returnData.businessData.atPresentNodes.stepnum == 1 && _oData.orderData.pcode == 'tr_reg_11'" >
+                    <div class="img"><img src="/img/icon_failure.png" alt=""></div>
+                    <h3>亲爱的果蜜：您的订单审核不通过，请处理，不通过原因如下：</h3>
+                    <p style="padding:0 20px 10px 20px;text-align:center;">${error}</p>
+                </div>
+            </div>
+            <div class="fillin clearfix">
+                <div v-show="(isEntrust==0 && returnData.businessData.atPresentNodes.stepnum == 1 &&(!Text318||!entrustFalg))">
+                    <div class="manual" style="position: absolute; left: 59%; font-size: 12px;margin-top: 11px;"  v-if="_oData.orderData.pcode == 'tr_reg_11'"><a style="color:blue;text-decoration: underline;" target="_blank" href="/help/trademark_318">查看：业务操作办理手册</a></div>
+                    <div class="words_top words_write">填写资料</div>
+                    <div class="words_left">
+                        <div class="words_tit">订单编号：${returnData.businessData.orderData.orderCode}</div>
+                        <h3 class="words_h3" :class="{'disBlock': errors.has('body'),'text-danger': errors.has('body')}">请选择您的主体</h3>
+                        <div class="words_body">
+                            <form class="layui-form" action="">
+                                <div @click="backChose=true" class="layui-form-item words_form">
+
+                                    <div class="layui-input-block" v-for="item in returnData.businessData.orderBody.userBodyList">
+                                        <div class="radioBox">
+                                            <i class="radioIcon" v-on:click="selectRadio(item,'1')" v-bind:class="{checked:params.bid == item.id}"></i>
+                                            <!--<input type="radio" name="bodyMsg" v-model="params.bodyMsg">-->
+                                        </div>
+                                        <div class="layui-word-aux">
+                                            <h5 class="bodyTitle">${ item.realname }
+                                                <span class="mainStatusD mainStatus" v-if="item.status==0">待审核</span>
+                                                <span class="mainStatusT mainStatus" v-if="item.status==1">审核通过</span>
+                                                <span class="mainStatusF mainStatus" v-if="item.status==-2">审核未通过</span>
+                                            </h5>
+                                            <p class="bodyAdress"> ${ item.licenseaddress }</p>
+                                        </div>
+                                    </div>
+                                    <div class="layui-input-block" v-for="item in returnData.businessData.orderBody.userCompanyList">
+                                        <div class="radioBox">
+                                            <i class="radioIcon" v-on:click="selectRadio(item,'0')" v-bind:class="{checked:params.bid == item.id}"></i>
+                                        </div>
+                                        <div class="layui-word-aux">
+                                            <h5 class="bodyTitle">${ item.companyname }
+                                                <span class="mainStatusD mainStatus" v-if="item.status==0">待审核</span>
+                                                <span class="mainStatusT mainStatus" v-if="item.status==1">审核通过</span>
+                                                <span class="mainStatusF mainStatus" v-if="item.status==-2">审核未通过</span>
+                                            </h5>
+                                            <p class="bodyAdress"> ${ item.address }</p>
+                                        </div>
+                                    </div>
+                                    <div style="margin: 0 150px" v-if=" returnData.businessData.orderBody.userBodyList.length==0&&returnData.businessData.orderBody.userCompanyList.length==0">
+                                        <dl style="width:500px;text-align: center;">
+                                            <dt><!--<img src="/img/icon-emptystate.png" />-->
+                                                <p style="color:#ABB2B7">您暂无可申办业务的主体，请先添加主体</p>
+                                                <a style="display: block;margin: 10px auto 0;width: 95px; line-height:33px; color: #fff;background:#A34A51;border-radius: 5px;" href="/userCenter/userMainAdd" target="_blank">请添加主体</a>
+                                            </dt>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <h3 class="words_h3 words_work" :class="{'disBlock': errors.has('trValid'),'text-danger': errors.has('trValid')}">完善商标细节</h3>
+                                <div class="modify_conInfo">
+                                    <!--&lt;!&ndash;其他产品&ndash;&gt;
+                                    <div  v-if="_oData.orderData.pcode != 'tr_reg_11'"  class="modify_table1">
+                                        <ol>
+                                            <li style="position: relative">
+                                                <p><span>*</span>商标名称：</p>
+                                                <input type="text" v-model="params.name" data-vv-as="商标名称" name="trName" v-validate="{rules:{ required: true }}">
+                                                <a v-if="entrustFalg" class="bussRule" @click="bussRule=!bussRule">商标名称规则（点击查看）</a>
+                                                <transition name="fade">
+                                                    <div v-show="bussRule" class="bussRule_d">
+                                                        <p>商标名称书写 应当按照 汉字+英文+数字+图形的顺序书写</p>
+                                                        <div>
+                                                            <dl class="f_l" style="margin-right: 48px;">
+                                                                <dt><img style="width: 133px" src="/img/images-haier-zw@2x.png" alt=""></dt>
+                                                                <dd>商标名称：<span>海尔</span></dd>
+                                                                <dd>类型：中文</dd>
+                                                            </dl>
+                                                            <dl class="f_l">
+                                                                <dt><img style="width: 133px" src="/img/images-haier@2x.png" alt=""></dt>
+                                                                <dd>商标名称：<span>海尔+Haier</span></dd>
+                                                                <dd>类型：中文+英文</dd>
+                                                            </dl>
+                                                        </div>
+
+                                                        <dl>
+                                                            <dt><img style="width: 324px" src="/img/images-haier-img@2x.png" alt=""></dt>
+                                                            <dd>商标名称：<span>海尔+图形</span></dd>
+                                                            <dd>类型：中文+图形</dd>
+                                                        </dl>
+                                                        <dl>
+                                                            <dt><img style="width: 324px" src="/img/images-haier-engimg@2x.png" alt=""></dt>
+                                                            <dd>商标名称：<span>英文+图形</span></dd>
+                                                            <dd>类型：英文+图形</dd>
+                                                        </dl>
+                                                        <dl>
+                                                            <dt><img style="width: 324px" src="/img/images-zhaier-wywimg@2x.png" alt=""></dt>
+                                                            <dd>商标名称：<span>海尔 真诚到永远+Haier+图形</span></dd>
+                                                            <dd>类型：中文+英文+图形</dd>
+                                                        </dl>
+                                                    </div>
+                                                </transition>
+                                                <p class="red disNone m-t-sm"
+                                                   :class="{'disBlock': errors.has('trName'),'text-danger': errors.has('trName')}"
+                                                   v-if="errors.has('trName')">${ errors.first('trName') }</p>
+                                            </li>
+                                            <li><p><span>*</span>商标图片上传：</p>
+                                                <div class="modify_hover" id="LAY_liner">
+                                                    <!--<a class="layui-liner"  data-method="notice"><div class="modify_liner"> </div></a>&ndash;&gt;
+                                                    <img v-bind:src="picUrl" height="88" v-if="picUrl" img-min-width="400" img-min-height="400" img-max-width="1500" img-max-height="1500"/>
+
+                                                </div>
+                                                <b class="modify_b">请上传商标图片</b>
+                                            </li>
+                                        </ol>
+                                        <div style="clear: both"></div>
+                                        <div class="modify_drag" id="file_upload_item1">
+                                            <div class="img_ie" style="margin: -30px 0 0 10px;display: none;">
+                                                <u id="file_upload_ie"></u>
+                                                <b class="modify_b">提醒：请上传JPG格式、大于10K、小于2M、像素介于“400X400”-“1500X1500”之间的方形图片</b>
+                                            </div>
+                                            <div class="modify_file img_other" style="float: none">
+                                                <div><img src="/img/icon-companyinfo-upload.png"/><u id="file_upload"></u></div>
+                                                <span v-if="entrustFalg" @click="picRule=!picRule" class="clear picRule">
+                                                    商标图片规则(点击查看)
+                                                </span>
+                                            </div>
+                                            <div style="position: relative">
+                                                <transition name="fade">
+                                                    <div v-show="picRule" class="picRule_d">
+                                                        <img style="width: 133px" src="/img/images-haier-zwyw@2x.png" alt="">
+                                                        <p>1、图样文件格式应为jpg，图形应清晰，图样文件大小应小于“200KB”且图形像素介于“400×400－1500×1500”之间。</p>
+                                                        <p>2、如果通过扫 描获得图样的，应按24位彩色、300dpi分辨率扫描符合《商标法》及其实施条例规定的图形（图形清晰，大于5×5厘米且小于10×10厘米）。</p>
+                                                        <p>3、申请人（或代理人）应确保扫描后的图形与原图形的色彩深浅（或灰度）一致，否则，可能影响《商标注册证》上图形的清晰度。</p>
+                                                    </div>
+                                                </transition>
+                                            </div>
+                                        </div>
+
+                                    </div>-->
+                                    <!--318-->
+                                    <div class="modify_table1">
+
+                                        <ol>
+                                            <li style="position: relative" @click="dialog('0')">
+                                                <p><span>*</span>商标名称：</p>
+                                                <!--置灰-->
+                                                <input id="disabled"  :disabled="_oData.orderBody.userCompanyList.length == 0  || params.bid == '' || _oData.orderBody.userBodyList.length == 0 " @keyup="verify()" type="text" v-on:blur="loseFocus(params.name)" v-model="params.name" data-vv-as="商标名称" name="trName" v-validate="{rules:{ required: true }}" style="margin-bottom: 15px;"><br>
+                                                <span >（商标名称书写 应当按照 汉字+英文+数字+图形的顺序书写）</span>
+                                                <a v-if="entrustFalg" class="bussRule" @mouseenter="bussRule=!bussRule" @mouseleave="bussRule=!bussRule">点击查看更多规则示例</a>
+                                                <transition name="fade">
+                                                    <div v-show="bussRule" class="bussRule_d"  @mouseenter="bussRule=!bussRule" @mouseleave="bussRule=!bussRule">
+                                                    <p>商标名称书写 应当按照 汉字+英文+数字+图形的顺序书写</p>
+                                                    <div>
+                                                        <dl class="f_l" style="margin-right: 48px;">
+                                                            <dt><img style="width: 133px" src="/img/images-haier-zw@2x.png" alt=""></dt>
+                                                            <dd>商标名称：<span>海尔</span></dd>
+                                                            <dd>类型：中文</dd>
+                                                        </dl>
+                                                        <dl class="f_l">
+                                                            <dt><img style="width: 133px" src="/img/images-haier@2x.png" alt=""></dt>
+                                                            <dd>商标名称：<span>海尔+Haier</span></dd>
+                                                            <dd>类型：中文+英文</dd>
+                                                        </dl>
+                                                    </div>
+
+                                                    <dl>
+                                                        <dt><img style="width: 324px" src="/img/images-haier-img@2x.png" alt=""></dt>
+                                                        <dd>商标名称：<span>海尔+图形</span></dd>
+                                                        <dd>类型：中文+图形</dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt><img style="width: 324px" src="/img/images-haier-engimg@2x.png" alt=""></dt>
+                                                        <dd>商标名称：<span>英文+图形</span></dd>
+                                                        <dd>类型：英文+图形</dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt><img style="width: 324px" src="/img/images-zhaier-wywimg@2x.png" alt=""></dt>
+                                                        <dd>商标名称：<span>海尔 真诚到永远+Haier+图形</span></dd>
+                                                        <dd>类型：中文+英文+图形</dd>
+                                                    </dl>
+                                                </div>
+                                                </transition>
+                                                <p class="red disNone m-t-sm"
+                                                   :class="{'disBlock': errors.has('trName'),'text-danger': errors.has('trName')}"
+                                                   v-if="errors.has('trName')">${ errors.first('trName') }</p>
+                                            </li>
+                                           <!-- <li><p><span>*</span>商标图片上传：</p>
+                                                <div class="modify_hover" id="LAY_liner">
+                                                    &lt;!&ndash;<a class="layui-liner"  data-method="notice"><div class="modify_liner"> </div></a>&ndash;&gt;
+                                                    <img v-bind:src="picUrl" height="88" v-if="picUrl"/>
+
+                                                </div>
+                                                <b class="modify_b">请上传商标图片</b>
+                                            </li>-->
+                                            <li><p style="margin-bottom: 10px;"><span>*</span>商标图片上传：</p>
+                                                <!--置灰-->
+                                                <div @click="dialog('1')" v-if="_oData.orderBody.userCompanyList.length == 0  || params.bid == '' || _oData.orderBody.userBodyList.length == 0 " style="width: 105px;height: 105px; background: #ccc; position: absolute; z-index: 1000"></div>
+                                                <div class="upload_add_file" style="border: none;">
+                                                    <div id="item_addInfo" class="f_l" v-show="!addTaxpayerPath" style='width:100px;height:100px;border: 1px dashed #979797;'>
+                                                        <a data-method="notice"  id="addInfo"></a>
+                                                        <img src="\img\icon_upload_plus.png" alt="" style="width: 24px;height:24px;margin-left:37px;margin-top: -134px;">
+                                                    </div>
+                                                    <input type="hidden" class="hide" name="addTaxpayerPath" v-model="addTaxpayerPath" >
+                                                    <div class="pictureShow" v-show="addTaxpayerPath">
+                                                        <img class="picture" :src="addTaxpayerPath"  alt="" style="width:102px;height:102px;display: inline-block">
+                                                        <img src="/img/icon-companyinfo-delete.png" style="position: absolute;left:73px;top: 73px;" @click="addTaxpayerPath = ''">
+                                                    </div>
+                                                </div>
+                                                <p style="margin-top:-15px;margin-left: 110px;" v-if="!addTaxpayerPath">请上传商标图片</p>
+                                                <div style="clear: both"></div>
+                                                <p style="color:#a34a51;margin: 10px 0;" v-if="_oData.orderData.pcode != 'tr_reg_11'">提醒：请上传JPG格式、大于10K、小于2M、像素介于“400X400”-“1500X1500”之间的方形图片</p>
+                                                <p v-if="_oData.orderData.pcode == 'tr_reg_11'" style="color:#a34a51;margin: 10px 0;">商标图片规则：</p><p v-if="_oData.orderData.pcode == 'tr_reg_11'" style="color:#727f8f;">图样文件格式应为jpg，图形应清晰；图样<br>文件大小应小于“200KB”且图形像素介<br>于“400*400-1500*1500”之间。</p>
+                                            </li>
+                                        </ol>
+                                        <div style="clear: both"></div>
+                                        <!--<div class="modify_drag" id="file_upload_item1">
+                                            <div class="img_ie" style="margin: -30px 0 0 10px;display: none;">
+                                                <u id="file_upload_ie"></u>
+                                                <b class="modify_b">提醒：请上传JPG格式、大于10K、小于2M、像素介于“400X400”-“1500X1500”之间的方形图片</b>
+                                            </div>
+                                            <div class="modify_file img_other" style="float: none">
+                                                <div><img src="/img/icon-companyinfo-upload.png"/><u id="file_upload"></u></div>
+                                                <span v-if="entrustFalg" @click="picRule=!picRule" class=" picRule" style="height: 25px;line-height: 18px;">
+                                                    <p>商标图片规则：</p><p style="color:#000;">图样文件格式应为jpg，图形应清晰；图样文件大小应<br>小于“200KB”且图形像素介<br>于“400*400-1500*1500”之间。</p>
+                                                </span>
+                                            </div>
+                                            <div style="position: relative">
+                                                <transition name="fade">
+                                                    <div v-show="picRule" class="picRule_d">
+                                                        <img style="width: 133px" src="/img/images-haier-zwyw@2x.png" alt="">
+                                                        <p>1、图样文件格式应为jpg，图形应清晰，图样文件大小应小于“200KB”且图形像素介于“400×400－1500×1500”之间。</p>
+                                                        <p>2、如果通过扫 描获得图样的，应按24位彩色、300dpi分辨率扫描符合《商标法》及其实施条例规定的图形（图形清晰，大于5×5厘米且小于10×10厘米）。</p>
+                                                        <p>3、申请人（或代理人）应确保扫描后的图形与原图形的色彩深浅（或灰度）一致，否则，可能影响《商标注册证》上图形的清晰度。</p>
+                                                    </div>
+                                                </transition>
+                                            </div>
+                                        </div>-->
+
+                                    </div>
+                                    <div style="clear: both"></div>
+                                    <div class="tradReg_title"style="position: relative">
+                                        有三维标志、颜色组合、声音、肖像权或优先权的特殊需要<img src="/img/1.png"/>
+                                        <div class="tradReg_requstion">
+                                            <p style="margin:26px auto 10px auto;">亲爱的果蜜，您好！</p>
+                                            <p>三维标志、颜色组合、声音、肖像权或优先权商标目前在我国使用率极低，只有极少数企业才会用到，绝大多数情况下可以忽略此项。如您确实对此项有需要，请联系您的专属顾问！</p>
+                                        </div>
+                                    </div>
+                                    <div class="tradReg_title tradReg_marg"style="position: relative">
+                                        有指定颜色申请的特殊需要 <img src="/img/1.png"/>
+                                        <div class="tradReg_requstion" style="left: 169px;">
+                                            <p style="margin:26px auto 10px auto;">亲爱的果蜜，您好！</p>
+                                            <p>如果您有指定申请的需求，请联系您的顾问，您的顾问会在后台为您进行处理。如果您无指定颜色申请需求，系统将在您的顾问审核通过之后自动为您的商标图片转换成黑白颜色，请注意。</p>
+                                        </div>
+                                    </div>
+                                    <div v-show="!patDesc[0]"><button class="tradReg_add" type="button" v-bind:disabled="chooseIs || _oData.orderBody.userCompanyList.length == 0  || params.bid == '' || _oData.orderBody.userBodyList.length == 0 " v-on:click="showCategory"><img style="width:18px;height:18px;" src="/img/icon-myorder-add.png"/>添加类别</button></div>
+                                    <div v-show="!patDesc[0]" class="tradReg_add tradReg_cont"><img src="/img/1.png"/>一共可选择项[${returnData.ItemLen}]，请点击按钮添加类别</div>
+                                    <div class="tradReg_button" v-show="!!patDesc[0]" style="margin-top: 10px;">
+                                        <button type="button" v-on:click="showCategory('com')" @click="isCompile=1"><img src="/img/icon-myorder-edit.png"/ >编辑</button>
+                                        <button type="button" class="tradReg_del" v-on:click="delAllSelect"  v-if="_oData.orderData.pcode != 'tr_reg_11'"><img src="/img/icon-myorder-contractdelete.png"/>删除</button>
+                                    </div>
+                                    <div class="c_b"></div>
+                                    <div class="tradReg_table">
+                                        <div class="tradReg_head">
+                                            <p class="tradReg_cate">类别</p>
+                                            <p class="tradReg_gory">已选子类</p>
+                                        </div>
+                                        <table class="tradReg_Selected">
+                                            <tbody v-for="subItem in patDesc">
+                                            <tr v-for="Item in subItem.objs">
+                                                <td class="categoryIndex"><p>${ Item.id }</p></td>
+                                                <td class="tradReg_count"><p><i><span v-for="(item, index) in Item.objs"> ${index +1}.${item.desc}</span></i></p></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="chooseCategory m-t-lg" v-bind:class="{active: chooseIs,FixHei:subItemIs }">
+                                        <div class="head clearfix">
+                                            <div class="title">第一类别</div>
+                                            <div class="searchCategory" v-if="!isShow">
+                                                <input type="text" placeholder="请输入关键字" v-model="keywords" name="keywords" @keyup="searchItem">
+                                            </div>
+                                        </div>
+                                        <div class="thead clearfix">
+                                            <h5 class="categoryIndex clearfix">类别</h5>
+                                            <h6 class="clearfix">子类描述</h6>
+                                        </div>
+                                        <div class="tabSc">
+                                            <div class="tabCon">
+                                                <table>
+                                                    <tbody>
+                                                    <tr v-for="item in returnData.firstList" @click="getId(item.id)" v-on:click="showSubItem(item.id, item.desc)">
+                                                        <td class="categoryIndex"><p>${ item.id }</p></td>
+                                                        <td class="firstDesc"><p >${ item.desc }</p></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!--小项选择-->
+                                        <div class="selectedCategory" v-bind:class="{active:subItemIs}">
+
+                                            <div class="ItemTitle"><div class="ItemType">子类别</div>
+                                                <div style="position:absolute;top:14px;left:218px;" v-if="isShow" class="Search_318"><input type="text" placeholder="请输入关键字" v-model="keyWordSearch" @keyup="Searchkey()"></div>
+                                                <div class="selected" style="width: 80px !important;">已选择(<span style="color: red;">${categoryCont}</span>)</div></div>
+                                            <div class="ItemCon clearfix">
+                                                <div class="Content clearfix">
+                                                    <div class="desc">
+                                                        <p>描述：${ selectedDesc }</p>
+                                                    </div>
+                                                    <div class="clearfix autoHei">
+                                                        <div class="typeIndex clearfix">
+                                                            <ul>
+                                                                <li v-for="(item, index) in returnData.subList" v-bind:class="{active:subSelectId ==item.id}" v-on:click="getEndItem(item.id)"><span v-show="item.added"  class="setRed"></span>${item.id} </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="ItemOpt clearfix">
+                                                            <ul>
+                                                                <li v-for="item in returnData.endList"><p><span class="m-r-sm">${ item.id }</span><a v-bind:title="item.desc" v-on:click="selectedOpt(item)">${ item.desc }</a></p><div class="madeCheckbox" v-bind:class="{'checked':item.added}" v-on:click="selectedOpt(item)"></div></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="selectedItem">
+                                                    <!--<p style="width: auto" v-if="_oData.orderData.pcode == 'tr_reg_11'">已选择了个，还可以选择${returnData.ItemLen - categoryCont}个（根据您选择的大类，为您推了相关的小项，可根据您的需要自行选择，如有疑问可联系您的专属顾问）</p>-->
+                                                    <ul v-for="Item in secondDesc">
+                                                        <li v-for="item in Item.objs"><p><span>${ item.desc }</span><a v-on:click="delItem(item)" class="delItem"></a></p></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="categoryBtn">
+                                                <!--前后台优化按钮位置调整-->
+                                                <div><button class="cancel m-r-lg" type="button" v-on:click="selectSure">确定</button><button class="sure" v-on:click="selectCancel" type="button" style="margin-right:30px;">取消</button></div>
+                                                <!--<div v-show="_oData.orderData.pcode == 'tr_reg_11'"><button class="cancel m-r-lg" type="button" v-on:click="selectSure">确定</button><button class="sure" v-on:click="selectCancel" type="button" style="margin-right:30px;">取消</button></div>-->
+                                                <!--<div v-show="_oData.orderData.pcode != 'tr_reg_11'"><button class="cancel" v-on:click="selectCancel" type="button" style="margin-right:30px;">取消</button><button class="sure m-r-lg" type="button" v-on:click="selectSure">确定</button></div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{> adviser}}
+                                <div class="c_b"></div>
+                            </form>
+                        </div>
+                        <div class="words_button" v-if="returnData.businessData.orderData.status==1 && returnData.businessData.atPresentNodes.stepnum == 1">
+                            <button v-if="pcode_318!='tr_reg_11'" class="words_sub" v-on:click="save('other')" v-bind:disabled="loaddingIs || _oData.orderBody.userCompanyList.length == 0  || params.bid == '' || _oData.orderBody.userBodyList.length == 0 ">保存提交</button>
+                            <button v-if="pcode_318=='tr_reg_11'" class="words_sub" v-on:click="save('318')" v-bind:disabled="_oData.orderBody.userCompanyList.length == 0  || params.bid == '' || _oData.orderBody.userBodyList.length == 0">下一步</button>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="Text318 && returnData.businessData.atPresentNodes.stepnum == 1">
+                    <div class="words_top words_write">业务信息</div>
+                    <div class="words_left clearfix">
+                        <div class="words_tit">订单编号：${returnData.businessData.orderData.orderCode}</div>
+                        <div class="padding25">
+                            <h3 class="words_h3" style="margin-left: 0">确认您的业务信息</h3>
+                            <div class="f_l pic_img">
+                                <!--<a :href="ImgIp+fileText.downloadPath" target="_blank"><img style="width: 332px;height: 380px;" :src="ImgIp+fileText.downloadPath" alt=""></a>-->
+                                <a :href="NORTIGER" target="_blank"><img id="nortiger_318" style="width: 332px;height: 380px;" :src="NORTIGER" alt=""></a>
+                            </div>
+                            <ul class="f_l pic_ul">
+                                <li class="f_l"><a href="/img/images-examples-1@3x.png" target="_blank"><img class="pic_msg" src="/img/images-examples-1@2x.png" alt=""></a></li>
+                                <li class="f_l"><a href="/img/images-examples-2@3x.png" target="_blank" ><img class="pic_msg" src="/img/images-examples-2@2x.png" alt=""></a></li>
+                                <li class="f_l"><a href="/img/images-examples-3@3x.png" target="_blank"><img class="pic_msg" src="/img/images-examples-3@2x.png" alt=""></a></li>
+                                <li class="f_l"><a href="/img/images-examples-4@3x.png" target="_blank"><img class="pic_msg" src="/img/images-examples-4@2x.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                        <p class="pic_p">申请材料预览</p>
+                        <p class="pic_p">材料范例</p>
+                        <div class="clear"></div>
+                        <div class="pic_div">
+                            注：请在下方下载资料并盖章后，上传对应文件。
+                        </div>
+                    </div>
+                </div>
+                <div v-show="(isEntrust==1 || returnData.businessData.atPresentNodes.stepnum != 1)">
+                    <div class="words_top words_write">业务信息</div>
+                    <div class="words_left clearfix">
+                        <div class="words_tit">订单编号：${returnData.businessData.orderData.orderCode}</div>
+                        <div class="padding25">
+                            <h3 class="msgTitle">主体</h3>
+                            <div class="layui-form-item words_form m-t-lg">
+
+                                <div class="layui-input-block" v-for="item in returnData.businessData.orderBody.userBodyList">
+                                    <div class="radioBox">
+                                        <i class="radioIcon" v-bind:class="{checked:params.bid == item.id}"></i>
+                                        <!--<input type="radio" name="bodyMsg" v-model="params.bodyMsg">-->
+                                    </div>
+                                    <div class="layui-word-aux">
+                                        <h5 class="bodyTitle">${ item.realname }</h5>
+                                        <p class="bodyAdress"> ${ item.licenseaddress }</p>
+                                    </div>
+                                </div>
+
+                                <div class="layui-input-block" v-for="item in returnData.businessData.orderBody.userCompanyList">
+                                    <div class="radioBox">
+                                        <i class="radioIcon" v-bind:class="{checked:params.bid == item.id}"></i>
+                                        <!--<input type="radio" name="bodyMsg" v-model="params.bodyMsg">-->
+                                    </div>
+                                    <div class="layui-word-aux">
+                                        <h5 class="bodyTitle">${ item.companyname }</h5>
+                                        <p class="bodyAdress"> ${ item.address }</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <h3 class="msgTitle m-t-lg">商标基本信息</h3>
+                            <div class="trMsg m-t-md">
+                                <div class="group">
+                                    <label>商标名称：</label>
+                                    <div class="">
+                                        <input type="text" class="layui-input showMsgInput disabled" disabled="disabled" :value="returnData.businessData.businessDetail.zgOrderTrademark.name">
+                                    </div>
+                                </div>
+                                <div class="group m-t-md">
+                                    <label>商标图片：</label>
+                                    <div class="">
+                                        <div class="pic">
+                                            <div class="modify_hover noBgWidth">
+                                                <!--<a class="layui-liner"  data-method="notice"><div class="modify_liner"> </div></a>-->
+                                                <img v-bind:src="picUrl" height="88"/>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="msgTitle m-t-lg">商标类别</h3>
+                            <div class="tradReg_table">
+                                <div class="tradReg_head">
+                                    <p class="tradReg_cate">类别</p>
+                                    <p class="tradReg_gory">已选子类</p>
+                                </div>
+                                <table class="tradReg_Selected">
+                                    <tbody v-for="subItem in patDesc">
+                                    <tr v-for="Item in subItem.objs">
+                                        <td class="categoryIndex"><p>${ Item.id }</p></td>
+                                        <td class="tradReg_count"><p><i><span v-for="(item, index) in Item.objs"> ${index +1}.${item.desc}</span></i></p></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="customSure" v-show="returnData.businessData.atPresentNodes.stepnum ==3 &&
+                            (returnData.businessData.businessDetail.zgOrder.pcode != 'tr_reg_13' &&
+                             returnData.businessData.businessDetail.zgOrder.pcode != 'tr_reg_12') &&
+                              returnData.businessData.businessDetail.zgOrder.pcode != 'tr_reg_8'&&
+                              returnData.businessData.businessDetail.zgOrder.pcode != 'tr_reg_7'&&!Text318">
+                                <button class="btn m-r-md" type="button" v-on:click="goBack">返回修改</button>
+                                <button class="btn" type="button" v-on:click="customSure">确认</button>
+                            </div>
+                        </div>
+                        {{> adviser}}
+                    </div>
+                </div>
+                {{> orderList}}
+            </div>
+            <div v-if="returnData.businessData.atPresentNodes.stepnum>=3||(Text318 )" class="words_top words_write">资料下载</div>
+            <div v-if="returnData.businessData.atPresentNodes.stepnum>=3||(Text318 )" class="downloadArea">
+                <h6 class="Msg_title"><img src="/img/icon-orderdetail-orderinfo.png" alt=""/><span>资料下载模版列表</span></h6>
+                <div class="downloadFile m-t-sm">
+                    <div v-for="items in returnData.businessData.fileDownloads" class="m-t-md">
+                        <p v-for="(item,key) in items">
+                            <span class="downloadFileTit">${ key }</span>
+                            <span v-for="val in item" class="downloadFileDesc"><a :href="val.downloadPath" v-bind:download="val.fileName"><i> ${ val.fileName }</i></a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div v-show="returnData.businessData.atPresentNodes.stepnum ==3 &&
+            (returnData.businessData.businessDetail.zgOrder.pcode == 'tr_reg_7' ||
+             returnData.businessData.businessDetail.zgOrder.pcode == 'tr_reg_8' ||
+              returnData.businessData.businessDetail.zgOrder.pcode == 'tr_reg_12' ||
+               returnData.businessData.businessDetail.zgOrder.pcode == 'tr_reg_13')||
+               (Text318 && returnData.businessData.atPresentNodes.stepnum == 1)">
+                <div class="words_top words_write">文件上传</div>
+                <div v-if="_oData.orderData.pcode != 'tr_reg_11'" style="width: 100%;line-height: 40px;color: #DC9C9C;background: #FCE6E6;padding-left: 15px;">提示：文件上传区域只需上传以下文件，不需要上传申请书。</div>
+                <div class="fileUploadArea">
+                    <!--其他产品-->
+                    <div class="uploadCon clearfix" v-if="_oData.orderData.pcode != 'tr_reg_11'" id="entrustDoc">
+                        <div class="floatLeft">
+                            <div class="uploadBtn">
+                                <img src="/img/icon-companyinfo-upload.png" style="top:26px !important;"/>
+                                <p class="text-center">上传委托文件</p>
+                                <input type="hidden" id="entrustDocInput">
+                            </div>
+                            <p class="errMeg">请在资料下载模板列表，下载“商标委托书”并打印盖章上传</p>
+                            <p class="errMeg">委托书格式必须是jpg、pdf类型图片 大小不超过2M</p>
+                        </div>
+                        <div class="fileName" v-if="wtFilePath&&entrustFalg">
+                            <p>
+                                <a :href="pic_img_wt" target="_blank"><img style="max-width:100px;height:100px; "  :src="pic_img_wt"></a>
+                                <!--<a v-if="pic_img_wt" :href="pic_img_wt" target="_blank">点击预览</a>-->
+                                <a class="delDoc" href="javascript:" v-on:click="delFile('wtFilePath')"></a>
+                                <!--<span class="docType">${wtFilePath.type}</span><a class="docName">${wtFilePath.name}</a><a class="delDoc" href="javascript:" v-on:click="delFile('wtFilePath')"></a>-->
+                            </p>
+                        </div>
+                        <div class="fileName" v-if="wtFilePath&&!entrustFalg">
+                            <p>
+                                <span class="docType">${wtFilePath.type}</span><a class="docName">${wtFilePath.name}</a><a class="delDoc" href="javascript:" v-on:click="delFile('wtFilePath')"></a>
+                            </p>
+                        </div>
+                    </div>
+                    <!--318-->
+                    <div class="uploadCon clearfix" v-if="_oData.orderData.pcode == 'tr_reg_11'" id="entrustDoc" style="padding-bottom: 30px;border-bottom: solid 2px #d9dee3">
+                        <p style="margin:5px 0 15px; color:#727f8f;font-size: 12px;"><span style="color:red;">*</span>委托文件上传</p>
+                        <div class="floatLeft">
+                            <div class="uploadBtn" v-show="!pic_img_wt">
+                                <img src="\img\icon_upload_plus.png"/>
+                                <!--<p class="text-center">上传委托文件</p>-->
+                                <input type="hidden" id="entrustDocInput">
+                            </div>
+                            <div class="pictureShow" v-show="pic_img_wt">
+                                <a :href="pic_img_wt" target="_blank"><img class="picture" :src="pic_img_wt"  alt="" style="width:102px;height:102px;display: inline-block"></a>
+                                <img src="/img/icon-companyinfo-delete.png" style="position: absolute;left:73px;top: 73px;" @click="pic_img_wt = ''">
+                            </div>
+                            <p style="font-size: 12px; margin-top: 10px;line-height: 20px;">
+                                <span style="color:#a34a51;">签章要求：</span><br>
+                                （1）公司及其他机构申请-在委托书右下角签章处加盖清晰完整的公章（不要签字）；<br>
+                                （2）个人申请-在委托书右下角签章处由申请人本人签字（不要盖章）；<br>
+                                上传材料要求：请上传中文代理委托书彩色扫描件，格式为jpg，大小不超过2M。</p>
+                        </div>
+                        <div class="fileName">
+                            <h3>范例：</h3>
+                            <p style="margin-left: 50px; bottom: -60px;">
+                                <a href="/img/公司委托书-盖章.gif" target="_blank"><img style="width:94px;height:132px; "  src="/img/公司委托书-盖章.png"></a><br>
+                                商标委托书（公司）
+                                <!--<a v-if="pic_img_zt" :href="pic_img_wt" target="_blank">点击预览</a>-->
+                                <!--<a class="delDoc" href="javascript:" v-on:click="delFile('ztFilePath')"></a>-->
+                            </p>
+                            <p style="margin-left: 200px; bottom: -60px;">
+                                <a href="/img/个人委托书.gif" target="_blank"><img style="width:94px;height:132px; "  src="/img/file-personal@3x.png"></a><br>
+                                商标委托书（个人）
+                            </p>
+                        </div>
+                       <!-- <div class="fileName" v-if="wtFilePath&&!entrustFalg">
+                            <p>
+                                <span class="docType">${wtFilePath.type}</span><a class="docName">${wtFilePath.name}</a><a class="delDoc" href="javascript:" v-on:click="delFile('wtFilePath')"></a>
+                            </p>
+                        </div>-->
+                    </div>
+                    <!--其他产品-->
+                    <div class="uploadCon clearfix m-t-lg" v-if="_oData.orderData.pcode != 'tr_reg_11'" id="mainBodyDoc">
+                        <div class="floatLeft">
+                            <div class="uploadBtn">
+                                <img src="/img/icon-companyinfo-upload.png" style="top:26px !important;"/>
+                                <p class="text-center">上传主体证明文件</p>
+                                <input type="hidden" id="mainBodyDocInput1">
+                            </div>
+                            <p class="errMeg">请在资料下载模板列表，下载“主体证明文件”并打印盖章上传</p>
+                            <p class="errMeg">主体证明文件格式必须是jpg、pdf类型图片 大小不超过2M</p>
+                        </div>
+                        <div class="fileName" v-if="ztFilePath&&entrustFalg">
+                            <p>
+                                <a :href="pic_img_zt" target="_blank"><img style="max-width:100px;height:100px; "  :src="pic_img_zt"></a>
+                                <!--<a v-if="pic_img_zt" :href="pic_img_wt" target="_blank">点击预览</a>-->
+                                <a class="delDoc" href="javascript:" v-on:click="delFile('ztFilePath')"></a>
+                            </p>
+                        </div>
+                        <div class="fileName" v-if="ztFilePath&&!entrustFalg">
+                            <p>
+                                <span class="docType">${ztFilePath.type}</span><a class="docName">${ztFilePath.name}</a><a class="delDoc" href="javascript:" v-on:click="delFile('ztFilePath')"></a>
+                            </p>
+                        </div>
+                    </div>
+                    <!--318-->
+                    <div class="uploadCon clearfix m-t-lg" id="mainBodyDoc" v-if="_oData.orderData.pcode == 'tr_reg_11'" style="padding-bottom: 30px;border-bottom: solid 2px #d9dee3">
+                        <p style="margin:5px 0 15px; color:#727f8f;font-size: 12px;"><span style="color:red;">*</span>主体证明文件上传</p>
+                        <div class="floatLeft">
+                            <div class="uploadBtn" v-show="!pic_img_zt">
+                                <img src="\img\icon_upload_plus.png"/>
+                                <!--<p class="text-center">上传主体证明文件</p>-->
+                                <input type="hidden" id="mainBodyDocInput">
+                            </div>
+                            <div class="pictureShow" v-show="pic_img_zt">
+                                <a :href="pic_img_zt" target="_blank" download><img class="picture" src="/img/group-9.png"  alt="" style="width:102px;height:102px;display: inline-block"></a>
+                                <img src="/img/icon-companyinfo-delete.png" style="position: absolute;left:73px;top: 73px;" @click="pic_img_zt = ''">
+                            </div>
+                            <p style="font-size: 12px; margin-top: 10px; line-height: 20px;">
+                                <span style="color:#a34a51;">签章要求：</span><br>
+                                （1）公司及其他机构申请-在文件空白处加盖清晰完整的公章（不要签字）；<br>
+                                （2）个人申请-并在营业执照空白处由申请人本人签字（不要盖章）；<br>
+                                上传材料要求：请上传主体资格证明文件(中文)，格式为pdf，大小不超过2M的彩色扫描件</p>
+                        </div>
+                        <div class="fileName">
+                            <h3>范例：</h3>
+                            <p style="margin-left: 50px; bottom: -60px;">
+                                <a href="/img/公司营业执照.gif" target="_blank"><img style="width:94px;height:132px; "  src="/img/file-license-company@3x.png"></a><br>
+                                主体证明文件（公司）
+                                <!--<a v-if="pic_img_zt" :href="pic_img_wt" target="_blank">点击预览</a>-->
+                                <!--<a class="delDoc" href="javascript:" v-on:click="delFile('ztFilePath')"></a>-->
+                            </p>
+                            <p style="margin-left: 200px; bottom: -60px;">
+                                <a href="/img/个体执照(1).gif" target="_blank"><img style="width:94px;height:132px; "  src="/img/个人营业执照签字.png"></a><br>
+                                主体证明文件（个人）
+                            </p>
+                        </div>
+                       <!-- <div class="fileName" v-if="ztFilePath&&!entrustFalg">
+                            <p>
+                                <span class="docType">${ztFilePath.type}</span><a class="docName">${ztFilePath.name}</a><a class="delDoc" href="javascript:" v-on:click="delFile('ztFilePath')"></a>
+                            </p>
+                        </div>-->
+                    </div>
+
+                    <!--<div v-if="!entrustFalg" class="uploadCon clearfix" id="entrustDoc">
+                        <div class="floatLeft">
+                            <div class="uploadBtn">
+                                <img src="/img/icon-companyinfo-upload.png"/>
+                                <p class="text-center">上传委托文件</p>
+                                <input type="hidden" id="entrustDocInput">
+                            </div>
+                            <p class="errMeg">委托书格式必须是jpg类型图片 大小不超过2M</p>
+                        </div>
+                        <div class="fileName" v-if="wtFilePath">
+                            <p>
+                                <span class="docType">${wtFilePath.type}</span><a class="docName">${wtFilePath.name}</a><a class="delDoc" href="javascript:" v-on:click="delFile('wtFilePath')"></a>
+                            </p>
+                        </div>
+                    </div>
+                    <div v-if="!entrustFalg" class="uploadCon clearfix m-t-lg" id="mainBodyDoc">
+                        <div class="floatLeft">
+                            <div class="uploadBtn">
+                                <img src="/img/icon-companyinfo-upload.png"/>
+                                <p class="text-center">上传主体证明文件</p>
+                                <input type="hidden" id="mainBodyDocInput">
+                            </div>
+                        </div>
+                        <div class="fileName" v-if="ztFilePath">
+                            <p>
+                                <span class="docType">${ztFilePath.type}</span><a class="docName">${ztFilePath.name}</a><a class="delDoc" href="javascript:" v-on:click="delFile('ztFilePath')"></a>
+                            </p>
+                        </div>
+                    </div>-->
+                    <!--其他产品-->
+                    <div class="uploadCon clearfix m-t-lg" id="IdCardAgainst" v-if="!!returnData.businessData.businessDetail.zgOrderTrademark.btype && _oData.orderData.pcode != 'tr_reg_11'">
+                        <div class="floatLeft">
+                            <div class="uploadBtn">
+                                <img src="/img/icon-companyinfo-upload.png"/>
+                                <p class="text-center">上传身份证</p>
+                                <input type="hidden" id="IdCardInput1">
+                            </div>
+                            <!--<p v-if="entrustFalg" class="errMeg">请上传身份证正反面，文件格式必须是jpg,png,bmp类型图片 大小不超过2M</p>
+                            <p v-if="!entrustFalg" class="errMeg">身份证文件格式必须是jpg,png,bmp类型图片 大小不超过2M</p>-->
+                            <p class="errMeg">请将身份证正反面扫描至一张纸上并签字上传</p>
+                            <p class="errMeg">身份证文件格式必须是jpg、png、bmp类型图片 大小不超过2M</p>
+                        </div>
+                        <div class="IdCard clearfix m-l-md" v-if="idcardFilePath">
+                            <dl class="m-r-md">
+                                <dt>
+                                    <a :href="pic_img_sfz" target="_blank">
+                                        <!--<a v-if="entrustFalg" :href="pic_img_sfz" target="_blank">点击预览</a>-->
+                                        <img v-bind:src="pic_img_sfz" alt="" height="64">
+                                    </a>
+                                </dt>
+
+                                <dd><a class="delDoc" href="javascript:" v-on:click="delFile('idcardFilePath')"></a></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <!--318-->
+                    <div class="uploadCon clearfix m-t-lg" id="IdCardAgainst" v-if="!!returnData.businessData.businessDetail.zgOrderTrademark.btype && _oData.orderData.pcode == 'tr_reg_11'">
+                        <p style="margin:5px 0 15px; color:#727f8f;font-size: 12px;"><span style="color:red;">*</span>身份证上传</p>
+                        <div class="floatLeft">
+                            <div class="uploadBtn" v-show="!pic_img_sfz">
+                                <img src="\img\icon_upload_plus.png"/>
+                                <!--<p class="text-center">上传身份证</p>-->
+                                <input type="hidden" id="IdCardInput">
+                            </div>
+                            <div class="pictureShow" v-show="pic_img_sfz">
+                                <a :href="pic_img_sfz" target="_blank" download><img class="picture" src="/img/group-9.png"  alt="" style="width:102px;height:102px;display: inline-block"></a>
+                                <img src="/img/icon-companyinfo-delete.png" style="position: absolute;left:73px;top: 73px;" @click="pic_img_sfz = ''">
+                            </div>
+                            <p v-if="entrustFalg"style="font-size: 12px; margin-top: 10px; line-height: 20px;">
+                                <span style="color:#a34a51;">签字要求：</span><br>
+                                请在身份证正反面复印件上签字（不要盖章）；<br>
+                                上传材料要求：请上传由申请人本人签字的身份证明文件的正反面彩<br>
+                                色扫描件(中文)，格式为pdf，大小不超过2M。
+                            </p>
+                            <p v-if="!entrustFalg" class="errMeg">身份证文件格式必须是pdf类型图片 大小不超过2M</p>
+                        </div>
+                        <div class="IdCard clearfix m-l-md" style="width:590px;float:right;position: relative">
+                            <h3 style="position:absolute;">范例：</h3>
+                            <dl class="m-r-md"  style="position: absolute;left:50px;top: -28px;">
+                                <dt>
+                                    <a href="/img/身份证.gif" target="_blank">
+                                    <!--<a v-if="entrustFalg" :href="pic_img_sfz" target="_blank">点击预览</a>-->
+                                       <img src="/img/file-id@3x.png" alt="" height="132" width="94">
+                                    </a>
+                                </dt>
+                                <dd><a class="delDoc" href="javascript:" v-on:click="delFile('idcardFilePath')"></a></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="customSure">
+                        <button v-if="!Text318" class="btn m-r-md" type="button" v-on:click="goBack('other')">返回修改</button>
+                        <button v-if="Text318" class="btn m-r-md" type="button" v-on:click="goBack('318')">返回修改</button>
+                        <button data-method="notice" class="btn" type="button" v-on:click="customSureUrgent($event,'other')">确认</button>
+                        <button  v-if="Text318" class="btn m-r-md" type="button" v-on:click="customSureUrgent($event,'318')" style="background-color: #a3e99e;">暂存</button>
+                    </div>
+            </div>
+        </div>
+        <div v-if="returnData.businessData.atPresentNodes.stepnum>1||Text318" class="order-info">
+                <div class="order-info-title">订单信息</div>
+                <div class="order-info-content">
+                    <div class="order-info-content-l">
+                        <dl>
+                            <dt><img src="/img/icon-orderdetail-orderinfo.png" alt=""/>订单信息</dt>
+                            <dd>商品名称：${ returnData.businessData.orderData.pname }</dd>
+                            <dd v-for="item in returnData.businessData.addChannel">${item.feeChargedTypename}：${item.feeChargedName} * ${ item.buyNum }</dd>
+                            <dd>金额：￥${ returnData.businessData.orderData.money }</dd>
+                        </dl>
+                        <dl class="order-info-content-l-second">
+                            <dt><img src="/img/icon-orderdetail-invoice.png" alt=""/>发票信息</dt>
+                            <dd v-if="invoicData.unitName">发票抬头 ：${ invoicData.unitName }</dd>
+
+                            <dd v-if="invoicData.billType == 1">发票类型 ：普票 </dd>
+                            <dd v-if="invoicData.billType == 2">发票类型 ：专票 </dd>
+                            <dd v-if="invoicData.billType == 3">发票类型 ：未选择 </dd>
+                            <dd v-if="invoicData.billStatus"><span style="float:left;">开票状态 ：</span>
+                                <div style="float:left;width:260px;word-break:break-word;">
+                                    <span v-if="invoicData.billStatus == 1">未开票</span>
+                                    <span v-if="invoicData.billStatus == 2">已开票</span>
+                                    <span v-if="invoicData.billStatus == 3">已邮寄</span>
+                                    <span v-if="invoicData.billStatus == 4">已退回</span>
+                                    <div v-show="invoicData.billLinks.length > 0" style="color:#727f8f;">
+                                        <a :href="val" target="_blank" v-for="val in invoicData.billLinks" style="display:block;">${val}</a>
+                                    </div>
+                                </div>
+                            </dd>
+
+                            <!--0：邮政小包;1:顺丰快递2：申通快递 3：邮政EMS 4：圆通快递 5：其他快递-->
+                            <dd v-show="invoicData.zgYjBillOfContractVo && kddType"><span style="float:left;">邮寄单号：</span>
+                                <div style="float: left;">
+                                    <div v-for="item in invoicData.zgYjBillOfContractVo">
+                                        <span>${item.kddhNbrs}</span>(<span v-show="item.yjType == 0">邮政小包</span>
+                                        <span v-show="item.yjType == 1">顺丰快递</span>
+                                        <span v-show="item.yjType == 2">申通快递</span>
+                                        <span v-show="item.yjType == 3">邮政EMS</span>
+                                        <span v-show="item.yjType == 4">圆通快递</span>
+                                        <span v-show="item.yjType == 5">其他快递</span>)；
+                                    </div>
+                                </div>
+                            </dd>
+                            <dd v-if="!invoicData.unitName"></dd>
+                        </dl>
+                    </div>
+                    <div class="order-info-content-c">
+                        <dl>
+                            <dt><img src="/img/icon-orderdetail-contactperson.png" alt=""/>联系人信息</dt>
+                            <dd>姓名：${ returnData.businessData.orderData.userName }</dd>
+                            <dd>手机号码：${ returnData.businessData.orderData.zuTel }</dd>
+                        </dl>
+                        <dl class="order-info-content-c-second">
+                            <dt><img src="/img/icon-orderdetail-mailingperson.png" alt=""/>收件人信息</dt>
+                            <dd>姓名：${ returnData.businessData.orderData.recipientName }</dd>
+                            <dd>手机号码：${ returnData.businessData.orderData.recipientPhone }</dd>
+                            <dd>邮寄地址：<span>${ returnData.businessData.orderData.address }</span></dd>
+                        </dl>
+                    </div>
+                    {{> gwList}}
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="/js/getCookies.js"></script>
+<script>
+    var user1 = JSON.parse(getCookie('_zg_user'));
+    var _oData = {{{data}}};
+    var odata = _oData.oData;
+    var error = _oData.businessDetail.zgOrderTrademark.remark ? _oData.businessDetail.zgOrderTrademark.remark : '';
+    // _oData.orderData.orderId + '/' + user1.id             {"orderId":_oData.orderData.orderId,"id":user1.id}
+    var uid = parseInt(user1.id)
+    if(window.localStorage.getItem('isLogin') == 'true'){
+        axios.post('/userCenter/validateOrderIfSameUserByOrderId/',{"id":_oData.orderData.orderId, "uid": uid}).then(function(res){
+            if(!res.data.success){
+                layui.use('layer',function(){
+                    layer.open({
+                        title:'提示',
+                        content:'<p style="text-align: center;">' + res.data.message + '</p>',
+                        btn: false
+                    });
+                })
+            }
+        })
+    }
+
+    //处理未支付或已退款状态
+    if(_oData.orderData.status === -1 || _oData.orderData.status === 0){
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.alert('该订单未支付或已退款!',{
+                icon: 5,
+                closeBtn: 0,
+                btn:['返回订单列表'],
+                yes:function (index) {
+                    layer.close(index);
+                    window.location.href='/userOrder';
+                }
+            });
+        });
+    }
+    var _trademarkReg = new Vue({
+        delimiters: ['${', '}'],
+        el: '#trademarkReg',
+        data: {
+            NORTIGER: "/uploads/" + _oData.businessDetail.zgOrder.uid + "_" + _oData.orderData.orderId + ".jpg"+"?t="+new Date().getTime(),
+            isTrname : false,
+            booler : false,
+            error: error,
+            isCompile : 0,
+            isShow : false, //两个搜索框显示与隐藏
+            keyId : '',//搜索的大类ID
+            keyWordSearch : '',//大类搜索小项的文字
+            txtType : ['jpg'],
+            contractUrl : zgg.Vconfig.contractUrl,
+            addTaxpayerPath : '',//上传路径
+            invoicData : '',
+            returnData:{
+                firstList: '',
+                subList: '',
+                endList: '',
+                setRedId:[],
+                ItemLen: _oData.orderData.category || 10,
+                businessData: _oData,
+                Items : _oData.businessDetail.zgOrderTrademark.items?JSON.parse(_oData.businessDetail.zgOrderTrademark.items):[]
+            },
+            params:{
+                id: _oData.businessDetail.zgOrderTrademark.id||'',
+                orderid: _oData.params.orderId,
+                name: _oData.businessDetail.zgOrderTrademark.name || '',
+                items: [],
+                btype: JSON.stringify(_oData.businessDetail.zgOrderTrademark.btype) ||'',
+                bid: _oData.businessDetail.zgOrderTrademark.bid || '',
+                status: _oData.businessDetail.zgOrderTrademark.status || '',
+                pic: _oData.businessDetail.zgOrderTrademark.pic || '',
+                content: "",
+                designFont: 0,
+                isColorApply: 0,
+                isReport: 0,
+                iscolorgroup: 0,
+                iscommon: 0,
+                isportrait: 0,
+                ispriority: 0,
+                issd: 0,
+                isvoice: 0,
+                reportType: 0,
+                sealFont: 0,
+                wtFilePath: _oData.businessDetail.zgOrder.pcode=='tr_reg_11'?_oData.businessDetail.zgOrderTrademark.wtFile:'',
+                ztFilePath: _oData.businessDetail.zgOrder.pcode=='tr_reg_11'?_oData.businessDetail.zgOrderTrademark.ztFile: '',
+                idcardFilePath: _oData.businessDetail.zgOrder.pcode=='tr_reg_11'?_oData.businessDetail.zgOrderTrademark.idcardFile: '',
+                category:_oData.businessDetail.zgOrderTrademark.category||''
+            },
+            pcode_318:_oData.businessDetail.zgOrder.pcode,
+            chooseIs: false,
+            subItemIs: false,
+            checkboxIs: false,
+            selectedDesc: '',
+            optType: '',
+            keywords: '',
+            isSearch: false,
+            isEntrust: _oData.orderData.isentrust,
+            picUrl :_oData.businessDetail.zgOrderTrademark.pic ? _oData.businessDetail.domain + _oData.businessDetail.zgOrderTrademark.pic :'',
+            ImgIp : zgg.Vconfig.contractUrl,
+            fistDesc : _oData.businessDetail.zgOrderTrademark.items?JSON.parse(_oData.businessDetail.zgOrderTrademark.items):[],
+            secondDesc :_oData.businessDetail.zgOrderTrademark.items?JSON.parse(_oData.businessDetail.zgOrderTrademark.items)[0].objs:[],
+            patDesc : _oData.businessDetail.zgOrderTrademark.items?JSON.parse(_oData.businessDetail.zgOrderTrademark.items):[],
+            categoryCont : 0,
+            wtFilePath:_oData.businessDetail.zgOrder.pcode=='tr_reg_11'?_oData.businessDetail.zgOrderTrademark.wtFile:'',
+            ztFilePath:_oData.businessDetail.zgOrder.pcode=='tr_reg_11'? _oData.businessDetail.zgOrderTrademark.ztFile:'',
+            idcardFilePath:_oData.businessDetail.zgOrder.pcode=='tr_reg_11'?_oData.businessDetail.zgOrderTrademark.idcardFile:'',
+            adviser:"",
+            gwPicUrl:zgg.Vconfig.gwPicUrl,
+            odataList:[],
+            ImgUrl:zgg.Vconfig.ImgUrl,
+            currentPage:0,
+            subSelectId:null,
+            entrustFalg: _oData.businessDetail.zgOrder.pcode=='tr_reg_11'?true:false,
+            //Text318:_oData.fileText.downloadPath == 0 ? false : true,
+            Text318: !!_oData.fileText ? _oData.fileText.downloadPath == 0 ? false : true : '',
+            fileText:_oData.fileText,
+            loaddingIs:false,
+            bussRule:false,
+            picRule:false,
+            backChose:false,
+            pic_img_wt:_oData.businessDetail.zgOrderTrademark.wtFile?zgg.Vconfig.contractUrl+_oData.businessDetail.zgOrderTrademark.wtFile:"",
+            pic_img_zt:_oData.businessDetail.zgOrderTrademark.ztFile?zgg.Vconfig.contractUrl+_oData.businessDetail.zgOrderTrademark.ztFile:"",
+            pic_img_sfz:_oData.businessDetail.zgOrderTrademark.idcardFile?zgg.Vconfig.contractUrl+_oData.businessDetail.zgOrderTrademark.idcardFile:"",
+            kddType:false,
+        },
+        methods: {
+            dialog:function(type){
+                //type为0   点击的是商标名称表单
+                //    为1   点击的是商标图片上传组件
+                if(type == 0){
+                    if($('#disabled').attr('disabled')){
+                        layer.open({
+                            content:'<p style="text-align: center">请选择主体后，在完善商标细节</p>',
+                            btnAlign: 'c'
+                        })
+                    }
+                }else{
+                    layer.open({
+                        content:'<p style="text-align: center">请选择主体后，在完善商标细节</p>',
+                        btnAlign: 'c'
+                    })
+                }
+            },
+            //商标验证
+            loseFocus:function(name){
+                _trademarkReg.isTrname  = false;
+                var val = _trademarkReg.params.name || '';
+                var a=null;
+                var b=null;
+                var c=null;
+                var d=null;
+                var a_re=/^(?!_)([\u4e00-\u9fa5 。！& .!&]+)$/;
+                var b_re=/^(?!_)([A-Za-z 。！& .!&]+)$/;
+                var c_re=/^(?!_)([0-9 。！& .!&]+)$/;
+                var d_re="图形";
+                //var tr_desc=$scope.initDesc || '本商标由*构成，';
+                var desc = '';
+                //根据商标名称初始化商标描述
+                function replace(desc){
+                    if((a!=null && b==null && c==null && d==null) || (a!=null && b==null && c==null && d!=null)){
+                        desc='中文“'+a+'”';
+                    }else{
+                        if(a!=null){
+                            desc='中文“'+a+'”，';
+                        }
+                    }
+                    if((b!=null && c==null && d==null) || (b!=null && c==null && d!=null)){
+                        desc+='字母“'+b+'”';
+                    }else if(b!=null){
+                        desc+='字母“'+b+'”，';
+                    }
+                    if(c!=null){
+                        desc+='数字“'+c+'”';
+                    }
+                    if(d!=null && b==null && c==null && a==null){
+                        desc+='图形';
+                    }else if(d!=null){
+                        desc+='及图形';
+                    }
+                    if(desc !=''){
+                        return tr_desc.replace('*',desc)
+                    }
+                }
+                function check_name(name) {
+                    debugger
+                    a = null;
+                    b = null;
+                    c = null;
+                    d = null;
+                    var nameArr = name.split("+");
+                    if (nameArr.length == 1) {
+                        if (a_re.test(nameArr[0]) && nameArr[0] != "图形") {
+                            a = nameArr[0];
+                        } else if (b_re.test(nameArr[0])) {
+                            b = nameArr[0];
+                        } else if (c_re.test(nameArr[0])) {
+                            c = nameArr[0];
+                        } else if (d_re == nameArr[0]) {
+                            d = nameArr[0];
+                        } else {
+                            return false;
+                        }
+                    } else if (nameArr.length == 2) {
+                        if (a_re.test(nameArr[0]) && nameArr[0] != "图形") {
+                            a = nameArr[0];
+                            if (b_re.test(nameArr[1])) {
+                                b = nameArr[1];
+                            } else if (c_re.test(nameArr[1])) {
+                                c = nameArr[1];
+                            }
+                            else if (d_re == nameArr[1]) {
+                                d = nameArr[1];
+                            } else {
+                                return false;
+                            }
+                        } else if (b_re.test(nameArr[0])) {
+                            b = nameArr[0];
+                            if (c_re.test(nameArr[1])) {
+                                c = nameArr[1];
+                            }
+                            else if (d_re == nameArr[1]) {
+                                d = nameArr[1];
+                            } else {
+                                return false;
+                            }
+                        } else if (c_re.test(nameArr[0])) {
+                            c = nameArr[0];
+                            if (d_re == nameArr[1]) {
+                                d = nameArr[1];
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            return false;
+                        }
+                    } else if (nameArr.length == 3) {
+
+                        if (a_re.test(nameArr[0]) && nameArr[0] != "图形") {
+                            a = nameArr[0];
+
+                            if (b_re.test(nameArr[1])) {
+                                b = nameArr[1];
+                            } else if (c_re.test(nameArr[1])) {
+                                c = nameArr[1];
+                            } else {
+                                return false;
+                            }
+
+                            if (c_re.test(nameArr[2]) && c == null) {
+                                c = nameArr[2];
+                            } else if (d_re == nameArr[2]) {
+                                d = nameArr[2];
+                            } else {
+                                return false;
+                            }
+
+                        } else if (b_re.test(nameArr[0])) {
+                            b = nameArr[0];
+
+                            if (c_re.test(nameArr[1])) {
+                                c = nameArr[1];
+                            } else {
+                                return false;
+                            }
+
+                            if (d_re == nameArr[2]) {
+                                d = nameArr[2];
+                            } else {
+                                return false;
+                            }
+
+                        } else {
+                            return false;
+                        }
+
+                    } else if (nameArr.length == 4) {
+
+                        if (a_re.test(nameArr[0]) && nameArr[0] != "图形") {
+                            a = nameArr[0];
+                        } else {
+                            return false;
+                        }
+
+                        if (b_re.test(nameArr[1])) {
+                            b = nameArr[1];
+                        } else {
+                            return false;
+                        }
+
+                        if (c_re.test(nameArr[2])) {
+                            c = nameArr[2];
+                        } else {
+                            return false;
+                        }
+
+                        if (d_re == nameArr[3]) {
+                            d = nameArr[3];
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                    return true;
+                }
+                if(val){
+                    if(!check_name(val)){
+                        _trademarkReg.isTrname = true;
+                        layer.msg('请输入正确的商标名称！' + '<br>' + '商标名称书写 应当按照 汉字+英文+数字+图形的顺序书写',{
+                            area:600
+                        });
+                        return;
+                    }
+                }
+            },
+            /*
+            * ** 商标图片上传
+            *
+            */
+            updataFile:function (_str,queId,imgUrl,other) {
+                if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0") {
+                    var _fileSizeLimit =  '200KB', _fileTypeExts = '*.jpg;';
+                    if(_oth === 'other' ){
+                        _fileSizeLimit =  '200KB';
+                        _fileTypeExts = '*.jpg;';
+                    }
+                    $(_str).uploadify({
+                        'auto' : true,
+                        'queueID' : queId,
+                        'checkScript':'/upload/check',
+                        'uploadScript' : '/upload/profile',
+                        'buttonCursor':'hand',
+                        'buttonText':'',
+                        "buttonClass":"addFile",
+                        'width': 90,
+                        'method' : 'post',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': '*.jpg;',
+                        'progressData':'percentage',
+                        'formData':{
+                            'fType':"ft_8"
+                        },
+                        'onDrop':function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onFallback':function () {
+                            alert('请安装或升级更高版本的Flash插件');
+                        },
+                        'onUploadComplete' : function(file, data1, response) {
+                            var render=new FileReader();
+                            render.onload=function (e) {
+                                var data=e.target.result;//读取的结果
+                                var image=new Image();
+                                image.onload=function () {
+                                    var width=image.width,
+                                            height=image.height;
+                                    if(width < 400 || width > 1500){
+                                        layer.msg('图形像素介于“400×400－1500×1500”之间');
+                                        return false;
+                                    }else if(height < 400 || height > 1500){
+                                        layer.msg('图形像素介于“400×400－1500×1500”之间')
+                                        return false;
+                                    }else{
+                                        if(imgUrl == 'addTaxpayerPath'){
+                                            _trademarkReg.params.pic = JSON.parse(data1).data.filePath;
+                                            _trademarkReg.addTaxpayerPath = _trademarkReg.contractUrl + JSON.parse(data1).data.filePath;
+                                            //_trademarkReg.addTaxpayerPath =  _trademarkReg.invoiceData.taxpayerPath;*/
+                                            layer.msg('上传成功',{icon:1});
+                                        }
+                                    }
+                                };
+                                image.src=data;
+                            };
+                            render.readAsDataURL(file);
+                        },
+                        'onCheck'  : function(file, exists) {
+                            if (_trademarkReg.txtType.indexOf(file.name.split(".")[file.name.split(".").length - 1]) == -1) {
+                                layer.msg("请上传jpg格式图片！");
+                                $(_str).uploadifive('cancel', file)
+                            }
+                        },
+                        'onError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                }else{
+                    $(_str).uploadifive({
+                        'auto' : true,
+                        'queueID' : queId,
+                        'checkScript':'/upload/check',
+                        'uploadScript' : '/upload/profile',
+                        'buttonCursor':'hand',
+                        'buttonText':'',
+                        "buttonClass":"addFile",
+                        'width': 90,
+                        'method' : 'post',
+                        'fileSizeLimit ': 1024 * 1024 * 2,
+                        'fileType': '*.jpg;',
+                        'progressData':'percentage',
+                        'formData':{
+                            'fType':"ft_8"
+                        },
+                        'onDrop':function(file, fileDropCount) {
+                            debugger;
+                        },
+                        'onUploadComplete' : function(file, data1, response) {
+                            var render=new FileReader();
+                            render.onload=function (e) {
+                                var data=e.target.result;//读取的结果
+                                var image=new Image();
+                                image.onload=function () {
+                                    var width=image.width,
+                                            height=image.height;
+                                    if(width < 400 || width > 1500){
+                                        layer.msg('图形像素介于“400×400－1500×1500”之间');
+                                        return false;
+                                    }else if(height < 400 || height > 1500){
+                                        layer.msg('图形像素介于“400×400－1500×1500”之间')
+                                        return false;
+                                    }else{
+                                        if(imgUrl == 'addTaxpayerPath'){
+                                            _trademarkReg.params.pic = JSON.parse(data1).data.filePath;
+                                            _trademarkReg.addTaxpayerPath = _trademarkReg.contractUrl + JSON.parse(data1).data.filePath;
+                                            //_trademarkReg.addTaxpayerPath =  _trademarkReg.invoiceData.taxpayerPath;*/
+                                        }
+                                        layer.msg('上传成功',{icon:1});
+                                    }
+                                };
+                                image.src=data;
+                            };
+                            render.readAsDataURL(file);
+                            /*getImageSize(file)
+                            if(imgUrl == 'addTaxpayerPath'){
+                                _trademarkReg.addTaxpayerPath = JSON.parse(data).data.filePath;
+                                _trademarkReg.params.pic = _trademarkReg.addTaxpayerPath
+                               /!* _trademarkReg.invoiceData.taxpayerPath = JSON.parse(data).data.filePath;
+                                _trademarkReg.addTaxpayerPath =  _trademarkReg.invoiceData.taxpayerPath;*!/
+                                layer.msg('上传成功',{icon:1});
+                            }*/
+
+                        },
+                        'onCheck'  : function(file, exists) {
+                            if(_oData.orderData.pcode == 'tr_reg_11'){
+                                if(imgUrl == 'addTaxpayerPath' && file.size/1024 >= 200){
+                                    layer.msg("请上传小于200KB的图片！");
+                                    $(_str).uploadifive('cancel', file)
+                                }
+
+                            }else{
+                                if(imgUrl == 'addTaxpayerPath' && file.size/1024 <= 10){
+                                    layer.msg("请上传大于10KB小于2M的图片！");
+                                    $(_str).uploadifive('cancel', file)
+                                }
+                            }
+                            if (_trademarkReg.txtType.indexOf(file.name.split(".")[file.name.split(".").length - 1].toLowerCase()) == -1) {
+                                layer.msg("请上传jpg格式图片！");
+                                $(_str).uploadifive('cancel', file)
+                            }
+                        },
+                        'onError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                }
+            },
+            initGetOrderDetail:function(){
+                axios.post('/userCenter/findBillInfOfOrderDetailsByOrderId/',{orderId : _oData.orderData.orderId}).then(function (res) {
+                    if(res.data.success && res.data.data){
+                        _trademarkReg.invoicData = res.data.data;
+                        if(!!_trademarkReg.invoicData.zgYjBillOfContractVo && _trademarkReg.invoicData.zgYjBillOfContractVo.length > 0){
+                            if(_trademarkReg.invoicData.zgYjBillOfContractVo[0].hasOwnProperty('kddhNbrs') && _trademarkReg.invoicData.zgYjBillOfContractVo[0].hasOwnProperty('yjType')){
+                                _trademarkReg.kddType = true;
+                            }
+                        }
+                    }
+                },function (err) {
+                    console.log(err);
+                })
+            },
+            showCategory:function(str){
+                if(str == 'com' && _oData.orderData.pcode == 'tr_reg_11'){
+                    _trademarkReg.subItemIs = true;
+                    _trademarkReg.getSubItem(_trademarkReg.patDesc[0].id)
+                }
+                _trademarkReg.chooseIs = true;
+                _trademarkReg.getFirstItem();
+                _trademarkReg.fistDesc = JSON.parse(JSON.stringify(_trademarkReg.patDesc));
+                _trademarkReg.secondDesc = JSON.parse(JSON.stringify(_trademarkReg.patDesc[0]?_trademarkReg.patDesc[0].objs:[]));
+                _trademarkReg.getCategoryCont();
+            },
+            showSubItem:function(id,desc){
+                _trademarkReg.subItemIs = true;
+                _trademarkReg.firstList = JSON.parse( JSON.stringify( _trademarkReg.patDesc ) )
+                _trademarkReg.getSubItem(id);
+                _trademarkReg.selectedDesc = desc;
+            },
+            hideCategory:function(){
+                _trademarkReg.chooseIs = false;
+            },
+            hideSubItem:function(){
+                _trademarkReg.subItemIs = false;
+            },
+            /*
+             * 一级数据
+             * */
+            getFirstItem:function(){
+                axios.get('/business/getCategoryFirstList').then(
+                        function (res) {
+                            _trademarkReg.returnData.firstList = res.data.data;
+                        }
+                )
+
+            },
+            /*
+             *   二级数据
+             * */
+            getSubItem:function(id){
+                axios.get('/business/getCategorySubList/'+id).then(
+                        function (res) {
+                            _trademarkReg.returnData.subList = res.data.data;
+                            /*setTimeout(function(){
+                                _trademarkReg.returnData.subList.forEach(function(v,i){
+                                    _trademarkReg.secondDesc.forEach(function(j,l){
+                                        if(v.id == j.id){
+                                            v.added = true;
+                                        }
+                                    })
+                                });
+                            },10)*/
+
+                            /*
+                             *   获取首个二级下的三级小项 data
+                             * */
+                            if(res.data.data){
+                                res.data.data[0].active = true;
+                                _trademarkReg.subSelectId = res.data.data[0].id;
+                                _trademarkReg.getEndItem(res.data.data[0].id);
+                            }
+                        }
+                )
+            },
+            /*
+             * 末级数据
+             * */
+            getEndItem:function(pid){
+                _trademarkReg.subSelectId = pid;
+                axios.get('/business/getCategoryEndList/'+pid).then(
+                        function (res) {
+                            _trademarkReg.returnData.endList = res.data.data;
+                            _trademarkReg.matchOpt( res.data.data );
+                        }
+                )
+            },
+            /*
+            *
+            * 小项提示
+            *
+            * */
+            setRed:function(){
+                (function del(){
+                    var arr = [];
+                    _trademarkReg.secondDesc.forEach(function(v,i){
+                        arr.push(v.id)
+                        if(v.objs.length == 0){
+                            var id = arr.indexOf(v.id);
+                            if(id == 'undefined'){
+                                return;
+                            }else{
+                                _trademarkReg.secondDesc.splice(id,1)
+                                del()
+                            }
+                        }
+                    })
+                    return _trademarkReg.secondDesc;
+                })();
+                console.log(_trademarkReg.secondDesc)
+                var arr = [];
+                _trademarkReg.secondDesc.forEach(function(j){
+                    arr.push(j.id)
+                })
+
+                _trademarkReg.returnData.subList.forEach(function(v,i){
+                    if(arr.indexOf(v.id) > -1){
+                        v.added = true;
+                    }else{
+                        delete(_trademarkReg.returnData.subList[i].added)
+                    }
+                })
+            },
+            /*
+             * 新增小项
+             *
+             * */
+            selectedOpt:function(item){
+                var _flag = true;
+                if(!_trademarkReg.secondDesc[0]){
+                    _trademarkReg.getcategoryByPid( item )
+                    item.added = !item.added;
+                    return ;
+                }
+                if(item.added){
+                    if(_trademarkReg.categoryCont > _trademarkReg.returnData.ItemLen){
+                        layer.msg('您购买的小项数量为：' + _trademarkReg.returnData.ItemLen + ',当前已选择小项数量为：' + _trademarkReg.categoryCont);
+                        return;
+                    }
+                }else{
+                    if(_trademarkReg.categoryCont >= _trademarkReg.returnData.ItemLen){
+                        layer.msg('您购买的小项数量为：' + _trademarkReg.returnData.ItemLen + ',当前已选择小项数量为：' + _trademarkReg.categoryCont);
+                        return;
+                    }
+                }
+                if(!_trademarkReg.categoryCont){
+                    _trademarkReg.secondDesc = [];
+                    _trademarkReg.fistDesc = [];
+                    //_trademarkReg.patDesc = [];
+                }
+
+                if(!_trademarkReg.categoryCont){
+//                    this.params.selectedItem.push(item);
+                    _trademarkReg.getcategoryByPid( item )
+                    item.added = !item.added;
+                }else{
+                    if( _trademarkReg.secondDesc[0].pid !== item.pid.substr(0,2)){
+                        layer.msg('不可跨大类进行选择，当前已选择的是：' + _trademarkReg.secondDesc[0].pid +'大类');
+                        return;
+                    }else{
+                        _trademarkReg.secondDesc.map(function (Item,key) {
+                            Item.objs.map(function (subItem,index) {
+                                if( subItem.key == item.key ){
+                                    Item.objs.splice(index,1);
+                                    _trademarkReg.categoryCont --;
+                                    return _flag =false;
+                                }
+                            })
+                        })
+                        if(_flag){
+                            /*
+                             *  小项追加之后 获取 首级以及次级 数据
+                             *
+                             * */
+                            _trademarkReg.getcategoryByPid( item )
+                        }
+                        item.added = !item.added;
+                    }
+                }
+                //this.setRed()
+            },
+            matchOpt:function( ItemData ){
+                if(!!ItemData.length){
+                    if(!!_trademarkReg.secondDesc[0]){
+                        ItemData.forEach(function (item, key) {
+                            _trademarkReg.secondDesc.map(function (subItem) {
+                                subItem.objs.map(function (selItem) {
+                                    if( item.key == selItem.key ){
+                                        item.added = true;
+                                    }
+                                })
+                            })
+                        })
+                    }
+                }
+
+
+            },
+            selectSure:function(){
+                if(!_trademarkReg.categoryCont){
+                    _trademarkReg.secondDesc = [];
+                    //_trademarkReg.fistDesc = [];
+                    //_trademarkReg.patDesc = [];
+                }
+                (function del(){
+                    var arr = [];
+                    if(_trademarkReg.fistDesc.length > 0){
+                        _trademarkReg.fistDesc[0].objs.forEach(function(v,i){
+                            arr.push(v.id)
+                            if(v.objs.length == 0){
+                                var id = arr.indexOf(v.id);
+                                if(id == 'undefined'){
+                                    return;
+                                }else{
+                                    _trademarkReg.fistDesc[0].objs.splice(id,1)
+                                    del()
+                                }
+                            }
+                        })
+                    }
+                })();
+                if(_oData.orderData.pcode == 'tr_reg_11'){
+                    if(_trademarkReg.categoryCont <= 0 ){
+                        layer.msg('最少选择一个小项！');
+                        return false;
+                    }
+                    if(_trademarkReg.returnData.ItemLen != _trademarkReg.categoryCont){
+                        var lay = layer.open({
+                            content:'最多可以选择' + _trademarkReg.returnData.ItemLen + '个小项，您只选择了' + _trademarkReg.categoryCont + '个小项',
+                            btn:['确认提交','继续选择'],
+                            btnAlign: 'c',
+                            btn1:function(){
+                                _trademarkReg.patDesc = _trademarkReg.fistDesc;
+                                layer.close(lay)
+                                _trademarkReg.chooseIs = false;
+                                _trademarkReg.subItemIs = false;
+                                _trademarkReg.isShow = false;
+                                _trademarkReg.keyWordSearch = '';
+                                _trademarkReg.keywords = '';
+                            },
+                            btn2:function(){
+                                _trademarkReg.chooseIs = true;
+                                _trademarkReg.subItemIs = true;
+                                _trademarkReg.isShow = true;
+                            },
+                        })
+                    }else if(_trademarkReg.returnData.ItemLen == _trademarkReg.categoryCont){
+                        _trademarkReg.chooseIs = false;
+                        _trademarkReg.subItemIs = false;
+                        _trademarkReg.isShow = false;
+                        _trademarkReg.keyWordSearch = '';
+                        _trademarkReg.keywords = '';
+                        _trademarkReg.patDesc = _trademarkReg.fistDesc;
+                    }
+                }else{
+                    _trademarkReg.chooseIs = false;
+                    _trademarkReg.subItemIs = false;
+                    _trademarkReg.isShow = false;
+                    _trademarkReg.keyWordSearch = '';
+                    _trademarkReg.keywords = '';
+                    _trademarkReg.patDesc = _trademarkReg.fistDesc;
+                }
+
+                //_trademarkReg.patDesc = _trademarkReg.fistDesc;
+                _trademarkReg.secondDesc.map(function (item, index) {
+                    if(!item.objs.length){
+                        _trademarkReg.secondDesc.splice(index,1)
+                    }
+                })
+
+
+            },
+            /*
+             *   根据pid 查询二级数据
+             * */
+            getcategoryByPid: function ( item ) {
+                var _flag = true;
+                axios.get('/business/getcategoryByPid/'+item.pid).then(
+                        function (res) {
+                            res.data.data.objs = [];
+                            _trademarkReg.secondDesc.map(function (Item) {
+                                if( Item.key == res.data.data.key ){
+                                    _flag = false
+                                }
+                            })
+                            if( _flag ){
+                                res.data.data.objs.push( item ) ;
+                                _trademarkReg.secondDesc.push( res.data.data )
+                            }else{
+                                _trademarkReg.secondDesc.map(function (Item) {
+                                    if( Item.id == item.pid){
+                                        Item.objs.push(item)
+                                    }
+                                })
+                            }
+                            _trademarkReg.categoryCont ++;
+                            _trademarkReg.params.category = item.pid.substr(0,2)
+                            _trademarkReg.getcategoryById( res.data.data.pid.substr(0,2) )
+
+                        }
+                )
+
+            },
+            /*
+             * 当数据回显时  获取下已选择小项数量
+             *
+             * */
+            getCategoryCont: function () {
+                var _num = 0;
+                _trademarkReg.patDesc.map(function (Item) {
+                    Item.objs.map(function (subItem) {
+                        subItem.objs.map(function () {
+                            _num ++;
+                        })
+                    })
+                })
+                _trademarkReg.categoryCont = _num;
+            },
+            /*
+             *   根据id 查询一级数据
+             * */
+            //获取点击大类的ID
+            getId:function(id){
+                if(_oData.orderData.pcode == 'tr_reg_11'){
+                    if(_trademarkReg.patDesc.length == 0 ){
+                        _trademarkReg.secondDesc = [];
+                        _trademarkReg.params.category = id;
+                        axios.post('/business/selectTrademarkItemsByCategory/',{category:id}).then(function(res){
+                            var data = JSON.parse(res.data.data.items),_data = null;
+                            _trademarkReg.fistDesc = data;
+                            data[0].objs.forEach(function(i,v){
+                                _trademarkReg.secondDesc.push(i)
+
+                            })
+                            _trademarkReg.categoryCont = 10;
+                        });
+                    }
+                    id < 10 ? id =id.substr(-1,1) : id = id;
+                    _trademarkReg.keyId = id;
+                    _trademarkReg.isShow = true;
+                }
+                /*setTimeout(function(){
+                    _trademarkReg.returnData.subList.forEach(function(v,i){
+                        _trademarkReg.secondDesc.forEach(function(j,l){
+                            if(v.id == j.id){
+                                v.added = true;
+                            }
+                        })
+                    })
+                    console.log(_trademarkReg.secondDesc)
+                },110)
+                _trademarkReg.secondDesc*/
+            },
+            //大项搜索小项
+            Searchkey:function(id){
+               if(_trademarkReg.keyWordSearch.length){
+                   axios.post('/business/getZgTrademarkThreeList/',{"sbjSortname": _trademarkReg.keyWordSearch,"sbjType": _trademarkReg.keyId}).then(function(res){
+                       _trademarkReg.returnData.subList = '';
+                       _trademarkReg.returnData.endList = res.data.data;
+                       _trademarkReg.secondDesc.map(function(Item,j){
+                            Item.objs.map(function(o,p){
+                                _trademarkReg.returnData.endList.map(function(v,i){
+                                    if(o.key == v.key ){
+                                        v.added = true;
+                                    }
+                                })
+                            })
+                       })
+
+                   })
+               }
+                var id = _trademarkReg.keyId < 10 ? '0'+_trademarkReg.keyId :_trademarkReg.keyId
+               if(!_trademarkReg.keyWordSearch.length){
+                   this.getSubItem(id)
+               }
+            },
+
+            verify:function(){
+
+                if(/([^u4E00-u9FA5])+|(\[a-zA-Z0-9]+)+|([^u4E00-u9FA5])/g.test(_trademarkReg.params.name)){
+                    _trademarkReg.booler = false;
+                }else{
+                    _trademarkReg.booler = true;
+                }
+            },
+
+            getcategoryById: function ( id ) {
+                axios.get('/business/getcategoryById/'+id).then(
+                        function (res) {
+                            if( !_trademarkReg.fistDesc.id ){
+                                _trademarkReg.fistDesc = res.data.data;
+                                _trademarkReg.fistDesc[0].objs = _trademarkReg.secondDesc
+                            }else{
+                                _trademarkReg.fistDesc[0].objs = _trademarkReg.secondDesc
+                            }
+                        }
+                )
+            },
+            selectCancel:function(){
+                _trademarkReg.fistDesc = JSON.parse(JSON.stringify(_trademarkReg.patDesc));
+                _trademarkReg.secondDesc = JSON.parse(JSON.stringify(_trademarkReg.patDesc[0]?_trademarkReg.patDesc[0].objs:[]));
+                _trademarkReg.subItemIs = false;
+                _trademarkReg.getCategoryCont();
+                _trademarkReg.isShow = false;
+                _trademarkReg.keyWordSearch = '';
+                _trademarkReg.keywords = '';
+            },
+            delItem:function( item ){
+                _trademarkReg.secondDesc.map(function (Item, key) {
+                    Item.objs.map(function (subItem,index) {
+                        if( subItem.key == item.key ){
+                            Item.objs.splice(index,1)
+                            return subItem.added = false;
+                        }
+                    })
+                })
+                _trademarkReg.returnData.endList.map(function (val) {
+                    if( val.key == item.key){
+                        val.added = false;
+                    }
+                })
+                if(!_trademarkReg.categoryCont){
+                    _trademarkReg.params.category = null;
+                    _trademarkReg.secondDesc = [];
+                    //_trademarkReg.fistDesc = [{}];
+                    //_trademarkReg.patDesc = [];
+                }else{
+                    _trademarkReg.fistDesc[0].objs = _trademarkReg.secondDesc
+                }
+                _trademarkReg.categoryCont --;
+                //this.setRed();
+
+            },
+            delAllSelect:function( item ){
+                _trademarkReg.secondDesc = [];
+                _trademarkReg.fistDesc = [];
+                _trademarkReg.patDesc = [];
+                _trademarkReg.params.category = null;
+                _trademarkReg.returnData.endList.forEach(function (item) {
+                    item.added = false;
+                })
+                _trademarkReg.categoryCont = 0;
+            },
+            searchItem:function() {
+                if(!!_trademarkReg.keywords.length){
+                    axios.get('/business/searchItem/' + encodeURI(this.keywords)).then(
+                            function (res) {
+                                _trademarkReg.isSearch = true;
+                                _trademarkReg.subItemIs = true;
+                                _trademarkReg.returnData.subList = '';
+                                _trademarkReg.selectedDesc = "根据关键字：" + _trademarkReg.keywords + '，搜索到以下数据';
+                                _trademarkReg.returnData.endList = res.data.data;
+                                _trademarkReg.matchOpt(res.data.data)
+                            }
+                    )
+                }else{
+                    _trademarkReg.isSearch = false;
+                    _trademarkReg.subItemIs = false;
+                }
+
+            },
+            entrust:function(){
+                axios.post('/business/entrust/' + _oData.params.orderId).then(
+                        function (res) {
+                            if(res.data.success){
+                                layer.msg('委托办理成功');
+                                _trademarkReg.isEntrust = 1;
+                            }
+                        }
+                )
+            },
+            cencelEntrust:function(){
+                axios.post('/business/cancelentrust/' + _oData.params.orderId).then(
+                        function (res) {
+                            if(res.data.success){
+                                layer.msg('成功取消委托处理');
+                                _trademarkReg.isEntrust = 0;
+                            }
+                        }
+                )
+            },
+            selectRadio:function(argument,btype){
+                _trademarkReg.params.bid = argument.id;
+                _trademarkReg.params.btype = btype;
+                _trademarkReg.params.status = argument.status;
+                if(argument.status==0&&_oData.businessDetail.zgOrder.pcode=='tr_reg_11'){
+                    layer.msg('您好！您选择的主体暂未审核通过，未经审核的主体信息，可能造成申请错误。请耐心等待主体审核完毕后再进行信息填写！',{icon:2});
+                }
+            },
+            save: function (_str) {
+                /*axios.post('/userCenter/validateOrderIfSameUserByOrderId/',{"id":_oData.orderData.orderId, "uid": uid}).then(function(res){
+                    if(!res.data.success){
+                        layui.use('layer',function(){
+                            layer.open({
+                                title: '提示',
+                                content: "<div>"+ res.data.message +"</div>"
+                            })
+                        })
+                        return;
+                    }
+                })*/
+                var user = JSON.parse(getCookie('_zg_user'));
+                var uid = parseInt(user.id)
+                if(user.id != user1.id){
+                    layui.use('layer',function(){
+                        layer.open({
+                            title:'提示',
+                            content:'<p style="text-align: center;">该订单不属于此用户</p>',
+                            btn: false
+                        });
+                    });
+                    return;
+                }
+                _trademarkReg.params.items = _trademarkReg.patDesc;
+                if( !_trademarkReg.params.bid || !_trademarkReg.params.btype ){
+                    layer.msg('请选择主体信息',{icon:2});
+                    _trademarkReg.$validator.errorBag.add('body', '请选择主体信息', 'auth');
+                    $(document).scrollTop(350)
+                    return;
+                }
+                if( _trademarkReg.params.status !=1 &&_trademarkReg.backChose&&_oData.businessDetail.zgOrder.pcode=='tr_reg_11'){
+                    layer.msg('您好！您选择的主体暂未审核通过，无法进行下一步操作，请耐心等待主体审核完毕后再进行下一步操作！',{icon:2});
+                    return;
+                }
+                if( !_trademarkReg.params.name || !_trademarkReg.params.pic ){
+                    layer.msg('请完善商标细节',{icon:2});
+                    _trademarkReg.$validator.errorBag.add('trValid', 'auth');
+                    return;
+                }
+                if( !_trademarkReg.params.items.length  ){
+                    layer.msg('请选择商标类别',{icon:2});
+                    _trademarkReg.$validator.errorBag.add('category', 'auth');
+                    return;
+                }
+                if(_trademarkReg.isTrname != false){
+                    layer.msg('请填写正确的商标名称！',{icon:2});
+                    return;
+                }
+                var url = '/business/tr/trSave';
+                if(_str=='318'){
+                    url =  '/business/tr/trNextSave';
+                    if(_trademarkReg.addTaxpayerPath == ''){
+                        layer.msg('请正确上传商标图片');
+                        return;
+                    }
+                }
+                _trademarkReg.$validator.validateAll().then(function (result) {
+                    _trademarkReg.loaddingIs = true;
+                    (function del(){
+                        var arr = [];
+                        _trademarkReg.params.items[0].objs.forEach(function(v,i){
+                            arr.push(v.id)
+                            if(v.objs.length == 0){
+                                var id = arr.indexOf(v.id);
+                                if(id == 'undefined'){
+                                    return;
+                                }else{
+                                    _trademarkReg.params.items[0].objs.splice(id,1)
+                                    del()
+                                }
+                            }
+                        })
+                    })();
+                    axios.post('/userCenter/validateOrderIfSameUserByOrderId/',{"id":_oData.orderData.orderId, "uid": uid}).then(function(res){
+                        if(!res.data.success){
+                            layui.use('layer',function(){
+                                layer.open({
+                                    title: '提示',
+                                    content: "<div>"+ res.data.message +"</div>"
+                                })
+                            })
+                            return;
+                        }else{
+                            axios.post(url, _trademarkReg.params).then(function (res) {
+                                if (res.data.success) {
+                                    /* _trademarkReg.loaddingIs = true;*/
+                                    layui.use('layer', function () {
+                                        var layer = layui.layer;
+                                        layer.msg(res.data.message,{icon:1});
+                                    });
+                                    axios.post('/business/getApplyInfoRegTrademarkByOrderId/',{orderId:_oData.orderData.orderId}).then(function(res){
+                                        if(res.data.success){
+                                            //_trademarkReg.Text318=true
+                                            $('#nortiger_318').attr('src','')
+                                            setTimeout(function(){
+                                                $('#nortiger_318').attr('src',_trademarkReg.NORTIGER+"?t="+new Date().getTime());
+                                            },100)
+                                            window.location.reload();
+                                            $(document).scrollTop(0)
+                                        }
+                                    })
+
+                                    /*if(_str=='318'){
+                                     _trademarkReg.Text318=true
+                                     }*/
+                                }else{
+                                    _trademarkReg.loaddingIs = false;
+                                }
+                            });
+                        }
+                    });
+
+                });
+            },
+            customSure: function () {
+                var _zgOrderTrademarkId =  {'zgOrderTrademarkId':_oData.businessDetail.zgOrderTrademark.id}
+                axios.post('/business/tr/customConfim',_zgOrderTrademarkId).then(
+                        function (res) {
+                            if (res.data.success) {
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layer.msg(res.data.message);
+                                });
+                                window.location.reload();
+                            }
+                        }
+                )
+            },
+            goBack: function (_str) {
+                _trademarkReg.isTrname = false;
+                if(_str=='318'){
+                    this.Text318=false;
+                    _trademarkReg.backChose = false;
+                    _trademarkReg.returnData.businessData = _oData;
+                }else {
+                    var _params = { 'orderId' : _oData.params.orderId };
+                    axios.post('/business/tr/goBack', _params).then(
+                            function (res) {
+                                if (res.data.success) {
+                                    /*layui.use('layer', function () {
+                                        var layer = layui.layer;
+                                        layer.msg(res.data.message);
+                                    });*/
+                                    window.location.reload();
+                                }
+                            }
+                    )
+                }
+            },
+            delFile: function (name) {
+                _trademarkReg.params[name] = '';
+                _trademarkReg[name] = '';
+            },
+            customSureUrgent: function (t,_str) {
+
+                /*axios.post('/userCenter/validateOrderIfSameUserByOrderId/',{"id":_oData.orderData.orderId, "uid": uid}).then(function(res){
+                    if(!res.data.success){
+                        layui.use('layer',function(){
+                            layer.open({
+                                title: '提示',
+                                content: "<div>"+ res.data.message +"</div>"
+                            })
+                        })
+                        return;
+                    }
+                })*/
+                var user = JSON.parse(getCookie('_zg_user'));
+                var uid = parseInt(user.id)
+                if(user.id != user1.id){
+                    layui.use('layer',function(){
+                        layer.open({
+                            title:'提示',
+                            content:'<p style="text-align: center;">该订单不属于此用户</p>',
+                            btn: false
+                        });
+                    });
+                    return;
+                }
+                if(!_trademarkReg.params.wtFilePath&&_str!='318'){
+                    layer.msg('请上传委托文件后继续',{icon:2});
+                    return false;
+                }
+                if(!_trademarkReg.params.ztFilePath&&_str!='318'){
+                    layer.msg('请上传主体文件后继续',{icon:2});
+                    return false;
+                }
+                if(!!_oData.businessDetail.zgOrderTrademark.btype&&_str!='318'){
+                    if(!_trademarkReg.params.idcardFilePath){
+                        layer.msg('请上传身份证后继续',{icon:2});
+                        return false;
+                    }
+                }
+                if(_oData.orderData.pcode == 'tr_reg_11' && _str != 318){
+                    if(_trademarkReg.pic_img_wt == '' || _trademarkReg.pic_img_zt == '' ){
+                        // ||  _trademarkReg.pic_img_sfz == ''
+                        layer.msg('请上传主体文件或者委托文件后继续',{icon:2});
+                        return;
+                    }else if(!!_oData.businessDetail.zgOrderTrademark.btype&&_str!='318'){
+                        if( _trademarkReg.pic_img_sfz == ''){
+                            layer.msg('请上传身份证后继续',{icon:2});
+                            return false;
+                        }
+                    }
+                }
+                var _zgOrderTrademarkId = {
+                    "zgOrderTrademarkId":_oData.businessDetail.zgOrderTrademark.id,
+                    "idcardFilePath": _trademarkReg.pic_img_sfz,
+                    "wtFilePath":  _trademarkReg.pic_img_wt,
+                    "ztFilePath":  _trademarkReg.pic_img_zt,
+                    "nextStep": true
+                }
+                _zgOrderTrademarkId.idcardFilePath = _trademarkReg.pic_img_sfz != ''? '/base' + _trademarkReg.pic_img_sfz.split('/base')[1] : '';
+                _zgOrderTrademarkId.wtFilePath = _trademarkReg.pic_img_wt != '' ? '/base' + _trademarkReg.pic_img_wt.split('/base')[1] : '';
+                _zgOrderTrademarkId.ztFilePath =  _trademarkReg.pic_img_zt != ''? '/base' + _trademarkReg.pic_img_zt.split('/base')[1] : '';
+                axios.post('/userCenter/validateOrderIfSameUserByOrderId/',{"id":_oData.orderData.orderId, "uid": uid}).then(function(res){
+                    if(!res.data.success){
+                        layui.use('layer',function(){
+                            layer.open({
+                                title: '提示',
+                                content: "<div>"+ res.data.message +"</div>"
+                            })
+                        })
+                    }else{
+                        if(_str == '318'){
+                            _zgOrderTrademarkId.nextStep = false;
+                            axios.post('/business/tr/customConfim',_zgOrderTrademarkId).then(
+                                    function (res) {
+                                        if (res.data.success) {
+                                            layui.use('layer', function () {
+                                                var layer = layui.layer;
+                                                $(document).scrollTop(0)
+                                                layer.msg('暂存成功！',{icon:1});
+                                            });
+                                            if(_str != '318'){
+                                                window.location.reload();
+                                                $(document).scrollTop(0)
+                                            }
+                                        }
+                                    }
+                            )
+                        }else{
+                            var that = t.currentTarget;
+                            var othis = $(that), method = othis.data('method');
+                            /*var active = {
+                                notice: function () {*/
+                                    var lay = layer.open({
+                                        type: 1,
+                                        title: "提示",//false不显示标题栏,
+                                        area: '350px;',
+                                        shade: 0.6,
+                                        id: 'LAY_layuipro',//设定一个id，防止重复弹出,
+                                        btn: ['确认', '取消'],
+                                        moveType: 1,//拖拽模式，0或者1,
+                                        content: '<div style="padding: 10px 35px;line-height: 28px;font-size: 16px;">请认真核对您上传的盖章申请材料信息是否准确无误，只要提交信息将无法修改。确认提交？</div>    ',
+                                        success: function (layero) {
+                                            var btn = layero.find('.layui-layer-btn');
+                                            btn.css('text-align', 'center');
+                                        },
+                                        yes:function () {
+                                            axios.post('/business/getCurrentNode/' ,{orderId:_oData.orderData.orderId}).then(function(res){
+                                                if(res.data.data){
+                                                    if(res.data.data.stepnum != 1 && _oData.orderData.pcode == 'tr_reg_11'){
+                                                        layer.msg('当前节点已被其他人执行完毕，请刷新！',{icon:2});
+                                                        return;
+                                                    }else{
+                                                        axios.post('/business/tr/customConfim',_zgOrderTrademarkId).then(
+                                                                function (res) {
+                                                                    if (res.data.success) {
+                                                                        layui.use('layer', function () {
+                                                                            var layer = layui.layer;
+                                                                            $(document).scrollTop(0)
+                                                                            layer.msg('提交成功！',{icon:1});
+
+                                                                        });
+                                                                        if(_str != '318'){
+                                                                            window.location.reload();
+                                                                            $(document).scrollTop(0)
+                                                                        }
+                                                                    }
+                                                                }
+                                                        )
+                                                    }
+                                                }
+                                            })
+                                            layer.close(lay)
+                                        }
+                                    });
+<<<<<<< HEAD
+                              /*  }
+=======
+                             /*   }
+>>>>>>> 20171010-optimization-v2.9.2
+                            };*/
+                            //active[method] ? active[method].call(that, othis) : '';
+
+                        }
+                    }
+                })
+                /*if(_str == '318'){
+                    _zgOrderTrademarkId.nextStep = false;
+                        axios.post('/business/tr/customConfim',_zgOrderTrademarkId).then(
+                            function (res) {
+                                if (res.data.success) {
+                                    layui.use('layer', function () {
+                                        var layer = layui.layer;
+                                        layer.msg('暂存成功！',{icon:1});
+                                    });
+                                    if(_str != '318'){
+                                        window.location.reload();
+                                    }
+                                }
+                            }
+                    )
+                }else{
+                var that = t.currentTarget;
+                var othis = $(that), method = othis.data('method');
+                var active = {
+                    notice: function () {
+                        var lay = layer.open({
+                            type: 1,
+                            title: "提示",//false不显示标题栏,
+                            area: '350px;',
+                            shade: 0.6,
+                            id: 'LAY_layuipro',//设定一个id，防止重复弹出,
+                            btn: ['确认', '取消'],
+                            moveType: 1,//拖拽模式，0或者1,
+                            content: '<div style="padding: 10px 35px;line-height: 28px;font-size: 16px;">请认真核对您上传的盖章申请材料信息是否准确无误，只要提交信息将无法修改。确认提交？</div>    ',
+                            success: function (layero) {
+                                var btn = layero.find('.layui-layer-btn');
+                                btn.css('text-align', 'center');
+                            },
+                            yes:function () {
+                                axios.post('/business/getCurrentNode/' ,{orderId:_oData.orderData.orderId}).then(function(res){
+                                    if(res.data.data){
+                                        if(res.data.data.stepnum != 1 && _oData.orderData.pcode == 'tr_reg_11'){
+                                            layer.msg('当前节点已被其他人执行完毕，请刷新！',{icon:2});
+                                            return;
+                                        }else{
+                                            axios.post('/business/tr/customConfim',_zgOrderTrademarkId).then(
+                                                    function (res) {
+                                                        if (res.data.success) {
+                                                            layui.use('layer', function () {
+                                                                var layer = layui.layer;
+                                                                layer.msg('提交成功！',{icon:1});
+
+                                                            });
+                                                            if(_str != '318'){
+                                                                window.location.reload();
+                                                            }
+                                                        }
+                                                    }
+                                            )
+                                        }
+                                    }
+                                })
+                                layer.close(lay)
+                            }
+                        });
+                    }
+                };
+                active[method] ? active[method].call(that, othis) : '';
+
+                }*/
+            },
+            getGwInfo:function () {
+                axios.get('/userCenter/userCounselorByPcode/'+_oData.businessDetail.zgOrder.pcode).then(
+                        function (res) {
+                            if(res){
+                                _trademarkReg.adviser = res.data;
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                )
+
+            },
+            page:function () {
+                $.post('/userCenter/homeOrderPage',{pageNo:_trademarkReg.currentPage,pageSize:5},function (res) {
+                    if(res.data && res.success){
+                        _trademarkReg.odataList = res.data.list;
+                    }
+                })
+            },
+        },
+        created:function(){
+            //_trademarkReg.isTrname = false;
+            if(_oData.businessDetail.zgOrderTrademark.pic){
+                this.addTaxpayerPath =  _oData.businessDetail.domain + _oData.businessDetail.zgOrderTrademark.pic
+            }
+            $('#IdCardInput').next().css('top','15px');
+            if(this.error && this.returnData.businessData.atPresentNodes.stepnum == 1 ) {
+                $('.words_bar').css('height', '335px')
+            }else{
+                $('.words_bar').css('height', '151px')
+            }
+        },
+        mounted:function(){
+            this.updataFile('#addInfo', 'item_addInfo', 'addTaxpayerPath'); //添加纳税人证明
+            this.getGwInfo();
+            this.initGetOrderDetail();
+            if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0") {
+                $("#file_upload_item1").find(".img_ie").css({display:"block"});
+                $("#file_upload_item1").find(".img_other").css({display:"none"});
+                $('#file_upload_ie').uploadify({
+                    'auto' : true,
+                    'queueID' : 'file_upload_item1',
+                    'swf'      : '/lib/uploadify.swf',
+                    'uploader' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'请上传图片',
+                    'width':'auto',
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'fileSizeLimit': '2MB',
+                    'fileType': '*.jpg;*.bmp;*.jpeg;*.png;*.gif;',
+                    'removeCompleted':true,
+                    'itemTemplate':false,
+                    'token':_oData.user.token,
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'base_upload_pic',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadSuccess' : function(file, data, response) {
+                        var data = JSON.parse(data)
+                        _trademarkReg.picUrl = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.params.pic = data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onFallback':function () {
+                        layer.msg('请安装或升级更高版本的Flash插件');
+                    },
+                    'onError' : function (file, data, response) {
+                        $('#file_upload').uploadify('clearQueue');
+                    }
+                });
+                $('#entrustDocInput').uploadify({
+                    'auto' : true,
+                    'queueID' : 'entrustDoc',
+                    'swf'      : '/lib/uploadify.swf',
+                    'uploader' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'',
+                    'width':'auto',
+                    'multi' : true,
+                    'fileSizeLimit': '2MB',
+                    'fileType': '*.jpg;',
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'removeCompleted':false,
+                    'buttonClass'  : 'hiddenBtn',
+                    'height':90,
+                    'token':_oData.user.token,
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'ft_3',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadSuccess' : function(file, data, response) {
+                        var data = JSON.parse(data)
+                        _trademarkReg.wtFilePath =  file;
+                        _trademarkReg.params.wtFilePath = data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onFallback':function () {
+                        layer.msg('请安装或升级更高版本的Flash插件');
+                    },
+                    'onError' : function (file, data, response) {
+                    }
+                });
+                $('#mainBodyDocInput').uploadify({
+                    'auto' : true,
+                    'queueID' : 'mainBodyDoc',
+                    'swf'      : '/lib/uploadify.swf',
+                    'uploader' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'',
+                    'width':'auto',
+                    'fileSizeLimit': '2MB',
+                    'fileType': '*.pdf;*.jpeg;',
+                    'multi' : true,
+                    'height':90,
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'ft_3',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadSuccess' : function(file, data, response) {
+                        var data = JSON.parse(data)
+                        _trademarkReg.ztFilePath = file;
+                        _trademarkReg.params.ztFilePath = data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onFallback':function () {
+                        layer.msg('请安装或升级更高版本的Flash插件');
+                    },
+                    'onError' : function (file, data, response) {
+                    }
+                });
+                $('#IdCardInput').uploadify({
+                    'auto' : true,
+                    'queueID' : 'IdCardAgainst',
+                    'swf'      : '/lib/uploadify.swf',
+                    'uploader' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'',
+                    'width':'auto',
+                    'fileSizeLimit':'2MB',
+                    'fileType': '*.pdf;',
+                    'multi' : true,
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'removeCompleted':false,
+                    'height':90,
+                    'token':_oData.user.token,
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'ft_3',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadSuccess' : function(file, data, response) {
+                        var data = JSON.parse(data)
+                        _trademarkReg.idcardFilePath = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.pic_img_sfz = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.params.idcardFilePath = data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onFallback':function () {
+                        layer.msg('请安装或升级更高版本的Flash插件');
+                    },
+                    'onError' : function (file, data, response) {
+                        layer.msg('您上传的文件格式或大小有误');
+                    }
+                });
+                $('#mainBodyDocInput1').uploadify({
+                    'auto' : true,
+                    'queueID' : 'mainBodyDoc',
+                    'swf'      : '/lib/uploadify.swf',
+                    'uploader' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'',
+                    'width':'auto',
+                    'fileSizeLimit': '2MB',
+                    'fileType': '*.jpg;*.jpeg;',
+                    'multi' : true,
+                    'height':90,
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'ft_3',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadSuccess' : function(file, data, response) {
+                        var data = JSON.parse(data)
+                        _trademarkReg.ztFilePath = file;
+                        _trademarkReg.params.ztFilePath = data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onFallback':function () {
+                        layer.msg('请安装或升级更高版本的Flash插件');
+                    },
+                    'onError' : function (file, data, response) {
+                    }
+                });
+                $('#IdCardInput1').uploadify({
+                    'auto' : true,
+                    'queueID' : 'IdCardAgainst',
+                    'swf'      : '/lib/uploadify.swf',
+                    'uploader' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'',
+                    'width':'auto',
+                    'fileSizeLimit':'2MB',
+                    'fileType': '*.jpg;*.jpeg;*.png;*.bmp;',
+                    'multi' : true,
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'removeCompleted':false,
+                    'height':90,
+                    'token':_oData.user.token,
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'ft_3',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadSuccess' : function(file, data, response) {
+                        var data = JSON.parse(data)
+                        _trademarkReg.idcardFilePath = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.pic_img_sfz = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.params.idcardFilePath = data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onFallback':function () {
+                        layer.msg('请安装或升级更高版本的Flash插件');
+                    },
+                    'onError' : function (file, data, response) {
+                        layer.msg('您上传的文件格式或大小有误');
+                    }
+                });
+            }else{
+                $('#file_upload').uploadifive({
+                    'auto' : true,
+                    'queueID' : 'file_upload_item1',
+                    'checkScript':'/upload/check',
+                    'uploadScript' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'点击上传文件',
+                    'width':'auto',
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'fileSizeLimit': '2MB',
+                    'fileType': '/image/*',
+                    'removeCompleted':true,
+                    'itemTemplate':false,
+                    'token':_oData.user.token,
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'base_upload_pic',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadComplete' : function(file, data, response) {
+                        $('#file_upload').uploadifive('clearQueue');
+                        var data = JSON.parse(data)
+                        _trademarkReg.picUrl = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.params.pic = data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onCheck'  : function(file, exists) {
+                        if (exists) {
+                            layer.msg("您上传的文件格式或大小有误");
+                            $('#file_upload').uploadifive('cancel', file)
+                        }
+                    },
+                    'onError' : function (file, data, response) {
+                        $('#file_upload').uploadifive('clearQueue');
+                        layer.msg("您上传的文件格式或大小有误");
+                    }
+                });
+                var fileCheckResult = true;
+                $('#entrustDocInput').uploadifive({
+                    'auto' : true,
+                    'queueID' : 'entrustDoc',
+                    'checkScript':'/upload/check',
+                    'uploadScript' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'',
+                    'width':'auto',
+                    'multi' : true,
+                    'fileSizeLimit': '2MB',
+                    'fileTypeExts': '*.jpg',
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'removeCompleted':false,
+                    'height':90,
+                    'token':_oData.user.token,
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'ft_3',
+                    },
+                    'onDrop': function(file, fileDropCount) {
+                    },
+                    'onUploadComplete' : function(file, data, response) {
+                        $('#entrustDocInput').uploadifive('clearQueue');
+                        var data = JSON.parse(data)
+                        _trademarkReg.wtFilePath =  file;
+                        _trademarkReg.params.wtFilePath = data.data.filePath;
+                        _trademarkReg.pic_img_wt = _trademarkReg.ImgIp + data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onAddQueueItem': function(file) {//html5需要自己检测格式和大小
+                        if(_oData.orderData.pcode != 'tr_reg_11'){
+                            if($.inArray(file.type.split("/")[1] ,['jpg','jpeg','pdf'])==-1){
+                                $('#entrustDocInput').uploadifive('cancel', file)
+                                layer.msg("您上传的文件格式必须是jpg/pdf格式图片");
+                            }
+                        }else{
+                            if($.inArray(file.type.split("/")[1] ,['jpg','jpeg'])==-1){
+                                $('#entrustDocInput').uploadifive('cancel', file)
+                                layer.msg("您上传的文件格式必须是jpg格式图片");
+                            }
+                        }
+                    },
+                    'onCheck'  : function(file, exists) {
+                        if (exists) {
+                            layer.msg("您上传的文件格式或大小有误");
+                            $('#entrustDocInput').uploadifive('cancel', file)
+                        }
+                    },
+                    'onError' : function (file, data, response) {
+                        layer.msg("您上传的文件格式或大小有误");
+                    }
+                });
+                $('#mainBodyDocInput').uploadifive({
+                    'auto' : true,
+                    'queueID' : 'mainBodyDoc',
+                    'checkScript':'/upload/check',
+                    'uploadScript' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'',
+                    'width':'auto',
+                    'fileSizeLimit': '2MB',
+                    'fileType': '*.pdf;*',
+                    'multi' : true,
+                    'height':90,
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'ft_3',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadComplete' : function(file, data, response) {
+                        $('#mainBodyDocInput').uploadifive('clearQueue');
+                        var data = JSON.parse(data)
+                        _trademarkReg.ztFilePath = file;
+                        _trademarkReg.params.ztFilePath = data.data.filePath;
+                        _trademarkReg.pic_img_zt = _trademarkReg.ImgIp + data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onAddQueueItem': function(file) {//html5需要自己检测格式和大小
+                        if($.inArray(file.type.split("/")[1] ,['pdf'])==-1){
+                            $('#entrustDocInput').uploadifive('cancel', file)
+                            layer.msg("您上传的文件格式必须是pdf格式文件",{time:2000});
+                        }
+                    },
+                    'onCheck'  : function(file, exists) {
+                        if (exists) {
+                            layer.msg("您上传的文件格式或大小有误");
+                            $('#mainBodyDocInput').uploadifive('cancel', file)
+                        }
+                    },
+                    'onError' : function (file, data, response) {
+                        layer.msg("您上传的文件格式或大小有误");
+                    }
+                });
+                $('#IdCardInput').uploadifive({
+                    'auto' : true,
+                    'queueID' : 'IdCardAgainst',
+                    'checkScript':'/upload/check',
+                    'uploadScript' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'',
+                    'width':'auto',
+                    'fileSizeLimit':'2MB',
+                    'fileType': '*.pdf;',
+                    'multi' : true,
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'removeCompleted':false,
+                    'buttonClass'  : 'hiddenBtn',
+                    'height':90,
+                    'token':_oData.user.token,
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'ft_3',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadComplete' : function(file, data, response) {
+                        $('#IdCardInput').uploadifive('clearQueue');
+                        var data = JSON.parse(data)
+                        _trademarkReg.idcardFilePath = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.pic_img_sfz = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.params.idcardFilePath = data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onAddQueueItem': function(file) {//html5需要自己检测格式和大小
+                        if($.inArray(file.type.split("/")[1] ,['pdf'])==-1){
+                            $('#entrustDocInput').uploadifive('cancel', file);
+                            layer.msg("您上传的文件格式必须是pdf格式图片",{time:2000});
+                        }
+                    },
+                    'onCheck'  : function(file, exists) {
+                        if (exists) {
+                            layer.msg("您上传的文件格式或大小有误");
+                            $('#IdCardInput').uploadifive('cancel', file)
+                        }
+                    },
+                    'onError' : function (file, data, response) {
+                    }
+                });
+                $('#mainBodyDocInput1').uploadifive({
+                    'auto' : true,
+                    'queueID' : 'mainBodyDoc',
+                    'checkScript':'/upload/check',
+                    'uploadScript' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'',
+                    'width':'auto',
+                    'fileSizeLimit': '2MB',
+                    'fileType': '*.jpg;*',
+                    'multi' : true,
+                    'height':90,
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'ft_3',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadComplete' : function(file, data, response) {
+                        $('#mainBodyDocInput1').uploadifive('clearQueue');
+                        var data = JSON.parse(data)
+                        _trademarkReg.ztFilePath = file;
+                        _trademarkReg.params.ztFilePath = data.data.filePath;
+                        _trademarkReg.pic_img_zt = _trademarkReg.ImgIp + data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onAddQueueItem': function(file) {//html5需要自己检测格式和大小
+                        if($.inArray(file.type.split("/")[1] ,['jpg','jpeg','pdf'])==-1){
+                            $('#entrustDocInput').uploadifive('cancel', file)
+                            layer.msg("您上传的文件格式必须是jpg/pdf格式文件",{time:2000});
+                        }
+                    },
+                    'onCheck'  : function(file, exists) {
+                        if (parseInt(file.size/1024/1024) >= 2) {
+                             layer.msg("您上传的文件格式或大小有误");
+                             $('#mainBodyDocInput1').uploadifive('cancel', file)
+                         }
+                    },
+                    'onError' : function (file, data, response) {
+                        layer.msg("您上传的文件格式或大小有误");
+                    }
+                });
+                $('#IdCardInput1').uploadifive({
+                    'auto' : true,
+                    'queueID' : 'IdCardAgainst',
+                    'checkScript':'/upload/check',
+                    'uploadScript' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'',
+                    'width':'auto',
+                    'fileSizeLimit':'2MB',
+                    'fileType': '*.jpg;*.jpeg;*.png;*.bmp;',
+                    'multi' : true,
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'removeCompleted':false,
+                    'buttonClass'  : 'hiddenBtn',
+                    'height':90,
+                    'token':_oData.user.token,
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'ft_3',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                    },
+                    'onUploadComplete' : function(file, data, response) {
+                        $('#IdCardInput1').uploadifive('clearQueue');
+                        var data = JSON.parse(data)
+                        _trademarkReg.idcardFilePath = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.pic_img_sfz = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.params.idcardFilePath = data.data.filePath;
+                        layer.msg('上传成功！',{icon:1});
+                    },
+                    'onAddQueueItem': function(file) {//html5需要自己检测格式和大小
+                        if($.inArray(file.type.split("/")[1] ,['jpg','jpeg','bmp','png'])==-1){
+                            $('#entrustDocInput').uploadifive('cancel', file);
+                            layer.msg("您上传的文件格式必须是jpg,png,bmp格式图片",{time:2000});
+                        }
+                    },
+                    'onCheck'  : function(file, exists) {
+                        if (exists) {
+                            layer.msg("您上传的文件格式或大小有误");
+                            $('#IdCardInput1').uploadifive('cancel', file)
+                        }
+                    },
+                    'onError' : function (file, data, response) {
+                    }
+                });
+            }
+        }
+
+    })
+    layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+                ,layer = layui.layer;
+        laypage({
+            cont: 'demo4',
+            curr: odata.totalPage,
+            pages: Math.ceil(parseInt(odata.totalCount)/5),
+            skip: false,
+            first: 1,
+            last: Math.ceil(parseInt(odata.totalCount)/5),
+            groups:3,
+            prev:false,
+            next:false,
+            jump: function (e) {
+                _trademarkReg.currentPage = e.curr;
+                _trademarkReg.page();
+            }
+        });
+    });
+    function getImageSize(file) {
+        var render=new FileReader();
+        render.onload=function (e) {
+            var data=e.target.result;//读取的结果
+            var image=new Image();
+            image.onload=function () {
+                var width=image.width,
+                    height=image.height;
+                if(width < 400 || width > 1500){
+                    layer.msg('且图形像素介于“400×400－1500×1500”之间');
+                    return false;
+                }else if(height < 400 || height > 1500){
+                    layer.msg('且图形像素介于“400×400－1500×1500”之间')
+                    return false;
+                }
+
+            };
+            image.src=data;
+        };
+        render.readAsDataURL(file);
+    }
+</script>

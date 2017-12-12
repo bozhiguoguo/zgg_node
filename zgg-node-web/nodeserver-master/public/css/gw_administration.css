@@ -1,0 +1,340 @@
+.layui-tab-content>div{
+    width:1020px;
+    margin:15px auto;
+}
+
+.admin_text ul{
+    height:33px;
+}
+
+.marg15 ul li{
+    margin-right:12px;
+}
+
+.admin_text ul li{
+    float: left;
+    margin-right:16px;
+
+}
+
+.admin_text ul li.admin_fr{
+    float: right;
+}
+
+.admin_text ul li input,.admin_text ul li select{
+    width:285px;
+    height:33px;
+    line-height: 33px;
+    /*color:#b9bfc7;*/
+    font-size:14px;
+    padding-left:7px;
+    border:1px solid #b9bfc7;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.admin_text ul.marg7{
+
+    margin-top:7px;
+}
+
+.admin_text ul li.admin_place input{
+    width:124px;
+}
+
+.admin_text ul li button{
+    width:80px;
+    height:33px;
+    background: #e9c19e;
+    font-size:14px;
+    color:#fff;
+    text-align: center;
+    line-height:33px;
+    border:none;
+    border-radius: 3px;
+    margin-left:36px;
+}
+
+.admin_info{
+    margin-top:14px;
+}
+
+.admin_info table{
+    width:1020px;
+    height: auto;
+    /*min-height: 230px;*/
+    overflow: hidden;
+    border:1px solid #eff0f4;
+}
+
+.admin_info table tr.admin_th{
+    height: 39px;
+    background: #eff0f4;
+}
+
+.admin_info table tr.admin_th a,.admin_info table tr.admin_Issued td a{
+    margin-left:7px;
+    margin-right:0;
+}
+
+.admin_info table tr th{
+    text-align: center;
+    font-size:14px;
+    color:#727f8f;
+}
+
+
+.admin_info table tr.admin_td{
+    height:91px;
+    border-top:1px solid  #eff0f4;
+}
+
+.admin_info table tr td{
+    font-size:14px;
+    color:#2a2a2a;
+    text-align: center;
+}
+
+.admin_info table tr td a{
+    color:#49a5de;
+    display: block;
+   line-height: 20px;
+}
+
+.admin_info table tr.admin_Issued{
+    border-top:1px solid #eff0f4;
+    height:43px;
+
+}
+
+.layui-tab-title li span{
+    display: inline-block;
+    color:#a34a51;
+    margin:0 5px;
+
+}
+
+.admin_choice{
+    margin:22px 0 0 12px;
+    font-size:14px;
+}
+
+.admin_choice span{
+    color:#d8334a;
+    display: inline-block;
+    margin:0 5px;
+}
+
+
+.admin_button{
+    width:190px;
+    height: 33px;
+    margin:50px auto 30px;
+}
+
+.admin_button a{
+    display: block;
+    float: left;
+    width: 80px;
+    height:33px;
+  /*  background: #a34a51;*/
+    line-height: 33px;
+    color:#fff;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.admin_button a.admin_mail{
+    margin-right:30px;
+}
+
+
+
+/*点击邮寄按钮显示的页面*/
+.mail_con h4{
+    color:#2a2a2a;
+    font-size:16px;
+}
+
+
+.mail_info{
+    width: 300px;
+    margin-top:44px;
+}
+
+.mail_info ul li input,.mail_info ul li select{
+    width: 297px;
+    height:33px;
+    line-height: 33px;
+    padding-left:7px;
+    font-size: 14px;
+    color: #2a2a2a;
+    border:1px solid #dadde1;
+}
+
+.mail_info ul li{
+    font-size:12px;
+    color:#727f8f;
+    margin-top:10px;
+}
+
+.mail_info ul li span{
+    display: inline-block;
+    color: #b9bfc7;
+    padding-left:3px;
+}
+
+.mail_info ul li input.mail_no{
+    color: #b9bfc7;
+}
+
+.admin_button a.mail_edit{
+   /* background: #e9c19e;*/
+}
+
+.mail_sub{
+    width: 399px;
+    margin:20px 0 30px 25px;
+    font-size: 14px;
+    color: #2a2a2a;
+}
+
+.mail_sub span{
+    color: #49a5de;
+}
+/*官文管理*/
+.layui-tab-title{
+    height: 54px;
+    border-bottom: none;
+}
+
+.layui-tab-title li{
+    min-width: 0;
+    line-height: 0;
+}
+
+.layui-tab-title .layui-this{
+    color: #a34a51;
+    background: #fff;
+}
+
+.layui-tab-title .layui-this:after{
+    border:none;
+    border-bottom-color: none;
+}
+.cartCheck{
+    width: 20px;
+    height: 20px;
+    border-radius: 1px;
+    background:url(../img/icon-shoppingcart-tickbox.png) no-repeat left 2px;
+    float: left;
+}
+.cartCheckAll{
+    width: 20px;
+    height: 20px;
+    border-radius: 1px;
+    background:url(../img/icon-shoppingcart-tickbox.png) no-repeat left 2px;
+    float: left;
+}
+.cartCheckTrue{
+    width: 20px;
+    height: 20px;
+    border-radius: 1px;
+    float: left;
+    background:url(../img/icon-shoppingcart-tickbox-selected.png) no-repeat left 2px;
+}
+.btn_c_bg{
+    background: #a34a51;
+}
+.fruit_centerList dl dd button{
+    width:64px;
+    height:20px;
+    background: #e9c19e;
+    line-height: 20px;
+    color:#fff;
+    font-size: 12px;
+    text-align: center;
+    border:none;
+    float: right;
+    margin-top:6px;
+}
+
+.fruit_centerDetail{
+    width: 650px;
+    margin:20px auto;
+}
+
+.fruit_centerTitle{
+    color:#727f8f;
+    font-size: 14px;
+}
+
+.fruit_centerDetail table{
+    width: 610px;
+}
+
+.fruit_centerDetail table tr th{
+    height: 42px;
+    min-width: 64px;
+    background: #f3f6f8;
+    line-height: 42px;
+    color:#2a2a2a;
+    font-size:12px;
+    font-weight: normal;
+}
+
+.fruit_centerDetail table tr.fruit_centerTr{
+    border:1px solid #f2f3f7;
+    height: 50px;
+}
+
+.fruit_centerDetail table tr td{
+    color:#2a2a2a;
+    font-size:12px;
+    text-align: center;
+    line-height: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width:150px;
+}
+
+.fruit_centerDetail ul{
+    margin-top:30px;
+}
+
+.fruit_centerDetail ul li{
+    color:#727f8f;
+    font-size:12px;
+    margin-top:7px;
+}
+
+.fruit_centerDetail ul li span{
+    color:#2a2a2a;
+}
+
+.fruit_centerDetail ul li button {
+    width: 40px;
+    height: 21px;
+    background: #e9c19e;
+    color: #fff;
+    margin-left: 9px;
+    border: none;
+    cursor: pointer;
+}
+.disable_span{
+    width: 297px;
+    height: 33px;
+    line-height: 33px;
+    padding-left: 7px;
+    font-size: 14px;
+    border: 1px solid #dadde1;
+    display: block;
+    background-color: #EBEBE4;
+    color: #000 !important;
+}
+.page{
+    width: auto;
+    margin: 0 auto;
+}

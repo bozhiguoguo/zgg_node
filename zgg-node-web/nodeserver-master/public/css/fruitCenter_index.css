@@ -1,0 +1,320 @@
+
+    .fruitCenter_money{
+        margin-left:57px;
+    }
+
+    .fruitCenter_money li{
+        float: left;
+        font-size: 14px;
+        text-align: left;
+        color: #727f8f;
+    }
+
+    .fruitCenter_money li img{
+        width:24px;
+        height: 24px;
+        margin-top:-4px;
+    }
+
+    .fruitCenter_change{
+        width: 1050px;
+        height: 75px;
+        background: #fff;
+    }
+
+    .fruitCenter_change ul li{
+        float: left;
+        /* width:130px; */
+        height: 28px;
+        border-right:1px solid #dadde1;
+        margin:20px 0 0 100px;
+        padding-right: 100px;
+        cursor: pointer;
+        padding-bottom: 32px;
+        box-sizing: border-box;
+    }
+
+    .fruitCenter_change ul li span{
+        float: left;
+        margin-top:15px;
+        margin-left:6px;
+        font-size: 18px;
+        text-align: left;
+        color: #727f8f;
+    }
+
+    .fruitCenter_change ul li.fruitCenter_chencked{
+        /* border-bottom:2px solid #d9344b; */
+    }
+
+    .fruitCenter_change ul li:nth-child(3){
+        border-right:none;
+    }
+
+    .fruitCenter_change ul li img{
+        float: left;
+        width:32px;
+        height: 32px;
+    }
+
+    .fruitCenter_order{
+        margin-top:30px;
+        background:#fff;
+        height: auto;
+        overflow: hidden;
+        width: 1050px;
+    }
+
+    /*.fruitCenter_order>div{
+        display: none;
+    }
+
+    .fruitCenter_payment>div{
+        display: none;
+    }*/
+
+    .fruitCenter_nopay{
+        height:54px;
+        background: #eff0f4;
+    }
+
+    .fruitCenter_nopay ol li{
+        float: left;
+        width: 200px;
+        font-size: 16px;
+        color: #727f8f;
+        text-align: center;
+        line-height: 54px;
+        cursor: pointer;
+    }
+
+    .fruit_express{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .fruitCenter_p{
+        padding-bottom: 25px;
+        margin-left: 15px;
+    }
+
+    .fruitCenter_p p{
+        font-size: 14px;
+        text-align: center;
+        color: #727f8f;
+        float: left;
+        margin-top:18px;
+    }
+
+    .fruitCenter_p1{
+        width:328px;
+    }
+
+    .fruitCenter_p2{
+        width:229px;
+    }
+
+    .fruitCenter_p3{
+        width:228px;
+    }
+
+    .comfiedOrder1{
+        width:301px;
+    }
+
+    .comfiedOrder2{
+        width:179px;
+    }
+
+    .fruitCenter_Contract{
+        width: 1021px;
+        border: solid 1px #fcf3ec;
+        height: auto;
+        overflow: hidden;
+        margin:20px auto;
+        min-height: 123px;
+    }
+
+    .fruitCenter_gopay{
+        height:45px;
+        background-color: #fcf3ec;
+    }
+
+    .fruitCenter_gopay p{
+        line-height: 45px;
+        font-size: 12px;
+        color: #333333;
+        margin-left:15px;
+        float: left;
+    }
+
+    .fruitCenter_gopay>div a{
+        width:80px;
+        height: 33px;
+        border-radius: 3px;
+        float: right; 
+        color:#fff;
+        font-size:14px;
+        line-height: 33px;
+        text-align: center;
+        margin-right:20px;
+        cursor: pointer;
+        margin-top:6px;
+        color:#fff;
+        background-color: #e9c19e;
+    }
+
+    /*.fruitCenter_gopay>div a{
+        color:#fff;
+    }
+*/
+
+    .orderCon a{
+        width:80px;
+        height: 33px;
+        border-radius: 3px;
+        color:#fff;
+        font-size:14px;
+        line-height: 33px;
+        text-align: center;
+        margin-left:49px;
+        cursor: pointer;
+        margin-top:45px;
+        color:#fff;
+        display: block;
+        background-color : #a34a51;
+    }
+
+    .orderCon{
+        float: left;
+    }
+
+
+    .Delcontract{  
+        background-color: #e9c19e;
+    }
+
+    .fruitCenter_orderlist{
+        height: 123px;
+        border-top:solid 1px #fcf3ec;
+        border-bottom:solid 1px #fcf3ec;
+    }
+
+    .border{
+        height:122px;
+        border-right:1px solid #fcf3ec;
+    }
+
+    .fruitCenter_ordernum{
+        float: left;
+    }
+
+    .fruitCenter_ordernum p{
+        font-size: 12px;
+        text-align: left;
+        color: #727f8f;
+        margin:13px 0 0 15px;
+    }
+
+    .fruitCenter_ordernum dl{
+        margin-top:14px;
+    }
+
+    .fruitCenter_ordernum dl dt{
+        width: 67px;
+        height: 67px;
+        float: left;
+        margin-left:13px;
+    }
+
+    .fruitCenter_ordernum dl dt img{
+        width: 67px;
+        height: 67px;
+    }
+
+    .fruitCenter_ordernum dl dd{
+        float: left;
+        margin-left:18px;
+        width:190px;
+    }
+
+    .fruitCenter_ordernum dl dd h2{
+        font-size: 14px;
+        color: #2a2a2a;
+        margin-bottom:11px;
+    }
+
+    .fruitCenter_ordernum dl dd span{
+        display: block;
+        color: #727f8f;
+        font-size: 12px;
+    }
+
+    .fruitCenter_name{
+        float: left;
+    }
+
+    .fruitCenter_name p{
+        text-align: center;
+        font-size:14px;
+        color: #2a2a2a;
+        margin-top:10px;
+    }
+
+    .fruitCenter_Money{
+        /*color: #f77979;*/
+        font-size:14px;
+        float: left;
+        text-align: center;
+        line-height: 122px;
+    }
+
+    .fruitCenter_bill{
+        font-size:14px;
+        float: left;
+        text-align: center;
+        line-height: 122px;
+        color: #2a2a2a;
+    }
+
+    .recipientOrder1{
+        width:143px;
+    }
+
+    .recipientOrder2{
+        width:138px;
+    }
+
+    .recipientOrder3{
+        width:195px;
+    }
+
+    .recipientOrder4{
+        width:170px;
+    }
+
+    .recipientOrder5{
+        width:122px;
+    }
+
+    .recipientOrder6{
+        width:108px;
+    }
+
+    .Yirecipient{
+        float: left;
+    }
+
+    .Yirecipient a{
+        width: 80px;
+        height: 33px;
+        border-radius: 3px;
+        background-color: #e9c19e;
+        text-align: center;
+        line-height: 33px;
+        margin-top: 45px;
+        margin-left: 15px;
+        color: #fff;
+        display: block;
+    }

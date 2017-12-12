@@ -1,0 +1,35 @@
+.container{
+    width: 1100px;
+    margin:0 auto;
+}
+
+.tac{
+    text-align: center;
+    margin:10px 0;
+    font-size:28px;
+    font-weight: 700;
+    color:#000;
+}
+
+.container p{
+    font-size:14px;
+    line-height: 23px;
+    color: #333;
+}
+
+.container p a{
+    color:#d84a4a;
+}
+
+.container h3{
+    font-size: 24px;
+    font-weight: 500;
+    color:#000;
+    margin:10px 0;
+}
+
+.container ol li{
+    font-size:14px;
+    line-height: 23px;
+    color:#333;
+}

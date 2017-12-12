@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>知果果3周年优惠券“第二波”1000万好礼赠送</title>
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="SourceSansPro.css">
+    <link rel="stylesheet" href="/css/couponActivity.css">
+    <script type="text/javascript" src="/js/tingyun-rum.js"></script>
+</head>
+<body>
+<div class="coupon-Baner">
+    <div class="coupon-info">
+        <div class="coupon-num">
+            <input type="text" placeholder="输入手机号" id="tel">
+        </div>
+        <p id="errorTipe"></p>
+        <div class="coupon-text">
+            <input type="text" id="verCode">
+            <button id="yzm">获取验证码</button>
+        </div>
+        <div class="clear"></div>
+        <div class="coupon-Receive" id="receive"><img src="/img/coupon-img.png"></div>
+    </div>
+    <div class="coupon-bg">
+        <div class="coupon-con">
+            <h2>优惠券使用规则</h2>
+            <p>一、优惠券只能抵扣服务费，不可抵扣官费及保费，</p>
+            <p>二、使用产品:</p>
+            <p>1、商标驳回复审、商标异议、商标撤销等产品（每次限用一张，面值100元），</p>
+            <p>2、发明专利、实用新型专利等产品（每次限用一张，面值100元），</p>
+            <p>三、优惠券有效期截止到2017年12月31日，时间有限，请尽快使用，</p>
+            <p>四、此次优惠券不与同期活动及套餐叠加使用，</p>
+            <p>五、具体详情可拨打电话400-888-1426咨询，</p>
+            <p>六、最终解释权归知果果所有。</p>
+        </div>
+    </div>
+</div>
+<div class="coupon-content">
+    <div class="coupon-bg2">
+        <div class="coupon-gb">
+            <p class="coupon-img1"><img src="/img/sq.png">
+            <p class="coupon-img2"><img src="/img/guobap.png"><img src="/img/jm.png"></p>
+            <p class="coupon-img3">要么不花钱，要么拿授权。未授权，赔付全部费用</p>
+            <button><a href="/product/productDetail/117" target="_blank"><img src="/img/gm.png"></a></button>
+        </div>
+        <div class="coupon-gb">
+            <p class="coupon-img1 coupon-img5"><img src="/img/shenqing.png">
+            <p class="coupon-img2 coupon-img4"><img src="/img/rj.png"></p>
+            <p class="coupon-img3 witH4">申请高新认定、双软的凭借。</p>
+            <button><a href="/product/productDetail/156" target="_blank">
+                <img src="/img/gm.png">
+            </a>
+            </button>
+        </div>
+        <div class="coupon-gb">
+            <p class="coupon-img1 marg20"><img src="/img/people.png">
+            <p class="coupon-img2 witH5"><img src="/img/sb.png"></p>
+            <p class="coupon-img3 witH6">资深代理人= 高成功率</p>
+            <button>
+                <a href="/product/productDetail/135" target="_blank">
+                    <img src="/img/gm.png">
+                </a>
+             </button>
+        </div>
+        <div class="coupon-gb">
+            <p class="coupon-img1 marg30"><img src="/img/rz.png">
+            <p class="coupon-img2 witH7"><img src="/img/gx.png"></p>
+            <p class="coupon-img3 witH8">风险担保，后顾无忧</p>
+            <button>
+                <a href="/product/productDetail/212" target="_blank">
+                    <img src="/img/gm.png">
+                </a>
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/lib/layui/lay/dest/layui.all.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        //获取验证码
+        var phoneText = $.trim($("#tel").val());
+        $("#yzm").click(function () {
+            debugger;
+            var that = this;
+            var message = "";
+            var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
+            phoneText = $.trim($("#tel").val());
+            if (!myreg.test(phoneText)) {
+                layui.use('layer', function () {
+                    layer.msg("请输入有效的手机号码!", {icon: 2});
+                })
+            } else {
+                $.post("/special/getTelCode", {tel: phoneText}, function (res) {
+                    if (res.success) {
+                        countDown(that, 60);
+                    }
+                }, 'JSON')
+            }
+        });
+
+        //提交验证码
+        $("#receive").click(function () {
+            var that = this,
+                    message = "",
+                    verCode = $.trim($("#verCode").val());
+            if($.trim($("#tel").val())==''){
+                layui.use('layer', function () {
+                    layer.msg("请输入手机号码!", {icon: 2});
+                })
+            }
+            else  if(verCode==''){
+                layui.use('layer', function () {
+                    layer.msg("请输入验证码!", {icon: 2});
+                })
+            }
+           else if (phoneText != $.trim($("#tel").val()) || phoneText=='') {
+                layui.use('layer', function () {
+                    layer.msg("手机号暂未获取验证码!", {icon: 2});
+                })
+            }
+            else {
+                $.post('/special/quickReg', {
+                    passport: phoneText,
+                    verCode: verCode,
+                    activeCode: "zg_tesy",
+                    channel: "zgg_pc"
+                }, function (res) {
+                    if (res.success) {
+                        getCoupon(phoneText);
+                    } else {
+                        layui.use('layer', function () {
+                            layer.msg(res.message, {icon: 2});
+                        })
+                    }
+                }, 'JSON')
+            }
+        });
+    })
+
+    function getCoupon(tel) {
+        $.post('/special/getCoupon', {tel: tel}, function (res) {
+            if (res.success) {
+                layui.use('layer', function () {
+                    layer.msg("恭喜您成功领取"+res.data+"张100元优惠券!", {icon: 1});
+                })
+            } else {
+                layui.use('layer', function () {
+                    layer.msg(res.message, {icon: 2});
+                })
+            }
+        }, 'JSON')
+    }
+
+
+    function countDown(that, num) {
+        var num = num;
+
+        function TimeFn() {
+            if (num == 0) {
+                $(that).removeAttr('disabled');
+                $(that).html("获取验证码");
+                num = 60;
+                clearInterval(Td);
+                return;
+            } else {
+                num--;
+                $(that).html(num + '秒');
+                $(that).attr('disabled', true);
+            }
+        }
+
+        var Td = setInterval(function () {
+            TimeFn()
+        }, 1000)
+    }
+</script>
+</html>

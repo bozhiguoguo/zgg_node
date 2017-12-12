@@ -1,0 +1,383 @@
+<style>
+    .productClassify{
+        margin-top: 0;
+    }
+   /* .productClassifyBox .productClassify:nth-child(1){
+        left: 65px;
+    }
+    .productClassifyBox .productClassify:nth-child(2){
+        left: 90px;
+    }
+    .productClassifyBox .productClassify:nth-child(3){
+        left: 110px;
+    }*/
+    .busBtn > a{
+        color: #a34a51;
+    }
+</style>
+
+
+<div class="ad channelPage">
+    <div class="tradmerk_banner"></div>
+    <!--<div class="ad-b">
+        <div class="ad-num">
+            <p class="f_l"><span class="dis_b" style="margin-left:41px; ">累计办理</span><span class="ad-num-span counter"
+                                                                                           data-counter-time="1000"
+                                                                                           data-counter-delay="20">75,454,121</span>件
+            </p>
+            <p class="f_l"><span class="dis_b" style="margin: 0 auto;">累计服务用户</span><span class="ad-num-span counter"
+                                                                                          data-counter-time="1000"
+                                                                                          data-counter-delay="20">454,121</span>个
+            </p>
+            <ul class="ad-list">
+                <li>135****1552办理国内加急商标注册</li>
+                <li>185****1342办理国内加急商标注册</li>
+            </ul>
+        </div>
+    </div>-->
+</div>
+<div class="trademark-serve-box tradmark-new-box">
+    <div class="trademark-serve">
+        <h3>商标服务指南</h3>
+        <div class="f_l trademark-serve-l">
+            <!--<p>了解商标注册流程，带你认识商标的全周期，迅速找准定位</p>-->
+            <ul class="serve-l-list">
+                <li class="list-li1">商标 <br>加急注册</li> <span class="wire wire1"></span>
+                <li class="list-li2">受理审查</li>
+                <span class="wire wire2"></span>
+                <span class="wire-red"></span>
+                <li class="list-li3">商标公示</li><span class="wire wire3"></span>
+                <li class="list-li4">注册成功</li>
+                <div class="spot"><a class="spot-big"></a></div>
+                <div class="wire-time">3-5个工作日</div>
+                <div class="wire-time2">驳回复审</div>
+            </ul>
+        </div>
+        <div class="f_l trademark-serve-r">
+            <div class="an-box">
+                <div class="an-entre">
+                    <p>商标使用</p>
+                    <ul class="an-list">
+                        <li class="an-list1 an-list-li"></li>
+                        <li class="an-list2 an-list-li"></li>
+                        <li class="an-list3 an-list-li"></li>
+                        <li class="an-list4 an-list-li"></li>
+                        <li class="an-list5 an-list-li"></li>
+                        <li class="an-list6 an-list-li"></li>
+                        <li class="an-list7 an-list-li"></li>
+                    </ul>
+                </div>
+            </div>
+           <!-- <p class="an-p">掌握多种商标的使用途径，把握时机</p>-->
+        </div>
+    </div>
+</div>
+
+<div class="productBox2 t-productBox1 clearfix row">
+    <div class="productTop trademark-productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader channelHeader tradmerkContent">
+                <h3>商标注册</h3>
+                <p>创造品牌，经营品牌第一步</p>
+            </div>
+
+        </div>
+        <div class="productClassifyBox clearfix">
+            {{#each (first oData.TrChannelReg.data.list 3)}}
+            <div class="productClassify productClassify{{@index}} t-product1">
+                <h4 class="color-1" data-color="#2f5398"><span title="{{pname}}">{{pname}}</span><p class="busNum">¥{{priceTax}}.00&nbsp;<span>/&nbsp; 件</span></p></p></h4>
+                <ul class="busInt">
+                    {{#if mouseover}}
+                        {{#JSONparse mouseover}}
+                        {{#each text}}
+                        <li class="{{#lt @index ../num.length}}li_c{{/lt}}">{{this}}</li>
+                        {{/each}}
+                        {{/JSONparse}}
+                    {{/if}}
+                </ul>
+                <div class="busBtn" style="margin-top:30px;"><a href="/product/productDetail/{{id}}"><!--<img src="../img/icon_tmchannel_shaoppingcart.png" alt="">-->查看详情</a></div>
+            </div>
+            {{/each}}
+        </div>
+
+    </div>
+    {{#gt oData.TrChannelReg.data.list.length 3}}
+    <div class="other-tradSever inventPatentOther" style="clear: both;">
+        <div class="channelPat">
+            <h4>其他商标产品：</h4>
+            <p>
+                {{#oData.TrChannelReg.data.list}}
+                {{#gt @index 2}}
+                <a href="/product/productDetail/{{id}}"> <span>{{pname}}</span> </a>
+                {{/gt}}
+                {{/oData.TrChannelReg.data.list}}
+            </p>
+        </div>
+
+    </div>
+    {{/gt}}
+</div>
+
+
+
+
+
+<div class="productBox2 t-productBox2 clearfix row1">
+    <div class="productTop trademark-productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader channelHeader tradmerkContent">
+                <h3>商标驳回复审</h3>
+                <p>人人都为驳回愁，知果帮您解忧愁</p>
+            </div>
+            <div class="productClassifyBox">
+                <!--<div class="productClassify productClassify0 t-product2">
+                    <h4>国内加急商标注册<p class="busNum">¥800.00&nbsp;<span>/&nbsp; 件</span></p></h4>
+                    <ul class="busInt">
+                        <li>顾问+律师双重专服务</li>
+                        <li>5年以上律师行业经验</li>
+                    </ul>
+                    <div class="busBtn"><img src="../img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+                {{#each (first oData.TrChannelReject.data.list 3)}}
+                    {{#if priceTax}}
+                        <div class="productClassify productClassify{{@index}} t-product2">
+                            <h4 class="color-1" data-color="#2f5398"><span title="{{pname}}">{{pname}}</span><p class="busNum">¥{{priceTax}}.00&nbsp;<span>/&nbsp; 件</span></p></p></h4>
+                            <ul class="busInt hm-margin-b15">
+                                {{#if mouseover}}
+                                {{#JSONparse mouseover}}
+                                {{#each (first text 2)}}
+                                    <li class="{{#lt @index ../num.length}}li_c{{/lt}}">{{this}}</li>
+                                {{/each}}
+                                {{/JSONparse}}
+                                {{/if}}
+
+                            </ul>
+                            <div class="busBtn"><a href="/product/productDetail/{{id}}"><!--<img src="../img/icon_tmchannel_shaoppingcart.png" alt="">-->查看详情</a></div>
+                        </div>
+                    {{else}}
+                        <div class="productClassify productClassify{{@index}} t-product2">
+                            <h4>{{pname}}<a href="javascript:showIm('kf')"><p class="rectangle-11">查询问价</p></a></h4>
+
+                            <ul class="busInt">
+
+                            </ul>
+                        </div>
+                    {{/if}}
+                {{/each}}
+               <!-- <div class="productClassify productClassify2 t-product2">
+                    <h4>国内加急商标注册 <div class="busNum busBtn"><img src="../img/icon-home-shoppingcart-white.png" alt=""></div></h4>
+                    <ul class="busInt">
+                        <li>优先处理</li>
+                        <li>专人服务</li>
+                        <li>不成功退全款</li>
+                    </ul>
+
+                </div>-->
+
+            </div>
+        </div>
+    </div>
+    {{#gt oData.TrChannelReject.data.list.length 3}}
+    <div class="other-tradSever inventPatentOther" style="clear: both;">
+        <div class="channelPat">
+            <h4>其他商标驳回复审产品：</h4>
+            <p>
+                {{#oData.TrChannelReject.data.list}}
+                    {{#gt @index 2}}
+                        <a href="/product/productDetail/{{id}}"> <span>{{pname}}</span> </a>
+                    {{/gt}}
+                {{/oData.TrChannelReject.data.list}}
+            </p>
+        </div>
+
+    </div>
+    {{/gt}}
+</div>
+<div class="productBox2 t-productBox3">
+    <div class="productTop trademark-productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader channelHeader tradmerkContent">
+                <h3>商标异议</h3>
+                <p>维护自己的商标权益</p>
+            </div>
+            <div class="productClassifyBox tradmerk_bg">
+                <!--<div class="productClassify productClassify0 t-product3">
+                    <div class="t-product3-h">国内加急商标注册<p class="busNum">¥800.00&nbsp;<span>/&nbsp; 件</span></p></p></div>
+                    <div class="busBtn"><img src="../img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+                {{#each (first oData.TrChannelDissent.data.list 3)}}
+                <div class="productClassify productClassify{{@index}} t-product3 channelBg">
+                    <div class="t-product3-h channelInfo">{{pname}}<p class="busNum">¥{{priceTax}}.00&nbsp;<span>/&nbsp; 件</span></p></p></div>
+                    <div class="busBtn channelBtn"><a href="/product/productDetail/{{id}}"><!--<img src="../img/icon_tmchannel_shaoppingcart.png" alt="">-->查看详情</a></div>
+                </div>
+                {{/each}}
+                <!--<div class="productClassify productClassify2 t-product3">
+                    <div class="t-product3-h">国内加急商标注册<p class="busNum">¥800.00&nbsp;<span>/&nbsp; 件</span></p></p></div>
+                    <div class="busBtn"><img src="../img/icon-home-shoppingcart-white.png" alt="">加入购物车</div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="productBox2 t-productBox3 clearfix" style="height:auto;min-height:400px;overflow: hidden">
+    <div class="productTop trademark-productTop">
+        <div class="productHeaderBox">
+            <div class="productHeader channelHeader tradmerkContent">
+                <h3>其他商标服务</h3>
+                <p>商标注册一站式服务，让您高枕无忧</p>
+            </div>
+            <div class="productClassifyBox clearfix paddingl">
+                {{#each (first oData.TrChannelOther.data.list 6)}}
+                {{#JSONparse ../zgConfig}}
+                <div class="channelBox" style="background: url('{{this.ImgUrl}}{{../pics}}')">
+                    <div class="channelTitle"><a href="/product/productDetail/{{../id}}"  target="_blank">{{../pname}}</a></div>
+                </div>
+                {{/JSONparse}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    {{#gt oData.TrChannelOther.data.list.length 6}}
+    <div class="other-tradSever inventPatentOther" style="clear: both;">
+        <div class="channelPat">
+            <h4>其他商标产品：</h4>
+            <p>
+                {{#each oData.TrChannelOther.data.list}}
+                {{#gt @index 5}}
+                    <a href="/product/productDetail/{{id}}"> <span>{{pname}}</span> </a>
+                {{/gt}}
+                {{/each}}
+            </p>
+        </div>
+
+    </div>
+    {{/gt}}
+</div>
+<!--<div class="other-tradSever">
+    <div class="other-Sever1">
+        <h4>其他商标服务</h4>
+        <p>其他商标服务</p>
+    </div>
+    <div class="other-Sever2">
+        <div class="other-SeverMsg effect1 SeverMsg-top1">
+            <h5>集体商标注册</h5>
+        </div>
+        <div class="other-SeverMsg effect1 SeverMsg-top2">
+            <h5>证明商标注册</h5>
+        </div>
+    </div>
+    <div class="other-Sever2">
+        <div class="other-SeverMsg effect1 SeverMsg-bott1">
+            <h5>补发商标注册证申请</h5>
+        </div>
+        <div class="other-SeverMsg effect1 SeverMsg-bott2">
+            <h5>更正商标申请/ <br>注册事项申请</h5>
+        </div>
+        <div class="other-SeverMsg effect1 SeverMsg-bott3">
+            <h5>出具商标注册证明申请</h5>
+        </div>
+    </div>
+</div>-->
+<div class="trademark-much trademark-ques clearfix" style="clear:both">
+    <div  class="trademark-much-top">
+        <h3>常见问题</h3>
+    </div>
+    <ul class="quesNav">
+        <li class="quesNavShow trad" onclick="TabChanges('tradZcCon','tradZc')">商标注册</li>
+        <li class="tradYy" onclick="TabChanges('tradYyCon','tradYy')">商标异议</li>
+        <li class="tradBh" onclick="TabChanges('tradBhCon','tradBh')">商标驳回</li>
+    </ul>
+    <div class="quesMsgBox channelQuestion">
+        <div class="quesMsg channelIscor">
+            <div class="quesMsges  tradZcCon" style="display: block">
+                <dl>
+                    <dt>为什么要注册商标？</dt>
+                    <dd>
+                        <span>1、要个性，就要形成自由的品牌形象；</span>
+                        <span>2、防止商标被侵权；</span>
+                        <span>3、日后成为著名商标、驰名商标的基础；</span>
+                        <span>4、进驻天猫淘宝等商场的依据；</span>
+                        <span>5、办理质量和卫生检查的重要条件；作为无形资产，未来创造收益。</span>
+                    </dd>
+                </dl>
+                <!--<dl>-->
+                    <!--<dt>为什么要注册商标？</dt>-->
+                    <!--<dd>-->
+                        <!--<span>1、要个性，就要形成自由的品牌形象；</span>-->
+                        <!--<span>2、防止商标被侵权；</span>-->
+                        <!--<span>3、日后成为著名商标、驰名商标的基础；</span>-->
+                        <!--<span>4、进驻天猫淘宝等商场的依据；</span>-->
+                        <!--<span>5、办理质量和卫生检查的重要条件；作为无形资产，未来创造收益。</span>-->
+                    <!--</dd>-->
+                <!--</dl>-->
+                <!--<dl>-->
+                    <!--<dt>为什么要注册商标？</dt>-->
+                    <!--<dd>-->
+                        <!--<span>1、要个性，就要形成自由的品牌形象；</span>-->
+                        <!--<span>2、防止商标被侵权；</span>-->
+                        <!--<span>3、日后成为著名商标、驰名商标的基础；</span>-->
+                        <!--<span>4、进驻天猫淘宝等商场的依据；</span>-->
+                        <!--<span>5、办理质量和卫生检查的重要条件；作为无形资产，未来创造收益。</span>-->
+                    <!--</dd>-->
+                <!--</dl>-->
+            </div>
+            <div class="quesMsges tradYyCon">
+                <dl>
+                    <dt>什么是商标异议？</dt>
+                    <dd>
+                        <span>商标异议制度是指自然人、法人或者其他组织在法定期限内对经商标局初步审定并公告的商标提出反对意见，要求商标局对该商标不予核准注册的法律制度。</span>
+                        <span>商标异议的内容范围很广，既包括初步审定的商标与申请在先的商标相同或近似，也包括初步审定的商标违反了《商标法》的禁用条款或商标不具显著性，还包括申请人不具备申请资格等。
+提出商标异议的可以是任何人，即：既可以是商标注册人，也可以是非商标注册人，既可以是企业、事业单位，也可以是个人，既可以是法人，也可以是非法人。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>商标异议成功率有多少？如异议不成功能否退部分费用？</dt>
+                    <dd>
+                        <span>商标异议的成功率不仅取决于我方律师的专业水平，也取决于您提供的相关证据的力度，以及对方掌握的证据。处理商标案件，就像医生给病人看病一样，有时候，我们虽然尽了最大的努力，但还是没办法取得满意的结果，但整个服务，不是唯结果论的，案件没有成功，不能说服务就没有任何价值。所以我们在已经尽全力提供了服务之后，如果最后很遗憾没能帮您得到想要的结果，服务费用也不予退还，还希望您能理解。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>商标异议不成功，可否进行复审？</dt>
+                    <dd>
+                        <span>2014年5月1日新商标法实施之前，如果异议人对被异议商标提的异议不成立，异议人可以通过商评委提出异议复审，由商评委对异议案件重新审理。但新商标法自2014年5月1日实施之后，异议程序发生了改变。如果异议人对被异议商标的异议不成立，异议人不能再向商评委提出复审。被异议商标将直接被核准注册，发给商标注册证书。异议人如果不服，也只能在商标成功注册后，对其提出无效宣告。新商标法如此修改的原因，主要是为了遏制旧法时代普遍存在的企业通过异议、异议复审程序恶意拖延竞争对手商标核准注册的不正常情况。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>商标异议案件取胜的关键是什么？</dt>
+                    <dd>
+                        <span>商标异议案件取胜的关键是证明对方申请商标存在恶意的证据。一般来说，如果没有证据能证明对方商标注册时明知道该商标系异议人长期经营的品牌，或者没有证据能证明对方申请该商标会显著损害异议人的在先权利，异议的成功率将会很低。毕竟如果对方只是巧合申请了跟您的商标相同或近似的商标，这种情况是不会被商标法保护的，我国商标法是保护注册在先原则，您有了权利就应当尽早申请注册，如果他人巧合申请了同样的商标，只能怪自己对自己的权利不重视，保护不够及时了。</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="quesMsges tradBhCon">
+                <dl>
+                    <dt>驳回复审有必要做么？</dt>
+                    <dd>
+                        <span>1、商标局对商标申请的审查具有主观性，虽然商标被驳回，但并不代表商标就一定不符合法律规定，当事人可在驳回复审中通过复审理由并提供相应证据来争取改变商评委对案件的评判。</span>
+                        <span>2、商标申请后，很多企业都已经对商标进行了一定程度的使用和宣传，如果不进行驳回复审，已经进行的投入就付之东流了。</span>
+                        <span>3、商标驳回复审可以保留最早的申请时间，通过后续的撤销或无效程序，排除掉障碍商标后，可以使申请商标获得注册。</span>
+                        <span>4、只要不是完全相同，仅仅是近似商标，通过复审获得商标权的几率还是比较高的，“六个核桃”、“微信”等商标都是通过驳回复审获得注册的。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>为什么顾问查询时说风险不高，商标局审查时又会被驳回？</dt>
+                    <dd>
+                        <span>1、标审查因素的多变性：商标近似的判断要考虑词语的显著性、知名度、官方政策、指定使用的商品范围等诸多因素。而这些因素会随着社会的发展发生变化，例如带“国”字头的商标，本来是可以注册的，但随着商标局一纸通知，“国”字头加上通用名称构成的商标就不能被核准了。</span>
+                        <span>2、商标审查判断的主观性：虽然官方有统一的审查标准，但审查标准只能概括的列举出一些近似或不近似的例子，无法穷尽所有情况。故实际中，商标近似判断还是依赖主观判断。众所周知，每个人的知识面、阅历甚至性格的差异会使不同人对相同的事物产生不同的判断。所以在商标审查过程中，即便是两个受过专业训练的审查人员，对同一商标的判断也会出现不同的结果。所以，虽然顾问在申请前进行了仔细的查询，但仍没办法完全避免驳回的情况。知果果顾问的培训是由前商标局审查员进行，所以相对来讲，知果果顾问更能准确把握商标局审查员的脉搏，最大限度的降低风险。</span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>商标被驳回之后，还可以采取哪些措施？</dt>
+                    <dd>
+                        <span>1、对阻碍商标顺利核准的引证商标，可以同时提出撤销三年不使用，撤销之后，通过驳回复审可以争取商标的通过。</span>
+                        <span>2、如果引证商标是恶意抢注的商标，可以同时提出无效宣告程序将阻碍商标无效掉，无效之后，通过驳回复审可以争取商标的通过。</span>
+                        <span>3、可以考虑收购驳回引证商标，通过驳回复审，可以顺利获得申请商标的通过。</span>
+                        <span>4、若驳回复审成功机率明显不高，可考虑另行申请注册。</span>
+                        <span>5、如果被驳回商标是由多个要素构成的，如“图形+汉字”，而驳回原因仅仅因为图形、或仅仅因为汉字部分，客户可以将不近似的部分重新提出申请。</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/trademark.js"></script>

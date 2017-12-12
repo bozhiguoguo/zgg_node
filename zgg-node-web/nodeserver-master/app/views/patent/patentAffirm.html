@@ -1,0 +1,438 @@
+<link rel="stylesheet" href="/css/orderBusiness.css"/>
+<link rel="stylesheet" href="/css/orderDetailsPaid.css"/>
+<style>
+    .uploadify{
+        border:0\0;
+    }
+    .uploadify>.swfupload{
+        padding :2px 6px\0;
+    }
+</style>
+<div id="orderBox" v-cloak>
+    <!--订单状态-->
+    <div class="personCenter_wrapp">
+        <div class="personCenter_tab">
+            <ul>
+                <li class="f_l">果蜜中心<span>></span></li>
+                <li class="f_l">订单中心<span>></span></li>
+                <li class="f_l">业务办理</li>
+            </ul>
+            <div class="c_b"></div>
+        </div>
+    </div>
+    <div class="order-status">
+        <div class="order-status-title">订单状态</div>
+        <div class="order-status-content">
+            <div class="order-number">订单号：${patentDataseees.orderCode}</div>
+            <div class="order-fig">
+                <div class="words_step affirmCss">
+                    <ul>
+                        <li class="words_fk" v-for="allNodesList in allNodes" :class="{flowNode_did:nowNodes.stepnum>=allNodesList.stepnum,flowNode_w:nowNodes.stepnum<allNodesList.stepnum}">
+                            <p>${allNodesList.titlename}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--业务信息-->
+    <div class="business-info">
+        <div class="business-info-title">业务信息</div>
+        <div style="min-height: 304px;background: #FFFFff;">
+            <div class="bussDiv">
+                <ul class="f_l bussList">
+                    <li>专利名称：<span >${items.patentBaseinfo.technicalMan}</span></li>
+                    <li>服务类别：
+                        <span v-if="items.orderDetail.pcode.indexOf('pt_inv')!=-1">发明专利</span>
+                        <span v-if="items.orderDetail.pcode.indexOf('pt_ow')!=-1">外观专利</span>
+                        <span v-if="items.orderDetail.pcode.indexOf('pt_um')!=-1">新型专利</span>
+                        <span v-if="items.orderDetail.pcode.indexOf('pt_refr')!=-1">驳回专利</span>
+                    </li>
+                    <li>官方费用：<span>${patentDataseees.publicexp}元 </span></li>
+                    <li>服务费用：<span>${patentDataseees.serveexp}元</span></li>
+                    <li>申请类别：
+                        <span v-if="orderFeeChargedsList.length==0">不减缓</span>
+                        <span v-if="orderFeeChargedsList.length>0">减缓</span>
+                    </li>
+                </ul>
+                <ul class="f_l bussList" v-for="(invent, index) in items.inventionMans">
+                    <li>发明人姓名：<span>${invent.man}</span></li>
+                    <li v-if="index==0">发明人身份证号码：<span>${invent.postcard}</span></li>
+                </ul>
+            </div>
+            <div class="bussDiv"style="margin-bottom: 0">
+                <ul class="f_l bussList">
+                    <li>技术联系人：<span>${items.patentBaseinfo.technicalMan}</span></li>
+                    <li>电话：<span>${items.patentBaseinfo.tel}</span></li>
+                    <li>email：<span>${items.patentBaseinfo.email}</span></li>
+                    <li>优先权：<span>${items.patentBaseinfo.isPriority==1?'是':'否'}</span></li>
+                </ul>
+                <ul class="f_l bussList" v-for="apply in items.applyMans">
+                    <li>申请人信息：<span>${apply.orgMan==1?'公司':'个人'}</span></li>
+                    <li>姓名：<span>${apply.applyMan}</span></li>
+                    <li>身份证号码：<span>${apply.certification}</span></li>
+                    <li>通信地址：<span>${apply.address}</span></li>
+                </ul>
+            </div>
+            <div style="clear: both"></div>
+            <div class="bussDiv"style="margin-bottom: 0" v-if="nowNodes.stepnum==3">
+            <ul class="f_l bussList">
+                <li><span class="red">*</span>合同上传
+                    <span class="red" v-if="!ht">(文件名称必须包含合同号)</span>：
+                    <span class="text-green" v-if="ht"><a :href="ht" target="_blank">预览附件</a></span>
+                    <span class="ht" id="ht"></span>
+                    <div id="file_upload_item_ht" class="hide"></div>
+                </li>
+            </ul>
+             <ul class="f_l bussList">
+                <li><span class="red">*</span>客户信息登记表：
+                    <span class="red" v-if="!khdjxx">(文件名称必须包含客户信息登记表)</span>
+                    <span class="text-green" v-if="khdjxx"><a :href="khdjxx" target="_blank">预览附件</a></span>
+                    <span class="khxx" id="khxx"></span>
+                    <div id="file_upload_item_khxx"  class="hide"></div>
+                </li>
+             </ul>
+            </div>
+            <div v-if="nowNodes.stepnum==3" class="words_button">
+                <button @click="ptAffirm()" class="words_sub"  :disabled="showLoading" v-html="showLoading?'数据提交中...':'确认提交'"></button>
+            </div>
+        </div>
+
+    </div>
+    <!--资料下载-->
+    <div class="business-info" v-if="patentFiles">
+        <div class="business-info-title">资料下载</div>
+        <div class="downloadArea">
+            <h6 class="Msg_title"><img src="/img/icon-orderdetail-orderinfo.png" alt=""/><span>资料下载模版列表</span></h6>
+            <div class="downloadFile m-t-sm" >
+                客户信息登记表模板 <a @click="downContractByPath(patentDataseees.orderId)" >点击下载</a>
+            </div>
+            <div v-if="patentDataseees.contracStatus==1" class="downloadFile m-t-sm" >
+              合同下载  <a href="javaScript:;" @click="downFile()" target="_blank" >合同下载</a>
+            </div>
+            <div class="downloadFile m-t-sm" v-if="patentFiles.startStep">
+               业务填写: <a v-for="file in patentFiles.startStep.files" :href="file.filePath" target="_blank"  v-if="file.filePath">${file.fileName}</a>
+            </div>
+            <div class="downloadFile m-t-sm" v-if="patentFiles.customerConfirm">
+                客户确认: <a v-for="file in patentFiles.customerConfirm.files" :href="file.filePath" target="_blank"  v-if="file.filePath">${file.fileName}</a>
+            </div>
+        </div>
+    </div>
+    <!--订单信息-->
+    <div class="order-info">
+        <div class="order-info-title">订单信息</div>
+        <div class="order-info-content">
+            <div class="order-info-content-l">
+                <dl>
+                    <dt><img src="/img/icon-orderdetail-orderinfo.png" alt=""/>订单信息</dt>
+                    <dd>商品名称：${patentDataseees.pname}</dd>
+                    <dd v-for="item in orderMsg">${item.feeChargedTypename}：${item.feeChargedName} * ${ item.buyNum }</dd>
+                    <dd>金额：￥${patentDataseees.money}</dd>
+                </dl>
+
+                <dl class="order-info-content-l-second">
+                    <dt><img src="/img/icon-orderdetail-invoice.png" alt=""/>发票信息</dt>
+                    <dd v-if="invoiceDatas.unitName">发票抬头 ：${ invoiceDatas.unitName }</dd>
+                    <dd v-if="invoiceDatas && invoiceDatas.billType == 1">发票类型 ：普通发票</dd>
+                    <dd v-if="invoiceDatas && invoiceDatas.billType == 2">发票类型 ：专用发票</dd>
+                    <dd v-if="invoiceDatas && invoiceDatas.billType == 3">发票类型 ：未选择</dd>
+
+                    <dd v-if="invoiceDatas.billStatus"><span style="float:left;">开票状态 ：</span>
+                        <div style="float:left;width:260px;word-break:break-word;">
+                            <span v-if="invoiceDatas.billStatus == 1">未开票</span>
+                            <span v-if="invoiceDatas.billStatus == 2">已开票</span>
+                            <span v-if="invoiceDatas.billStatus == 3">已邮寄</span>
+                            <span v-if="invoiceDatas.billStatus == 4">已退回</span>
+                            <div v-show="invoiceDatas.billLinks.length > 0" style="color:#727f8f;">
+                                <a :href="val" target="_blank" v-for="val in invoiceDatas.billLinks" style="display:block;">${val}</a>
+                            </div>
+                        </div>
+                    </dd>
+
+                    <!--0：邮政小包;1:顺丰快递2：申通快递 3：邮政EMS 4：圆通快递 5：其他快递-->
+                    <dd v-show="invoiceDatas.zgYjBillOfContractVo && kddType"><span style="float:left;">邮寄单号：</span>
+                        <div style="float: left;">
+                            <div v-for="item in invoiceDatas.zgYjBillOfContractVo">
+                                <span>${item.kddhNbrs}</span>(<span v-show="item.yjType == 0">邮政小包</span>
+                                <span v-show="item.yjType == 1">顺丰快递</span>
+                                <span v-show="item.yjType == 2">申通快递</span>
+                                <span v-show="item.yjType == 3">邮政EMS</span>
+                                <span v-show="item.yjType == 4">圆通快递</span>
+                                <span v-show="item.yjType == 5">其他快递</span>)；
+                            </div>
+                        </div>
+                    </dd>
+
+                    <dd v-if="!invoiceDatas.unitName">无</dd>
+                </dl>
+            </div>
+            <div class="order-info-content-c">
+                <dl>
+                    <dt><img src="/img/icon-orderdetail-contactperson.png" alt=""/>联系人信息</dt>
+                    <dd>姓名：${patentDataseees.userName}</dd>
+                    <dd>手机号码：${patentDataseees.zuTel}</dd>
+                </dl>
+                <dl class="order-info-content-c-second">
+                    <dt><img src="/img/icon-orderdetail-mailingperson.png" alt=""/>收件人信息</dt>
+                    <dd>姓名：${patentDataseees.recipientName}</dd>
+                    <dd>手机号码：${patentDataseees.recipientPhone}</dd>
+                    <dd>邮寄地址：<span>${patentDataseees.address}</span></dd>
+                </dl>
+
+            </div>
+            {{> gwList}}
+        </div>
+        </div>
+
+    <!--跟踪服务-->
+    <div class="business-info">
+        <div class="business-info-title">跟踪信息</div>
+        <div style="padding: 30px 15px;background: #FFFFff;">
+            <table style="height:auto;width: 100%;line-height: 40px;color: #2a2a2a;text-align: center;font-size: 14px;">
+                <thead style="background: #f3f6f8;margin-top: 30px;">
+                    <tr>
+                        <td>官文类型</td>
+                        <td>收到日期</td>
+                        <td>是否邮寄</td>
+                        <td>下载文件</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="list in server">
+                        <td>${list.docTypeName}</td>
+                        <td>${list.upTime}</td>
+                        <td>${list.expressStatus}</td>
+                        <td></td>
+                    </tr>
+                    <tr class="basicNoinfo" v-if="server.length==0">
+                        <td >&nbsp;</td>
+                        <td><img src="/img/icon-emptystate.png"  style="width:156px;height:156px;"/><p>亲，暂无服务！</p></td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+<script type="text/javascript">
+    var patentDatase = {{{ patentDatase }}};
+    var patentData = {{{ patentData }}};
+    var orderBody = {{{ orderBody }}};
+    var allNodes = {{{ allNodes }}};
+    var nowNodes = {{{ nowNodes }}};
+    var server = {{{ server }}};
+    var orderMsg = {{{ orderMsg }}};
+    var patentFiles = {{{ patentFiles}}};
+    var orderFeeChargedsList = {{{orderFeeChargedsList}}}
+    var ptAffirmVM = new Vue({
+        el: '#orderBox',
+        delimiters: ["${", "}"],
+        data: {
+            orderBody:orderBody.data.userBodyList,
+            orderCompany:orderBody.data.userCompanyList,
+            items:patentData.data,
+            allNodes:allNodes.data,
+            nowNodes:nowNodes.data,
+            patentDataseees:patentDatase.data,
+            server:server.data,
+            orderMsg:orderMsg.data,
+            contractUrl:zgg.Vconfig.contractUrl,
+            gwPicUrl:zgg.Vconfig.gwPicUrl,
+            patentFiles:patentFiles.data,
+            orderFeeChargedsList:orderFeeChargedsList.data,
+            khdjxx:"",
+            ht:"",
+            adviser:"",
+            gwPicUrl:zgg.Vconfig.gwPicUrl,
+            showLoading:help.showLoading,
+            invoiceDatas:{},
+            kddType:false,
+        },
+        created(){
+            axios.post('/userCenter/findBillInfOfOrderDetailsByOrderId/',{orderId:this.patentDataseees.orderId}).then(function(res){
+                ptAffirmVM.invoiceDatas = res.data.data;
+                if(ptAffirmVM.invoiceDatas.zgYjBillOfContractVo.length > 0){
+                    if(ptAffirmVM.invoiceDatas.zgYjBillOfContractVo[0].hasOwnProperty('kddhNbrs') && ptAffirmVM.invoiceDatas.zgYjBillOfContractVo[0].hasOwnProperty('yjType')){
+                        ptAffirmVM.kddType = true;
+                    }
+                }
+            })
+        },
+        methods: {
+            downContractByPath:function (orderId) {
+                window.open('/business/downContractByPath/'+orderId);
+            },
+            getGwInfo:function () {
+                axios.get('/userCenter/userCounselorByPcode/'+crData.data.orderDetail.pcode).then(
+                        function (res) {
+                            if(res){
+                                ptAffirmVM.adviser = res.data;
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                        }
+                )},
+            ptAffirm:function () {
+                if(this.ht!="" && this.khdjxx!=""){
+                    _data={stepId:this.nowNodes.id, orderId:this.patentDataseees.orderId};
+                    ptAffirmVM.showLoading = true
+                    axios.post("/copyright/copyrightKhAffirm",_data).then(
+                        function (data) {
+                            if(data.data.success){
+                               window.location.reload();
+                            }else{
+                              alert(data.data.message);
+                            }
+                    })
+                }
+            },
+            setUploadInit:function () {
+                if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0"){
+                    $(".khxx").uploadify({
+                        'auto' : true,
+                        'queueID' : 'file_upload_item_khxx',
+                        'swf'      : '/lib/uploadify.swf',
+                        'uploader' : '/upload/profileToName',
+                        'buttonCursor':'hand',
+                        "buttonClass":"addFile-mini",
+                        'fileType': '*.jpg;*.gif;*.png;*.bmp;*.doc;*.docx;*.xls;*.xlsx;*.ppt;*.pptx;*.pdf;*.txt;*.rar;*.zip',
+                        'buttonText':'上传附件',
+                        'width':'80',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'formData':{
+                            'orderId':patentData.data.orderDetail.orderId,
+                            'stepType':nowNodes.data.stepnum,
+                            'stepId':nowNodes.data.id,
+                            'fType':'ft_1',
+                        },
+                        'onDrop':function(file, fileDropCount) {
+                        },
+                        'onFallback':function () {
+                            layer.msg('请安装或升级更高版本的Flash插件');
+                        },
+                        'onUploadSuccess' : function(file, data, response) {
+                            debugger;
+
+                            var data = JSON.parse(data),
+                                    fileUrl = zgg.Vconfig.contractUrl +  data.data.filePath;
+                            ptAffirmVM.khdjxx = fileUrl;
+                        },
+                        'onError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                    $(".ht").uploadify({
+                        'auto' : true,
+                        'queueID' : 'file_upload_item_ht',
+                        'swf'      : '/lib/uploadify.swf',
+                        'uploader' : '/upload/profileToName',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传附件',
+                        'fileType': '*.jpg;*.gif;*.png;*.bmp;*.doc;*.docx;*.xls;*.xlsx;*.ppt;*.pptx;*.pdf;*.txt;*.rar;*.zip',
+                        "buttonClass":"addFile-mini",
+                        'width':'80',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'formData':{
+                            'orderId':patentData.data.orderDetail.orderId,
+                            'stepType':nowNodes.data.stepnum,
+                            'stepId':nowNodes.data.id,
+                            'fType':'ft_1',
+                        },
+                        'onDrop':function(file, fileDropCount) {
+                        },
+                        'onFallback':function () {
+                            layer.msg('请安装或升级更高版本的Flash插件');
+                        },
+                        'onUploadSuccess' : function(file, data, response) {
+                            debugger;
+                            var data = JSON.parse(data),
+                                    fileUrl = zgg.Vconfig.contractUrl +  data.data.filePath;
+                            ptAffirmVM.ht = fileUrl;
+                        },
+                        'onError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                }else{
+                    $(".khxx").uploadifive({
+                        'auto' : true,
+                        'queueID' : 'file_upload_item_khxx',
+                        'uploadScript' : '/upload/profileToName',
+                        'buttonCursor':'hand',
+                        "buttonClass":"addFile-mini",
+                        'buttonText':'上传附件',
+                        'width':'80',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'formData':{
+                            'orderId':patentData.data.orderDetail.orderId,
+                            'stepType':nowNodes.data.stepnum,
+                            'stepId':nowNodes.data.id,
+                            'fType':'ft_1',
+                        },
+                        'onDrop':function(file, fileDropCount) {
+                        },
+                        'onUploadComplete' : function(file, data, response) {
+                            debugger;
+
+                            var data = JSON.parse(data),
+                                    fileUrl = zgg.Vconfig.contractUrl +  data.data.filePath;
+                            ptAffirmVM.khdjxx = fileUrl;
+                        },
+                        'onError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                    $(".ht").uploadifive({
+                        'auto' : true,
+                        'queueID' : 'file_upload_item_ht',
+                        'uploadScript' : '/upload/profileToName',
+                        'buttonCursor':'hand',
+                        'buttonText':'上传附件',
+                        "buttonClass":"addFile-mini",
+                        'width':'80',
+                        'method' : 'post',
+                        'progressData':'percentage',
+                        'formData':{
+                            'orderId':patentData.data.orderDetail.orderId,
+                            'stepType':nowNodes.data.stepnum,
+                            'stepId':nowNodes.data.id,
+                            'fType':'ft_1',
+                        },
+                        'onDrop':function(file, fileDropCount) {
+                        },
+                        'onUploadComplete' : function(file, data, response) {
+                            debugger;
+                            var data = JSON.parse(data),
+                                    fileUrl = zgg.Vconfig.contractUrl +  data.data.filePath;
+                            ptAffirmVM.ht = fileUrl;
+                        },
+                        'onError' : function (file, data, response) {
+                            debugger;
+                        }
+                    })
+                }
+            },
+            //下载合同
+            downFile:function () {
+                axios.get('/userOrder/downContractFile/pt/'+ptAffirmVM.patentDataseees.contractcode).then(
+                    function (res) {
+                        if(res.data.success && res.data.data){
+                            window.open('/userOrder/downContractByPathConcode/'+escape(res.data.data)+"/"+ptAffirmVM.patentDataseees.contractcode)
+                        }
+                    },
+                    function (err) {
+                        console.log(err);
+                    }
+                )
+            },
+        }
+    })
+    ptAffirmVM.setUploadInit();
+</script>

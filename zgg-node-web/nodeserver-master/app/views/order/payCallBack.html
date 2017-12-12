@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="/css/paySuccess.css"/>
+<style>
+    .buttonColorec9c19{
+        border: 0;
+    }
+    .waiting{
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+    }
+</style>
+<div class="payBox">
+    <!--支付状态-->
+    <div class="payStatus">
+        <div class="payStatus-center">
+            <div class="payStatus-center-l">
+                <img src="/img/icon-payment-success.png" alt="上传成功图标"/>
+            </div>
+            <div class="payStatus-center-r">
+                <p>支付成功，请及时进行业务办理。</p>
+                <p>金额：<span>￥{{ orderCallBackList.orderPay.money }}</span>
+                    支付方式：
+                    {{#eq orderCallBackList.orderPay.paytype  11}}汇付天下{{/eq}}
+                    {{#eq orderCallBackList.orderPay.paytype  12}} 支付宝{{/eq}}
+                    {{#eq orderCallBackList.orderPay.paytype  33}}微信支付{{/eq}}
+                    {{#eq orderCallBackList.orderPay.paytype  21}}线下汇款{{/eq}}
+                    {{#eq orderCallBackList.orderPay.paytype  15}}账户余额{{/eq}}
+                </p>
+                <p>合同号：<span>{{ orderCallBackList.orderPay.paycode }}</span></p>
+            </div>
+        </div>
+    </div>
+    <!--订单内容-->
+    <div class="orderContent">
+        {{#each orderCallBackList.orderList}}
+        <div class="orderContentList">
+            <div class="order-num">订单编号：{{ordercode}}</div>
+            <div class="order-content">
+                <p class="m-b-xs">名称：{{pname}}</p>
+                {{#if feeChargeList}}<p>{{#feeChargeList}}  {{feeChargedTypename}}：{{feeChargedName}}*{{buyNum}} <br>{{/feeChargeList}}</p>{{/if}}
+                {{#eq status 1}}
+                    {{#eq ptype 'x-'}}
+                        {{else}}
+                            {{#eq ptype 'la'}}
+                
+                                {{else}}
+                                <a href="/business/{{pcode}}/{{id}}/{{flow_type}}" target="_blank"> <button class="buttonColorec9c19">业务办理</button></a>
+                            {{/eq}}
+                    {{/eq}}
+                {{else}}
+                    <a href="javascript:"><span class="waiting">请等待财务确认</span></a>
+                {{/eq}}
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    <!--其他-->
+    <div class="other">
+        <p class="other-title m-b">您可能还需要</p>
+        <div class="other-content">
+            {{#pHotRecommend}}
+            <div class="other-content-box" style="margin-left:20px;">
+                <div class="other-content-box-w">
+                    <div class="other-content-box-t">
+                        <a style="display: block" href="/product/productDetail/{{id}}" target="_blank"><img class="p-adside-img" src="{{../config.ImgUrl}}{{pics}}" width="100%" height="123"></a>
+                    </div>
+                    <div class="other-content-box-b">
+                        <p>{{pname}}</p>
+                        <p class="money">¥{{priceTax}}/件</p>
+                    </div>
+                </div>
+            </div>
+            {{/pHotRecommend}}
+            </div>
+        </div>
+    <div class="c_b"></div>
+</div>
+<script type="text/javascript" src="/js/getCookies.js"></script>
+<script type="text/javascript">
+    if(typeof {{{orderCallBackList}}} == 'undefined'){
+        layui.use('layer',function(){
+            layer.open({
+                title:'提示',
+                content: '<p style="text-align: center">对不起，访问不到您修改的参数！</p>',
+                btn: false,
+            })
+        })
+    }
+    /*var user = JSON.parse(getCookie('_zg_user'));
+    var contractcode = window.location.pathname.split('/')[3];
+    axios.post('/userOrder/validateSameContractIfSameUser/',{contractcode:contractcode,uid:user.id}).then(function(res){
+        if(!res.data.success){
+            layui.use('layer',function(){
+                layer.open({
+                    title: '提示',
+                    content:"<p style='text-align: center'>" + res.data.message + "请关闭页面</p>",
+                    btnAlign: 'c',
+                    btn1:function(){
+                        if(window.close()){
+                            window.close();
+                        }else{
+                            close()
+                        }
+
+                    }
+                })
+            })
+        }
+    })*/
+    new Vue({
+        el: '',
+        delimiters: ['${', '}'],
+    });
+</script>

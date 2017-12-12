@@ -1,0 +1,35 @@
+/*正常状态*/
+/*color = a34a51*/
+.buttonColor{
+    background-color: #a34a51!important;
+}
+/*鼠标滑过*/
+.buttonColor:hover{
+    background-color: #b0646a !important;
+}
+/*鼠标点击*/
+.buttonColor:active{
+    background-color: #8a3e44 !important;
+}
+
+/*color = 4597d9*/
+.buttonColor4597{
+    background-color: #4597d9 !important;
+}
+.buttonColor4597:hover{
+    background-color: #5fa6de !important;
+}
+.buttonColor4597:active{
+    background-color: #397fb7 !important;
+}
+
+/*color = e9c19e*/
+.buttonColorec9c19{
+    background-color: #e9c19e !important;
+}
+.buttonColorec9c19:hover{
+    background-color: #ebc9ad !important;
+}
+.buttonColorec9c19:active{
+    background-color: #c5a385 !important;
+}

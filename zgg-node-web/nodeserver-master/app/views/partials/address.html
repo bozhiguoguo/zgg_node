@@ -1,0 +1,26 @@
+<div class="add-title-content" style="padding: 25px 25px 50px">
+    <p><span>姓名：</span><input type="text" id="add_name" placeholder="" class="inputW" /></p>
+    <p><span style="padding-left:0; ">手机号码：</span><input id="add_phone" type="tel" placeholder="" class="inputW" /></p>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址：</label>
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <select name="quiz1" v-model="selected_p" id="selected_p" @change="tre_city()">
+                    <option v-for="p in province" v-bind:value="p" v-html="p.name"></option>
+                    </select>
+                </div>
+            <div class="layui-input-inline">
+                <select name="quiz2" v-model="selected_c" @change="tre_country()">
+                    <option v-for="c in city.data" v-bind:value="c" v-html="c.name"></option>
+                    </select>
+                </div>
+            <div class="layui-input-inline">
+                <select name="quiz3" v-model="selected_co">
+                    <option v-for="co in country.data" v-bind:value="co.code" v-html="co.name"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    <input type="text" placeholder="" id="add_address" class="inputW"  style="width: 400px"/>
+    </div>
+

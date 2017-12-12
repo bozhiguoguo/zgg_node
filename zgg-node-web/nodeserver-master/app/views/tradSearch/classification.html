@@ -1,0 +1,199 @@
+<link rel="stylesheet" href="/css/reset.css"/>
+<link rel="stylesheet" href="/css/tradClass.css"/>
+<body style=" background-color: #f9f8f4;">
+<div class="tradClass_content" id="search_trdata">
+    <h3>商标分类</h3>
+    <div class="addTradSearch_header">
+        <div style="font-size:14px;color:#999;padding-bottom: 10px;">不清楚商标类别和群组</div>
+        <div class="add_Input" style="margin-bottom: 30px;">
+            <input type="text" placeholder="请输入商品名称/商品编号" maxlength="50" v-model="contentModel" name="contentModel" @keyup.enter="checkedKey(contentModel)"></div>
+        <div class="add_Search" style="margin-bottom: 30px;"><a v-on:click="setPageNo();getSearchPage();currentPage=1">查询商品所属类别</a></div>
+    </div>
+    <div style="clear: both"></div>
+
+    <div class="tradClass_con addTradSearch_info" style="height: auto;overflow: hidden;min-height: 350px;">
+        <p>为您查询到商品对应的商标分类结果如下：</p>
+        <table class="addTradSearch_tab">
+            <tr class="addTradSearch_tit">
+                <td class="type1 type2">所属类别</td>
+                <td class="type3">类似群组</td>
+                <td class="type1">商品编号</td>
+                <td class="type5">商品/服务名称</td>
+            </tr>
+            <tr class="addTradSearch_border" v-for="item in items">
+                <td class="type1 type2"><a target="_blank" v-bind:href="'/tradSearch/search/'+(item.sbjType<10?('0'+item.sbjType):item.sbjType)">第${item.sbjType}类 ${item.typeName}</a></td>
+                <td class="type3">${item.pid}组</td>
+                <td class="type1" v-if="item.sbjCode">[${item.sbjCode}]</td>
+                <td class="type1" v-if="!item.sbjCode">${item.sbjCode || ''}</td>
+                <td class="type5">${item.sbjSortname}</td>
+            </tr>
+        </table>
+        <!--<table class="addTradSearch_tab" v-show="typePage ==2">
+            <tr class="addTradSearch_tit">
+                <td class="type1 type2">所属类别</td>
+                <td class="type3">类似群组</td>
+                <td class="type1">商品编号</td>
+                <td class="type5">商品/服务名称</td>
+            </tr>
+            <tr class="addTradSearch_border" v-for="item in trNamelist">
+                <td class="type1 type2">${item.orderid}</td>
+                <td class="type3">${item.pid}</td>
+                <td class="type1">${item.sbjCode}</td>
+                <td class="type5">${item.sbjSortname}</td>
+            </tr>
+        </table>-->
+
+        <div v-if="items.length == 0" class="no_product" style="">暂无分类结果</div>
+        <div id="demo" class="page" v-show="items.length!=0" style="text-align: center"></div>
+    </div>
+</div>
+<div style="clear: both"></div>
+<script  type="text/javascript">
+    var trData = {{{ trName }}};
+    var searchTRVM = new Vue({
+        delimiters: ["${", "}"],
+        el: "#search_trdata",
+        data: {
+            items: trData.list,
+            totalPage:trData.totalPage,
+            totalCount:trData.totalCount,
+            currentPage:1,
+            isClickLastPage:false,
+            contentModel:localStorage.getItem('contentText'),
+        },
+        methods:{
+            setPageNo:function(){
+                var partter= /^[A-Za-z0-9\u4e00-\u9fa5]+$/;
+                if(!partter.test(this.contentModel) && this.contentModel.length != 0){
+
+                    layui.use('layer',function() {
+                        layer.msg('只能输入数字、英文、汉字！')
+                    })
+                    return
+                }
+                if(this.contentModel.length == 0){
+                    layui.use('layer',function() {
+                        layer.msg('关键字不能为空！')
+                    })
+                    return
+                }
+                searchTRVM.currentPage = 1;
+                localStorage.setItem('contentText',searchTRVM.contentModel);
+                window.location.href = '/tradSearch/classification/' + searchTRVM.contentModel;
+                /*var arr = window.location.pathname.split('/');
+                if(arr[3]){
+                    window.location.pathname = arr[1] + '/' + arr[2]
+                }
+                console.log(window.location.pathname)*/
+            },
+            checkedKey:function(contentModel){
+                var partter= /^[A-Za-z0-9\u4e00-\u9fa5]+$/;
+                if(!partter.test(this.contentModel) && this.contentModel.length != 0){
+
+                    layui.use('layer',function() {
+                        layer.msg('只能输入数字、英文、汉字！')
+                    })
+                    return
+                }
+                if(this.contentModel.length == 0){
+                    layui.use('layer',function() {
+                        layer.msg('关键字不能为空！')
+                    })
+                    return
+                }
+                this.getSearchPage();
+                searchTRVM.currentPage = 1;
+                window.location.href = '/tradSearch/classification/' + searchTRVM.contentModel;
+
+            },
+            getSearchPage:function( ){
+                var partter= /^[A-Za-z0-9\u4e00-\u9fa5]+$/;
+                if(!partter.test(this.contentModel) && this.contentModel.length != 0){
+
+                    layui.use('layer',function() {
+                        layer.msg('只能输入数字、英文、汉字！')
+                    })
+                    return
+                }
+                if(this.contentModel.length == 0){
+                    layui.use('layer',function() {
+                        layer.msg('关键字不能为空！')
+                    })
+                    return
+                }
+                var body_content = {
+                    "pageParam":{
+                        "pageNo":searchTRVM.currentPage,
+                        "pageSize":"10"
+                    },
+                    "content":searchTRVM.contentModel
+                }
+                //window.location.href = '/tradSearch/classification/' + this.contentModel;
+                axios.post('/tradSearch/classificationPage',body_content).then(
+                    function (res) {
+                        if(res.data.success && res.data.data){
+                            searchTRVM.items = res.data.data.list;
+                            if(searchTRVM.currentPage == 1 || searchTRVM.isClickLastPage){
+                                searchTRVM.totalPage =res.data.data.totalPage;
+                                searchTRVM.totalCount = res.data.data.totalCount;
+                                searchTRVM.getPages();
+                            }
+                        }
+                        localStorage.setItem('contentText',searchTRVM.contentModel);
+                    },
+                    function (err) {
+                        layer.msg(err, {
+                            icon: 5
+                            ,time: 3*1000 //3s后自动消失
+                        })
+                    }
+                )
+            },
+
+            getPages:function () {
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                    laypage({
+                        cont: 'demo',
+                        curr: searchTRVM.currentPage,
+                        pages: Math.ceil(parseInt(searchTRVM.totalCount)/10),
+                        skip: true,
+                        first: false,
+                        last: false,
+                        groups:5,
+                        jump: function (e) {
+                            if(e.curr !=1 || searchTRVM.currentPage>1){
+                                searchTRVM.currentPage = e.curr;
+                                if(searchTRVM.contentModel == null || searchTRVM.contentModel == ''){
+                                    searchTRVM.contentModel = localStorage.getItem('contentText');
+                                }
+                                searchTRVM.getSearchPage();
+                            }
+                        }
+                    });
+                })
+            },
+        }
+    });
+
+    searchTRVM.getPages();
+    /*layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+                ,layer = layui.layer;
+        laypage({
+            cont: 'demo',
+            curr: trData.page,
+            pages: trData.totalpages,
+            skip: true,
+            jump: function (e) {
+                searchTRVM.currentPage = e.curr;
+                searchTRVM.page();
+            }
+        });
+    });*/
+    var searchPageDiv = document.getElementById('search_trdata');
+    var searchPageH = (document.documentElement.clientHeight || document.body.clientHeight-20-55-52-151);
+    searchPageDiv.style.minHeight = searchPageH +"px";
+</script>
+</body>

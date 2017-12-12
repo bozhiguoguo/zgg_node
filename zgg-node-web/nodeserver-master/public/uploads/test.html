@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{seo.title}}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="{{seo.keywords}}">
+    <meta name="description" content="{{seo.description}}">
+    <link rel="stylesheet" href="/css/app.css" type="text/css">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/index.css" type="text/css">
+    <script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/lib/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="product">
+    {{ serveexp }}
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#product",
+        data:{
+            serveexp:"123123",
+        }
+    })
+</script>
+<header class="header">
+    <div class="header-top w_page">
+        <div class="f_l">
+            <a href="../" class="f_l" style="margin:4px 16px 0 0;" target="_blank"><img src="/img/logo-zhiguoguo.png" alt=""></a>
+            <div class="text-primary-dker f_l ">
+                <span class="dis_b header-tel wrapper-sm">客服电话</span>
+                400-888-1426
+            </div>
+        </div>
+        <ul class="f_r header-nav">
+            <li class="f_l"><a href=""><img class="f_l m-t-md m-l-xs" src="/img/icon-home-nav-cellphone_2.png" alt="">手机版</a>
+            </li>
+            <li class="f_l"><a href="">果蜜中心</a></li>
+            <li class="f_l"><a href="html/cart.html"><img class="f_l m-t-md m-l-xs"
+                                                          src="/img/icon-home-nav-cellphone.png"
+                                                          alt="">购物中心(<span>0</span>)件</a></li>
+            <li class="f_l"><a href="">登入</a></li>
+            <li class="f_l"><a href="">注册</a></li>
+        </ul>
+    </div>
+</header>
+<nav class="nav" id="navBox">
+    <div class="w_page">
+        <ul>
+            <li id="nav"><a href=""><img class="f_l" style="margin: -3px 3px 0 0;" src="/img/icon-home-nav-list.png"
+                                         alt="">全部商品</a>
+                <div class="topNav">
+                    <div class="topNav-top">
+                        <ul class="f_l topNav-left">
+                            <!--<li class="ahover"><a href="">商标服务&gt;</a></li>
+                            <li><a href="">专利服务&gt;</a></li>
+                            <li><a href="">版权服务&gt;</a></li>
+                            <li><a href="">高新认证服务&gt;</a></li>-->
+                            {{#data}}
+                            <li><a href="">{{typename}}></a></li>
+                            {{/data}}
+                        </ul>
+
+                        <!--<li class="c_b">
+                            <li>
+                                <span>商标注册</span>
+                                <a href="">国内普通商标注册</a>
+                                <a href="">国内普通商标注册</a>
+                                <a href="">国内普通商标注册</a>
+                            </li>
+                            <li>
+                                <span>商标注册</span>
+                                <a href="">国内普通商标注册</a>
+                                <a href="">国内普通商标注册</a>
+                            </li>
+                            <li>
+                                <span>商标注册</span>
+                                <a href="">国内普通商标注册</a>
+                                <a href="">国内普通商标注册</a>
+                            </li>
+                        </li>
+                        <li class="c_b">
+                            <li>
+                                <span>商标注册</span>
+                                <a href="">国内普通商标注册</a>
+                                <a href="">国内普通商标注册</a>
+                            </li>
+                            <li>
+                                <span>商标注册</span>
+                                <a href="">国内普通商标注册</a>
+                                <a href="">国内普通商标注册</a>
+                                <a href="">国内普通商标注册</a>
+                            </li>
+                            <li>
+                                <span>商标注册</span>
+                                <a href="">国内普通商标注册</a>
+                                <a href="">国内普通商标注册</a>
+                                <a href="" style="text-align: right;margin-right: 45px;">查看全部</a>
+                            </li>
+                        </li>-->
+                        {{#data}}
+
+                        <ol class="f_l topNav-right hide">
+                            {{#childrens}}
+                            <li>
+                                <span>{{typename}}</span>
+                                {{#products}}
+                                <a href="">{{pname}}</a>
+                                {{/products}}
+                            </li>
+                            {{/childrens}}
+                        </ol>
+
+                        {{/data}}
+
+                    </div>
+                    <div class="topNav-host">
+                        <p>热门商品</p>
+                        <div>
+                            <a href=""><img src="" alt=""></a>
+                            <a href=""><img src="" alt=""></a>
+                            <a href=""><img src="" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li><a href="">商标</a></li>
+            <li><a href="">版权</a></li>
+            <li><a href="">专利</a></li>
+            <li><a href="">头条</a></li>
+        </ul>
+        <div class="f_r search">
+            <button><img src="/img/icon-home-nav-zoomer.png" alt=""></button>
+            <input class="" type="text" placeholder="累计免费查询XXXX次">
+        </div>
+    </div>
+</nav>
+{{{body}}}
+<footer class="footer">
+    <div class="footer-nav">
+        <ul>
+            <li>
+                <a class="footer-list-a" href="">关于我们</a>
+                <a class="footer-list-a" href="">合作加盟</a>
+                <a class="footer-list-a" href="">加入果村</a>
+                <a class="footer-list-a" href="">帮助中心</a>
+                <a class="footer-list-a" href="">联系我们</a>
+            </li>
+            <li class="footer-list-bg">
+                <a class="footer-list-a" href="">新浪微博</a>
+                <a class="footer-list-a" href="">微信</a>
+                <a class="footer-list-a" href="">在线客服</a>
+                <p>
+                    <span class="dis_b">400-888-1426</span>
+                    周一至周六 9:00-18:00
+                </p>
+            </li>
+            <li class="footer-copy">
+                &copy;2013-2016 知果科技版权所有 京ICP备14014304号-1 京ICP证140441号
+            </li>
+        </ul>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/js/jquery.waypoints.min.js"></script>
+<script type="text/javascript" src="/js/jquery.countup.min.js"></script>
+<script type="text/javascript" src="/lib/layui/layui.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/index.js"></script>
+</html>

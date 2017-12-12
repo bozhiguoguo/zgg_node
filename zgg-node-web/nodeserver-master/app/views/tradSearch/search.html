@@ -1,0 +1,71 @@
+
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="/css/tradSearch.css"/>
+
+<div class="clear"></div>
+    <div class="tradSearch_content" id="tradSearch">
+        <div class="tradSearch_tit">商标分类第${trDataInfo.code}类</div>
+        <div class="tradSearch_top">
+            <dl>
+                <dt><img :src="'/img/icon_'+curentCode+'@2.png'"/></dt>
+                <dd>
+                    <h3>${trDataInfo.title}</h3>
+                    <p>${trDataInfo.info}</p>
+                </dd>
+            </dl>
+        </div>
+        <div class="clear"></div>
+        <div class="tradSearch_info">
+            <div class="tradSearch_con">
+                <div class="tradSearch_p">【注释】</div>
+                <p>${trDataInfo.desc}</p>
+            </div>
+        </div>
+        <div class="tradSearch_wrap">
+            <div class="tradSearch_h2">
+                <h2>子类别信息</h2>
+            </div>
+            <div class="tradSearch_left">
+                <ul>
+                    <li v-for="t in trTwoChilderData" :class="{'tradSearch_click':currentItem.id==t.id}" @click="getThreeChilder(t)">【 ${t.id}组】 ${t.desc}</li>
+                </ul>
+            </div>
+            <div class="tradSearch_right">
+                <h4 style="margin-left:36px;">【${currentItem.id} 组】 ${currentItem.desc}</h4>
+                <p>
+                    <span v-for="th in threeChilderData" v-html="th.desc+'['+th.id+']'"></span>
+                <p>
+            </div>
+        </div>
+    </div>
+    <script>
+        var trInfo = {{{ trInfo }}},
+        trTwoChilderData  = {{{trTwoChilderData}}}
+        var searchVm = new Vue({
+            el: '#tradSearch',
+            delimiters: ['${', '}'],
+            data: {
+                trDataInfo:trInfo,
+                trTwoChilderData:trTwoChilderData,
+                threeChilderData:[],
+                currentItem:trTwoChilderData[0],
+                curentCode:trInfo.code<10?trInfo.code:"0"+trInfo.code
+            },
+            methods:{
+                getThreeChilder:function(item){
+                    searchVm.currentItem = item;
+                    axios.get('/tradSearch/getZgTrademarkThreeList/'+searchVm.currentItem.id).then(
+                            function (res) {
+                                if(res.data.success){
+                                    searchVm.threeChilderData = res.data.data;
+                                }
+                            },
+                            function(err){
+                                console.log(err);
+                            }
+                    )
+                }
+            }
+        })
+        searchVm.getThreeChilder(searchVm.currentItem);
+    </script>

@@ -1,0 +1,15 @@
+<div class="fruit_centerRight">
+    <div class="fruit_centerTit"><img src="/img/icon-user-orderlist.png"/>订单列表</div>
+    <div class="fruit_centerList">
+        <h4><a href="/userOrder" target="_blank"><span>查看全部</span>未处理订单</a></h4>
+        <dl v-for="list in odataList">
+            <dt><img :src="ImgUrl+list.picsSmall"/></dt>
+            <dd style="width: 145px;">
+                <p class="fruit_centerInfo">${list.pname}</p>
+                <p class="fruit_centerOrder">订单号<span>${list.orderCode}</span></p>
+                <a class="order_btn" :href="'/business/'+list.orderCode.substr(0,2)+'/'+list.orderId+'/'+list.flowType">业务办理</a>
+            </dd>
+        </dl>
+    </div>
+    <div id="demo4" class="page userPage"></div>
+</div>

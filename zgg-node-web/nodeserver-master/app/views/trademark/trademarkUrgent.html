@@ -1,0 +1,947 @@
+<link rel="stylesheet" href="/css/index.css" type="text/css">
+<link rel="stylesheet" href="/css/modify_subjectInfo.css" >
+<link rel="stylesheet" href="/css/personal_center.css" >
+<link rel="stylesheet" href="/css/fruit_center.css" >
+<link rel="stylesheet" href="/css/words_Copyright.css" >
+<link rel="stylesheet" href="/css/orderDetailsPaid.css" >
+<link rel="stylesheet" href="/css/trademark_small.css" >
+<script type="text/javascript" src="/lib/layui/layui.js"></script>
+<style>
+
+</style>
+<div id="trademarkReg" v-cloak>
+
+    <div class="tradReg_Prompt" v-show="returnData.businessData.atPresentNodes.stepnum == 1">
+        <div class="tradReg_dear">
+            <p>温馨提示</p>
+            <h3>亲爱的果蜜：请填写以下内容，如有不明之处，可委托您的顾问处理。</h3>
+            <button type="button" v-on:click="entrust" v-show="isEntrust==0">委托处理</button>
+            <button type="button" v-on:click="cencelEntrust" v-show="isEntrust==1">取消委托</button>
+            <span><img src="/img/icon-shoppingcart-close.png"/></span>
+        </div>
+
+    </div>
+    <div class="personCenter_wrapp">
+        <div class="personCenter_tab">
+            <ul>
+                <li>果蜜中心<span>></span></li>
+                <li>订单中心<span>></span></li>
+                <li>业务办理</li>
+            </ul>
+        </div>
+        <div class="c_b"></div>
+        <div class="words_Con">
+            <div class="words_top">订单状态</div>
+            <div class="words_bar">
+                <b>订单号：${returnData.businessData.orderData.orderCode}</b>
+                <div class="words_chart">
+                    <div class="words_flow">
+                        <i v-for="(item,index) in returnData.businessData.allNodes">
+                            <img src="/img/words_radius.png" v-if="returnData.businessData.atPresentNodes.stepnum >= item.stepnum"/>
+                            <img src="/img/words_radius_hui.png" v-if="returnData.businessData.atPresentNodes.stepnum <item.stepnum"/>
+                            <span :class="{words_sp1:returnData.businessData.atPresentNodes.stepnum > item.stepnum,'words_sp4':returnData.businessData.atPresentNodes.stepnum <= item.stepnum}" v-if="index != (returnData.businessData.allNodes.length -1)"></span>
+                        </i>
+                    </div>
+                    <div class="c_b"></div>
+                    <div class="words_step">
+                        <ul>
+                            <li class="words_fk" v-bind:class="{ words_tj:index == (returnData.businessData.allNodes.length -1)}" v-for="(item,index) in returnData.businessData.allNodes">
+                                <p>${ item.content }</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="words_top words_write">服务信息</div>
+            <div class="serviceMsg">
+            </div>
+            <div class="fillin clearfix" v-show="isEntrust==0 && returnData.businessData.atPresentNodes.stepnum == 1">
+                <div class="words_top words_write">填写资料</div>
+                <div class="words_left">
+                    <div class="words_tit">订单编号：${returnData.businessData.orderData.orderCode}</div>
+                    <h3 class="words_h3" :class="{'disBlock': errors.has('body'),'text-danger': errors.has('body')}">请选择您的主体</h3>
+                    <div class="words_body">
+                        <form class="layui-form" action="">
+                            <div class="layui-form-item words_form">
+
+                                <div class="layui-input-block" v-for="item in returnData.businessData.orderBody.userBodyList">
+                                    <div class="radioBox">
+                                        <i class="radioIcon" v-on:click="selectRadio(item)" v-bind:class="{checked:params.bid == item.id}"></i>
+                                        <!--<input type="radio" name="bodyMsg" v-model="params.bodyMsg">-->
+                                    </div>
+                                    <div class="layui-word-aux">
+                                        <h5 class="bodyTitle">${ item.realname }</h5>
+                                        <p class="bodyAdress"> ${ item.licenseaddress }</p>
+                                    </div>
+                                </div>
+
+                                <div class="layui-input-block" v-for="item in returnData.businessData.orderBody.userCompanyList">
+                                    <div class="radioBox">
+                                        <i class="radioIcon" v-on:click="selectRadio(item)" v-bind:class="{checked:params.bid == item.id}"></i>
+                                        <!--<input type="radio" name="bodyMsg" v-model="params.bodyMsg">-->
+                                    </div>
+                                    <div class="layui-word-aux">
+                                        <h5 class="bodyTitle">${ item.companyname }</h5>
+                                        <p class="bodyAdress"> ${ item.address }</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <h3 class="words_h3 words_work" :class="{'disBlock': errors.has('trValid'),'text-danger': errors.has('trValid')}">完善商标细节</h3>
+                            <div class="modify_conInfo">
+                                <div class="modify_table1">
+                                    <ol>
+                                        <li>
+                                            <p><span>*</span>商标名称：</p>
+                                            <input type="text" v-model="params.name" data-vv-as="商标名称" name="trName" v-validate="{rules:{ required: true }}">
+                                            <p class="red disNone m-t-sm"
+                                               :class="{'disBlock': errors.has('trName'),'text-danger': errors.has('trName')}"
+                                               v-if="errors.has('trName')">${ errors.first('trName') }</p>
+                                        </li>
+                                        <li><p><span>*</span>商标图片上传：</p>
+                                            <div class="modify_hover" id="LAY_liner">
+                                               <!--<a class="layui-liner"  data-method="notice"><div class="modify_liner"> </div></a>-->
+                                                <img v-bind:src="ImgUrl" height="88"/>
+                                            </div>
+                                            <b class="modify_b">请上传商标图片</b>
+                                        </li>
+                                    </ol>
+                                    <div style="clear: both"></div>
+                                    <div class="modify_drag" id="file_upload_item1">
+                                        <div class="modify_file" style="float: none">
+                                            <div><img src="/img/icon-companyinfo-upload.png"/>拖入文件或从<u id="file_upload"></u>中选择</div>
+                                            <span>提醒：请上传JPG格式、大于10K、小于2M、像素介于“400X400”-“1500X1500”之间的方形图片</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tradReg_title">有三维标志、颜色组合、声音、肖像权或优先权的特殊需要<img src="/img/1.png"/></div>
+                                <div class="tradReg_title tradReg_marg">有指定颜色申请的特殊需要 <img src="/img/1.png"/></div>
+                                <div v-show="!patDesc[0]"><button class="tradReg_add" type="button" v-bind:disabled="chooseIs" v-on:click="showCategory"><img style="width: 18px;height:18px;" src="/img/icon-myorder-add.png"/>添加类别</button></div>
+                                <div v-show="!patDesc[0]" class="tradReg_add tradReg_cont"><img src="/img/1.png"/>一共可选择项[10]，请点击按钮添加类别</div>
+                                <div class="tradReg_button m-t-lg" v-show="!!patDesc[0]">
+                                    <button type="button" v-on:click="showCategory"><img src="/img/icon-myorder-edit.png"/>编辑</button>
+                                    <button type="button" class="tradReg_del" v-on:click="delAllSelect"><img src="/img/icon-myorder-contractdelete.png"/>删除</button>
+                                </div>
+                                <div class="c_b"></div>
+                                <div class="tradReg_table">
+                                    <div class="tradReg_head">
+                                        <p class="tradReg_cate">类别</p>
+                                        <p class="tradReg_gory">已选子类</p>
+                                    </div>
+                                    <table class="tradReg_Selected">
+                                        <tbody v-for="subItem in patDesc">
+                                            <tr v-for="Item in subItem.objs">
+                                                <td class="categoryIndex"><p>${ Item.id }</p></td>
+                                                <td class="tradReg_count"><p><i><span v-for="(item, index) in Item.objs"> ${index +1}.${item.desc}</span></i></p></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="chooseCategory m-t-lg" v-bind:class="{active: chooseIs }">
+                                    <div class="head clearfix">
+                                        <div class="title">第一类别</div>
+                                        <div class="searchCategory">
+                                            <input type="text" placeholder="请输入关键字" v-model="keywords" name="keywords" @keyup.enter="searchItem">
+                                        </div>
+                                    </div>
+                                    <div class="thead clearfix">
+                                        <h5 class="categoryIndex clearfix">类别</h5>
+                                        <h6 class="clearfix">子类描述</h6>
+                                    </div>
+                                    <div class="tabSc">
+                                        <div class="tabCon">
+                                            <table>
+                                                <tbody>
+                                                <tr v-for="item in returnData.firstList">
+                                                    <td class="categoryIndex"><p>${ item.id }</p></td>
+                                                    <td class="firstDesc"><p v-on:click="showSubItem(item.id, item.desc)">${ item.desc }</p></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <!--小项选择-->
+                                    <div class="selectedCategory" v-bind:class="{active:subItemIs}">
+                                        <div class="ItemTitle"><div class="ItemType">子类别</div><div class="selected">已选择</div></div>
+                                        <div class="ItemCon clearfix">
+                                            <div class="Content clearfix">
+                                                <div class="desc">
+                                                    <p>描述：${ selectedDesc }</p>
+                                                </div>
+                                                <div class="clearfix autoHei">
+                                                    <div class="typeIndex clearfix">
+                                                        <ul>
+                                                            <li v-for="(item, index) in returnData.subList" v-bind:class="{active:index ==0}" v-on:click="getEndItem(item.id)">${item.id}</li>
+
+                                                        </ul>
+
+                                                    </div>
+                                                    <div class="ItemOpt clearfix">
+                                                        <ul>
+                                                            <li v-for="item in returnData.endList"><p><span class="m-r-sm">${ item.id }</span><a v-on:click="selectedOpt(item)">${ item.desc }</a></p><div class="madeCheckbox" v-bind:class="{'checked':item.added}" v-on:click="selectedOpt(item)"></div></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="selectedItem">
+                                                <ul v-for="Item in secondDesc">
+                                                    <li v-for="item in Item.objs"><p><span>${ item.desc }</span><a v-on:click="delItem(item)" class="delItem"></a></p></li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                        <div class="categoryBtn">
+                                            <div><button class="cancel" v-on:click="selectCancel" type="button">取消</button><button class="sure m-r-lg" type="button" v-on:click="selectSure">确定</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="words_service">
+                                <dl>
+                                    <dt><img src="/img/words_img.png"/></dt>
+                                    <dd>
+                                        <p class="words_p1">黄金果<span>专属顾问</span></p>
+                                        <p>182 0000 0000</p>
+                                        <a>立即咨询</a>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="c_b"></div>
+                        </form>
+                    </div>
+
+                    <div class="words_button">
+                        <button class="words_sub" v-on:click="save">保存提交</button>
+                    </div>
+                </div>
+
+                <div class="fruit_centerRight">
+                    <div class="fruit_centerTit"><img src="/img/icon-user-orderlist.png"/>订单列表</div>
+                    <div class="fruit_centerList">
+                        <h4><span>查看全部</span>未处理订单</h4>
+                        <dl>
+                            <dt><img src=""/></dt>
+                            <dd>
+                                <p class="fruit_centerInfo">文字著作权</p>
+                                <p class="fruit_centerOrder">订单号<span>cr1234567890123</span></p>
+                                <button>业务办理</button>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><img src=""/></dt>
+                            <dd>
+                                <p class="fruit_centerInfo">文字著作权</p>
+                                <p class="fruit_centerOrder">订单号<span>cr1234567890123</span></p>
+                                <button>业务办理</button>
+
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><img src=""/></dt>
+                            <dd>
+                                <p class="fruit_centerInfo">文字著作权</p>
+                                <p class="fruit_centerOrder">订单号<span>cr1234567890123</span></p>
+                                <button>业务办理</button>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><img src=""/></dt>
+                            <dd>
+                                <p class="fruit_centerInfo">文字著作权</p>
+                                <p class="fruit_centerOrder">订单号<span>cr1234567890123</span></p>
+                                <button>业务办理</button>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="bussnessMsg clearfix" v-show="isEntrust==1 || returnData.businessData.atPresentNodes.stepnum != 1">
+                <div class="words_top words_write">业务信息</div>
+                <div class="showMsg clearfix">
+                    <div class="left clearfix">
+                        <div class="words_tit">订单编号：${returnData.businessData.orderData.orderCode}</div>
+                        <div class="padding25">
+                            <h3 class="msgTitle">主体</h3>
+                            <div class="layui-form-item words_form m-t-lg">
+
+                                <div class="layui-input-block" v-for="item in returnData.businessData.orderBody.userBodyList">
+                                    <div class="radioBox">
+                                        <i class="radioIcon" v-bind:class="{checked:params.bid == item.id}"></i>
+                                        <!--<input type="radio" name="bodyMsg" v-model="params.bodyMsg">-->
+                                    </div>
+                                    <div class="layui-word-aux">
+                                        <h5 class="bodyTitle">${ item.realname }</h5>
+                                        <p class="bodyAdress"> ${ item.licenseaddress }</p>
+                                    </div>
+                                </div>
+
+                                <div class="layui-input-block" v-for="item in returnData.businessData.orderBody.userCompanyList">
+                                    <div class="radioBox">
+                                        <i class="radioIcon" v-bind:class="{checked:params.bid == item.id}"></i>
+                                        <!--<input type="radio" name="bodyMsg" v-model="params.bodyMsg">-->
+                                    </div>
+                                    <div class="layui-word-aux">
+                                        <h5 class="bodyTitle">${ item.companyname }</h5>
+                                        <p class="bodyAdress"> ${ item.address }</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <h3 class="msgTitle m-t-lg">商标基本信息</h3>
+                            <div class="trMsg m-t-md">
+                                <div class="group">
+                                    <label>商标名称：</label>
+                                    <div class="">
+                                        <input type="text" class="layui-input showMsgInput disabled" disabled="disabled" :value="returnData.businessData.businessDetail.zgOrderTrademark.name">
+                                    </div>
+                                </div>
+                                <div class="group m-t-md">
+                                    <label>商标图片：</label>
+                                    <div class="">
+                                        <div class="pic">
+                                            <div class="modify_hover noBgWidth">
+                                                <!--<a class="layui-liner"  data-method="notice"><div class="modify_liner"> </div></a>-->
+                                                <img v-bind:src="ImgUrl" height="88"/>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="msgTitle m-t-lg">商标类别</h3>
+                            <div class="tradReg_table">
+                                <div class="tradReg_head">
+                                    <p class="tradReg_cate">类别</p>
+                                    <p class="tradReg_gory">已选子类</p>
+                                </div>
+                                <table class="tradReg_Selected">
+                                    <tbody v-for="subItem in patDesc">
+                                    <tr v-for="Item in subItem.objs">
+                                        <td class="categoryIndex"><p>${ Item.id }</p></td>
+                                        <td class="tradReg_count"><p><i><span v-for="(item, index) in Item.objs"> ${index +1}.${item.desc}</span></i></p></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="customSure" v-show="returnData.businessData.atPresentNodes.stepnum ==3 ">
+                                <button class="btn m-r-md" type="button" v-on:click="goBack">返回修改</button>
+                                <button class="btn" type="button" v-on:click="customSure">确认</button>
+                            </div>
+                        </div>
+
+                        <div class="words_service">
+                            <dl>
+                                <dt><img src="/img/words_img.png"/></dt>
+                                <dd>
+                                    <p class="words_p1">黄金果<span>专属顾问</span></p>
+                                    <p>182 0000 0000</p>
+                                    <a>立即咨询</a>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="c_b"></div>
+                    </div>
+
+                    <div class="fruit_centerRight">
+                        <div class="fruit_centerTit"><img src="/img/icon-user-orderlist.png"/>订单列表</div>
+                        <div class="fruit_centerList">
+                            <h4><span>查看全部</span>未处理订单</h4>
+                            <dl>
+                                <dt><img src=""/></dt>
+                                <dd>
+                                    <p class="fruit_centerInfo">文字著作权</p>
+                                    <p class="fruit_centerOrder">订单号<span>cr1234567890123</span></p>
+                                    <button>业务办理</button>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><img src=""/></dt>
+                                <dd>
+                                    <p class="fruit_centerInfo">文字著作权</p>
+                                    <p class="fruit_centerOrder">订单号<span>cr1234567890123</span></p>
+                                    <button>业务办理</button>
+
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><img src=""/></dt>
+                                <dd>
+                                    <p class="fruit_centerInfo">文字著作权</p>
+                                    <p class="fruit_centerOrder">订单号<span>cr1234567890123</span></p>
+                                    <button>业务办理</button>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><img src=""/></dt>
+                                <dd>
+                                    <p class="fruit_centerInfo">文字著作权</p>
+                                    <p class="fruit_centerOrder">订单号<span>cr1234567890123</span></p>
+                                    <button>业务办理</button>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="words_top words_write">资料下载</div>
+            <div class="downloadArea">
+                <h6 class="Msg_title"><img src="/img/icon-orderdetail-orderinfo.png" alt=""/><span>资料下载模版列表</span></h6>
+                <div class="downloadFile m-t-sm">
+                    <div v-for="items in returnData.businessData.fileDownloads" class="m-t-md">
+                        <p v-for="(item,key) in items">
+                            <span class="downloadFileTit">${ key }</span>
+                            <span v-for="val in item" class="downloadFileDesc"><a :href="val.downloadPath"><i> ${ val.fileName }</i></a></span>
+                        </p>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="order-info">
+                <div class="order-info-title">订单信息</div>
+                <div class="order-info-content">
+                    <div class="order-info-content-l">
+                        <dl>
+                            <dt><img src="/img/icon-orderdetail-orderinfo.png" alt=""/>订单信息</dt>
+                            <dd>商品名称：${ returnData.businessData.orderData.pname }</dd>
+                            <dd v-for="item in returnData.businessData.addChannel">${item.feeChargedTypename}：${item.feeChargedName} * ${ item.buyNum }</dd>
+                            <!--<dd>小项：${ returnData.businessData.addChannel.buynum }个</dd>-->
+                            <dd>金额：￥${ returnData.businessData.orderData.money }</dd>
+                        </dl>
+                        <dl class="order-info-content-l-second">
+                            <dt><img src="/img/icon-orderdetail-invoice.png" alt=""/>发票信息</dt>
+                            <dd v-if="invoiceDatas.unitName">发票抬头 ：${ invoiceDatas.unitName }</dd>
+                            <dd v-if="invoiceDatas.billType == 1">发票类型 ：普票 </dd>
+                            <dd v-if="invoiceDatas.billType == 2">发票类型 ：专票 </dd>
+                            <dd v-if="invoiceDatas.billType == 3">发票类型 ：未选择 </dd>
+
+                            <dd v-if="invoiceDatas.billStatus"><span style="float:left;">开票状态 ：</span>
+                                <div style="float:left;width:260px;word-break:break-word;">
+                                    <span v-if="invoiceDatas.billStatus == 1">未开票</span>
+                                    <span v-if="invoiceDatas.billStatus == 2">已开票</span>
+                                    <span v-if="invoiceDatas.billStatus == 3">已邮寄</span>
+                                    <span v-if="invoiceDatas.billStatus == 4">已退回</span>
+                                    <div v-show="invoiceDatas.billLinks.length > 0" style="color:#727f8f;">
+                                        <a :href="val" target="_blank" v-for="val in invoiceDatas.billLinks" style="display:block;">${val}</a>
+                                    </div>
+                                </div>
+                            </dd>
+
+                            <!--0：邮政小包;1:顺丰快递2：申通快递 3：邮政EMS 4：圆通快递 5：其他快递-->
+                            <dd v-show="invoiceDatas.zgYjBillOfContractVo && kddType"><span style="float:left;">邮寄单号：</span>
+                                <div style="float: left;">
+                                    <div v-for="item in invoiceDatas.zgYjBillOfContractVo">
+                                        <span>${item.kddhNbrs}</span>(<span v-show="item.yjType == 0">邮政小包</span>
+                                        <span v-show="item.yjType == 1">顺丰快递</span>
+                                        <span v-show="item.yjType == 2">申通快递</span>
+                                        <span v-show="item.yjType == 3">邮政EMS</span>
+                                        <span v-show="item.yjType == 4">圆通快递</span>
+                                        <span v-show="item.yjType == 5">其他快递</span>)；
+                                    </div>
+                                </div>
+                            </dd>
+
+                            <dd v-if="!invoiceDatas.unitName">无</dd>
+                        </dl>
+                    </div>
+                    <div class="order-info-content-c">
+                        <dl>
+                            <dt><img src="/img/icon-orderdetail-contactperson.png" alt=""/>联系人信息</dt>
+                            <dd>姓名：${ returnData.businessData.orderData.userName }</dd>
+                            <dd>手机号码：${ returnData.businessData.orderData.zuTel }</dd>
+                        </dl>
+                        <dl class="order-info-content-c-second">
+                            <dt><img src="/img/icon-orderdetail-mailingperson.png" alt=""/>收件人信息</dt>
+                            <dd>姓名：${ returnData.businessData.orderData.recipientName }</dd>
+                            <dd>手机号码：${ returnData.businessData.orderData.recipientPhone }</dd>
+                            <dd>邮寄地址：<span>${ returnData.businessData.orderData.address }</span></dd>
+                        </dl>
+
+                    </div>
+                    <div class="order-info-content-r" style="margin-right: 0;">
+                        <dl>
+                            <dt><img src="/img/icon-orderdetail-expertinfo.png" alt=""/>顾问信息</dt>
+                        </dl>
+                        <div class="adviser-info">
+                            <div class="adviser-info-img"><img src="/img/icon-home-footer-wechat.png" v-bind:src="returnData.businessData.orderData.qrCode" alt=""/></div>
+                            <div class="adviser-info-r">
+                                <div>顾问：${ returnData.businessData.orderData.gwName }</div>
+                                <div>联系电话：${ returnData.businessData.orderData.gwTel }</div>
+                            </div>
+                        </div>
+                        <div class="qrCode">
+                            <img src="/img/pic-orderdetail-code.png" alt=""/>
+                            <span>微信二维码</span>
+                        </div>
+                        <div class="consultation">
+                            <button class="buttonColorec9c19"><img src="/img/icon-orderdetail-consult.png" alt=""/>立即咨询</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var _oData = {{{data}}};
+    layui.use(['layer'], function () {
+    })
+    var _trademarkReg = new Vue({
+        delimiters: ['${', '}'],
+        el: '#trademarkReg',
+        data: {
+            returnData:{
+                firstList: '',
+                subList: '',
+                endList: '',
+                ItemLen: _oData.orderData.category || 10,
+                businessData: _oData,
+                Items : _oData.businessDetail.zgOrderTrademark.items?JSON.parse(_oData.businessDetail.zgOrderTrademark.items):[]
+            },
+            params:{
+                id: _oData.businessDetail.zgOrderTrademark.id||'',
+                orderid: _oData.params.orderId,
+                name: _oData.businessDetail.zgOrderTrademark.name || '',
+                items: [],
+                btype: _oData.businessDetail.zgOrderTrademark.btype ||'',
+                bid: _oData.businessDetail.zgOrderTrademark.bid || '',
+                pic: _oData.businessDetail.zgOrderTrademark.pic || '',
+                content: "",
+                designFont: 0,
+                isColorApply: 0,
+                isReport: 0,
+                iscolorgroup: 0,
+                iscommon: 0,
+                isportrait: 0,
+                ispriority: 0,
+                issd: 0,
+                isvoice: 0,
+                reportType: 0,
+                sealFont: 0
+            },
+            chooseIs: false,
+            subItemIs: false,
+            checkboxIs: false,
+            selectedDesc: '',
+            optType: '',
+            keywords: '',
+            isSearch: false,
+            isEntrust: _oData.orderData.isentrust,
+            ImgUrl :_oData.businessDetail.zgOrderTrademark.pic ? _oData.businessDetail.domain + _oData.businessDetail.zgOrderTrademark.pic :'',
+            ImgIp : 'https://pc.zhiguoguo.com/pc-web-rest/',
+            fistDesc : _oData.businessDetail.zgOrderTrademark.items?JSON.parse(_oData.businessDetail.zgOrderTrademark.items):[],
+            secondDesc :_oData.businessDetail.zgOrderTrademark.items?JSON.parse(_oData.businessDetail.zgOrderTrademark.items)[0].objs:[],
+            patDesc : _oData.businessDetail.zgOrderTrademark.items?JSON.parse(_oData.businessDetail.zgOrderTrademark.items):[],
+            categoryCont : 0,
+            kddType:false,
+        },
+        methods: {
+            showCategory:function(){
+                this.chooseIs = true;
+                this.getFirstItem();
+                this.fistDesc = JSON.parse(JSON.stringify(this.patDesc));
+                this.secondDesc = JSON.parse(JSON.stringify(this.patDesc[0]?this.patDesc[0].objs:[]));
+            },
+            showSubItem:function(id,desc){
+                this.subItemIs = true;
+                this.firstList = JSON.parse( JSON.stringify( this.patDesc ) )
+                this.getSubItem(id);
+            },
+            hideCategory:function(){
+                this.chooseIs = false;
+            },
+            hideSubItem:function(){
+                this.subItemIs = false;
+            },
+            /*
+            * 一级数据
+            * */
+            getFirstItem:function(){
+                axios.get('/business/getCategoryFirstList').then(
+                    function (res) {
+                        this.returnData.firstList = res.data.data;
+                    }
+                )
+            },
+            /*
+            *   二级数据
+            * */
+            getSubItem:function(id){
+                axios.get('/business/getCategorySubList/'+id).then(
+                    function (res) {
+                        this.returnData.subList = res.data.data;
+                        /*
+                        *   获取首个二级下的三级小项 data
+                        * */
+                        if(res.data.data){
+                            res.data.data[0].active = true;
+                            this.getEndItem(res.data.data[0].id);
+                        }
+                    }
+                )
+            },
+            /*
+            * 末级数据
+            * */
+            getEndItem:function(pid){
+                axios.get('/business/getCategoryEndList/'+pid).then(
+                    function (res) {
+                        this.returnData.endList = res.data.data;
+                        this.matchOpt( res.data.data );
+                    }
+                )
+            },
+
+            /*
+            * 新增小项
+            *
+            * */
+            selectedOpt:function(item){
+                var _flag = true;
+                if(!this.secondDesc[0]){
+                    this.getcategoryByPid( item )
+                    item.added = !item.added;
+                    return ;
+                }
+                if(this.categoryCont >= this.returnData.ItemLen){
+                    layer.msg('您购买的小项数量为：' + this.returnData.ItemLen + ',当前已选择小项数量为：' + this.categoryCont);
+                    return;
+                }
+                if(!this.categoryCont){
+//                    this.params.selectedItem.push(item);
+                    this.getcategoryByPid( item )
+                    item.added = !item.added;
+                }else{
+                    if( this.secondDesc[0].pid !== item.pid.substr(0,2)){
+                        layer.msg('不可跨大类进行选择，当前已选择的是：' + this.secondDesc[0].pid +'大类');
+                        return;
+
+                    }else{
+                        this.secondDesc.map(function (Item,key) {
+                            Item.objs.map(function (subItem,index) {
+                                if( subItem.key == item.key ){
+                                    Item.objs.splice(index,1)
+                                    return _flag =false
+                                }
+                            })
+                        })
+                        if(_flag){
+                            /*
+                            *  小项追加之后 获取 首级以及次级 数据
+                            *
+                            * */
+                            this.getcategoryByPid( item )
+                        }
+                        item.added = !item.added;
+                    }
+                }
+
+            },
+            matchOpt:function( ItemData ){
+                if(!!ItemData.length){
+                    if(!!this.secondDesc[0]){
+                        ItemData.forEach(function (item, key) {
+                            _trademarkReg.secondDesc.map(function (subItem) {
+                                subItem.objs.map(function (selItem) {
+                                    if( item.key == selItem.key ){
+                                        item.added = true;
+                                    }
+                                })
+                            })
+                        })
+                    }
+                }
+
+
+            },
+            selectSure:function(){
+                this.patDesc = this.fistDesc;
+                this.secondDesc.map(function (item, index) {
+                    if(!item.objs.length){
+                        _trademarkReg.secondDesc.splice(index,1)
+                    }
+                })
+                if(!this.categoryCont){
+                    this.secondDesc = [];
+                    this.fistDesc = [];
+                    this.patDesc = [];
+                }
+                this.chooseIs = false;
+                this.subItemIs = false;
+            },
+            /*
+            *   根据pid 查询二级数据
+            * */
+            getcategoryByPid: function ( item ) {
+                var _flag = true;
+                axios.get('/business/getcategoryByPid/'+item.pid).then(
+                    function (res) {
+                        res.data.data.objs = [];
+                        this.secondDesc.map(function (Item) {
+                            if( Item.key == res.data.data.key ){
+                                _flag = false
+                            }
+                        })
+                        if( _flag ){
+                            res.data.data.objs.push( item ) ;
+                            this.secondDesc.push( res.data.data )
+                        }else{
+                            this.secondDesc.map(function (Item) {
+                                if( Item.id == item.pid){
+                                    Item.objs.push(item)
+                                }
+                            })
+                        }
+                        this.categoryCont ++;
+                        this.getcategoryById( res.data.data.pid.substr(0,2) )
+
+                    }
+                )
+
+            },
+            /*
+             *   根据id 查询一级数据
+             * */
+            getcategoryById: function ( id ) {
+                axios.get('/business/getcategoryById/'+id).then(
+                    function (res) {
+                        if( !this.fistDesc.length ){
+                            this.fistDesc = res.data.data;
+                            this.fistDesc[0].objs = this.secondDesc
+                        }else{
+                            this.fistDesc[0].objs = this.secondDesc
+                        }
+                    }
+                )
+            },
+            selectCancel:function(){
+                this.fistDesc = JSON.parse(JSON.stringify(this.patDesc));
+                this.secondDesc = JSON.parse(JSON.stringify(this.patDesc[0]?this.patDesc[0].objs:[]));
+                this.subItemIs = false;
+            },
+            delItem:function( item ){
+                _trademarkReg.secondDesc.map(function (Item, key) {
+                    Item.objs.map(function (subItem,index) {
+                        if( subItem.key == item.key ){
+                            Item.objs.splice(index,1)
+                            return subItem.added = false;
+                        }
+                    })
+                })
+                this.returnData.endList.map(function (val) {
+                    if( val.id == item.id){
+                        val.added = false;
+                    }
+                })
+                this.categoryCont --;
+                this.fistDesc[0].objs = this.secondDesc
+            },
+            delAllSelect:function( item ){
+                this.secondDesc = [];
+                this.fistDesc = [];
+                this.patDesc = [];
+                _trademarkReg.returnData.endList.forEach(function (item) {
+                    item.added = false;
+                })
+            },
+            searchItem:function() {
+                if(!!this.keywords.length){
+                    axios.get('/business/searchItem/' + this.keywords).then(
+                        function (res) {
+                            this.isSearch = true;
+                            this.subItemIs = true;
+                            this.returnData.subList = '';
+                            this.selectedDesc = "根据关键字：" + this.keywords + '，搜索到以下数据';
+                            this.returnData.endList = res.data.data;
+                            this.matchOpt(res.data.data)
+                        }
+                    )
+                }else{
+                    this.isSearch = false;
+                    this.subItemIs = false;
+                }
+
+            },
+            entrust:function(){
+                axios.post('/business/entrust/' + _oData.params.orderId).then(
+                    function (res) {
+                        if(res.body.success){
+                            layer.msg('委托办理成功');
+                            this.isEntrust = 1;
+                        }
+                    }
+                )
+            },
+            cencelEntrust:function(){
+                axios.post('/business/cancelentrust/' + _oData.params.orderId).then(
+                    function (res) {
+                        if(res.body.success){
+                            layer.msg('成功取消委托处理');
+                            this.isEntrust = 0;
+                        }
+                    }
+                )
+            },
+            selectRadio:function(argument){
+                this.params.bid = argument.id;
+                this.params.btype = argument.nattype;
+            },
+            save: function () {
+                this.params.items = this.patDesc;
+                if( !this.params.bid && !this.params.btype ){
+                    layer.msg('请选择主体信息');
+                    _trademarkReg.$validator.errorBag.add('body', '请选择主体信息', 'auth');
+                    return;
+                }
+                if( !this.params.name && !this.params.pic ){
+                    layer.msg('请完善商标细节');
+                    _trademarkReg.$validator.errorBag.add('trValid', 'auth');
+                    return;
+                }
+                if( !this.params.items.length  ){
+                    layer.msg('请选择商标类别');
+                    _trademarkReg.$validator.errorBag.add('category', 'auth');
+                    return;
+                }
+                this.$validator.validateAll().then(function(result) {
+                    axios.post('/business/tr/trSave', this.params).then(
+                        function (res) {
+                            if (res.body.success) {
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layer.msg(res.body.message);
+                                });
+                                window.location.reload()
+                            }
+                        }
+                    )
+                })
+            },
+            customSure: function () {
+                var _zgOrderTrademarkId =  {'zgOrderTrademarkId':_oData.businessDetail.zgOrderTrademark.id}
+                axios.post('/business/tr/customConfim',_zgOrderTrademarkId).then(
+                        function (res) {
+                            if (res.body.success) {
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layer.msg(res.body.message);
+                                });
+                                window.location.reload();
+                            }
+                        }
+                )
+            },
+            goBack: function () {
+                var _params = { 'orderId' : _oData.params.orderId }
+                debugger;
+                axios.post('/business/tr/goBack', _params).then(
+                        function (res) {
+                            if (res.body.success) {
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layer.msg(res.body.message);
+                                });
+                                window.location.reload();
+                            }
+                        }
+                )
+            }
+        },
+        mounted:function(){
+            if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE9.0"){
+                $('#file_upload').uploadify({
+                    'auto' : true,
+                    'queueID' : 'file_upload_item1',
+                    'swf'      : '/lib/uploadify.swf',
+                    'uploader' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'文件夹',
+                    'width':'auto',
+                    'multi' : false,
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'token':_oData.user.token,
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'base_upload_pic',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                        debugger;
+                    },
+                    'onFallback':function () {
+                        alert('请安装或升级更高版本的Flash插件');
+                    },
+                    'onUploadSuccess' : function(file, data, response) {
+                        var data = JSON.parse(data)
+                        _trademarkReg.ImgUrl = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.params.pic = data.data.filePath;
+
+                    },
+                    'onError' : function (file, data, response) {
+                        debugger;
+                    }
+                })
+            }else{
+                $('#file_upload').uploadifive({
+                    'auto' : true,
+                    'queueID' : 'file_upload_item1',
+                    'uploadScript' : '/upload/profile',
+                    'buttonCursor':'hand',
+                    'buttonText':'文件夹',
+                    'width':'auto',
+                    'multi' : false,
+                    'method' : 'post',
+                    'progressData':'percentage',
+                    'token':_oData.user.token,
+                    'formData':{
+                        'orderId':_oData.params.orderId,
+                        'stepType':_oData.atPresentNodes.stepnum,
+                        'stepId':_oData.atPresentNodes.id,
+                        'fType':'base_upload_pic',
+                    },
+                    'onDrop'       : function(file, fileDropCount) {
+                        debugger;
+                    },
+                    'onUploadComplete' : function(file, data, response) {
+                        debugger;
+                        var data = JSON.parse(data)
+                        _trademarkReg.ImgUrl = _trademarkReg.ImgIp +  data.data.filePath;
+                        _trademarkReg.params.pic = data.data.filePath;
+
+                    },
+                    'onError' : function (file, data, response) {
+                        debugger;
+                    }
+                })
+            }
+            axios.post('/userCenter/findBillInfOfOrderDetailsByOrderId/',{orderId:_oData.params.orderId}).then(function(res){
+                _trademarkReg.invoiceDatas = res.data.data;
+                if(_trademarkReg.invoicData.zgYjBillOfContractVo[0].hasOwnProperty('kddhNbrs') && _trademarkReg.invoicData.zgYjBillOfContractVo[0].hasOwnProperty('yjType')){
+                    _trademarkReg.kddType = true;
+                }
+            })
+        }
+
+    })
+
+
+</script>

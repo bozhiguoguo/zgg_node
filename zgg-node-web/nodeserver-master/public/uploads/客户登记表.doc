@@ -1,0 +1,167 @@
+<html xmlns:v='urn:schemas-microsoft-com:vml'xmlns:o='urn:schemas-microsoft-com:office:office'xmlns:w='urn:schemas-microsoft-com:office:word'xmlns:m='http://schemas.microsoft.com/office/2004/12/omml'xmlns='http://www.w3.org/TR/REC-html40'  xmlns='http://www.w3.org/1999/xhtml' ><%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+
+    <!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:TrackMoves>false</w:TrackMoves><w:TrackFormatting/><w:ValidateAgainstSchemas/><w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid><w:IgnoreMixedContent>false</w:IgnoreMixedContent><w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText><w:DoNotPromoteQF/><w:LidThemeOther>EN-US</w:LidThemeOther><w:LidThemeAsian>ZH-CN</w:LidThemeAsian><w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript><w:Compatibility><w:BreakWrappedTables/><w:SnapToGridInCell/><w:WrapTextWithPunct/><w:UseAsianBreakRules/><w:DontGrowAutofit/><w:SplitPgBreakAndParaMark/><w:DontVertAlignCellWithSp/><w:DontBreakConstrainedForcedTables/><w:DontVertAlignInTxbx/><w:Word11KerningPairs/><w:CachedColBalance/><w:UseFELayout/></w:Compatibility><w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel><m:mathPr><m:mathFont m:val="Cambria Math"/><m:brkBin m:val="before"/><m:brkBinSub m:val="--"/><m:smallFrac m:val="off"/><m:dispDef/><m:lMargin m:val="0"/> <m:rMargin m:val="0"/><m:defJc m:val="centerGroup"/><m:wrapIndent m:val="1440"/><m:intLim m:val="subSup"/><m:naryLim m:val="undOvr"/></m:mathPr></w:WordDocument></xml><![endif]-->
+
+    <style type="text/css">
+        /*  html,body{line-height:21pt;font-size: 10.5pt;font-family:SimSun,FangSong_GB2312,SimHei;padding: 0;margin: 0}  */
+        .paper{width: 100%;margin: 0 auto;background-color: #fff;page-break-after:always;}
+        table{width: 100%;margin: 0 auto;padding: 0;table-layout:fixed;word-break:break-strict;}
+        table thead tr th,
+        table tbody tr th,
+        table tfoot tr th,
+        table thead tr td,
+        table tbody tr td,
+        table tfoot tr td {
+            vertical-align: top;
+            word-break:break-all;
+            word-wrap:break-word;
+        }
+        .tar{text-align: right}
+        .tac{text-align: center;}
+        /* h1{font-size:42pt}初号
+        h2{font-size:36pt}小初
+        h3{font-size:26pt}一号
+        h4{font-size:24pt}小一
+        h5{font-size:22pt}二号
+        h6{font-size:12pt;margin: 0;font-weight: bold;}小二 */
+        .fs1{font-size: 16pt}/*三号*/
+        .fs2{font-size: 15pt}/*小三*/
+        .fs3{font-size: 14pt}/*四号*/
+        .fs4{font-size: 12pt}/*小四*/
+        .fs5{font-size: 10.5pt}/*五号*/
+        .fs6{font-size: 9pt}/*小五*/
+        .ti-2{text-indent: 2em}
+        .tit{margin:0 0 23.4pt 0;letter-spacing: 2pt;text-indent: -2pt; font-weight:bold;}
+        .col1{width: 100px;}
+        .col2{width: auto;}
+
+        .biao{border:2px solid #000;}
+        .biao td{padding:2px 5px;border-right:1px solid #999;border-bottom:1px solid #999}
+
+
+        .biao tr td{
+
+            height:22px;
+
+        }
+
+        .spager{
+            width:100%;
+            margin:0 auto;
+        }
+
+        .spager h1,.spager h2{
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="paper">
+    <div class="spager">
+        <h1 style="margin:0 auto;font-size: 25px;font: bold;">客户信息登记表</h1>
+        <h2 style="font-size:12px;font-weight:normal;">（本表内容是向国家知识产权局提交申请时所需信息，请务必正确填写，其中发明人项只能填写自然人。）</h2>
+    </div>
+    <table class="biao" cellspacing="0">
+        <tr>
+            <td colspan="4"  style="font-weight:bold">专利名称</td>
+            <td colspan="14">发的发的</td>
+        </tr>
+        <tr>
+            <td rowspan="19" style="font-weight:bold" style="font-weight:bold;">权<br/>利<br/>人<br/>信<br/>息</td>
+            <td colspan="17" style="font-weight:bold">第一申请人姓名或名称:发的发的 </td>
+        </tr>
+        <tr>
+            <td colspan="5">地          址</td>
+            <td colspan="12">颠三倒四</td>
+        </tr>
+        <tr>
+            <td colspan="10">组织机构代码（或身份证号码）</td>
+            <td colspan="7">372922199008152236</td>
+        </tr>
+        <tr>
+            <td colspan="17" style="font-weight:bold">第二申请人姓名或名称 : </td>
+        </tr>
+        <tr>
+            <td colspan="5">地          址</td>
+            <td colspan="12"></td>
+        </tr>
+        <tr>
+            <td colspan="10">组织机构代码（或身份证号码）</td>
+            <td colspan="7"></td>
+        </tr>
+        <tr>
+            <td colspan="17" style="font-weight:bold">第三申请人姓名或地址: </td>
+        </tr>
+        <tr>
+            <td colspan="5">地          址</td>
+            <td colspan="12"></td>
+        </tr>
+        <tr>
+            <td colspan="10">组织机构代码（或身份证号码）</td>
+            <td colspan="7"></td>
+        </tr>
+        <tr>
+            <td colspan="17" style="font-weight:bold">第四申请人姓名或地址: </td>
+        </tr>
+        <tr>
+            <td colspan="5">地          址</td>
+            <td colspan="12"></td>
+        </tr>
+        <tr>
+            <td colspan="10">组织机构代码（或身份证号码）</td>
+            <td colspan="7"></td>
+        </tr>
+        <tr>
+            <td colspan="17" style="font-weight:bold">第五申请人姓名或地址: </td>
+        </tr>
+        <tr>
+            <td colspan="5">地          址</td>
+            <td colspan="12"></td>
+        </tr>
+        <tr>
+            <td colspan="10">组织机构代码（或身份证号码）</td>
+            <td colspan="7"></td>
+        </tr>
+        <tr>
+            <td colspan="17" style="color:#d84a4a;">如有更多申请人，请依照上述内容分别提供每个申请人的信息，不受本表格限制。</td>
+        </tr>
+        <tr>
+            <td colspan="5">发明人:颠三倒四</td>
+            <td colspan="6">第一发明人身份证号码:</td>
+            <td colspan="6">372922199008152236</td>
+        </tr>
+        <tr>
+            <td colspan="17" style="font-weight:bold;text-align:center;">技术方案联系人<span style="font-weight:normal">（用于讨论本申请的技术方案）</span></td>
+        </tr>
+        <tr>
+            <td colspan="5">姓名:发送</td>
+            <td colspan="6">电话:13523232323</td>
+            <td colspan="6">Email:d@qq.com</td>
+        </tr>
+        <tr>
+            <td rowspan="5" style="font-weight:bold;word-break:break-all">备<br/>注</td>
+            <td colspan="17" >国内发明、实用新型专利申请中，权利要求超过10项，超出部分150元/项；<br/>说明书超过30页，超出部分50元/页。</td>
+        </tr>
+        <tr>
+            <td colspan="17">国内发明、实用新型申请中，优先权要求费80元/项。</td>
+        </tr>
+        <tr>
+            <td colspan="17">如要求优先权，请填写以下信息:<br/>在先国别:；在先申请日:在先申请号:</td>
+        </tr>
+
+                <tr><td colspan="17">请求早日公布该专利申请（用于缩短审查周期）</td></tr>
+     ˚
+    </table>
+</div>
+</body>
+</html></html>
